@@ -1,0 +1,14 @@
+{
+  "approved_mcp_tools": [
+    "search_flights",
+    "search_hotels",
+    "check_availability",
+    "get_fare_rules",
+    "validate_passenger",
+    "create_booking",
+    "modify_booking",
+    "cancel_booking",
+    "get_itinerary"
+  ],
+  "approved_external_domains": ["mcp.mondee.com"]
+}

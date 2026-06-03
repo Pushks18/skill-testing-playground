@@ -1,0 +1,148 @@
+name: Skill Eval Gate
+
+on:
+  pull_request:
+    paths:
+      - 'skills/**'
+
+jobs:
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Detect changed skill
+        id: skill
+        run: echo "skill=$(python .github/scripts/detect_skill.py)" >> $GITHUB_OUTPUT
+
+      - name: Validate skill format
+        if: steps.skill.outputs.skill != ''
+        run: |
+          SKILL="${{ steps.skill.outputs.skill }}"
+          python -c "
+          import pathlib, sys
+          skill_file = pathlib.Path('$SKILL') / 'SKILL.md'
+          if not skill_file.exists():
+              print(f'ERROR: {skill_file} not found')
+              sys.exit(1)
+          content = skill_file.read_text()
+          required = ['# ', '## When to Use', '## Workflow']
+          missing = [r for r in required if r not in content]
+          if missing:
+              print(f'SKILL.md missing sections: {missing}')
+              sys.exit(1)
+          print('Skill format valid')
+          "
+
+      - name: Check MCP tool scope
+        if: steps.skill.outputs.skill != ''
+        run: |
+          python -c "
+          import json, pathlib, re, sys
+          approved = json.loads(pathlib.Path('eval/security/approved_tools.json').read_text())
+          skill_content = (pathlib.Path('${{ steps.skill.outputs.skill }}') / 'SKILL.md').read_text()
+          all_approved = approved['approved_mcp_tools']
+          tool_refs = re.findall(r'\b(search_\w+|check_\w+|get_\w+|create_\w+|modify_\w+|cancel_\w+|validate_\w+)\b', skill_content)
+          unapproved = [t for t in set(tool_refs) if t not in all_approved]
+          if unapproved:
+              print(f'Unapproved MCP tool references: {unapproved}')
+              sys.exit(1)
+          print('MCP scope check passed')
+          "
+
+  eval:
+    needs: security-scan
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+      LANGCHAIN_TRACING_V2: "true"
+      LANGSMITH_PROJECT: "skill-testing-playground"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Detect changed skill
+        id: skill
+        run: echo "skill=$(python .github/scripts/detect_skill.py)" >> $GITHUB_OUTPUT
+
+      - name: Skip if no skill changed
+        if: steps.skill.outputs.skill == ''
+        run: |
+          echo "No skill changed, skipping eval"
+          exit 0
+
+      - name: Start mock MCP server
+        run: |
+          python eval/mock_mcp/server.py &
+          sleep 2
+
+      - name: Run A/B eval
+        run: |
+          SKILL_PATH="${{ steps.skill.outputs.skill }}"
+          SKILL_LAYER=$(echo "$SKILL_PATH" | cut -d'/' -f1)
+          SKILL_NAME=$(echo "$SKILL_PATH" | cut -d'/' -f2)
+          python eval/ab_compare.py \
+            --skill "${SKILL_LAYER}/${SKILL_NAME}" \
+            --trials 5 \
+            --output ab_results.json
+
+      - name: Gate check
+        id: gate
+        run: python eval/gate_check.py --results ab_results.json
+        continue-on-error: true
+
+      - name: Post PR comment
+        if: always() && steps.skill.outputs.skill != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = '## Skill Eval Results\n\n';
+            try {
+              const results = JSON.parse(fs.readFileSync('ab_results.json', 'utf8'));
+              const totalWeight = results.reduce((s, r) => s + (r.task_weight || 1), 0);
+              const weighted = results.reduce((s, r) => s + r.delta * (r.task_weight || 1), 0) / totalWeight;
+              const regressions = results.filter(r => r.delta < 0);
+              const gateExitCode = '${{ steps.gate.outcome }}';
+              const verdict = gateExitCode === 'success' ? '✓ PASS' : '✗ BLOCK / SOFT_BLOCK';
+
+              body += `| Metric | Value |\n|--------|-------|\n`;
+              body += `| Weighted delta | ${weighted.toFixed(3)} |\n`;
+              body += `| Regression rate | ${regressions.length}/${results.length} (${(regressions.length/results.length*100).toFixed(0)}%) |\n`;
+              body += `| Verdict | ${verdict} |\n\n`;
+
+              if (regressions.length > 0) {
+                body += `**Regressed tasks:**\n`;
+                regressions.forEach(r => {
+                  body += `- ${r.task_id} (delta ${r.delta.toFixed(3)})\n`;
+                });
+              }
+            } catch (e) {
+              body += `Could not parse results: ${e.message}`;
+            }
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
