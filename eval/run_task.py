@@ -2,6 +2,7 @@
 """Run a single task through the travel agent and return an EvalResult."""
 from __future__ import annotations
 import argparse
+import dataclasses
 import json
 import os
 import pathlib
@@ -116,4 +117,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     result = run_task(args.task, args.skill, args.condition, args.mock_mcp_url)
-    print(json.dumps(result.__dict__, indent=2))
+    print(json.dumps(dataclasses.asdict(result), indent=2))
