@@ -1,1 +1,1 @@
-Find flights for a multi-leg trip: NYC to Chicago on Aug 5, Chicago to LA on Aug 8.
+Search for flights from NYC to Chicago on 2026-08-05, then from Chicago to LA on 2026-08-08.

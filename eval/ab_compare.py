@@ -1,6 +1,7 @@
 # eval/ab_compare.py
 """Async A/B harness: runs no_skill vs with_skill for all tasks matching a skill name."""
 from __future__ import annotations
+from dotenv import load_dotenv; load_dotenv()
 import argparse
 import asyncio
 import dataclasses

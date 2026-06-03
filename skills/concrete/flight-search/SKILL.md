@@ -18,6 +18,7 @@ When the user asks to find, search, or compare flights between two cities or air
 - Airport codes: JFK=New York, LAX=Los Angeles, ORD=Chicago, SFO=San Francisco, MIA=Miami, BOS=Boston, SEA=Seattle, DEN=Denver, PHX=Phoenix, ORD=Chicago, MIA=Miami, DFW=Dallas
 - If only city name given, use the primary airport code for that city
 - For roundtrip requests: call `search_flights` twice — once for outbound, once for return
+- For multi-leg trips: call `search_flights` once per leg in sequence
 - If date is relative ("next Monday", "this weekend", "tomorrow"), resolve to YYYY-MM-DD before calling the tool
 
 ## When NOT to Use
