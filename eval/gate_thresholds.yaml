@@ -1,0 +1,19 @@
+# eval/gate_thresholds.yaml
+tier1:
+  weighted_delta_min: -0.05
+  critical_task_delta_min: -0.15
+  regression_rate_max: 0.30
+
+tier2:
+  weighted_delta_min: 0.0
+  heavy_task_delta_min: -0.10
+  regression_rate_max: 0.20
+
+tier3:
+  small_regression_delta_min: -0.05
+
+calibration_log:
+  - date: "2026-06-03"
+    false_positive_rate: null
+    false_negative_rate: null
+    changes: "initial thresholds"
