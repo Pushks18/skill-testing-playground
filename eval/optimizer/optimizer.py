@@ -6,7 +6,7 @@ import json
 import os
 import pathlib
 
-import anthropic
+import openai
 
 from eval.optimizer.variant_strategies import STRATEGIES, get_strategy_prompt
 from eval.run_task import run_task
@@ -19,12 +19,12 @@ FAST_EVAL_TASKS = 8
 
 def generate_variant(skill_content: str, failing_traces, strategy_key: str, client) -> str:
     prompt = get_strategy_prompt(strategy_key, skill_content, failing_traces)
-    msg = client.messages.create(
-        model="claude-sonnet-4-6",
+    msg = client.chat.completions.create(
+        model="google/gemini-2.5-flash",
         max_tokens=4096,
         messages=[{"role": "user", "content": prompt}],
     )
-    return msg.content[0].text
+    return msg.choices[0].message.content
 
 
 def score_skill_content(skill_content: str, task_paths, skill_name: str, tmp_path) -> float:
@@ -66,7 +66,10 @@ def main():
     tmp_dir = output_dir / "_tmp_variant"
     tmp_dir.mkdir(exist_ok=True)
 
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    client = openai.OpenAI(
+        api_key=os.environ["OPENROUTER_API_KEY"],
+        base_url="https://openrouter.ai/api/v1",
+    )
     tasks = get_failing_tasks(skill_name, args.ab_results)
     failing_traces = [
         f"Task {t.name}: {(t / 'instruction.md').read_text().strip()[:100]}"

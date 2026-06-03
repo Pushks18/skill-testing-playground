@@ -7,7 +7,7 @@ import os
 import pathlib
 import re
 
-import anthropic
+import openai
 
 ANALYZE_PROMPT = """You are analyzing a travel agent skill library.
 
@@ -59,14 +59,17 @@ def main():
     skills_block = "\n\n".join(f"### {name}\n{content}" for name, content in skills.items())
     prompt = ANALYZE_PROMPT.format(skills_block=skills_block)
 
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-    msg = client.messages.create(
-        model="claude-sonnet-4-6",
+    client = openai.OpenAI(
+        api_key=os.environ["OPENROUTER_API_KEY"],
+        base_url="https://openrouter.ai/api/v1",
+    )
+    msg = client.chat.completions.create(
+        model="google/gemini-2.5-flash",
         max_tokens=2048,
         messages=[{"role": "user", "content": prompt}],
     )
 
-    raw = msg.content[0].text
+    raw = msg.choices[0].message.content
     try:
         suggestions = json.loads(raw)
     except json.JSONDecodeError:

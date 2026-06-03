@@ -22,19 +22,17 @@ N_TRIALS = int(os.environ.get("EVAL_TRIALS", "5"))
 
 
 def load_tasks_for_skill(skill_name: str):
+    import re
     tasks_dir = pathlib.Path("tasks")
     matched = []
     for task_dir in sorted(tasks_dir.iterdir()):
         toml_path = task_dir / "task.toml"
         if not toml_path.exists():
             continue
-        try:
-            with open(toml_path, "rb") as f:
-                meta = tomllib.load(f)
-            if meta["task"].get("skill") == skill_name:
-                matched.append(task_dir)
-        except Exception:
-            continue
+        content = toml_path.read_text()
+        m = re.search(r'^skill\s*=\s*"([^"]+)"', content, re.MULTILINE)
+        if m and m.group(1) == skill_name:
+            matched.append(task_dir)
     return matched
 
 
@@ -52,9 +50,10 @@ async def run_ab_for_task(task_path, skill_path, n_trials: int) -> ABResult:
     best_no = max(no_skill_results, key=lambda r: r.score)
     best_with = max(with_skill_results, key=lambda r: r.score)
 
-    with open(task_path / "task.toml", "rb") as f:
-        meta = tomllib.load(f)
-    domain = meta["task"]["domain"]
+    import re
+    content = (task_path / "task.toml").read_text()
+    m = re.search(r'^domain\s*=\s*"([^"]+)"', content, re.MULTILINE)
+    domain = m.group(1) if m else "unknown"
     weight = TASK_WEIGHTS.get(domain, 1.0)
 
     return ABResult.from_pair(

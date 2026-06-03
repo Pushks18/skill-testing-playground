@@ -6,7 +6,7 @@ import json
 import os
 import pathlib
 
-from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 
 SKILLS = ["flight-search", "hotel-search", "book-itinerary", "fare-rules"]
@@ -56,7 +56,11 @@ def main():
     args = parser.parse_args()
 
     labeled = json.loads(pathlib.Path(args.labeled).read_text())
-    llm = ChatAnthropic(model="claude-haiku-4-5-20251001", api_key=os.environ["ANTHROPIC_API_KEY"])
+    llm = ChatOpenAI(
+        model="google/gemini-2.5-flash",
+        api_key=os.environ["OPENROUTER_API_KEY"],
+        base_url="https://openrouter.ai/api/v1",
+    )
     predictions = [route_request(item["request"], llm) for item in labeled]
 
     print("\nTrigger Evaluation")

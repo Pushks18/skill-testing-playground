@@ -2,7 +2,7 @@
 import os
 import json
 import statistics
-import anthropic
+import openai
 from eval.verifiers.base import Verifier, VerifierResult
 
 JUDGE_PROMPT = """You are evaluating a travel agent's response.
@@ -31,18 +31,26 @@ class LLMJudgeVerifier(Verifier):
     @property
     def client(self):
         if self._client is None:
-            self._client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+            self._client = openai.OpenAI(
+                api_key=os.environ["OPENROUTER_API_KEY"],
+                base_url="https://openrouter.ai/api/v1",
+            )
         return self._client
 
     def _judge_once(self, response: str):
         prompt = JUDGE_PROMPT.format(instruction=self.instruction, response=response)
-        msg = self.client.messages.create(
-            model="claude-haiku-4-5-20251001",
+        msg = self.client.chat.completions.create(
+            model="google/gemini-2.5-flash",
             max_tokens=256,
             messages=[{"role": "user", "content": prompt}],
         )
-        raw = msg.content[0].text.strip()
-        data = json.loads(raw)
+        raw = msg.choices[0].message.content.strip()
+        # strip markdown fences if present
+        if raw.startswith("```"):
+            raw = raw.split("```")[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+        data = json.loads(raw.strip())
         return float(data["score"]), data["reasoning"]
 
     def verify(self, agent_output: dict) -> VerifierResult:

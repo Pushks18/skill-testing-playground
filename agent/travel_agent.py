@@ -6,7 +6,7 @@ import operator
 import httpx
 from typing import TypedDict, Optional, Annotated
 from langgraph.graph import StateGraph, END
-from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage
 from langchain_core.tools import tool
 
@@ -103,9 +103,10 @@ def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = 
     if skill_content:
         system_prompt += f"\n\n## Skill Instructions\n{skill_content}"
 
-    llm = ChatAnthropic(
-        model="claude-haiku-4-5-20251001",
-        api_key=os.environ["ANTHROPIC_API_KEY"],
+    llm = ChatOpenAI(
+        model="google/gemini-2.5-flash",
+        api_key=os.environ["OPENROUTER_API_KEY"],
+        base_url="https://openrouter.ai/api/v1",
     ).bind_tools(tools)
 
     def agent_node(state: AgentState) -> dict:
