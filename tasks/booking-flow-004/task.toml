@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-004"
+domain = "booking_flow"
+skill = "book-itinerary"
+verifier = "tool_call_check"
+weight = 3.0
+
+[expected]
+tools = ["validate_passenger", "create_booking"]
+required_params = {"validate_passenger": ["name", "dob"], "create_booking": ["flight_id", "passenger"]}

@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-003"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = ["get_fare_rules"]
+required_params = {"get_fare_rules": ["flight_id"]}
