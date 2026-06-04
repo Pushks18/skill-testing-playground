@@ -182,3 +182,101 @@ def classify_layer(
 
     # 6. Fallback: unexplained failure, lowest confidence — skill content
     return result("skill:content", 0.50)
+
+
+def cluster_classifications(
+    classifications: list[FailureClassification],
+    domains: dict[str, str],
+    failure_modes: dict[str, str],
+) -> list[LayerCluster]:
+    """Group classifications by (layer, domain). One cluster → one artifact."""
+    groups: dict[tuple[str, str], list[str]] = defaultdict(list)
+    targets: dict[tuple[str, str], str] = {}
+    for c in classifications:
+        key = (c.layer, domains.get(c.task_id, "unknown"))
+        groups[key].append(c.task_id)
+        targets[key] = c.target_artifact
+
+    clusters = []
+    for (layer, domain), task_ids in groups.items():
+        modes = Counter(failure_modes.get(t, "UNKNOWN") for t in task_ids)
+        clusters.append(LayerCluster(
+            layer=layer, domain=domain, task_ids=task_ids,
+            dominant_failure_mode=modes.most_common(1)[0][0],
+            target_artifact=targets[(layer, domain)],
+        ))
+    return clusters
+
+
+def classify_results(
+    results_path: pathlib.Path,
+    tasks_dir: pathlib.Path,
+) -> tuple[list[FailureClassification], list[LayerCluster]]:
+    """Classify every failed with_skill task in an ab_results.json."""
+    data = json.loads(pathlib.Path(results_path).read_text())
+    classifications: list[FailureClassification] = []
+    domains: dict[str, str] = {}
+    modes: dict[str, str] = {}
+
+    for ab in data.get("tasks", []):
+        ws = ab.get("with_skill", {})
+        if ws.get("passed_verifier", False):
+            continue  # only failures get classified
+        expected = load_expected(pathlib.Path(tasks_dir) / ab["task_id"])
+        feats = extract_features(ab, expected)
+        no_skill_passed = ab.get("no_skill", {}).get("passed_verifier", False)
+        c = classify_layer(feats, no_skill_passed=no_skill_passed,
+                           skill_name=ab.get("skill_name", "unknown"))
+        classifications.append(c)
+        domains[c.task_id] = ab.get("domain", "unknown")
+        # Re-derive the legacy failure mode for cluster reporting
+        tools_called = [{"name": t} for t in ws.get("tools_called", [])]
+        modes[c.task_id] = classify_failure(
+            tools_called=tools_called,
+            required_tools=expected["tools"],
+            required_params=expected["required_params"],
+        ) or "UNKNOWN"
+
+    clusters = cluster_classifications(classifications, domains, modes)
+    return classifications, clusters
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Classify eval failures by layer.")
+    parser.add_argument("--results", default="ab_results.json")
+    parser.add_argument("--tasks-dir", default="tasks")
+    parser.add_argument("--output", default="failure_classification.json")
+    args = parser.parse_args()
+
+    classifications, clusters = classify_results(
+        pathlib.Path(args.results), pathlib.Path(args.tasks_dir)
+    )
+
+    if not classifications:
+        print("No failed tasks to classify.")
+        return
+
+    print(f"Failure classification ({args.results}):")
+    for c in classifications:
+        reason = "no tools called on tool task" if c.layer == "harness:base_prompt" \
+            else "verification derail / loop" if c.layer == "harness:node_prompt" \
+            else "wrong tool selected" if c.layer == "harness:tool_description" \
+            else c.layer.split(":", 1)[1].replace("_", " ")
+        print(f"  {c.task_id:<18} {c.layer:<26} ({reason})  conf {c.confidence:.2f}")
+
+    print()
+    for cl in clusters:
+        print(f"  → cluster: ({cl.layer}, {cl.domain}) {cl.n_failures} task(s) → {cl.target_artifact}")
+    if not any(c.layer.startswith("skill:") for c in classifications):
+        print("  → NO skill PR proposed")
+
+    payload = {
+        "classifications": [dataclasses.asdict(c) for c in classifications],
+        "clusters": [dataclasses.asdict(cl) for cl in clusters],
+    }
+    pathlib.Path(args.output).write_text(json.dumps(payload, indent=2))
+    print(f"\nWritten to {args.output}")
+
+
+if __name__ == "__main__":
+    main()

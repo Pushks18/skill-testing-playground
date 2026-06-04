@@ -1,6 +1,7 @@
 # tests/test_classify_failures.py
 import pytest
-from eval.classify_failures import extract_features, load_expected, classify_layer
+import json
+from eval.classify_failures import extract_features, load_expected, classify_layer, classify_results, cluster_classifications
 
 
 def ab_task(task_id, ws_tools, ws_params, ws_score, ws_passed, ws_steps,
@@ -205,3 +206,45 @@ def test_classify_unexplained_failure_falls_back_to_skill_content():
     c = _classify(t, expected)
     assert c.layer == "skill:content"
     assert c.confidence == 0.50
+
+
+def test_cluster_groups_by_layer_and_domain():
+    from eval.schemas import FailureClassification
+    cls = [
+        FailureClassification("t1", "harness:base_prompt", 0.94,
+                              "agent/harness_config.yaml::base_system_prompt", {}),
+        FailureClassification("t2", "harness:base_prompt", 0.90,
+                              "agent/harness_config.yaml::base_system_prompt", {}),
+        FailureClassification("t3", "harness:node_prompt", 0.82,
+                              "agent/harness_config.yaml::node_prompts", {}),
+    ]
+    domains = {"t1": "ancillery", "t2": "ancillery", "t3": "ancillery"}
+    modes = {"t1": "NO_TOOL_CALL", "t2": "NO_TOOL_CALL", "t3": "WRONG_TOOL"}
+    clusters = cluster_classifications(cls, domains, modes)
+    assert len(clusters) == 2
+    by_layer = {c.layer: c for c in clusters}
+    assert by_layer["harness:base_prompt"].n_failures == 2
+    assert by_layer["harness:base_prompt"].dominant_failure_mode == "NO_TOOL_CALL"
+
+
+def test_classify_results_end_to_end(tmp_path):
+    """Full pipeline on a minimal ab_results.json with one 002-style failure."""
+    results = {"skill_name": "ancillery-skill", "tasks": [
+        ab_task("ancillery-002", [], {}, ws_score=0.0, ws_passed=False, ws_steps=1),
+        # passing task — must be skipped
+        ab_task("ancillery-001", ["add_ancillary"],
+                {"add_ancillary": {"booking_id": "BK1"}},
+                ws_score=1.0, ws_passed=True, ws_steps=2),
+    ]}
+    results_path = tmp_path / "ab_results.json"
+    results_path.write_text(json.dumps(results))
+    tasks_dir = tmp_path / "tasks" / "ancillery-002"
+    tasks_dir.mkdir(parents=True)
+    (tasks_dir / "task.toml").write_text(
+        '[task]\nid = "ancillery-002"\ndomain = "ancillery"\nweight = 1.5\n\n'
+        '[expected]\ntools = ["add_ancillary"]\n'
+    )
+    classifications, clusters = classify_results(results_path, tmp_path / "tasks")
+    assert len(classifications) == 1
+    assert classifications[0].layer == "harness:base_prompt"
+    assert len(clusters) == 1
