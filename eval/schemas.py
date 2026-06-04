@@ -98,3 +98,63 @@ class SkillMeta:
     coverage_metrics: Optional[SkillCoverageMetrics]
     last_eval: Optional[str]
     version: str
+
+
+@dataclass
+class TrajectoryFeatures:
+    """Deterministic features extracted from one with_skill run (vs its no_skill pair)."""
+    task_id: str
+    domain: str
+    task_weight: float
+    skill_injected: bool
+    # Tool behavior
+    n_tools_called: int
+    called_any_tool: bool
+    first_tool_name: Optional[str]
+    expected_first_tool: Optional[str]
+    first_tool_correct: bool
+    n_wrong_tool_calls: int
+    n_repeated_tool_calls: int
+    # Param quality
+    n_calls_missing_required_params: int
+    param_match_rate: float
+    # Control flow
+    n_steps: int
+    step_delta_vs_no_skill: int
+    ended_without_tool_on_tool_task: bool
+    looped_without_completion: bool
+    # Output / outcome
+    output_is_verbal_only: bool
+    verifier_score: float
+    delta_vs_no_skill: float
+
+
+@dataclass
+class FailureClassification:
+    """Layer attribution for one failed task — routes the optimizer to the right artifact."""
+    task_id: str
+    layer: Literal[
+        "harness:base_prompt", "harness:tool_description", "harness:node_prompt",
+        "skill:content", "skill:over_prescription", "skill:trigger",
+    ]
+    confidence: float
+    target_artifact: str
+    evidence: Dict
+
+
+@dataclass
+class LayerCluster:
+    """Failures grouped by (layer, domain). One cluster routes to one artifact.
+
+    Distinct from eval.optimizer.propose_skill.FailureCluster, which clusters
+    by domain to propose *new* skills.
+    """
+    layer: str
+    domain: str
+    task_ids: List
+    dominant_failure_mode: str
+    target_artifact: str
+    n_failures: int = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.n_failures = len(self.task_ids)
