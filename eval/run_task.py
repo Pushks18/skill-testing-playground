@@ -87,7 +87,10 @@ def run_task(
             required_params=expected.get("required_params", {}),
         )
     else:
-        verifier = LLMJudgeVerifier(instruction=task["instruction"])
+        verifier = LLMJudgeVerifier(
+            instruction=task["instruction"],
+            criteria=expected.get("criteria", ""),
+        )
 
     agent_output = {
         "response": result.get("response", ""),

@@ -8,10 +8,11 @@ from eval.verifiers.base import Verifier, VerifierResult
 JUDGE_PROMPT = """You are evaluating a travel agent's response.
 
 Task instruction: {instruction}
+{criteria_block}
 Agent response: {response}
 
 Score the response from 0.0 to 1.0 where:
-- 1.0: Complete, accurate, directly addresses the task
+- 1.0: Complete, accurate, directly addresses the task and all criteria
 - 0.75: Mostly good with minor gaps
 - 0.5: Partially addresses the task
 - 0.25: Attempted but largely off
@@ -23,8 +24,9 @@ Reply with only a JSON object: {{"score": 0.0, "reasoning": "..."}}"""
 class LLMJudgeVerifier(Verifier):
     """Runs the judge 3 times and averages to reduce variance."""
 
-    def __init__(self, instruction: str, runs: int = 3):
+    def __init__(self, instruction: str, criteria: str = "", runs: int = 3):
         self.instruction = instruction
+        self.criteria = criteria
         self.runs = runs
         self._client = None
 
@@ -38,7 +40,12 @@ class LLMJudgeVerifier(Verifier):
         return self._client
 
     def _judge_once(self, response: str):
-        prompt = JUDGE_PROMPT.format(instruction=self.instruction, response=response)
+        criteria_block = f"Pass criteria: {self.criteria}\n" if self.criteria else ""
+        prompt = JUDGE_PROMPT.format(
+            instruction=self.instruction,
+            criteria_block=criteria_block,
+            response=response,
+        )
         msg = self.client.chat.completions.create(
             model="google/gemini-2.5-flash",
             max_tokens=256,
