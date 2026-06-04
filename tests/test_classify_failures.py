@@ -124,3 +124,71 @@ def test_features_correct_tool_no_params_recorded():
     f = extract_features(t, expected)
     assert f.param_match_rate == 0.0
     assert f.n_calls_missing_required_params == 1
+
+
+from eval.classify_failures import classify_layer
+
+
+def _classify(t, expected=EXPECTED):
+    f = extract_features(t, expected)
+    no_skill_passed = t["no_skill"]["passed_verifier"]
+    return classify_layer(f, no_skill_passed=no_skill_passed, skill_name=t["skill_name"])
+
+
+def test_classify_002_no_tool_call_is_base_prompt():
+    """The thesis check: verbal-only failure routes to harness, never skill."""
+    t = ab_task("ancillery-002", [], {}, ws_score=0.0, ws_passed=False, ws_steps=1)
+    c = _classify(t)
+    assert c.layer == "harness:base_prompt"
+    assert c.confidence >= 0.9
+    assert c.target_artifact == "agent/harness_config.yaml::base_system_prompt"
+    # no_skill passed + delta -1.0 → over-prescription is a competing signal, recorded
+    assert "competing_layer" in c.evidence
+
+
+def test_classify_003_verification_derail_is_node_prompt():
+    t = ab_task(
+        "ancillery-003",
+        ["get_itinerary", "get_fare_rules"],
+        {"get_itinerary": {"booking_id": "BK9"}, "get_fare_rules": {"flight_id": "BK9"}},
+        ws_score=0.0, ws_passed=False, ws_steps=3,
+    )
+    c = _classify(t)
+    assert c.layer == "harness:node_prompt"
+    assert c.target_artifact == "agent/harness_config.yaml::node_prompts"
+
+
+def test_classify_single_wrong_tool_is_tool_description():
+    t = ab_task(
+        "x-003", ["search_hotels"], {"search_hotels": {"location": "LA"}},
+        ws_score=0.0, ws_passed=False, ws_steps=2,
+        ns_score=0.5, ns_passed=False,  # also fails no_skill → not over-prescription
+    )
+    c = _classify(t)
+    assert c.layer == "harness:tool_description"
+
+
+def test_classify_missing_param_is_skill_content():
+    t = ab_task(
+        "x-004", ["add_ancillary"], {"add_ancillary": {"booking_id": "BK1"}},
+        ws_score=0.4, ws_passed=False, ws_steps=2,
+        ns_score=0.6, ns_passed=False,
+    )
+    expected = {"tools": ["add_ancillary"],
+                "required_params": {"add_ancillary": ["booking_id", "service_type"]}}
+    c = _classify(t, expected)
+    assert c.layer == "skill:content"
+    assert c.target_artifact == "skills/ancillery-skill/SKILL.md"
+
+
+def test_classify_right_tool_full_params_only_with_skill_fails_is_over_prescription():
+    """Right tool, right params, but only the with_skill condition fails badly."""
+    t = ab_task(
+        "x-005", ["add_ancillary"],
+        {"add_ancillary": {"booking_id": "BK1", "service_type": "meal_selection"}},
+        ws_score=0.0, ws_passed=False, ws_steps=2,
+    )
+    expected = {"tools": ["add_ancillary"],
+                "required_params": {"add_ancillary": ["booking_id", "service_type"]}}
+    c = _classify(t, expected)
+    assert c.layer == "skill:over_prescription"

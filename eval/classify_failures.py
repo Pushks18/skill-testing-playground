@@ -115,3 +115,69 @@ def extract_features(ab_task: dict, expected: dict) -> TrajectoryFeatures:
         verifier_score=ws.get("score", 0.0),
         delta_vs_no_skill=ab_task.get("delta", 0.0),
     )
+
+
+def classify_layer(
+    f: TrajectoryFeatures,
+    no_skill_passed: bool,
+    skill_name: str,
+) -> FailureClassification:
+    """Ordered rules mapping features → failure layer.
+
+    Precedence (per spec): when both an over-prescription signal and a harness
+    signature apply, prefer the harness label if no tools were called — the
+    harness is the actionable lever — and record the competing signal.
+    """
+    over_prescription_signal = (
+        f.skill_injected and no_skill_passed and f.delta_vs_no_skill <= -0.5
+    )
+    evidence: dict = {
+        "called_any_tool": f.called_any_tool,
+        "first_tool_name": f.first_tool_name,
+        "n_wrong_tool_calls": f.n_wrong_tool_calls,
+        "step_delta_vs_no_skill": f.step_delta_vs_no_skill,
+        "param_match_rate": f.param_match_rate,
+        "delta_vs_no_skill": f.delta_vs_no_skill,
+    }
+
+    def result(layer: str, confidence: float) -> FailureClassification:
+        target = HARNESS_TARGETS.get(layer, f"skills/{skill_name}/SKILL.md")
+        return FailureClassification(
+            task_id=f.task_id, layer=layer, confidence=confidence,
+            target_artifact=target, evidence=evidence,
+        )
+
+    # 1. No tools on a tool task → base prompt failure (002/006 signature)
+    if f.ended_without_tool_on_tool_task and not f.called_any_tool:
+        if over_prescription_signal:
+            evidence["competing_layer"] = "skill:over_prescription"
+            return result("harness:base_prompt", 0.94)
+        return result("harness:base_prompt", 0.90)
+
+    # 2. Verification derail: looped, or multiple off-target tools with extra
+    #    steps and the required tool never reached (003 signature)
+    if f.looped_without_completion or (
+        not f.first_tool_correct
+        and f.n_tools_called >= 2
+        and f.step_delta_vs_no_skill > 0
+        and f.ended_without_tool_on_tool_task
+    ):
+        if over_prescription_signal:
+            evidence["competing_layer"] = "skill:over_prescription"
+        return result("harness:node_prompt", 0.82)
+
+    # 3. Wrong tool selected → tool description failure
+    if not f.first_tool_correct and f.called_any_tool:
+        return result("harness:tool_description", 0.85)
+
+    # 4. Right tool, bad params → skill content failure
+    if f.n_calls_missing_required_params > 0 or f.param_match_rate < 1.0:
+        return result("skill:content", 0.80)
+
+    # 5. Everything looked right but only with_skill fails badly → the skill
+    #    text itself derailed quality (over-prescription)
+    if over_prescription_signal:
+        return result("skill:over_prescription", 0.85)
+
+    # 6. Fallback: unexplained failure, lowest confidence — skill content
+    return result("skill:content", 0.50)
