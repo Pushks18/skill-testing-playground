@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-007"
+domain = "booking_flow"
+skill = "book-itinerary"
+verifier = "tool_call_check"
+weight = 3.0
+
+[expected]
+tools = ["check_availability", "create_booking"]
+required_params = {"check_availability": ["resource_id", "date"], "create_booking": ["flight_id", "passenger"]}

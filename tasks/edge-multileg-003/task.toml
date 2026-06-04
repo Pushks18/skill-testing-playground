@@ -1,0 +1,10 @@
+[task]
+id = "edge-multileg-003"
+domain = "edge_cases"
+skill = "flight-search"
+verifier = "tool_call_check"
+weight = 0.5
+
+[expected]
+tools = ["search_flights"]
+required_params = {"search_flights": ["origin", "destination", "date"]}

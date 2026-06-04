@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-004"
+domain = "itinerary_build"
+skill = "book-itinerary"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = ["search_flights", "search_hotels"]
+required_params = {"search_flights": ["origin", "destination", "date"], "search_hotels": ["location", "check_in", "check_out"]}
