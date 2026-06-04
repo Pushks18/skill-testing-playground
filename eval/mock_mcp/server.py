@@ -1,3 +1,4 @@
+import hashlib
 import uuid
 import random
 from fastapi import FastAPI
@@ -6,6 +7,12 @@ from pydantic import BaseModel
 from typing import Optional
 
 app = FastAPI(title="Mock Mondee MCP")
+
+
+def _seeded(key: str) -> random.Random:
+    """Return a Random instance seeded by key so same params → same response."""
+    seed = int(hashlib.md5(key.encode()).hexdigest(), 16) % (2**32)
+    return random.Random(seed)
 
 class FlightSearch(BaseModel):
     origin: str
@@ -51,52 +58,58 @@ HOTEL_CHAINS = ["Marriott", "Hilton", "Hyatt", "IHG", "Wyndham"]
 
 @app.post("/search_flights")
 def search_flights(req: FlightSearch):
+    rng = _seeded(f"flights:{req.origin}:{req.destination}:{req.date}:{req.passengers}")
     flights = [
         {
-            "flight_id": f"FL{random.randint(100,999)}",
-            "airline": random.choice(AIRLINES),
+            "flight_id": f"FL{rng.randint(100,999)}",
+            "airline": rng.choice(AIRLINES),
             "origin": req.origin,
             "destination": req.destination,
             "date": req.date,
-            "departure": f"{random.randint(6,20):02d}:{random.choice(['00','30'])}",
-            "duration_min": random.randint(90, 360),
-            "price": round(random.uniform(150, 900), 2),
-            "seats_available": random.randint(1, 30),
+            "departure": f"{rng.randint(6,20):02d}:{rng.choice(['00','30'])}",
+            "duration_min": rng.randint(90, 360),
+            "price": round(rng.uniform(150, 900), 2),
+            "seats_available": rng.randint(1, 30),
             "cabin": "economy",
         }
-        for _ in range(random.randint(3, 6))
+        for _ in range(rng.randint(3, 6))
     ]
     return {"flights": flights, "currency": "USD"}
 
 @app.post("/search_hotels")
 def search_hotels(req: HotelSearch):
+    rng = _seeded(f"hotels:{req.location}:{req.check_in}:{req.check_out}:{req.guests}")
     hotels = [
         {
-            "hotel_id": f"HT{random.randint(100,999)}",
-            "name": f"{random.choice(HOTEL_CHAINS)} {req.location}",
+            "hotel_id": f"HT{rng.randint(100,999)}",
+            "name": f"{rng.choice(HOTEL_CHAINS)} {req.location}",
             "location": req.location,
             "check_in": req.check_in,
             "check_out": req.check_out,
-            "price_per_night": round(random.uniform(80, 500), 2),
-            "stars": random.randint(3, 5),
+            "price_per_night": round(rng.uniform(80, 500), 2),
+            "stars": rng.randint(3, 5),
+            "amenities": rng.sample(["WiFi", "Pool", "Gym", "Breakfast", "Parking", "Spa"], k=3),
+            "cancellation_policy": rng.choice(["Free cancellation until 24h before", "Non-refundable", "Free cancellation until 48h before"]),
             "available": True,
         }
-        for _ in range(random.randint(3, 5))
+        for _ in range(rng.randint(3, 5))
     ]
     return {"hotels": hotels, "currency": "USD"}
 
 @app.post("/check_availability")
 def check_availability(req: AvailabilityCheck):
-    return {"resource_id": req.resource_id, "date": req.date, "available": random.random() > 0.2}
+    rng = _seeded(f"avail:{req.resource_id}:{req.date}")
+    return {"resource_id": req.resource_id, "date": req.date, "available": rng.random() > 0.2}
 
 @app.post("/get_fare_rules")
 def get_fare_rules(req: FareRulesRequest):
+    rng = _seeded(f"fare:{req.flight_id}")
     return {
         "flight_id": req.flight_id,
         "cancellation": "Free within 24h; $150 fee after",
         "changes": "$75 change fee applies",
         "baggage": "1 carry-on included; checked bag $35",
-        "refundable": random.random() > 0.5,
+        "refundable": rng.random() > 0.5,
     }
 
 @app.post("/validate_passenger")
