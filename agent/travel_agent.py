@@ -3,6 +3,7 @@
 from __future__ import annotations
 import os
 import operator
+import time as _time
 import httpx
 from typing import TypedDict, Optional, Annotated
 from langgraph.graph import StateGraph, END
@@ -16,6 +17,7 @@ MOCK_MCP_URL = os.environ.get("MOCK_MCP_URL", "http://localhost:8000")
 class AgentState(TypedDict):
     messages: Annotated[list, operator.add]
     tools_called: list
+    step_timings: list   # NEW
     response: str
     steps: int
     tokens_used: int
@@ -118,6 +120,7 @@ def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = 
         return {
             "messages": [response],
             "tools_called": state.get("tools_called", []),
+            "step_timings": state.get("step_timings", []),
             "steps": steps,
             "tokens_used": tokens,
         }
@@ -126,13 +129,17 @@ def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = 
         last = state["messages"][-1]
         tool_results = []
         tools_called = list(state.get("tools_called", []))
+        step_timings = list(state.get("step_timings", []))
         for tc in getattr(last, "tool_calls", []):
             fn = tool_map.get(tc["name"])
             if fn:
+                t0 = _time.time()
                 result = fn.invoke(tc["args"])
+                latency = int((_time.time() - t0) * 1000)
                 tools_called.append({"name": tc["name"], "params": tc["args"]})
+                step_timings.append({"tool": tc["name"], "latency_ms": latency, "tokens": 0})
                 tool_results.append(ToolMessage(content=str(result), tool_call_id=tc["id"]))
-        return {"messages": tool_results, "tools_called": tools_called}
+        return {"messages": tool_results, "tools_called": tools_called, "step_timings": step_timings}
 
     def should_continue(state: AgentState) -> str:
         last = state["messages"][-1]

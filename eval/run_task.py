@@ -8,6 +8,7 @@ import os
 import pathlib
 import sys
 import time
+import uuid
 
 if sys.version_info >= (3, 11):
     import tomllib
@@ -22,6 +23,9 @@ from agent.travel_agent import build_travel_agent
 from eval.schemas import EvalResult
 from eval.verifiers.tool_call import ToolCallVerifier
 from eval.verifiers.llm_judge import LLMJudgeVerifier
+from eval.trajectory import (
+    TrajectoryRun, TrajectoryStep, save_run, classify_failure,
+)
 
 try:
     LangChainInstrumentor().instrument(tracer_provider=TracerProvider())
@@ -68,6 +72,7 @@ def run_task(
     result = agent.invoke({
         "messages": [{"role": "user", "content": task["instruction"]}],
         "tools_called": [],
+        "step_timings": [],
         "response": "",
         "steps": 0,
         "tokens_used": 0,
@@ -91,7 +96,7 @@ def run_task(
     }
     vresult = verifier.verify(agent_output)
 
-    return EvalResult(
+    eval_result = EvalResult(
         task_id=task["id"],
         domain=task["domain"],
         skill_name=task.get("skill") if skill_path else None,
@@ -106,6 +111,43 @@ def run_task(
         latency_ms=latency_ms,
         tokens_used=result.get("tokens_used", 0),
     )
+
+    # Save trajectory (best-effort: never fail an eval run because of observability)
+    try:
+        run_id = str(uuid.uuid4())
+        tools_called_raw = result.get("tools_called", [])
+        failure_mode = None
+        if not vresult.passed:
+            failure_mode = classify_failure(
+                tools_called=tools_called_raw,
+                required_tools=expected.get("tools", []),
+                required_params=expected.get("required_params", {}),
+            )
+
+        steps_data = []
+        for i, timing in enumerate(result.get("step_timings", [])):
+            steps_data.append(TrajectoryStep(
+                run_id=run_id, task_id=task["id"],
+                skill_name=eval_result.skill_name,
+                condition=condition, step_num=i, node="tools",
+                tool_name=timing.get("tool"),
+                tool_params=tools_called_raw[i].get("params") if i < len(tools_called_raw) else None,
+                tool_result=None,
+                latency_ms=timing.get("latency_ms", 0),
+                tokens=timing.get("tokens", 0),
+            ))
+
+        save_run(TrajectoryRun(
+            run_id=run_id, task_id=task["id"],
+            skill_name=eval_result.skill_name,
+            condition=condition, score=vresult.score,
+            passed=vresult.passed, failure_mode=failure_mode,
+            steps=steps_data, langsmith_url=None,
+        ))
+    except Exception:
+        pass
+
+    return eval_result
 
 
 if __name__ == "__main__":
