@@ -1,7 +1,7 @@
 [task]
 id = "booking-flow-007"
 domain = "booking_flow"
-skill = "book-itinerary"
+skill = "booking-skill"
 verifier = "tool_call_check"
 weight = 3.0
 
