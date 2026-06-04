@@ -258,7 +258,7 @@ def draft_skill_body(cluster: FailureCluster, client) -> str:
         failure_mode=cluster.failure_mode,
     )
     msg = client.chat.completions.create(
-        model="anthropic/claude-haiku-4-5-20251001",
+        model="google/gemini-2.5-flash",
         max_tokens=2048,
         messages=[{"role": "user", "content": prompt}],
     )
