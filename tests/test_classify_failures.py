@@ -1,6 +1,6 @@
 # tests/test_classify_failures.py
 import pytest
-from eval.classify_failures import extract_features, load_expected
+from eval.classify_failures import extract_features, load_expected, classify_layer
 
 
 def ab_task(task_id, ws_tools, ws_params, ws_score, ws_passed, ws_steps,
@@ -126,9 +126,6 @@ def test_features_correct_tool_no_params_recorded():
     assert f.n_calls_missing_required_params == 1
 
 
-from eval.classify_failures import classify_layer
-
-
 def _classify(t, expected=EXPECTED):
     f = extract_features(t, expected)
     no_skill_passed = t["no_skill"]["passed_verifier"]
@@ -147,6 +144,7 @@ def test_classify_002_no_tool_call_is_base_prompt():
 
 
 def test_classify_003_verification_derail_is_node_prompt():
+    """Rule 2 compound arm: multi-tool spiral, required tool never reached."""
     t = ab_task(
         "ancillery-003",
         ["get_itinerary", "get_fare_rules"],
@@ -192,3 +190,18 @@ def test_classify_right_tool_full_params_only_with_skill_fails_is_over_prescript
                 "required_params": {"add_ancillary": ["booking_id", "service_type"]}}
     c = _classify(t, expected)
     assert c.layer == "skill:over_prescription"
+
+
+def test_classify_unexplained_failure_falls_back_to_skill_content():
+    """Rule 6 fallback: right tool, full params, both conditions fail → low-confidence skill:content."""
+    t = ab_task(
+        "x-006", ["add_ancillary"],
+        {"add_ancillary": {"booking_id": "BK1", "service_type": "meal_selection"}},
+        ws_score=0.3, ws_passed=False, ws_steps=2,
+        ns_score=0.4, ns_passed=False,  # no_skill also failed → no over-prescription signal
+    )
+    expected = {"tools": ["add_ancillary"],
+                "required_params": {"add_ancillary": ["booking_id", "service_type"]}}
+    c = _classify(t, expected)
+    assert c.layer == "skill:content"
+    assert c.confidence == 0.50

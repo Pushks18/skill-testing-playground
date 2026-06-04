@@ -144,7 +144,7 @@ def classify_layer(
         target = HARNESS_TARGETS.get(layer, f"skills/{skill_name}/SKILL.md")
         return FailureClassification(
             task_id=f.task_id, layer=layer, confidence=confidence,
-            target_artifact=target, evidence=evidence,
+            target_artifact=target, evidence=dict(evidence),  # snapshot — callers must not see later mutations
         )
 
     # 1. No tools on a tool task → base prompt failure (002/006 signature)
@@ -156,6 +156,7 @@ def classify_layer(
 
     # 2. Verification derail: looped, or multiple off-target tools with extra
     #    steps and the required tool never reached (003 signature)
+    # multi-tool spiral: off-target first tool, 2+ calls, extra steps, required tool never reached
     if f.looped_without_completion or (
         not f.first_tool_correct
         and f.n_tools_called >= 2
