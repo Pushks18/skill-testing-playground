@@ -1,0 +1,9 @@
+[task]
+id = "hotel-search-015"
+domain = "hotel_search"
+skill = "hotel-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+criteria = "The agent must clearly note that displayed prices are subject to availability and may change between search and booking. The response should also highlight trade-offs between options (e.g. price vs location vs amenities). A response that just lists hotels without any of these disclaimers or trade-off commentary fails."

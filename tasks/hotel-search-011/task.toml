@@ -1,0 +1,9 @@
+[task]
+id = "hotel-search-011"
+domain = "hotel_search"
+skill = "hotel-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+criteria = "The agent must ask the user for missing required information (check-in date, check-out date) rather than guessing or assuming dates. The agent should NOT call search_hotels without first confirming the dates."

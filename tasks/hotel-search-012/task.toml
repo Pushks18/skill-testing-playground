@@ -1,0 +1,9 @@
+[task]
+id = "hotel-search-012"
+domain = "hotel_search"
+skill = "hotel-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+criteria = "The agent must flag that check-in and check-out are on the same date as an error or seek clarification. It should NOT call search_hotels for a zero-night stay and should ask the user to confirm their dates."

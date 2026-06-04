@@ -1,0 +1,9 @@
+[task]
+id = "hotel-search-013"
+domain = "hotel_search"
+skill = "hotel-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+criteria = "The agent must present results in a structured format that includes for each hotel: property name, star rating, price per night, total price for the stay, at least one amenity, and cancellation policy. Missing any of these fields is a failure."
