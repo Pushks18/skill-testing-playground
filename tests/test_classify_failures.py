@@ -248,3 +248,6 @@ def test_classify_results_end_to_end(tmp_path):
     assert len(classifications) == 1
     assert classifications[0].layer == "harness:base_prompt"
     assert len(clusters) == 1
+    assert clusters[0].layer == "harness:base_prompt"
+    assert clusters[0].domain == "ancillery"
+    assert clusters[0].n_failures == 1

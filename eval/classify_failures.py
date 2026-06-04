@@ -195,6 +195,8 @@ def cluster_classifications(
     for c in classifications:
         key = (c.layer, domains.get(c.task_id, "unknown"))
         groups[key].append(c.task_id)
+        # Last-writer-wins is safe for harness:* (constant target). For skill:*
+        # clusters this assumes a single-skill results file (current contract).
         targets[key] = c.target_artifact
 
     clusters = []
@@ -230,7 +232,11 @@ def classify_results(
         classifications.append(c)
         domains[c.task_id] = ab.get("domain", "unknown")
         # Re-derive the legacy failure mode for cluster reporting
-        tools_called = [{"name": t} for t in ws.get("tools_called", [])]
+        tool_params = ws.get("tool_params", {})
+        tools_called = [
+            {"name": t, "params": tool_params.get(t, {})}
+            for t in ws.get("tools_called", [])
+        ]
         modes[c.task_id] = classify_failure(
             tools_called=tools_called,
             required_tools=expected["tools"],
