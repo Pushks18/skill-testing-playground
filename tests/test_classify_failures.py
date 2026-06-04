@@ -56,6 +56,8 @@ def test_features_wrong_tools_extra_steps():
     assert f.n_wrong_tool_calls == 2
     assert f.ended_without_tool_on_tool_task is True
     assert f.step_delta_vs_no_skill == 1
+    # No required_params defined → param features stay neutral
+    assert f.param_match_rate == 1.0
 
 
 def test_features_correct_tool_missing_param():
@@ -95,3 +97,30 @@ def test_load_expected_reads_task_toml(tmp_path):
     exp = load_expected(task_dir)
     assert exp["tools"] == ["add_ancillary"]
     assert exp["required_params"] == {}
+
+
+def test_features_required_tool_never_called_zeroes_param_rate():
+    """Wrong tool called while the required tool has required params → params unmet."""
+    t = ab_task(
+        "x-003", ["search_hotels"], {"search_hotels": {"location": "LA"}},
+        ws_score=0.0, ws_passed=False, ws_steps=2,
+    )
+    expected = {"tools": ["add_ancillary"],
+                "required_params": {"add_ancillary": ["booking_id", "service_type"]}}
+    f = extract_features(t, expected)
+    assert f.param_match_rate == 0.0
+    assert f.n_calls_missing_required_params == 1
+    assert f.ended_without_tool_on_tool_task is True
+
+
+def test_features_correct_tool_no_params_recorded():
+    """Correct tool called but tool_params has no entry for it."""
+    t = ab_task(
+        "x-004", ["add_ancillary"], {},
+        ws_score=0.0, ws_passed=False, ws_steps=2,
+    )
+    expected = {"tools": ["add_ancillary"],
+                "required_params": {"add_ancillary": ["booking_id"]}}
+    f = extract_features(t, expected)
+    assert f.param_match_rate == 0.0
+    assert f.n_calls_missing_required_params == 1

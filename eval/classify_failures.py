@@ -41,7 +41,7 @@ def load_expected(task_dir: pathlib.Path) -> dict:
     if not toml_path.exists():
         return {"tools": [], "required_params": {}}
     raw = toml_path.read_text()
-    # Same inline-table fix as eval.run_task.load_task (some task files use ":" not "=")
+    # Mirrors the inline-table fix in eval.run_task.load_task (some task files use ":" not "=")
     raw = re.sub(r"\{[^}]+\}", lambda m: m.group(0).replace(": ", " = ").replace(":", " = "), raw)
     meta = tomllib.loads(raw)
     expected = meta.get("expected", {})
@@ -52,7 +52,10 @@ def load_expected(task_dir: pathlib.Path) -> dict:
 
 
 def extract_features(ab_task: dict, expected: dict) -> TrajectoryFeatures:
-    """Build TrajectoryFeatures from one ab_results.json task entry (with_skill side)."""
+    """Build TrajectoryFeatures from one ab_results.json task entry (with_skill side).
+
+    n_wrong_tool_calls counts calls, not unique tools (3 calls to one wrong tool = 3).
+    """
     ws = ab_task["with_skill"]
     tools_called = ws.get("tools_called", [])
     tool_params = ws.get("tool_params", {})
@@ -70,13 +73,19 @@ def extract_features(ab_task: dict, expected: dict) -> TrajectoryFeatures:
     n_missing_calls = 0
     matched, total_required = 0, 0
     for tool_name, params in required_params.items():
-        if tool_name in tools_called:
-            provided = tool_params.get(tool_name, {})
-            missing = [p for p in params if p not in provided]
-            if missing:
-                n_missing_calls += 1
-            matched += len(params) - len(missing)
+        if tool_name not in tools_called:
+            # Required tool never called → all its required params are unmet
+            n_missing_calls += 1
             total_required += len(params)
+            continue
+        provided = tool_params.get(tool_name, {})
+        # Key-presence check only: a param explicitly set to None still counts
+        # as provided (deliberate — value quality is the verifier's job)
+        missing = [p for p in params if p not in provided]
+        if missing:
+            n_missing_calls += 1
+        matched += len(params) - len(missing)
+        total_required += len(params)
     param_match_rate = (matched / total_required) if total_required else (1.0 if called_any else 0.0)
 
     no_expected_tool_called = bool(expected_tools) and not any(
