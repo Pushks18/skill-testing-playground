@@ -18,6 +18,9 @@ class EvalResult:
     judge_reasoning: Optional[str]
     latency_ms: int
     tokens_used: int
+    input_tokens: int = 0
+    output_tokens: int = 0
+    cost_usd: float = 0.0
 
 
 @dataclass
@@ -33,6 +36,8 @@ class ABResult:
     regression: bool
     step_delta: int
     token_delta: int
+    latency_delta_ms: int = 0
+    cost_delta_usd: float = 0.0
 
     @classmethod
     def from_pair(
@@ -55,6 +60,8 @@ class ABResult:
             regression=delta < 0,
             step_delta=with_skill.steps - no_skill.steps,
             token_delta=with_skill.tokens_used - no_skill.tokens_used,
+            latency_delta_ms=with_skill.latency_ms - no_skill.latency_ms,
+            cost_delta_usd=with_skill.cost_usd - no_skill.cost_usd,
         )
 
 

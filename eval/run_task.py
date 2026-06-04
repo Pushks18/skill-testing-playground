@@ -17,6 +17,7 @@ else:
 
 from agent.travel_agent import build_travel_agent
 from eval.schemas import EvalResult
+from eval.cost import compute_cost
 from eval.skill_loader import load_skill as _load_skill_structured
 from eval.verifiers.tool_call import ToolCallVerifier
 from eval.verifiers.llm_judge import LLMJudgeVerifier
@@ -128,6 +129,8 @@ def run_task(
             "response": "",
             "steps": 0,
             "tokens_used": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
         },
         config={"callbacks": callbacks} if callbacks else {},
     )
@@ -156,6 +159,10 @@ def run_task(
     _push_score(langfuse_handler, vresult.score, vresult.reason)
     trace_url = _trace_url(langfuse_handler)
 
+    in_tok  = result.get("input_tokens",  0)
+    out_tok = result.get("output_tokens", 0)
+    model   = os.environ.get("EVAL_MODEL", "google/gemini-2.5-flash")
+
     eval_result = EvalResult(
         task_id=task["id"],
         domain=task["domain"],
@@ -170,6 +177,9 @@ def run_task(
         judge_reasoning=vresult.reason,
         latency_ms=latency_ms,
         tokens_used=result.get("tokens_used", 0),
+        input_tokens=in_tok,
+        output_tokens=out_tok,
+        cost_usd=compute_cost(model, in_tok, out_tok),
     )
 
     # --- SQLite trajectory (lightweight local supplement) ----------------

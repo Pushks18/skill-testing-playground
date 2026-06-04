@@ -18,6 +18,7 @@ else:
 from eval.run_task import run_task
 from eval.schemas import ABResult
 from eval.gate_check import gate_check, TASK_WEIGHTS
+from eval.cost import cost_summary, format_cost
 
 N_TRIALS = int(os.environ.get("EVAL_TRIALS", "5"))
 
@@ -108,25 +109,41 @@ def print_report(results, decision):
     if not results:
         return
     print(f"\nA/B Evaluation: {results[0].skill_name}  (N={N_TRIALS} trials)")
-    print("-" * 70)
-    print(f"{'task':<30} {'weight':>6}  {'no_skill':>8}  {'with_skill':>10}  {'delta':>7}  flag")
+    print("-" * 90)
+    print(f"{'task':<30} {'weight':>6}  {'no_skill':>8}  {'with_skill':>10}  {'delta':>7}  {'lat_Δms':>8}  {'cost_Δ':>9}  flag")
     for r in sorted(results, key=lambda x: x.task_id):
         flag = "REGRESSION" if r.regression else ("+" if r.delta > 0.05 else "-")
-        print(f"{r.task_id:<30} {r.task_weight:>6.1f}  {r.no_skill.score:>8.2f}  {r.with_skill.score:>10.2f}  {r.delta:>+7.2f}  {flag}")
-    print("-" * 70)
+        cost_d = format_cost(abs(r.cost_delta_usd))
+        cost_sign = "+" if r.cost_delta_usd >= 0 else "-"
+        print(f"{r.task_id:<30} {r.task_weight:>6.1f}  {r.no_skill.score:>8.2f}  {r.with_skill.score:>10.2f}  {r.delta:>+7.2f}  {r.latency_delta_ms:>+8}  {cost_sign}{cost_d:>8}  {flag}")
+    print("-" * 90)
     print(f"Weighted delta: {decision.weighted_delta:+.3f}    Regression rate: {decision.regression_rate:.0%}")
     labels = {"PASS": "PASS", "WARN": "WARN", "SOFT_BLOCK": "SOFT BLOCK", "BLOCK": "BLOCK"}
     print(f"GATE VERDICT:  {labels[decision.verdict]} (Tier {decision.tier})")
 
+    # Cost + latency breakdown
+    no_skill_results  = [r.no_skill  for r in results]
+    with_skill_results = [r.with_skill for r in results]
+    ns = cost_summary(no_skill_results)
+    ws = cost_summary(with_skill_results)
+    print(f"\n{'':30}  {'no_skill':>12}  {'with_skill':>12}")
+    print(f"{'total cost (USD)':<30}  {format_cost(ns['total_cost_usd']):>12}  {format_cost(ws['total_cost_usd']):>12}")
+    print(f"{'avg cost / run (USD)':<30}  {format_cost(ns['avg_cost_usd']):>12}  {format_cost(ws['avg_cost_usd']):>12}")
+    print(f"{'avg latency (ms)':<30}  {ns['avg_latency_ms']:>12}  {ws['avg_latency_ms']:>12}")
+    print(f"{'p95 latency (ms)':<30}  {ns['p95_latency_ms']:>12}  {ws['p95_latency_ms']:>12}")
+    print(f"{'total input tokens':<30}  {ns['total_input_tokens']:>12}  {ws['total_input_tokens']:>12}")
+    print(f"{'total output tokens':<30}  {ns['total_output_tokens']:>12}  {ws['total_output_tokens']:>12}")
+
 
 def _build_summary(results, decision) -> dict:
     """Produce the ab_results.json payload consumed by CI and the Streamlit UI."""
-    # Collect Langfuse trace URLs for regressed tasks (stored in langsmith_run_id)
     regression_traces = {
         r.task_id: r.with_skill.langsmith_run_id
         for r in results
         if r.regression and r.with_skill.langsmith_run_id
     }
+    no_skill_results   = [r.no_skill  for r in results]
+    with_skill_results = [r.with_skill for r in results]
     return {
         "skill_name": results[0].skill_name if results else "",
         "weighted_delta": decision.weighted_delta,
@@ -134,7 +151,11 @@ def _build_summary(results, decision) -> dict:
         "verdict": decision.verdict,
         "tier": decision.tier,
         "flagged_tasks": decision.flagged_tasks,
-        "regression_traces": regression_traces,   # task_id → langfuse URL
+        "regression_traces": regression_traces,
+        "cost": {
+            "no_skill":  cost_summary(no_skill_results),
+            "with_skill": cost_summary(with_skill_results),
+        },
         "tasks": [dataclasses.asdict(r) for r in results],
     }
 

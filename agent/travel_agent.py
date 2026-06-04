@@ -17,10 +17,12 @@ MOCK_MCP_URL = os.environ.get("MOCK_MCP_URL", "http://localhost:8000")
 class AgentState(TypedDict):
     messages: Annotated[list, operator.add]
     tools_called: list
-    step_timings: list   # NEW
+    step_timings: list
     response: str
     steps: int
     tokens_used: int
+    input_tokens: int
+    output_tokens: int
 
 
 def make_mcp_tools(base_url: str):
@@ -116,13 +118,16 @@ def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = 
         response = llm.invoke(msgs)
         steps = state.get("steps", 0) + 1
         usage = getattr(response, "usage_metadata", None) or {}
-        tokens = state.get("tokens_used", 0) + usage.get("total_tokens", 0)
+        in_tok  = usage.get("input_tokens",  0)
+        out_tok = usage.get("output_tokens", 0)
         return {
             "messages": [response],
             "tools_called": state.get("tools_called", []),
             "step_timings": state.get("step_timings", []),
             "steps": steps,
-            "tokens_used": tokens,
+            "tokens_used":  state.get("tokens_used",  0) + in_tok + out_tok,
+            "input_tokens": state.get("input_tokens",  0) + in_tok,
+            "output_tokens": state.get("output_tokens", 0) + out_tok,
         }
 
     def tool_node(state: AgentState) -> dict:
