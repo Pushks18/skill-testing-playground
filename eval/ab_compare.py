@@ -89,26 +89,58 @@ def print_report(results, decision):
     print(f"GATE VERDICT:  {labels[decision.verdict]} (Tier {decision.tier})")
 
 
+def _build_summary(results, decision) -> dict:
+    """Produce the ab_results.json payload consumed by CI and the Streamlit UI."""
+    return {
+        "skill_name": results[0].skill_name if results else "",
+        "weighted_delta": decision.weighted_delta,
+        "regression_rate": decision.regression_rate,
+        "verdict": decision.verdict,
+        "tier": decision.tier,
+        "flagged_tasks": decision.flagged_tasks,
+        "tasks": [dataclasses.asdict(r) for r in results],
+    }
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--skill", required=True, help="e.g. concrete/flight-search")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument(
+        "--skill",
+        help="Skill sub-path inside skills/ (e.g. concrete/flight-search)",
+    )
+    group.add_argument(
+        "--skill-path",
+        dest="skill_path",
+        help="Absolute or relative path to a skill directory containing SKILL.md",
+    )
     parser.add_argument("--trials", type=int, default=N_TRIALS)
-    parser.add_argument("--output", default="ab_results.json")
+    parser.add_argument(
+        "--output",
+        default=None,
+        help="JSON output path. Defaults to ab_results.json at project root.",
+    )
     args = parser.parse_args()
 
-    skill_path = pathlib.Path("skills") / args.skill
+    if args.skill_path:
+        skill_path = pathlib.Path(args.skill_path).resolve()
+    else:
+        skill_path = pathlib.Path("skills") / args.skill
     skill_name = skill_path.name
 
     results = asyncio.run(run_ab_compare(skill_name, skill_path, args.trials))
     decision = gate_check(results)
     print_report(results, decision)
 
-    serialized = []
-    for r in results:
-        d = dataclasses.asdict(r)
-        serialized.append(d)
-    pathlib.Path(args.output).write_text(json.dumps(serialized, indent=2))
-    print(f"\nResults written to {args.output}")
+    output = args.output or "ab_results.json"
+    summary = _build_summary(results, decision)
+    pathlib.Path(output).write_text(json.dumps(summary, indent=2))
+    print(f"\nResults written to {output}")
+
+    # Also write per-skill archive
+    archive = f"results/{skill_name}_ab_results.json"
+    pathlib.Path(archive).parent.mkdir(exist_ok=True)
+    pathlib.Path(archive).write_text(json.dumps(summary, indent=2))
 
     if decision.tier in (1, 2):
         sys.exit(1)

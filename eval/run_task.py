@@ -21,6 +21,7 @@ from opentelemetry.sdk.trace import TracerProvider
 
 from agent.travel_agent import build_travel_agent
 from eval.schemas import EvalResult
+from eval.skill_loader import load_skill as _load_skill_structured
 from eval.verifiers.tool_call import ToolCallVerifier
 from eval.verifiers.llm_judge import LLMJudgeVerifier
 from eval.trajectory import (
@@ -49,10 +50,8 @@ def load_task(task_path: pathlib.Path) -> dict:
 def load_skill(skill_path) -> str | None:
     if skill_path is None:
         return None
-    skill_file = pathlib.Path(skill_path) / "SKILL.md"
-    if skill_file.exists():
-        return skill_file.read_text()
-    return None
+    skill = _load_skill_structured(pathlib.Path(skill_path))
+    return skill.body if skill else None
 
 
 @langsmith.traceable(name="skill_eval")
