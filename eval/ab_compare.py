@@ -22,19 +22,49 @@ from eval.gate_check import gate_check, TASK_WEIGHTS
 N_TRIALS = int(os.environ.get("EVAL_TRIALS", "5"))
 
 
-def load_tasks_for_skill(skill_name: str):
+def load_tasks_for_skill(skill_name: str, skill_path: pathlib.Path | None = None):
+    """Find tasks for a skill — exact match first, semantic fallback second."""
     import re
     tasks_dir = pathlib.Path("tasks")
-    matched = []
+    exact = []
+    unmatched = []
+
     for task_dir in sorted(tasks_dir.iterdir()):
         toml_path = task_dir / "task.toml"
         if not toml_path.exists():
             continue
         content = toml_path.read_text()
         m = re.search(r'^skill\s*=\s*"([^"]+)"', content, re.MULTILINE)
-        if m and m.group(1) == skill_name:
-            matched.append(task_dir)
-    return matched
+        if m:
+            if m.group(1) == skill_name:
+                exact.append(task_dir)
+        else:
+            unmatched.append(task_dir)
+
+    if exact:
+        return exact
+
+    # Semantic fallback — only runs when no exact match found AND skill path known
+    if skill_path is None or not unmatched:
+        return []
+
+    try:
+        from eval.skill_router import SkillRouter
+        # Build router from just this one skill so we only need its description
+        router = SkillRouter.from_skill_paths([skill_path])
+        semantic = []
+        for task_dir in unmatched:
+            instr = (task_dir / "instruction.md")
+            if not instr.exists():
+                continue
+            match = router.route(instr.read_text().strip(), threshold=0.35)
+            if match and match.skill_name == skill_name:
+                semantic.append(task_dir)
+                print(f"  [semantic] matched {task_dir.name} → {skill_name} (score={match.score:.2f})")
+        return semantic
+    except Exception as e:
+        print(f"  [semantic] router unavailable: {e}")
+        return []
 
 
 async def run_ab_for_task(task_path, skill_path, n_trials: int) -> ABResult:
@@ -66,7 +96,7 @@ async def run_ab_for_task(task_path, skill_path, n_trials: int) -> ABResult:
 
 
 async def run_ab_compare(skill_name: str, skill_path, n_trials: int):
-    tasks = load_tasks_for_skill(skill_name)
+    tasks = load_tasks_for_skill(skill_name, pathlib.Path(skill_path))
     if not tasks:
         print(f"No tasks found for skill '{skill_name}'")
         return []
@@ -91,6 +121,12 @@ def print_report(results, decision):
 
 def _build_summary(results, decision) -> dict:
     """Produce the ab_results.json payload consumed by CI and the Streamlit UI."""
+    # Collect Langfuse trace URLs for regressed tasks (stored in langsmith_run_id)
+    regression_traces = {
+        r.task_id: r.with_skill.langsmith_run_id
+        for r in results
+        if r.regression and r.with_skill.langsmith_run_id
+    }
     return {
         "skill_name": results[0].skill_name if results else "",
         "weighted_delta": decision.weighted_delta,
@@ -98,6 +134,7 @@ def _build_summary(results, decision) -> dict:
         "verdict": decision.verdict,
         "tier": decision.tier,
         "flagged_tasks": decision.flagged_tasks,
+        "regression_traces": regression_traces,   # task_id → langfuse URL
         "tasks": [dataclasses.asdict(r) for r in results],
     }
 

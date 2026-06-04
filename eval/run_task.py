@@ -15,10 +15,6 @@ if sys.version_info >= (3, 11):
 else:
     import tomli as tomllib
 
-import langsmith
-from openinference.instrumentation.langchain import LangChainInstrumentor
-from opentelemetry.sdk.trace import TracerProvider
-
 from agent.travel_agent import build_travel_agent
 from eval.schemas import EvalResult
 from eval.skill_loader import load_skill as _load_skill_structured
@@ -28,17 +24,59 @@ from eval.trajectory import (
     TrajectoryRun, TrajectoryStep, save_run, classify_failure,
 )
 
-try:
-    LangChainInstrumentor().instrument(tracer_provider=TracerProvider())
-except Exception:
-    pass  # Instrumentation is best-effort; tracing via LangSmith still works
+# ---------------------------------------------------------------------------
+# Langfuse — optional; eval runs proceed even if keys are absent
+# ---------------------------------------------------------------------------
+_LANGFUSE_ENABLED = bool(
+    os.environ.get("LANGFUSE_PUBLIC_KEY") and os.environ.get("LANGFUSE_SECRET_KEY")
+)
 
+def _make_langfuse_handler(skill_name: str, condition: str, task_id: str, run_id: str):
+    if not _LANGFUSE_ENABLED:
+        return None
+    try:
+        from langfuse.callback import CallbackHandler
+        return CallbackHandler(
+            public_key=os.environ["LANGFUSE_PUBLIC_KEY"],
+            secret_key=os.environ["LANGFUSE_SECRET_KEY"],
+            host=os.environ.get("LANGFUSE_HOST", "https://cloud.langfuse.com"),
+            tags=[f"skill:{skill_name}", f"condition:{condition}", f"task:{task_id}"],
+            session_id=f"{task_id}__{run_id}",
+        )
+    except Exception:
+        return None
+
+
+def _push_score(handler, score: float, reason: str) -> None:
+    if handler is None:
+        return
+    try:
+        handler.langfuse.score(
+            trace_id=handler.get_trace_id(),
+            name="verifier_score",
+            value=score,
+            comment=reason,
+        )
+    except Exception:
+        pass
+
+
+def _trace_url(handler) -> str | None:
+    if handler is None:
+        return None
+    try:
+        return handler.get_trace_url()
+    except Exception:
+        return None
+
+
+# ---------------------------------------------------------------------------
+# Task / skill loaders
+# ---------------------------------------------------------------------------
 
 def load_task(task_path: pathlib.Path) -> dict:
-    import re, json as _json
+    import re
     raw = (task_path / "task.toml").read_text()
-    # Fix JSON-style inline tables ({"key": val}) → valid TOML ({"key" = val})
-    # tomli requires = in inline tables, not :
     def fix_inline(m):
         return m.group(0).replace(": ", " = ").replace(":", " = ")
     raw = re.sub(r'\{[^}]+\}', fix_inline, raw)
@@ -54,7 +92,10 @@ def load_skill(skill_path) -> str | None:
     return skill.body if skill else None
 
 
-@langsmith.traceable(name="skill_eval")
+# ---------------------------------------------------------------------------
+# Main eval runner
+# ---------------------------------------------------------------------------
+
 def run_task(
     task_path: str,
     skill_path=None,
@@ -64,23 +105,36 @@ def run_task(
     task_dir = pathlib.Path(task_path)
     task = load_task(task_dir)
     skill_content = load_skill(skill_path)
+    skill_name = pathlib.Path(skill_path).name if skill_path else "no_skill"
+    expected = task.get("expected", {})
+    run_id = str(uuid.uuid4())
+
+    langfuse_handler = _make_langfuse_handler(
+        skill_name=skill_name,
+        condition=condition,
+        task_id=task["id"],
+        run_id=run_id,
+    )
+    callbacks = [langfuse_handler] if langfuse_handler else []
 
     agent = build_travel_agent(skill_content=skill_content, mock_mcp_url=mock_mcp_url)
 
     start = time.time()
-    result = agent.invoke({
-        "messages": [{"role": "user", "content": task["instruction"]}],
-        "tools_called": [],
-        "step_timings": [],
-        "response": "",
-        "steps": 0,
-        "tokens_used": 0,
-    })
+    result = agent.invoke(
+        {
+            "messages": [{"role": "user", "content": task["instruction"]}],
+            "tools_called": [],
+            "step_timings": [],
+            "response": "",
+            "steps": 0,
+            "tokens_used": 0,
+        },
+        config={"callbacks": callbacks} if callbacks else {},
+    )
     latency_ms = int((time.time() - start) * 1000)
 
+    # --- Verify ----------------------------------------------------------
     verifier_type = task.get("verifier", "tool_call_check")
-    expected = task.get("expected", {})
-
     if verifier_type == "tool_call_check":
         verifier = ToolCallVerifier(
             required_tools=expected.get("tools", []),
@@ -98,37 +152,37 @@ def run_task(
     }
     vresult = verifier.verify(agent_output)
 
+    # Push eval score to Langfuse trace
+    _push_score(langfuse_handler, vresult.score, vresult.reason)
+    trace_url = _trace_url(langfuse_handler)
+
     eval_result = EvalResult(
         task_id=task["id"],
         domain=task["domain"],
-        skill_name=task.get("skill") if skill_path else None,
+        skill_name=skill_name if skill_path else None,
         skill_version=None,
         score=vresult.score,
         steps=result.get("steps", 0),
         tools_called=[t["name"] for t in result.get("tools_called", [])],
         tool_params={t["name"]: t.get("params", {}) for t in result.get("tools_called", [])},
-        langsmith_run_id="",
+        langsmith_run_id=trace_url or "",
         passed_verifier=vresult.passed,
         judge_reasoning=vresult.reason,
         latency_ms=latency_ms,
         tokens_used=result.get("tokens_used", 0),
     )
 
-    # Save trajectory (best-effort: never fail an eval run because of observability)
+    # --- SQLite trajectory (lightweight local supplement) ----------------
     try:
-        run_id = str(uuid.uuid4())
         tools_called_raw = result.get("tools_called", [])
-        failure_mode = None
-        if not vresult.passed:
-            failure_mode = classify_failure(
-                tools_called=tools_called_raw,
-                required_tools=expected.get("tools", []),
-                required_params=expected.get("required_params", {}),
-            )
+        failure_mode = classify_failure(
+            tools_called=tools_called_raw,
+            required_tools=expected.get("tools", []),
+            required_params=expected.get("required_params", {}),
+        ) if not vresult.passed else None
 
-        steps_data = []
-        for i, timing in enumerate(result.get("step_timings", [])):
-            steps_data.append(TrajectoryStep(
+        steps_data = [
+            TrajectoryStep(
                 run_id=run_id, task_id=task["id"],
                 skill_name=eval_result.skill_name,
                 condition=condition, step_num=i, node="tools",
@@ -137,14 +191,15 @@ def run_task(
                 tool_result=None,
                 latency_ms=timing.get("latency_ms", 0),
                 tokens=timing.get("tokens", 0),
-            ))
-
+            )
+            for i, timing in enumerate(result.get("step_timings", []))
+        ]
         save_run(TrajectoryRun(
             run_id=run_id, task_id=task["id"],
             skill_name=eval_result.skill_name,
             condition=condition, score=vresult.score,
             passed=vresult.passed, failure_mode=failure_mode,
-            steps=steps_data, langsmith_url=None,
+            steps=steps_data, langsmith_url=trace_url,
         ))
     except Exception:
         pass
