@@ -102,7 +102,7 @@ class SkillMeta:
 
 @dataclass
 class TrajectoryFeatures:
-    """Deterministic features extracted from one with_skill run (vs its no_skill pair)."""
+    """Deterministic features extracted from one eval run, compared against its A/B counterpart (typically the with_skill side vs no_skill)."""
     task_id: str
     domain: str
     task_weight: float
