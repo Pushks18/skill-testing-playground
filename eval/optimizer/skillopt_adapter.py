@@ -290,6 +290,9 @@ class TravelEnvAdapter(EnvAdapter):
         out_path = pathlib.Path(out_dir)
         ctx = materialize_candidate(self.spec, skill_content, out_path)
 
+        # Must exist before the loop so conversation files can be written during it.
+        out_path.mkdir(parents=True, exist_ok=True)
+
         previous = os.environ.get("HARNESS_CONFIG_PATH")
         results: list[dict] = []
         try:
@@ -306,13 +309,32 @@ class TravelEnvAdapter(EnvAdapter):
                     "task_type": self.spec.domain,
                     "question": item.get("question", ""),
                 })
+                # Trajectory record for the reflect/analyst stage — skillopt's
+                # fmt_minibatch_trajectories skips items lacking this file.
+                conversation: list[dict] = [
+                    {"content": f"User request: {item.get('question', '')}"},
+                ]
+                if r.tools_called:
+                    for tool_name in r.tools_called:
+                        params = r.tool_params.get(tool_name, {})
+                        conversation.append({
+                            "type": "tool_call",
+                            "cmd": f"{tool_name}({json.dumps(params)})",
+                            "obs": "(tool result not recorded)",
+                        })
+                else:
+                    conversation.append({"content": "Agent called NO tools — responded with text only."})
+                verdict = "PASSED" if r.passed_verifier else "FAILED"
+                conversation.append({"content": f"Verifier: {verdict} — {r.judge_reasoning or ''} (score={r.score})"})
+                pred_dir = out_path / "predictions" / item["id"]
+                pred_dir.mkdir(parents=True, exist_ok=True)
+                (pred_dir / "conversation.json").write_text(json.dumps(conversation, indent=2))
         finally:
             if previous is None:
                 os.environ.pop("HARNESS_CONFIG_PATH", None)
             else:
                 os.environ["HARNESS_CONFIG_PATH"] = previous
 
-        out_path.mkdir(parents=True, exist_ok=True)
         (out_path / "rollout_results.json").write_text(json.dumps(results, indent=2))
         return results
 

@@ -367,6 +367,8 @@ class _FakeEvalResult:
         self.score = score
         self.passed_verifier = passed
         self.judge_reasoning = reason
+        self.tools_called = []
+        self.tool_params = {}
 
 
 def _make_adapter(tmp_path, skill_dir, harness_path, kind="harness", key="base_system_prompt"):
@@ -504,3 +506,26 @@ def test_adapter_setup_uses_stratified_split(tmp_path, skill_dir, harness_path):
     assert "ancillery-006" in val_ids
     assert not (test_ids & {"ancillery-002", "ancillery-006"})
     assert len(train_ids) == 5 and len(val_ids) == 3 and len(test_ids) == 2
+
+
+def test_rollout_writes_conversation_files(tmp_path, skill_dir, harness_path, monkeypatch):
+    """Reflect requires predictions/<id>/conversation.json — rollout must write them."""
+    adapter = _make_adapter(tmp_path, skill_dir, harness_path)
+
+    def fake_run_task(task_path, skill_path, condition, mock_mcp_url):
+        r = _FakeEvalResult(score=0.0, passed=False, reason="Missing required tools: ['add_ancillary']")
+        r.tools_called = []
+        r.tool_params = {}
+        return r
+
+    import eval.optimizer.skillopt_adapter as mod
+    monkeypatch.setattr(mod, "run_task", fake_run_task)
+    items = [{"id": "ancillery-000", "question": "Add a window seat", "task_type": "ancillery",
+              "task_path": str(tmp_path / "tasks" / "ancillery-000")}]
+    adapter.rollout(items, "PROMPT", str(tmp_path / "roll"))
+    conv_path = tmp_path / "roll" / "predictions" / "ancillery-000" / "conversation.json"
+    assert conv_path.exists()
+    conv = _json.loads(conv_path.read_text())
+    assert any("Add a window seat" in str(c.get("content", "")) for c in conv)
+    assert any("NO tools" in str(c.get("content", "")) for c in conv)
+    assert any("FAILED" in str(c.get("content", "")) for c in conv)
