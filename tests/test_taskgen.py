@@ -16,7 +16,8 @@ tools = ["search_flights", "modify_booking"]
 '''
 
 
-def _draft(tmp_path, task_id="disruption-101", toml=GOOD_TOML, instruction="My flight was cancelled, rebook me."):
+def _draft(tmp_path, task_id="disruption-101", toml=GOOD_TOML,
+           instruction="My flight was cancelled, rebook me. Booking ref BK3X9Z2A."):
     d = tmp_path / task_id
     d.mkdir(parents=True)
     if toml is not None:
@@ -206,3 +207,21 @@ def test_validate_accepts_real_param_names(tmp_path):
         'tools = ["search_flights", "modify_booking"]',
         'tools = ["search_flights", "modify_booking"]\nrequired_params = { modify_booking = ["booking_id"] }')
     assert validate_draft(_draft(tmp_path, toml=good)) == []
+
+
+def test_validate_rejects_mutation_tools_without_booking_ref(tmp_path):
+    """Actionability gate: demanding modify/cancel/etc. without a booking ref
+    in the instruction makes the task unsatisfiable in a single-turn eval."""
+    toml = GOOD_TOML.replace('tools = ["search_flights", "modify_booking"]',
+                             'tools = ["modify_booking"]')
+    d = _draft(tmp_path, toml=toml, instruction="My flight was cancelled, rebook me.")
+    errors = validate_draft(d)
+    assert any("booking reference" in e for e in errors)
+
+
+def test_validate_accepts_mutation_tools_with_booking_ref(tmp_path):
+    toml = GOOD_TOML.replace('tools = ["search_flights", "modify_booking"]',
+                             'tools = ["modify_booking"]')
+    d = _draft(tmp_path, toml=toml,
+               instruction="My flight was cancelled, rebook me. Booking ref BK7Q2R8T.")
+    assert validate_draft(d) == []

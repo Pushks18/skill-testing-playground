@@ -1,1 +1,1 @@
-My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?
+My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight? My booking reference is BK7Q2R8T.

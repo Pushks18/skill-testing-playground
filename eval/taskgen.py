@@ -57,6 +57,14 @@ TOOL_PARAMS: dict[str, frozenset[str]] = {
 }
 VALID_VERIFIERS = frozenset({"tool_call_check", "llm_judge"})
 
+# Tools that act on an existing booking — a task demanding these must provide
+# a booking reference in its instruction (see actionability check below).
+BOOKING_MUTATION_TOOLS = frozenset({
+    "modify_booking", "cancel_booking", "get_itinerary", "add_ancillary",
+})
+# Booking refs look like BK7Q2R8T / GH8K4J2P: two letters + 5-8 alphanumerics
+_BOOKING_REF_RE = re.compile(r"\b[A-Z]{2}[0-9A-Z]{5,8}\b")
+
 DOMAIN_SKILL = {
     "ancillery": "ancillery-skill",
     "booking_flow": "booking-skill",
@@ -132,6 +140,16 @@ def validate_draft(draft_dir: pathlib.Path) -> list[str]:
         if bad:
             errors.append(f"{draft_dir.name}: required_params for {tool} has invalid "
                           f"param names {bad} (valid: {sorted(TOOL_PARAMS[tool])})")
+
+    # Actionability: a task may not demand booking-mutation tools unless the
+    # instruction supplies a booking reference — otherwise the agent can only
+    # satisfy the verifier by fabricating an ID (single-turn eval: it cannot ask).
+    mutation_demanded = set(expected.get("tools", [])) & BOOKING_MUTATION_TOOLS
+    if mutation_demanded and instr_path.exists():
+        if not _BOOKING_REF_RE.search(instr_path.read_text()):
+            errors.append(
+                f"{draft_dir.name}: expects {sorted(mutation_demanded)} but the "
+                "instruction provides no booking reference — unsatisfiable without fabrication")
 
     return errors
 
