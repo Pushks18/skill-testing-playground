@@ -481,6 +481,13 @@ def test_stratified_split_distributes_failures_train_and_val(tmp_path):
     assert ids == ids2
 
 
+def test_stratified_split_warns_on_stale_ids(tmp_path):
+    items = [{"id": "t00", "question": "q", "task_type": "d", "task_path": "/x"}]
+    with pytest.warns(UserWarning, match="stale"):
+        materialize_stratified_split(items, must_split_ids=["t00", "ghost-99"],
+                                     ratio=(5, 3, 2), seed=7, out_dir=tmp_path / "s")
+
+
 def test_adapter_setup_uses_stratified_split(tmp_path, skill_dir, harness_path):
     tasks = tmp_path / "tasks"
     for i in range(10):

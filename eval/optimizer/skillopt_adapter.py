@@ -15,6 +15,7 @@ import os
 import pathlib
 import random
 import re
+import warnings
 from dataclasses import dataclass
 from typing import Literal, Optional
 
@@ -92,6 +93,11 @@ def materialize_stratified_split(
     must_split_set = set(must_split_ids)
     failing = [it for it in items if it["id"] in must_split_set]
     passing = [it for it in items if it["id"] not in must_split_set]
+
+    matched = {it["id"] for it in failing}
+    stale = [tid for tid in must_split_ids if tid not in matched]
+    if stale:
+        warnings.warn(f"must_split_ids not found in items (stale?): {stale}")
 
     # Distribute failing round-robin: 1st → train, 2nd → val, 3rd → train, ...
     train_items: list[dict] = []

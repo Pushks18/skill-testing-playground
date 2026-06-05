@@ -14,7 +14,8 @@ Usage:
     python -m eval.optimizer.optimize --cluster 0 --dry-run
 """
 from __future__ import annotations
-from dotenv import load_dotenv; load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 import argparse
 import datetime
@@ -216,11 +217,9 @@ def run_cluster(cluster: dict, args) -> dict:
                                   out_dir=out_root, harness_config_path=harness_config_path,
                                   skill_path=skill_path)
         report["proposed_file"] = str(proposed)
-        print(f"[{run_tag}] IMPROVED on held-out test "
-              f"({base_score:.2f} → {best_score:.2f}) — proposal: {proposed}")
+        print(f"[{run_tag}] IMPROVED on selection split ({sel_baseline} → {sel_best}), test did not regress — proposal: {proposed}")
     else:
-        print(f"[{run_tag}] no candidate beat baseline on held-out test "
-              f"({base_score:.2f} → {best_score:.2f}) — no proposal written")
+        print(f"[{run_tag}] no proposal: selection_improved={selection_improved}, test_regressed={test_regressed} (selection {sel_baseline} → {sel_best}, test {base_score:.2f} → {best_score:.2f})")
 
     (out_root / "optimization_report.json").write_text(json.dumps(report, indent=2))
     return report
