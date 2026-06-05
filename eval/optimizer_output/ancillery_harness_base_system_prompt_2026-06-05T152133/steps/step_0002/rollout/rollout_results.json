@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ancillery-007",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I have a booking BK4C8F2A. Please arrange a private airport transfer from LAX to my hotel in Santa Monica."
+  },
+  {
+    "id": "ancillery-008",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "Booking BK6E1D9B. I need to add a compact car rental at Miami airport for 3 days."
+  },
+  {
+    "id": "ancillery-109",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "For reference BK4U8J2L, please get me first class lounge access and a massage reservation at the SPA in Hong Kong airport."
+  },
+  {
+    "id": "ancillery-003",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "Booking ref BK9C1A4B. I need to add an extra 23kg checked bag for my trip to London."
+  },
+  {
+    "id": "ancillery-106",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "ancillery",
+    "question": "For booking BK2K7M9N, could you organize a limousine service from JFK to Manhattan?"
+  }
+]

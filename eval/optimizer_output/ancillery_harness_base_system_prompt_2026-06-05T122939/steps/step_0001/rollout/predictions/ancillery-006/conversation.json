@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: Booking BK7A3B1E. Can you get me lounge access at JFK for my departure tomorrow?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['add_ancillary'] (score=0.0)"
+  }
+]

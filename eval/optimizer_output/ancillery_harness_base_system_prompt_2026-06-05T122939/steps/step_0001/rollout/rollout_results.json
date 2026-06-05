@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ancillery-008",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "Booking BK6E1D9B. I need to add a compact car rental at Miami airport for 3 days."
+  },
+  {
+    "id": "ancillery-005",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "For booking BK2F6C9D, I'd like to add basic travel insurance."
+  },
+  {
+    "id": "ancillery-009",
+    "hard": 1,
+    "soft": 0.6666666666666666,
+    "fail_reason": "avg=0.67 std=0.14 | The agent correctly states that extra legroom seats generally cannot be selected with basic economy tickets and that an upgrade would be needed. However, the agent implies that upgrading the fare might allow *access to seat selection features in general*, which is not entirely accurate. While an upgrade would certainly give the ability to select an extra legroom seat (if available and paid for), even standard economy tickets usually allow for seat selection, albeit at a cost in some cases. The core question was about *extra legroom*, and the agent accurately addressed that. The offer of assistance for upgrades is a good follow-up. The response is mostly good with a minor nuance missing regarding general seat selection vs. extra legroom seat selection.",
+    "task_type": "ancillery",
+    "question": "My booking is BKA2C7F3. I have a basic economy ticket \u2014 can I select an extra legroom seat or do I need to upgrade my fare?"
+  },
+  {
+    "id": "ancillery-002",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "My booking is BKD3E7F2. I need a vegetarian meal for my flight."
+  },
+  {
+    "id": "ancillery-006",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "ancillery",
+    "question": "Booking BK7A3B1E. Can you get me lounge access at JFK for my departure tomorrow?"
+  }
+]

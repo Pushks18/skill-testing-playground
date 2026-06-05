@@ -1,0 +1,13 @@
+{
+  "patch": {
+    "reasoning": "The agent failed to use the required 'add_ancillary' tool when a user requested an additional service related to an existing booking. By specifying that all additional services beyond what's explicitly mentioned should use 'add_ancillary', we can ensure the tool is used correctly and necessary parameters are included.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+        "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

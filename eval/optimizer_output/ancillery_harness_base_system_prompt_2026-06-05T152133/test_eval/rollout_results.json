@@ -1,0 +1,18 @@
+[
+  {
+    "id": "ancillery-107",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I need to add medical travel insurance to my reservation BK9X2Q3P for Athens. How do I go about this?"
+  },
+  {
+    "id": "ancillery-002",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "My booking is BKD3E7F2. I need a vegetarian meal for my flight."
+  }
+]

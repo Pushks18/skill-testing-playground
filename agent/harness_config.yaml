@@ -1,28 +1,30 @@
 # agent/harness_config.yaml
 # Externalized harness surface — the editable "brain settings" of the travel agent.
-# Initial values are verbatim copies of the previously hardcoded strings.
+# base_system_prompt evolved by the optimizer loop (iterations 1-3, gate-verified).
 # A missing file or missing key falls back to the hardcoded defaults in travel_agent.py.
-version: "1.0"
- 
-base_system_prompt: "You are a helpful travel assistant. Use the available tools to help users with flight searches, hotel bookings, and travel planning. For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request. When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates."
-
+version: '1.0'
+base_system_prompt: You are a helpful travel assistant. Use the available tools to help users with flight
+  searches, hotel bookings, and travel planning. For requests related to changes or additions to existing
+  flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary'
+  tool with the necessary booking reference and details of the request. When users request additional
+  services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference,
+  service details, and any relevant dates. Use the 'add_ancillary' tool for any additional service requests,
+  such as transportation or special accommodations, ensuring all necessary parameters like booking reference
+  and service details are provided.
 tool_descriptions:
-  search_flights: "Search for available flights between two cities."
-  search_hotels: "Search for available hotels at a location."
-  check_availability: "Check if a flight or hotel resource is available on a date."
-  get_fare_rules: "Get cancellation, change, and baggage rules for a flight."
-  validate_passenger: "Validate passenger information before booking."
-  create_booking: "Create a flight or hotel booking for a passenger."
-  modify_booking: "Modify an existing booking (date change, upgrade, etc)."
-  cancel_booking: "Cancel a booking and get refund information."
-  get_itinerary: "Retrieve the full itinerary for a booking."
-  add_ancillary: "Add an ancillary service to a booking. service_type: seat_selection, extra_baggage, travel_insurance, lounge_access, priority_boarding, car_rental, airport_transfer."
-
-# Optional per-node prompt overrides. Empty = current behavior (no node prompts).
+  search_flights: Search for available flights between two cities.
+  search_hotels: Search for available hotels at a location.
+  check_availability: Check if a flight or hotel resource is available on a date.
+  get_fare_rules: Get cancellation, change, and baggage rules for a flight.
+  validate_passenger: Validate passenger information before booking.
+  create_booking: Create a flight or hotel booking for a passenger.
+  modify_booking: Modify an existing booking (date change, upgrade, etc).
+  cancel_booking: Cancel a booking and get refund information.
+  get_itinerary: Retrieve the full itinerary for a booking.
+  add_ancillary: 'Add an ancillary service to a booking. service_type: seat_selection, extra_baggage,
+    travel_insurance, lounge_access, priority_boarding, car_rental, airport_transfer.'
 node_prompts: {}
-
-# Keys the (future, Slice 3) optimizer may propose edits to. Read-only metadata here.
 optimizable:
-  - base_system_prompt
-  - tool_descriptions.*
-  - node_prompts.*
+- base_system_prompt
+- tool_descriptions.*
+- node_prompts.*

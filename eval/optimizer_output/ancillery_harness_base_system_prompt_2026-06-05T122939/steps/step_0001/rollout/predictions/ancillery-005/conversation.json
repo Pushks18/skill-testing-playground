@@ -1,0 +1,18 @@
+[
+  {
+    "content": "User request: For booking BK2F6C9D, I'd like to add basic travel insurance."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK2F6C9D\", \"service_type\": \"travel_insurance\", \"details\": {\"coverage_level\": \"Basic\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BK2F6C9D\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

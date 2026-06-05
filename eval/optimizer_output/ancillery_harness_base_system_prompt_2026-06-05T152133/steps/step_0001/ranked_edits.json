@@ -1,0 +1,12 @@
+{
+  "reasoning": "The failure indicates a pattern where the agent omits the 'add_ancillary' tool call when it's necessary for adding services to an existing booking. This suggests a gap in explicitly instructing the agent to use this tool for any modification requests related to bookings. Reinforcing the use of 'add_ancillary' for all such requests should address this issue.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "Always use the 'add_ancillary' tool when users request additions or changes to existing bookings, ensuring all necessary parameters like booking reference and service details are included.",
+      "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

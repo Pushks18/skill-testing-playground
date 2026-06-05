@@ -12,10 +12,13 @@ def test_load_returns_yaml_values():
     assert cfg["node_prompts"] == {}
 
 
-def test_yaml_matches_defaults_verbatim():
-    """Behavior preservation: YAML initial values == hardcoded fallbacks."""
+def test_yaml_extends_defaults():
+    """The optimizer loop evolves base_system_prompt: it must RETAIN the
+    original default text as its opening (the generic steer for all domains)
+    and may append gate-verified instructions after it. Tool descriptions
+    remain verbatim until the optimizer targets them."""
     cfg = load_harness_config()
-    assert cfg["base_system_prompt"] == HARNESS_DEFAULTS["base_system_prompt"]
+    assert cfg["base_system_prompt"].startswith(HARNESS_DEFAULTS["base_system_prompt"])
     assert cfg["tool_descriptions"] == HARNESS_DEFAULTS["tool_descriptions"]
 
 
@@ -92,5 +95,6 @@ def test_no_env_var_uses_default(monkeypatch):
     from agent.travel_agent import load_harness_config, HARNESS_DEFAULTS
     monkeypatch.delenv("HARNESS_CONFIG_PATH", raising=False)
     cfg = load_harness_config()
-    # default file on disk == defaults (verbatim externalization)
-    assert cfg["base_system_prompt"] == HARNESS_DEFAULTS["base_system_prompt"]
+    # default file on disk retains the default prompt as its opening
+    # (the optimizer appends to it, never replaces it)
+    assert cfg["base_system_prompt"].startswith(HARNESS_DEFAULTS["base_system_prompt"])

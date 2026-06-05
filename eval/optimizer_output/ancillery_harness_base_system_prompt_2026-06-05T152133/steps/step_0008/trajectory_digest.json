@@ -1,0 +1,36 @@
+{
+  "step": 8,
+  "action": "reject",
+  "n_total": 5,
+  "n_fail": 2,
+  "failure_patterns": [
+    {
+      "pattern": "avg=0.00 std=0.00 | The agent completely fails to address the Pass Criteria. Instead of explaining if seat changes are possible or if an upgrade might be required, the agent asks for more information that was not requested, and states they don't have the information to answer a very basic question.",
+      "count": 1,
+      "task_ids": [
+        "ancillery-110"
+      ]
+    },
+    {
+      "pattern": "Missing required tools",
+      "count": 1,
+      "task_ids": [
+        "ancillery-102"
+      ]
+    }
+  ],
+  "score_before": 1.0,
+  "score_after": 1.0,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "For seat change requests or modifications to existing seat bookings, use the 'add_ancillary' tool with all necessary parameters such as booking reference and specific seat details.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided."
+    },
+    {
+      "op": "insert_after",
+      "content": "Always use the 'add_ancillary' tool for any baggage-related modifications to a booking, providing the booking reference and details of the baggage request.",
+      "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates."
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ancillery-109",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "For reference BK4U8J2L, please get me first class lounge access and a massage reservation at the SPA in Hong Kong airport."
+  },
+  {
+    "id": "ancillery-004",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I have booking BK5D8E3A. Add priority boarding for me and my partner."
+  },
+  {
+    "id": "ancillery-001",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I just booked flight BK8F2A1C. Please add a window seat selection for me."
+  },
+  {
+    "id": "ancillery-003",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "Booking ref BK9C1A4B. I need to add an extra 23kg checked bag for my trip to London."
+  },
+  {
+    "id": "ancillery-106",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "For booking BK2K7M9N, could you organize a limousine service from JFK to Manhattan?"
+  }
+]

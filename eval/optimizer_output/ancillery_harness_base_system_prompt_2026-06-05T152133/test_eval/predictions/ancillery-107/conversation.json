@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: I need to add medical travel insurance to my reservation BK9X2Q3P for Athens. How do I go about this?"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK9X2Q3P\", \"service_type\": \"travel_insurance\", \"details\": {\"coverage_level\": \"medical\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

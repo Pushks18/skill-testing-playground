@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ancillery-107",
+    "question": "I need to add medical travel insurance to my reservation BK9X2Q3P for Athens. How do I go about this?",
+    "task_type": "ancillery",
+    "task_path": "tasks/ancillery-107"
+  },
+  {
+    "id": "ancillery-002",
+    "question": "My booking is BKD3E7F2. I need a vegetarian meal for my flight.",
+    "task_type": "ancillery",
+    "task_path": "tasks/ancillery-002"
+  },
+  {
+    "id": "ancillery-103",
+    "question": "For booking BK3X9Z2A, can you ensure I have access to the VIP lounge at Heathrow on April 15th?",
+    "task_type": "ancillery",
+    "task_path": "tasks/ancillery-103"
+  },
+  {
+    "id": "ancillery-005",
+    "question": "For booking BK2F6C9D, I'd like to add basic travel insurance.",
+    "task_type": "ancillery",
+    "task_path": "tasks/ancillery-005"
+  }
+]

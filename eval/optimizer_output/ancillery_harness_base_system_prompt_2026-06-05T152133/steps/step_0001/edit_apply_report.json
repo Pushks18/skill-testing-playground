@@ -1,0 +1,9 @@
+[
+  {
+    "op": "insert_after",
+    "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates.",
+    "content_preview": "Always use the 'add_ancillary' tool when users request additions or changes to existing bookings, ensuring all necessary parameters like booking reference and service details are included.",
+    "status": "applied_insert_after",
+    "index": 1
+  }
+]

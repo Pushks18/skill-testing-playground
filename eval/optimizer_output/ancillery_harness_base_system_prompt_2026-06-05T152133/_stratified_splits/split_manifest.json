@@ -1,0 +1,40 @@
+{
+  "train": [
+    "ancillery-106",
+    "ancillery-102",
+    "ancillery-003",
+    "ancillery-110",
+    "ancillery-109",
+    "ancillery-008",
+    "ancillery-007",
+    "ancillery-108",
+    "ancillery-004",
+    "ancillery-001"
+  ],
+  "val": [
+    "ancillery-106",
+    "ancillery-010",
+    "ancillery-006",
+    "ancillery-105",
+    "ancillery-009",
+    "ancillery-104"
+  ],
+  "test": [
+    "ancillery-107",
+    "ancillery-002",
+    "ancillery-103",
+    "ancillery-005"
+  ],
+  "must_split_ids": [
+    "ancillery-106"
+  ],
+  "seed": 7,
+  "ratio": [
+    5,
+    3,
+    2
+  ],
+  "duplicated_ids": [
+    "ancillery-106"
+  ]
+}

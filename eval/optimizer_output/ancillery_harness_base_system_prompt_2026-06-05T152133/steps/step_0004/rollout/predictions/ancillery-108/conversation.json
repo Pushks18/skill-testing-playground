@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: I've booked a trip with ref BK1H5T7G, and I'd like to hire a sedan at Fort Worth airport for 5 days."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK1H5T7G\", \"service_type\": \"car_rental\", \"details\": {\"car_class\": \"sedan\", \"location\": \"Fort Worth airport\", \"duration\": \"5 days\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

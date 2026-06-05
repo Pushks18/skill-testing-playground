@@ -1,0 +1,18 @@
+[
+  {
+    "content": "User request: For reference BK4U8J2L, please get me first class lounge access and a massage reservation at the SPA in Hong Kong airport."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK4U8J2L\", \"service_type\": \"airport_transfer\", \"details\": {\"location\": \"Hong Kong Airport\", \"service\": \"Massage Reservation at SPA\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK4U8J2L\", \"service_type\": \"airport_transfer\", \"details\": {\"location\": \"Hong Kong Airport\", \"service\": \"Massage Reservation at SPA\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

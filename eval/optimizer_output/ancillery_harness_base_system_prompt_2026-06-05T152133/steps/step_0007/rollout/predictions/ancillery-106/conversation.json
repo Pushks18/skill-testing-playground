@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: For booking BK2K7M9N, could you organize a limousine service from JFK to Manhattan?"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK2K7M9N\", \"service_type\": \"airport_transfer\", \"details\": {\"service\": \"Limousine\", \"pickup_location\": \"JFK\", \"dropoff_location\": \"Manhattan\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

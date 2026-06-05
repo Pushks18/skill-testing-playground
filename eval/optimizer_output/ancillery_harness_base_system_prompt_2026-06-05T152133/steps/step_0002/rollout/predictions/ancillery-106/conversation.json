@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: For booking BK2K7M9N, could you organize a limousine service from JFK to Manhattan?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['add_ancillary'] (score=0.0)"
+  }
+]

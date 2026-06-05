@@ -1,0 +1,16 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "For seat change requests or modifications to existing seat bookings, use the 'add_ancillary' tool with all necessary parameters such as booking reference and specific seat details.",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "insert_after",
+    "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates.",
+    "content_preview": "Always use the 'add_ancillary' tool for any baggage-related modifications to a booking, providing the booking reference and details of the baggage request.",
+    "status": "applied_insert_after",
+    "index": 2
+  }
+]

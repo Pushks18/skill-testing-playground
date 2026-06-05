@@ -1,0 +1,9 @@
+[
+  {
+    "op": "replace",
+    "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking refe",
+    "content_preview": "For all requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage, lounge access), always call the 'add_ancillary' tool with the nec",
+    "status": "applied_replace",
+    "index": 1
+  }
+]

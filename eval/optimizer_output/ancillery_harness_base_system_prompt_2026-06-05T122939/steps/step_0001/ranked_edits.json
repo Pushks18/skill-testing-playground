@@ -1,0 +1,12 @@
+{
+  "reasoning": "The failure pattern indicates that the agent did not call the 'add_ancillary' tool when requested to add ancillary services. The current document does not explicitly instruct the agent to use this tool for all related requests. Adding a more specific instruction should help address this issue.",
+  "edits": [
+    {
+      "op": "replace",
+      "content": "For all requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage, lounge access), always call the 'add_ancillary' tool with the necessary booking reference and details of the request.",
+      "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

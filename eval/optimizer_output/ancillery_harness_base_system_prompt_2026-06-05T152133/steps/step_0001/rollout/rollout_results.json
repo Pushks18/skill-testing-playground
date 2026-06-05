@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ancillery-110",
+    "hard": 1,
+    "soft": 0.5833333333333334,
+    "fail_reason": "avg=0.58 std=0.14 | The agent explains that seat changes depend on airline policies and fare type, which addresses the possibility of changes. They also mention that they need to check for availability and potential costs for upgrading, which implies an upgrade might be required. However, the agent also states \"specific seat change options aren't visible at this moment\" and then asks if the user wants them \"to check the available window seat options.\" This indicates a slight inconsistency or a need for the agent to proactively investigate without the user having to re-confirm they want the change. A more direct response would be to state they are checking the options and will get back to the user with the details about feasibility and cost.",
+    "task_type": "ancillery",
+    "question": "Can you tell me if I can switch my aisle seat to a window one for my trip on booking BK7A3F8P?"
+  },
+  {
+    "id": "ancillery-001",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I just booked flight BK8F2A1C. Please add a window seat selection for me."
+  },
+  {
+    "id": "ancillery-004",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I have booking BK5D8E3A. Add priority boarding for me and my partner."
+  },
+  {
+    "id": "ancillery-108",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I've booked a trip with ref BK1H5T7G, and I'd like to hire a sedan at Fort Worth airport for 5 days."
+  },
+  {
+    "id": "ancillery-102",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "ancillery",
+    "question": "I'd like to request additional baggage for my booking BK6F9C4B for the trip to Sydney."
+  }
+]

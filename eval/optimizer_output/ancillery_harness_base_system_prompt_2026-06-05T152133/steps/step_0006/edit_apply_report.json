@@ -1,0 +1,16 @@
+[
+  {
+    "op": "replace",
+    "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking refe",
+    "content_preview": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage, lounge access), always call the 'add_ancillary' tool with the necessa",
+    "status": "applied_replace",
+    "index": 1
+  },
+  {
+    "op": "append",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "Ensure to call the 'add_ancillary' tool for requests involving additional baggage or changes in service, specifying all necessary information like the booking reference and service details.",
+    "status": "applied_append",
+    "index": 2
+  }
+]

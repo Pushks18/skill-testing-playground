@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: My booking is BKD3E7F2. I need a vegetarian meal for my flight."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BKD3E7F2\", \"service_type\": \"meal_selection\", \"details\": {\"meal_type\": \"vegetarian\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

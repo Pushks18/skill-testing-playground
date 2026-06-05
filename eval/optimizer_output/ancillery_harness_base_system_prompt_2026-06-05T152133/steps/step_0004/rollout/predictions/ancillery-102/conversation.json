@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: I'd like to request additional baggage for my booking BK6F9C4B for the trip to Sydney."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK6F9C4B\", \"service_type\": \"extra_baggage\", \"details\": {}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

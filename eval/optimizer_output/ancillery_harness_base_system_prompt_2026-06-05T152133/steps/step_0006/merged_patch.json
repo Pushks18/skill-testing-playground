@@ -1,0 +1,19 @@
+{
+  "reasoning": "The failure occurred because the agent did not use the 'add_ancillary' tool for a request for additional baggage. The instruction needs reinforcement to ensure agents understand when to use this tool specifically for baggage-related requests, which was not explicitly stated.",
+  "edits": [
+    {
+      "op": "replace",
+      "content": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage, lounge access), always call the 'add_ancillary' tool with the necessary booking reference and details of the request.",
+      "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "append",
+      "content": "Ensure to call the 'add_ancillary' tool for requests involving additional baggage or changes in service, specifying all necessary information like the booking reference and service details.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

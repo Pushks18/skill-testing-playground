@@ -1,0 +1,9 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "For seat change requests and inquiries about upgrades, ensure to call the 'modify_seat' tool with the flight booking reference and specific seat details. Always verify if upgrades are possible by obta",
+    "status": "applied_insert_after",
+    "index": 1
+  }
+]

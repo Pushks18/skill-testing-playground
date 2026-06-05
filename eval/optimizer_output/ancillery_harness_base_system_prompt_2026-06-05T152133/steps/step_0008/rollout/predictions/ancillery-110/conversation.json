@@ -1,0 +1,18 @@
+[
+  {
+    "content": "User request: Can you tell me if I can switch my aisle seat to a window one for my trip on booking BK7A3F8P?"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BK7A3F8P\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_fare_rules({\"flight_id\": \"BK7A3F8P\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.00 std=0.00 | The agent completely fails to address the Pass Criteria. Instead of explaining if seat changes are possible or if an upgrade might be required, the agent asks for more information that was not requested, and states they don't have the information to answer a very basic question. (score=0.0)"
+  }
+]

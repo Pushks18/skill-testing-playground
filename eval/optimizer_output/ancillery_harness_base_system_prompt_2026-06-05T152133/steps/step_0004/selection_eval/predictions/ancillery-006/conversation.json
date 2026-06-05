@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: Booking BK7A3B1E. Can you get me lounge access at JFK for my departure tomorrow?"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK7A3B1E\", \"service_type\": \"lounge_access\", \"details\": {\"airport\": \"JFK\", \"date\": \"2023-10-04\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

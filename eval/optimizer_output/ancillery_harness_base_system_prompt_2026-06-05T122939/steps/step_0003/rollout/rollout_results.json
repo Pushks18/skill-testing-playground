@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ancillery-006",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "Booking BK7A3B1E. Can you get me lounge access at JFK for my departure tomorrow?"
+  },
+  {
+    "id": "ancillery-002",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "My booking is BKD3E7F2. I need a vegetarian meal for my flight."
+  },
+  {
+    "id": "ancillery-005",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "For booking BK2F6C9D, I'd like to add basic travel insurance."
+  },
+  {
+    "id": "ancillery-009",
+    "hard": 1,
+    "soft": 0.6666666666666666,
+    "fail_reason": "avg=0.67 std=0.14 | The agent correctly states that a basic economy ticket generally doesn't allow for extra legroom seat selection and that an upgrade would be needed. This directly answers the customer's question. However, the response could be slightly improved by offering to check the specific booking BKA2C7F3 to confirm the restrictions for that particular booking, as there can sometimes be exceptions or specific airline policies. While the current answer is generally true, a personalized check would make it a 1.0.",
+    "task_type": "ancillery",
+    "question": "My booking is BKA2C7F3. I have a basic economy ticket \u2014 can I select an extra legroom seat or do I need to upgrade my fare?"
+  },
+  {
+    "id": "ancillery-008",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "Booking BK6E1D9B. I need to add a compact car rental at Miami airport for 3 days."
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "reasoning": "The failure in the trajectory indicates a lack of guidance in handling requests related to seat changes and upgrades, which can lead agents to incorrectly choose tools or skip necessary actions. These edits aim to address these gaps by specifying interactions regarding seat changes and upgrades using the appropriate tools with all required parameters.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "For seat change requests and inquiries about upgrades, ensure to call the 'modify_seat' tool with the flight booking reference and specific seat details. Always verify if upgrades are possible by obtaining fare rules through the 'get_fare_rules' tool with the flight ID.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

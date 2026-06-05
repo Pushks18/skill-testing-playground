@@ -1,0 +1,9 @@
+[
+  {
+    "op": "insert_after",
+    "target": "For all requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage, lounge access), always call the 'add_ancillary' tool with the nec",
+    "content_preview": "For requests involving the addition of services such as lounge access, always call the 'add_ancillary' tool and provide adequate details like booking reference and service type.",
+    "status": "applied_insert_after",
+    "index": 1
+  }
+]
