@@ -451,3 +451,49 @@ def test_setup_installs_prompts(tmp_path, skill_dir, harness_path, monkeypatch):
     import skillopt.gradient.reflect as refl
     assert refl.load_prompt("analyst_error")
     assert refl.load_prompt("analyst_success")
+
+
+# ── stratified split tests ─────────────────────────────────────────────────────
+
+from eval.optimizer.skillopt_adapter import materialize_stratified_split
+import json as _json
+
+
+def test_stratified_split_distributes_failures_train_and_val(tmp_path):
+    items = [{"id": f"t{i:02d}", "question": f"q{i}", "task_type": "d",
+              "task_path": f"/x/t{i:02d}"} for i in range(10)]
+    split_dir = materialize_stratified_split(
+        items, must_split_ids=["t03", "t07"], ratio=(5, 3, 2), seed=7,
+        out_dir=tmp_path / "strat")
+    splits = {name: _json.loads((split_dir / name / "items.json").read_text())
+              for name in ("train", "val", "test")}
+    ids = {name: [i["id"] for i in s] for name, s in splits.items()}
+    assert "t03" in ids["train"]
+    assert "t07" in ids["val"]
+    assert not (set(ids["test"]) & {"t03", "t07"})       # never test
+    assert len(ids["train"]) == 5 and len(ids["val"]) == 3 and len(ids["test"]) == 2
+    # determinism
+    split_dir2 = materialize_stratified_split(
+        items, must_split_ids=["t03", "t07"], ratio=(5, 3, 2), seed=7,
+        out_dir=tmp_path / "strat2")
+    ids2 = {name: [i["id"] for i in _json.loads((split_dir2 / name / "items.json").read_text())]
+            for name in ("train", "val", "test")}
+    assert ids == ids2
+
+
+def test_adapter_setup_uses_stratified_split(tmp_path, skill_dir, harness_path):
+    tasks = tmp_path / "tasks"
+    for i in range(10):
+        _write_task(tasks, f"ancillery-{i:03d}", "ancillery")
+    spec = TargetSpec(kind="harness", key="base_system_prompt", skill_path=skill_dir,
+                      domain="ancillery", tasks_dir=tasks, harness_config_path=harness_path)
+    adapter = TravelEnvAdapter(spec=spec, must_split_ids=["ancillery-002", "ancillery-006"],
+                               split_seed=7, seed=7)
+    adapter.setup({"out_root": str(tmp_path / "out"), "env": "travel", "seed": 7})
+    train_ids = {it["id"] for it in adapter.dataloader.train_items}
+    val_ids = {it["id"] for it in adapter.dataloader.val_items}
+    test_ids = {it["id"] for it in adapter.dataloader.test_items}
+    assert "ancillery-002" in train_ids
+    assert "ancillery-006" in val_ids
+    assert not (test_ids & {"ancillery-002", "ancillery-006"})
+    assert len(train_ids) == 5 and len(val_ids) == 3 and len(test_ids) == 2

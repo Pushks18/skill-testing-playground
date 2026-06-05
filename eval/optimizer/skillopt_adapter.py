@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import os
 import pathlib
+import random
 import re
 from dataclasses import dataclass
 from typing import Literal, Optional
@@ -63,6 +64,80 @@ def _skill_frontmatter(skill_path: pathlib.Path) -> str:
     content = (skill_path / "SKILL.md").read_text()
     m = re.match(r"^(---\n.*?\n---\n)", content, re.DOTALL)
     return m.group(1) if m else ""
+
+
+def materialize_stratified_split(
+    items: list[dict],
+    must_split_ids: list[str],
+    ratio: tuple[int, int, int],
+    seed: int,
+    out_dir: pathlib.Path,
+) -> pathlib.Path:
+    """Write a train/val/test split dir with failing tasks distributed
+    round-robin between train and val (NEVER test), remaining items filling
+    the counts deterministically. Returns the split dir path.
+
+    Rationale: with tiny failure counts, train needs failure signal for
+    reflect AND val needs failure signal for the gate; test guards
+    non-regression on the remaining tasks.
+    """
+    out_dir = pathlib.Path(out_dir)
+    n = len(items)
+    total = sum(ratio)
+    # Same rounding as _split_counts in the driver
+    train_n = round(n * ratio[0] / total)
+    val_n = round(n * ratio[1] / total)
+    test_n = n - train_n - val_n
+
+    must_split_set = set(must_split_ids)
+    failing = [it for it in items if it["id"] in must_split_set]
+    passing = [it for it in items if it["id"] not in must_split_set]
+
+    # Distribute failing round-robin: 1st → train, 2nd → val, 3rd → train, ...
+    train_items: list[dict] = []
+    val_items: list[dict] = []
+    for idx, item in enumerate(failing):
+        if idx % 2 == 0:
+            train_items.append(item)
+        else:
+            val_items.append(item)
+
+    # Shuffle passing deterministically and fill remaining slots
+    rng = random.Random(seed)
+    shuffled_passing = list(passing)
+    rng.shuffle(shuffled_passing)
+
+    train_slots = max(0, train_n - len(train_items))
+    val_slots = max(0, val_n - len(val_items))
+
+    train_items.extend(shuffled_passing[:train_slots])
+    val_items.extend(shuffled_passing[train_slots:train_slots + val_slots])
+    # Remainder → test (may be fewer than test_n if failures pushed counts over)
+    test_items = shuffled_passing[train_slots + val_slots:]
+
+    def _write(split_path: pathlib.Path, data: list[dict]) -> None:
+        split_path.mkdir(parents=True, exist_ok=True)
+        (split_path / "items.json").write_text(
+            json.dumps(data, ensure_ascii=False, indent=2)
+        )
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    _write(out_dir / "train", train_items)
+    _write(out_dir / "val", val_items)
+    _write(out_dir / "test", test_items)
+
+    manifest = {
+        "train": [it["id"] for it in train_items],
+        "val": [it["id"] for it in val_items],
+        "test": [it["id"] for it in test_items],
+        "must_split_ids": list(must_split_ids),
+        "seed": seed,
+        "ratio": list(ratio),
+    }
+    (out_dir / "split_manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2)
+    )
+    return out_dir
 
 
 def materialize_candidate(
@@ -148,6 +223,7 @@ class TravelEnvAdapter(EnvAdapter):
         failure_only: bool = True,
         minibatch_size: int = 4,
         edit_budget: int = 3,
+        must_split_ids: list[str] | None = None,
         **kwargs,
     ):
         self.spec = spec
@@ -156,6 +232,7 @@ class TravelEnvAdapter(EnvAdapter):
         self.failure_only = failure_only
         self.minibatch_size = minibatch_size
         self.edit_budget = edit_budget
+        self.must_split_ids = must_split_ids
         self.dataloader = TravelTaskLoader(
             tasks_dir=spec.tasks_dir, domain=spec.domain, **kwargs)
 
@@ -163,6 +240,23 @@ class TravelEnvAdapter(EnvAdapter):
 
     def setup(self, cfg: dict) -> None:
         super().setup(cfg)
+        if self.must_split_ids:
+            items = self.dataloader.load_raw_items(str(self.spec.tasks_dir))
+            split_seed = getattr(self.dataloader, "split_seed", None) or cfg.get("seed", 42)
+            out_dir = pathlib.Path(cfg["out_root"]) / "_stratified_splits"
+            split_dir = materialize_stratified_split(
+                items,
+                self.must_split_ids,
+                (5, 3, 2),
+                seed=split_seed,
+                out_dir=out_dir,
+            )
+            self.dataloader.split_mode = "split_dir"
+            self.dataloader.split_dir = str(split_dir)
+            # Also set in cfg so SplitDataLoader.setup() doesn't clobber the
+            # attributes it only sets when self.split_mode/split_dir are falsy
+            cfg["split_mode"] = "split_dir"
+            cfg["split_dir"] = str(split_dir)
         self.dataloader.setup(cfg)
         # The 0.1.0 wheel ships no prompt files; reflect/aggregate/clip crash
         # with FileNotFoundError without our replacements. Idempotent.

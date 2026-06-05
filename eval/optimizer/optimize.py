@@ -14,6 +14,7 @@ Usage:
     python -m eval.optimizer.optimize --cluster 0 --dry-run
 """
 from __future__ import annotations
+from dotenv import load_dotenv; load_dotenv()
 
 import argparse
 import datetime
@@ -133,7 +134,8 @@ def run_cluster(cluster: dict, args) -> dict:
     out_root = OUTPUT_ROOT / run_tag
 
     adapter = TravelEnvAdapter(spec=spec, mock_mcp_url=args.mock_mcp_url,
-                               split_seed=args.seed, seed=args.seed)
+                               split_seed=args.seed, seed=args.seed,
+                               must_split_ids=cluster.get("task_ids", []))
     baseline_text = initial_artifact(spec)
 
     n_items = len(adapter.dataloader.load_raw_items(str(spec.tasks_dir)))
@@ -185,10 +187,22 @@ def run_cluster(cluster: dict, args) -> dict:
     best_score = _mixed_from(train_result.get("test_hard"),
                              train_result.get("test_soft"), w)
 
+    sel_baseline = train_result.get("baseline_selection_hard")
+    sel_best = train_result.get("best_selection_hard")
+    selection_improved = (sel_baseline is not None and sel_best is not None
+                          and sel_best > sel_baseline)
+    test_regressed = best_score < base_score
     report = {
         "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
         "baseline_test_mixed": base_score, "best_test_mixed": best_score,
-        "improved": best_score > base_score,
+        "baseline_selection_score": sel_baseline,
+        "best_selection_score": sel_best,
+        "selection_improved": selection_improved,
+        "test_regressed": test_regressed,
+        "improved": selection_improved and not test_regressed,
+        "evidence_note": ("improvement evidence comes from the selection split "
+                          "(contains failure tasks); the held-out test split guards "
+                          "non-regression on remaining tasks"),
         "estimated_rollout_calls": est_calls,
         "train_result": _jsonable(train_result),
         "review_checklist": [
