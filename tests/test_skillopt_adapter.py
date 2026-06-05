@@ -151,3 +151,207 @@ def test_loader_skips_incomplete_task_dirs(tmp_path):
     (tasks / "broken-task").mkdir()          # no task.toml / instruction.md
     loader = TravelTaskLoader(tasks_dir=tasks, domain="ancillery")
     assert len(loader.load_raw_items(str(tasks))) == 1
+
+
+# ── skillopt_prompts tests ─────────────────────────────────────────────────────
+
+def test_install_prompts_covers_reachable_names():
+    """All aggregate merge names resolve after install_prompts(), and every
+    prompt text contains an output-format instruction."""
+    from eval.optimizer.skillopt_prompts import PROMPTS, install_prompts
+    install_prompts()
+    import skillopt.gradient.aggregate as agg
+    for name in ("merge_failure", "merge_success", "merge_final"):
+        text = agg.load_prompt(name)
+        assert text, f"merge prompt {name!r} resolved to empty string"
+    for name, text in PROMPTS.items():
+        assert "edits" in text or "JSON" in text or "slow_update_content" in text or "meta_skill_content" in text or "selected_indices" in text, (
+            f"prompt {name!r} lacks output-format instruction"
+        )
+
+
+def test_install_prompts_reflect_names_resolve():
+    """The exact names reflect.py requests in patch mode must be covered."""
+    from eval.optimizer.skillopt_prompts import install_prompts
+    install_prompts()
+    import skillopt.gradient.reflect as refl
+    # In patch mode, _resolve_prompt(None, "analyst_error", "patch")
+    # → load_prompt("analyst_error")
+    # In patch mode, _resolve_prompt(None, "analyst_success", "patch")
+    # → load_prompt("analyst_success")
+    assert refl.load_prompt("analyst_error"), "analyst_error prompt is empty"
+    assert refl.load_prompt("analyst_success"), "analyst_success prompt is empty"
+
+
+def test_install_prompts_clip_name_resolves():
+    """clip.py ranking prompt name resolves after install_prompts()."""
+    from eval.optimizer.skillopt_prompts import install_prompts
+    install_prompts()
+    import skillopt.optimizer.clip as clip
+    assert clip.load_prompt("ranking"), "ranking prompt is empty"
+
+
+def test_install_prompts_slow_update_resolves():
+    """slow_update.py prompt resolves after install_prompts()."""
+    from eval.optimizer.skillopt_prompts import install_prompts
+    install_prompts()
+    import skillopt.optimizer.slow_update as slow
+    assert slow.load_prompt("slow_update"), "slow_update prompt is empty"
+
+
+def test_install_prompts_meta_skill_resolves():
+    """meta_skill.py prompt resolves after install_prompts()."""
+    from eval.optimizer.skillopt_prompts import install_prompts
+    install_prompts()
+    import skillopt.optimizer.meta_skill as meta
+    assert meta.load_prompt("meta_skill"), "meta_skill prompt is empty"
+
+
+def test_install_prompts_fallback_to_original_for_unknown():
+    """load_prompt still raises FileNotFoundError for truly unknown names."""
+    from eval.optimizer.skillopt_prompts import install_prompts
+    install_prompts()
+    import skillopt.gradient.reflect as refl
+    import pytest
+    with pytest.raises(FileNotFoundError):
+        refl.load_prompt("__this_name_does_not_exist_anywhere__")
+
+
+def test_analyst_error_prompt_round_trip():
+    """Verify extract_json can parse a synthetic model response following the
+    analyst_error prompt's output-format specification.
+
+    This is the closest we can get to a round-trip without a live LLM call:
+    we hand-author a response that exactly follows our prompt's instructions
+    and confirm skillopt's own parser accepts it.
+    """
+    from skillopt.utils import extract_json
+
+    # Synthetic response in the WRAPPED form the prompt specifies
+    # (with markdown fences — extract_json handles both fences and bare JSON)
+    fake_response = """
+```json
+{
+  "patch": {
+    "reasoning": "Agent failed to call search_flights and responded verbally instead.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "ALWAYS call search_flights before providing any flight information.",
+        "target": "## Workflow"
+      },
+      {
+        "op": "append",
+        "content": "Never respond verbally about flight availability; always call the tool."
+      }
+    ]
+  },
+  "source_type": "failure"
+}
+```
+"""
+    result = extract_json(fake_response)
+    assert result is not None, "extract_json returned None for synthetic response"
+    assert "patch" in result, "outer 'patch' key missing"
+    patch = result["patch"]
+    assert "edits" in patch, "inner 'edits' key missing"
+    edits = patch["edits"]
+    assert len(edits) == 2
+    # Verify op/content/target fields on each edit
+    assert edits[0]["op"] == "insert_after"
+    assert edits[0]["target"] == "## Workflow"
+    assert "content" in edits[0]
+    assert edits[1]["op"] == "append"
+    assert "content" in edits[1]
+    # Verify source_type at outer level (as reflect.py sets it)
+    assert result["source_type"] == "failure"
+
+
+def test_merge_patch_round_trip():
+    """Verify extract_json can parse a synthetic merge response (flat edits form)."""
+    from skillopt.utils import extract_json
+
+    fake_response = """{
+  "reasoning": "Merged three failure patches; deduplicated two search_flights edits.",
+  "edits": [
+    {
+      "op": "replace",
+      "target": "Use verbal confirmation when no flights are found.",
+      "content": "Always call search_flights; never give verbal-only flight answers."
+    },
+    {
+      "op": "delete",
+      "target": "You may respond directly if the user asks a simple question."
+    }
+  ]
+}"""
+    result = extract_json(fake_response)
+    assert result is not None
+    assert "edits" in result
+    assert result["reasoning"].startswith("Merged")
+    edits = result["edits"]
+    assert len(edits) == 2
+    assert edits[0]["op"] == "replace"
+    assert "target" in edits[0]
+    assert "content" in edits[0]
+    assert edits[1]["op"] == "delete"
+    assert "target" in edits[1]
+
+
+def test_ranking_round_trip():
+    """Verify extract_json can parse a synthetic ranking response."""
+    from skillopt.utils import extract_json
+
+    fake_response = """{
+  "selected_indices": [2, 0, 4],
+  "reasoning": "Edits 2 and 0 address the most common failure patterns."
+}"""
+    result = extract_json(fake_response)
+    assert result is not None
+    assert "selected_indices" in result
+    assert result["selected_indices"] == [2, 0, 4]
+
+
+def test_slow_update_round_trip():
+    """Verify extract_json can parse a synthetic slow_update response."""
+    from skillopt.utils import extract_json
+
+    fake_response = """{
+  "reasoning": "Epoch 2 added too many verbose explanations causing regressions on quick-lookup tasks.",
+  "slow_update_content": "Avoid adding explanatory paragraphs. Keep all instructions action-directive style."
+}"""
+    result = extract_json(fake_response)
+    assert result is not None
+    assert result.get("slow_update_content"), "slow_update_content missing or empty"
+
+
+def test_meta_skill_round_trip():
+    """Verify extract_json can parse a synthetic meta_skill response."""
+    from skillopt.utils import extract_json
+
+    fake_response = """{
+  "reasoning": "Edits that clarified required parameters consistently improved hard scores.",
+  "meta_skill_content": "Prioritize edits that list required parameters explicitly. Avoid edits that add verbose preamble."
+}"""
+    result = extract_json(fake_response)
+    assert result is not None
+    assert result.get("meta_skill_content"), "meta_skill_content missing or empty"
+
+
+def test_all_prompts_contain_edit_op_vocabulary():
+    """Prompts that generate edits must mention the op vocabulary.
+    The ranking prompt is excluded: it selects indices into an existing
+    edit pool and does not need to specify the op vocabulary itself."""
+    from eval.optimizer.skillopt_prompts import PROMPTS
+    # Prompts that instruct the model to GENERATE edits must include op vocab
+    edit_generating_prompts = ("analyst_error", "analyst_success",
+                               "merge_failure", "merge_success", "merge_final")
+    for name in edit_generating_prompts:
+        assert name in PROMPTS, f"PROMPTS is missing required entry {name!r}"
+        text = PROMPTS[name]
+        assert "append" in text, f"prompt {name!r} does not mention 'append'"
+        assert "replace" in text, f"prompt {name!r} does not mention 'replace'"
+        assert "delete" in text, f"prompt {name!r} does not mention 'delete'"
+    # ranking prompt must specify its own output format instead
+    assert "ranking" in PROMPTS
+    assert "selected_indices" in PROMPTS["ranking"]
