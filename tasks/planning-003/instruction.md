@@ -1,0 +1,1 @@
+Plan a honeymoon trip to Bali for 2 people, departing from Los Angeles on 2026-10-12, returning after 7 nights. Looking for something romantic and relaxing.

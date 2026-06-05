@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-106"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The response should outline a potential travel itinerary that includes flights and hotel arrangements."

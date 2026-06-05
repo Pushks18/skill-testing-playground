@@ -1,0 +1,1 @@
+My booking is BKA2C7F3. I have a basic economy ticket — can I select an extra legroom seat or do I need to upgrade my fare?

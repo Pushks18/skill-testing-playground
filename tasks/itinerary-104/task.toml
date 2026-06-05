@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-104"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "tool_call_check"
+weight = 1.5
+
+[expected]
+tools = ["get_itinerary"]
+required_params = { get_itinerary = ["booking_id"] }

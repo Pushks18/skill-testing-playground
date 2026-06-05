@@ -1,0 +1,1 @@
+Plan a 3-day weekend trip from Chicago to New York City in August 2026 for 2 adults. Budget is flexible.

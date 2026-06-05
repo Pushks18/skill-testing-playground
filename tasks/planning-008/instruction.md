@@ -1,0 +1,1 @@
+Plan a multi-city trip: NYC → Los Angeles (5 nights) → Las Vegas (3 nights) → back to NYC. Departing 2026-09-01. Just me, no specific hotel preferences.

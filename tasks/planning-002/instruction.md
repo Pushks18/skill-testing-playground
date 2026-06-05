@@ -1,0 +1,1 @@
+I want to plan a 10-day Europe trip starting from London, visiting Paris and Rome, departing September 5 2026. Just me, no budget limit.

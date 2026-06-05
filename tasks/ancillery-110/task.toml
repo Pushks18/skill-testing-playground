@@ -1,0 +1,10 @@
+[task]
+id = "ancillery-110"
+domain = "ancillery"
+skill = "ancillery-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent should explain if seat changes are possible, potentially requiring an upgrade."

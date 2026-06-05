@@ -1,0 +1,10 @@
+[task]
+id = "disruption-111"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "Advise the user to look up or provide specific booking details."

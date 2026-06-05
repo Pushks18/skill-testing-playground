@@ -1,0 +1,1 @@
+Booking BK7A3B1E. Can you get me lounge access at JFK for my departure tomorrow?

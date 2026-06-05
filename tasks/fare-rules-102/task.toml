@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-102"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "tool_call_check"
+weight = 1.0
+
+[expected]
+tools = ["get_fare_rules"]
+required_params = { get_fare_rules = ["flight_id"] }

@@ -1,0 +1,9 @@
+[task]
+id = "planning-006"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "tool_call_check"
+weight = 1.5
+
+[expected]
+tools = ["search_flights", "search_hotels"]

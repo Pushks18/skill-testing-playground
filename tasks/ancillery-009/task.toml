@@ -1,0 +1,6 @@
+[task]
+id = "ancillery-009"
+domain = "ancillery"
+skill = "ancillery-skill"
+verifier = "llm_judge"
+weight = 1.5

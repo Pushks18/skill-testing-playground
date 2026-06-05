@@ -1,0 +1,1 @@
+For booking BK2F6C9D, I'd like to add basic travel insurance.

@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-107"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "A correct answer would ask for the origin city and the dates required for both flights and hotel."

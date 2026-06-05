@@ -1,0 +1,10 @@
+[task]
+id = "disruption-108"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "Suggest possible steps and options for rebooking a canceled flight from Paris."

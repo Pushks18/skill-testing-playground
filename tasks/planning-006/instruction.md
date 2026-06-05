@@ -1,0 +1,1 @@
+I want to do solo backpacking across Southeast Asia — Bangkok, Chiang Mai, and Hanoi — for 14 days starting November 1 2026. Flying from San Francisco. Budget: under $2500 total.

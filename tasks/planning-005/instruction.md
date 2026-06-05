@@ -1,0 +1,1 @@
+Family vacation to Orlando for 4 people (2 adults, 2 kids aged 6 and 9). Flying from Boston, July 4-11 2026. Need a family-friendly hotel near Disney.

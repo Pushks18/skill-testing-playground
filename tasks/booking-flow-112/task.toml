@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-112"
+domain = "booking_flow"
+skill = "booking-skill"
+verifier = "llm_judge"
+weight = 3.0
+
+[expected]
+tools = []
+criteria = "Agent should ask for the date of travel before proceeding."

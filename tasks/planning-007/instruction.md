@@ -1,0 +1,1 @@
+I want to go on a trip from Miami but my total budget for flights and hotel is only $300. I can go any weekend in August 2026. What are my realistic options?

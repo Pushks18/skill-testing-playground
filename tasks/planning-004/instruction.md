@@ -1,0 +1,1 @@
+I have a business meeting in Singapore on 2026-08-20. Flying from Sydney. Need to arrive the evening before and return the following day. Prefer direct flights and a hotel near the CBD.

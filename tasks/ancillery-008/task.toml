@@ -1,0 +1,9 @@
+[task]
+id = "ancillery-008"
+domain = "ancillery"
+skill = "ancillery-skill"
+verifier = "tool_call_check"
+weight = 1.5
+
+[expected]
+tools = ["add_ancillary"]
