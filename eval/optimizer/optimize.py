@@ -131,8 +131,13 @@ def run_cluster(cluster: dict, args) -> dict:
                       domain=cluster["domain"], tasks_dir=pathlib.Path(args.tasks_dir),
                       harness_config_path=harness_config_path)
 
-    run_tag = f"{cluster['domain']}_{kind}_{key.replace('.', '-')}_{datetime.date.today().isoformat()}"
+    stamp = datetime.datetime.now().strftime("%Y-%m-%dT%H%M%S")
+    run_tag = f"{cluster['domain']}_{kind}_{key.replace('.', '-')}_{stamp}"
     out_root = OUTPUT_ROOT / run_tag
+
+    if (out_root / "runtime_state.json").exists():
+        sys.exit(f"out_root {out_root} already has trainer state — refusing to resume; "
+                 "delete the dir or wait a second for a fresh run tag")
 
     adapter = TravelEnvAdapter(spec=spec, mock_mcp_url=args.mock_mcp_url,
                                split_seed=args.seed, seed=args.seed,
