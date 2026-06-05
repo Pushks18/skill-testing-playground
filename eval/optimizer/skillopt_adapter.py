@@ -77,7 +77,8 @@ def materialize_candidate(
         candidate_dir = out_dir / "candidate_skill"
         candidate_dir.mkdir(exist_ok=True)
         frontmatter = _skill_frontmatter(spec.skill_path)
-        (candidate_dir / "SKILL.md").write_text(f"{frontmatter}\n{artifact_text.strip()}\n")
+        sep = "\n" if frontmatter else ""
+        (candidate_dir / "SKILL.md").write_text(f"{frontmatter}{sep}{artifact_text.strip()}\n")
         return CandidateContext(skill_path=candidate_dir, harness_config_path=None)
 
     # harness target

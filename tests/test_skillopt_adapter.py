@@ -106,3 +106,15 @@ def test_materialize_harness_invalid_yaml_artifact_raises(skill_dir, harness_pat
     spec = make_spec("harness", "tool_descriptions", skill_dir, harness_path, tmp_path)
     with pytest.raises(ValueError, match="not valid YAML"):
         materialize_candidate(spec, "key: [unclosed", tmp_path / "out")
+
+
+def test_materialize_skill_without_frontmatter_no_leading_blank(tmp_path, harness_path):
+    bare = tmp_path / "bare-skill"
+    bare.mkdir()
+    (bare / "SKILL.md").write_text("# Bare Skill\nStep 1.\n")
+    spec = TargetSpec(kind="skill", key="bare-skill", skill_path=bare,
+                      domain="ancillery", tasks_dir=tmp_path / "tasks",
+                      harness_config_path=harness_path)
+    ctx = materialize_candidate(spec, "# New Body", tmp_path / "out")
+    content = (ctx.skill_path / "SKILL.md").read_text()
+    assert content == "# New Body\n"          # no leading blank line
