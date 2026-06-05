@@ -5,6 +5,7 @@ import os
 import operator
 import pathlib
 import time as _time
+import warnings
 import httpx
 import yaml
 from typing import TypedDict, Optional, Annotated
@@ -46,7 +47,8 @@ def load_harness_config(config_path: pathlib.Path = _CONFIG_PATH) -> dict:
     if config_path.exists():
         try:
             loaded = yaml.safe_load(config_path.read_text()) or {}
-        except yaml.YAMLError:
+        except yaml.YAMLError as e:
+            warnings.warn(f"harness_config parse error, using defaults: {e}")
             loaded = {}
         for key in HARNESS_DEFAULTS:
             if key in loaded and loaded[key] is not None:
@@ -139,9 +141,16 @@ def make_mcp_tools(base_url: str):
                        json={"booking_id": booking_id, "service_type": service_type, "details": details}, timeout=10)
         return r.json()
 
-    return [search_flights, search_hotels, check_availability, get_fare_rules,
-            validate_passenger, create_booking, modify_booking, cancel_booking,
-            get_itinerary, add_ancillary]
+    tools = [search_flights, search_hotels, check_availability, get_fare_rules,
+             validate_passenger, create_booking, modify_booking, cancel_booking,
+             get_itinerary, add_ancillary]
+    # Config-driven descriptions: YAML (when present) overrides the docstrings,
+    # making tool descriptions an optimizable harness artifact.
+    descriptions = load_harness_config(_CONFIG_PATH)["tool_descriptions"]
+    for t in tools:
+        if t.name in descriptions:
+            t.description = descriptions[t.name]
+    return tools
 
 
 def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = MOCK_MCP_URL,
@@ -149,10 +158,11 @@ def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = 
     tools = make_mcp_tools(mock_mcp_url)
     tool_map = {t.name: t for t in tools}
 
-    system_prompt = (
-        "You are a helpful travel assistant. "
-        "Use the available tools to help users with flight searches, hotel bookings, and travel planning."
-    )
+    config = load_harness_config(_CONFIG_PATH)
+    system_prompt = config["base_system_prompt"]
+    node_prompts = config.get("node_prompts") or {}
+    if node_prompts.get("agent_node"):
+        system_prompt += f"\n\n{node_prompts['agent_node']}"
     if skill_content:
         system_prompt += f"\n\n## Skill Instructions\n{skill_content}"
 

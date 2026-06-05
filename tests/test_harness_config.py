@@ -31,3 +31,37 @@ def test_partial_file_merges_with_defaults(tmp_path):
     assert cfg["base_system_prompt"] == "Custom prompt."
     # missing keys fall back
     assert cfg["tool_descriptions"] == HARNESS_DEFAULTS["tool_descriptions"]
+
+
+def test_tools_get_config_descriptions(monkeypatch):
+    """Tool descriptions come from config after post-construction assignment."""
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key-not-used")
+    from agent.travel_agent import make_mcp_tools, load_harness_config
+    tools = make_mcp_tools("http://localhost:8000")
+    cfg = load_harness_config()
+    for t in tools:
+        assert t.description == cfg["tool_descriptions"][t.name]
+
+
+def test_build_agent_uses_config_prompt(monkeypatch, tmp_path):
+    """base_system_prompt flows from config into the agent's system prompt."""
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key-not-used")
+    import agent.travel_agent as ta
+    custom = tmp_path / "harness_config.yaml"
+    custom.write_text('base_system_prompt: "CUSTOM HARNESS PROMPT"\n')
+    monkeypatch.setattr(ta, "_CONFIG_PATH", custom)
+    cfg = ta.load_harness_config(custom)
+    assert cfg["base_system_prompt"] == "CUSTOM HARNESS PROMPT"
+    # and the graph compiles without error using the custom config
+    agent = ta.build_travel_agent(skill_content=None)
+    assert agent is not None
+
+
+def test_corrupt_yaml_warns_and_falls_back(tmp_path):
+    """Unparseable YAML → warning + defaults, not silence or crash."""
+    from agent.travel_agent import load_harness_config, HARNESS_DEFAULTS
+    p = tmp_path / "corrupt.yaml"
+    p.write_text("base_system_prompt: [unclosed\n  nonsense: {{{{\n")
+    with pytest.warns(UserWarning, match="harness_config"):
+        cfg = load_harness_config(config_path=p)
+    assert cfg == HARNESS_DEFAULTS
