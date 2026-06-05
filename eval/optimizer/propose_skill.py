@@ -21,6 +21,9 @@ Usage
 """
 from __future__ import annotations
 
+from dotenv import load_dotenv
+load_dotenv()
+
 import argparse
 import base64
 import json
