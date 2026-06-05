@@ -79,6 +79,10 @@ class SkillRouter:
     # Routing
     # ------------------------------------------------------------------
 
+    def available(self) -> list[str]:
+        """Return sorted list of skill names known to this router."""
+        return sorted(self._skills)
+
     def route(self, instruction: str, threshold: float = 0.30) -> Optional[RouteMatch]:
         """Return the best-matching skill for an instruction, or None if below threshold."""
         model = self._get_model()
