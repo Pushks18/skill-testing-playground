@@ -74,9 +74,14 @@ def materialize_stratified_split(
     seed: int,
     out_dir: pathlib.Path,
 ) -> pathlib.Path:
-    """Write a train/val/test split dir with failing tasks distributed
-    round-robin between train and val (NEVER test), remaining items filling
-    the counts deterministically. Returns the split dir path.
+    """Write a train/val/test split dir with failing tasks guaranteed to appear
+    in both train and val (NEVER test). Returns the split dir path.
+
+    With >=2 failing items: round-robin train→val (disjoint, never test).
+    With 1 failing item: leave-none-out — the failure is duplicated into BOTH
+    train (reflect signal) and val (gate signal). Overfit risk is accepted and
+    bounded: the test split stays failure-free and disjoint for honest
+    non-regression, and every proposal passes human review + full ab_compare.
 
     Rationale: with tiny failure counts, train needs failure signal for
     reflect AND val needs failure signal for the gate; test guards
@@ -99,27 +104,44 @@ def materialize_stratified_split(
     if stale:
         warnings.warn(f"must_split_ids not found in items (stale?): {stale}")
 
-    # Distribute failing round-robin: 1st → train, 2nd → val, 3rd → train, ...
-    train_items: list[dict] = []
-    val_items: list[dict] = []
-    for idx, item in enumerate(failing):
-        if idx % 2 == 0:
-            train_items.append(item)
-        else:
-            val_items.append(item)
-
-    # Shuffle passing deterministically and fill remaining slots
+    # Shuffle passing deterministically before filling slots
     rng = random.Random(seed)
     shuffled_passing = list(passing)
     rng.shuffle(shuffled_passing)
 
-    train_slots = max(0, train_n - len(train_items))
-    val_slots = max(0, val_n - len(val_items))
+    duplicated_ids: list[str] = []
 
-    train_items.extend(shuffled_passing[:train_slots])
-    val_items.extend(shuffled_passing[train_slots:train_slots + val_slots])
-    # Remainder → test (may be fewer than test_n if failures pushed counts over)
-    test_items = shuffled_passing[train_slots + val_slots:]
+    if len(failing) < 2:
+        # Leave-none-out: duplicate the single failure into both train and val
+        train_items: list[dict] = list(failing)
+        val_items: list[dict] = list(failing)
+        duplicated_ids = [it["id"] for it in failing]
+
+        # Fill remaining slots with passing items (no duplicates in either split)
+        train_slots = max(0, train_n - len(train_items))
+        val_slots = max(0, val_n - len(val_items))
+        train_items.extend(shuffled_passing[:train_slots])
+        val_items.extend(shuffled_passing[train_slots:train_slots + val_slots])
+        # Remainder → test (failure-free and disjoint); cap at test_n so total
+        # unique items equals len(items) even though the failure is duplicated.
+        test_items = shuffled_passing[train_slots + val_slots:train_slots + val_slots + test_n]
+    else:
+        # Round-robin: 1st → train, 2nd → val, 3rd → train, ... (disjoint, never test)
+        train_items = []
+        val_items = []
+        for idx, item in enumerate(failing):
+            if idx % 2 == 0:
+                train_items.append(item)
+            else:
+                val_items.append(item)
+
+        train_slots = max(0, train_n - len(train_items))
+        val_slots = max(0, val_n - len(val_items))
+
+        train_items.extend(shuffled_passing[:train_slots])
+        val_items.extend(shuffled_passing[train_slots:train_slots + val_slots])
+        # Remainder → test (may be fewer than test_n if failures pushed counts over)
+        test_items = shuffled_passing[train_slots + val_slots:]
 
     def _write(split_path: pathlib.Path, data: list[dict]) -> None:
         split_path.mkdir(parents=True, exist_ok=True)
@@ -139,6 +161,7 @@ def materialize_stratified_split(
         "must_split_ids": list(must_split_ids),
         "seed": seed,
         "ratio": list(ratio),
+        "duplicated_ids": duplicated_ids,
     }
     (out_dir / "split_manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2)

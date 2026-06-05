@@ -483,6 +483,24 @@ def test_stratified_split_distributes_failures_train_and_val(tmp_path):
     assert ids == ids2
 
 
+def test_stratified_split_single_failure_duplicated_train_and_val(tmp_path):
+    items = [{"id": f"t{i:02d}", "question": f"q{i}", "task_type": "d",
+              "task_path": f"/x/t{i:02d}"} for i in range(10)]
+    split_dir = materialize_stratified_split(
+        items, must_split_ids=["t04"], ratio=(5, 3, 2), seed=7,
+        out_dir=tmp_path / "lno")
+    ids = {name: [i["id"] for i in _json.loads((split_dir / name / "items.json").read_text())]
+           for name in ("train", "val", "test")}
+    assert "t04" in ids["train"] and "t04" in ids["val"]      # duplicated
+    assert "t04" not in ids["test"]
+    assert len(ids["train"]) == 5 and len(ids["val"]) == 3 and len(ids["test"]) == 2
+    # no other duplication
+    non_failure_overlap = (set(ids["train"]) & set(ids["val"])) - {"t04"}
+    assert not non_failure_overlap
+    manifest = _json.loads((split_dir / "split_manifest.json").read_text())
+    assert manifest["duplicated_ids"] == ["t04"]
+
+
 def test_stratified_split_warns_on_stale_ids(tmp_path):
     items = [{"id": "t00", "question": "q", "task_type": "d", "task_path": "/x"}]
     with pytest.warns(UserWarning, match="stale"):
