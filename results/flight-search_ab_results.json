@@ -1,0 +1,892 @@
+{
+  "skill_name": "flight-search",
+  "weighted_delta": 0.0,
+  "regression_rate": 0.0,
+  "verdict": "PASS",
+  "tier": 0,
+  "flagged_tasks": [],
+  "regression_traces": {},
+  "cost": {
+    "no_skill": {
+      "total_cost_usd": 0.007084,
+      "avg_cost_usd": 0.000545,
+      "total_input_tokens": 21065,
+      "total_output_tokens": 6539,
+      "avg_latency_ms": 10486,
+      "p95_latency_ms": 11075
+    },
+    "with_skill": {
+      "total_cost_usd": 0.010861,
+      "avg_cost_usd": 0.000835,
+      "total_input_tokens": 36409,
+      "total_output_tokens": 8999,
+      "avg_latency_ms": 10558,
+      "p95_latency_ms": 16437
+    }
+  },
+  "tasks": [
+    {
+      "skill_name": "flight-search",
+      "task_id": "edge-multileg-001",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-multileg-001",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "LA",
+            "date": "2026-08-08"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 10382,
+        "tokens_used": 2392,
+        "input_tokens": 1723,
+        "output_tokens": 669,
+        "cost_usd": 0.00066
+      },
+      "with_skill": {
+        "task_id": "edge-multileg-001",
+        "domain": "edge_cases",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "LA",
+            "date": "2026-08-08"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 16437,
+        "tokens_used": 3962,
+        "input_tokens": 2963,
+        "output_tokens": 999,
+        "cost_usd": 0.001044
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1570,
+      "latency_delta_ms": 6055,
+      "cost_delta_usd": 0.000384
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "edge-multileg-002",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-multileg-002",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "DEN",
+            "destination": "LAX",
+            "date": "2026-07-19"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 68082,
+        "tokens_used": 2885,
+        "input_tokens": 1967,
+        "output_tokens": 918,
+        "cost_usd": 0.000846
+      },
+      "with_skill": {
+        "task_id": "edge-multileg-002",
+        "domain": "edge_cases",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "DEN",
+            "destination": "LAX",
+            "date": "2026-07-19"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 13487,
+        "tokens_used": 4068,
+        "input_tokens": 3207,
+        "output_tokens": 861,
+        "cost_usd": 0.000998
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1183,
+      "latency_delta_ms": -54595,
+      "cost_delta_usd": 0.000152
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "edge-multileg-003",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-multileg-003",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "ORD",
+            "destination": "SEA",
+            "date": "2026-08-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 11075,
+        "tokens_used": 2612,
+        "input_tokens": 1874,
+        "output_tokens": 738,
+        "cost_usd": 0.000724
+      },
+      "with_skill": {
+        "task_id": "edge-multileg-003",
+        "domain": "edge_cases",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "ORD",
+            "destination": "SEA",
+            "date": "2026-08-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 17549,
+        "tokens_used": 4254,
+        "input_tokens": 3114,
+        "output_tokens": 1140,
+        "cost_usd": 0.001151
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1642,
+      "latency_delta_ms": 6474,
+      "cost_delta_usd": 0.00042699999999999986
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-001",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-001",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "JFK",
+            "date": "2026-08-17",
+            "passengers": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5316,
+        "tokens_used": 3341,
+        "input_tokens": 2605,
+        "output_tokens": 736,
+        "cost_usd": 0.000832
+      },
+      "with_skill": {
+        "task_id": "flight-search-001",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "JFK",
+            "date": "2026-08-17",
+            "passengers": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 13796,
+        "tokens_used": 4052,
+        "input_tokens": 3069,
+        "output_tokens": 983,
+        "cost_usd": 0.00105
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": -1,
+      "token_delta": 711,
+      "latency_delta_ms": 8480,
+      "cost_delta_usd": 0.00021799999999999999
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-002",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-002",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "ORD",
+            "destination": "MIA",
+            "date": "2026-09-05",
+            "passengers": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2640,
+        "tokens_used": 1834,
+        "input_tokens": 1424,
+        "output_tokens": 410,
+        "cost_usd": 0.00046
+      },
+      "with_skill": {
+        "task_id": "flight-search-002",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "ORD",
+            "destination": "MIA",
+            "date": "2026-09-05",
+            "passengers": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 10629,
+        "tokens_used": 3365,
+        "input_tokens": 2664,
+        "output_tokens": 701,
+        "cost_usd": 0.00082
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1531,
+      "latency_delta_ms": 7989,
+      "cost_delta_usd": 0.00035999999999999997
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-003",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-003",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "SFO",
+            "destination": "JFK",
+            "date": "2026-06-09"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4310,
+        "tokens_used": 1748,
+        "input_tokens": 1494,
+        "output_tokens": 254,
+        "cost_usd": 0.000376
+      },
+      "with_skill": {
+        "task_id": "flight-search-003",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "SFO",
+            "destination": "JFK",
+            "date": "2026-06-09"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 6207,
+        "tokens_used": 3109,
+        "input_tokens": 2734,
+        "output_tokens": 375,
+        "cost_usd": 0.000635
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1361,
+      "latency_delta_ms": 1897,
+      "cost_delta_usd": 0.00025900000000000006
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-004",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-004",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "BOS",
+            "destination": "SEA",
+            "date": "2026-07-20"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4856,
+        "tokens_used": 1532,
+        "input_tokens": 1250,
+        "output_tokens": 282,
+        "cost_usd": 0.000357
+      },
+      "with_skill": {
+        "task_id": "flight-search-004",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "BOS",
+            "destination": "SEA",
+            "date": "2026-07-20"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 7207,
+        "tokens_used": 2857,
+        "input_tokens": 2490,
+        "output_tokens": 367,
+        "cost_usd": 0.000594
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1325,
+      "latency_delta_ms": 2351,
+      "cost_delta_usd": 0.00023700000000000001
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-005",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-005",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "DEN",
+            "destination": "ORD",
+            "date": "2026-09-15",
+            "passengers": 3
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 6213,
+        "tokens_used": 1880,
+        "input_tokens": 1412,
+        "output_tokens": 468,
+        "cost_usd": 0.000493
+      },
+      "with_skill": {
+        "task_id": "flight-search-005",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "DEN",
+            "destination": "ORD",
+            "date": "2026-09-15",
+            "passengers": 3
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 10906,
+        "tokens_used": 3351,
+        "input_tokens": 2652,
+        "output_tokens": 699,
+        "cost_usd": 0.000817
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1471,
+      "latency_delta_ms": 4693,
+      "cost_delta_usd": 0.00032400000000000007
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-006",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-006",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "JFK",
+            "date": "2026-07-04"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3516,
+        "tokens_used": 1562,
+        "input_tokens": 1340,
+        "output_tokens": 222,
+        "cost_usd": 0.000334
+      },
+      "with_skill": {
+        "task_id": "flight-search-006",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "JFK",
+            "date": "2026-07-04"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4314,
+        "tokens_used": 2857,
+        "input_tokens": 2580,
+        "output_tokens": 277,
+        "cost_usd": 0.000553
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1295,
+      "latency_delta_ms": 798,
+      "cost_delta_usd": 0.000219
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-007",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-007",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "MIA",
+            "destination": "SEA",
+            "date": "2026-10-01"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2965,
+        "tokens_used": 1791,
+        "input_tokens": 1409,
+        "output_tokens": 382,
+        "cost_usd": 0.000441
+      },
+      "with_skill": {
+        "task_id": "flight-search-007",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "MIA",
+            "destination": "SEA",
+            "date": "2026-10-01"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 6810,
+        "tokens_used": 3088,
+        "input_tokens": 2649,
+        "output_tokens": 439,
+        "cost_usd": 0.000661
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1297,
+      "latency_delta_ms": 3845,
+      "cost_delta_usd": 0.00022000000000000003
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-008",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-008",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "BOS",
+            "date": "2026-08-27",
+            "passengers": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5443,
+        "tokens_used": 2596,
+        "input_tokens": 1822,
+        "output_tokens": 774,
+        "cost_usd": 0.000738
+      },
+      "with_skill": {
+        "task_id": "flight-search-008",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "BOS",
+            "date": "2026-08-27",
+            "passengers": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 14667,
+        "tokens_used": 4152,
+        "input_tokens": 3062,
+        "output_tokens": 1090,
+        "cost_usd": 0.001113
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1556,
+      "latency_delta_ms": 9224,
+      "cost_delta_usd": 0.000375
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-009",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-009",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "PHX",
+            "destination": "DFW",
+            "date": "2026-11-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5270,
+        "tokens_used": 1766,
+        "input_tokens": 1416,
+        "output_tokens": 350,
+        "cost_usd": 0.000422
+      },
+      "with_skill": {
+        "task_id": "flight-search-009",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "PHX",
+            "destination": "DFW",
+            "date": "2026-11-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 7601,
+        "tokens_used": 3225,
+        "input_tokens": 2656,
+        "output_tokens": 569,
+        "cost_usd": 0.00074
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1459,
+      "latency_delta_ms": 2331,
+      "cost_delta_usd": 0.000318
+    },
+    {
+      "skill_name": "flight-search",
+      "task_id": "flight-search-010",
+      "domain": "flight_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "flight-search-010",
+        "domain": "flight_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "JFK",
+            "destination": "ORD",
+            "date": "2026-07-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 6254,
+        "tokens_used": 1665,
+        "input_tokens": 1329,
+        "output_tokens": 336,
+        "cost_usd": 0.000401
+      },
+      "with_skill": {
+        "task_id": "flight-search-010",
+        "domain": "flight_search",
+        "skill_name": "flight-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "JFK",
+            "destination": "ORD",
+            "date": "2026-07-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 7644,
+        "tokens_used": 3068,
+        "input_tokens": 2569,
+        "output_tokens": 499,
+        "cost_usd": 0.000685
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1403,
+      "latency_delta_ms": 1390,
+      "cost_delta_usd": 0.00028399999999999996
+    }
+  ]
+}
