@@ -65,3 +65,32 @@ def test_corrupt_yaml_warns_and_falls_back(tmp_path):
     with pytest.warns(UserWarning, match="harness_config"):
         cfg = load_harness_config(config_path=p)
     assert cfg == HARNESS_DEFAULTS
+
+
+def test_env_var_overrides_default_path(tmp_path, monkeypatch):
+    """HARNESS_CONFIG_PATH redirects load_harness_config when no explicit arg."""
+    from agent.travel_agent import load_harness_config
+    p = tmp_path / "override.yaml"
+    p.write_text('base_system_prompt: "ENV OVERRIDE PROMPT"\n')
+    monkeypatch.setenv("HARNESS_CONFIG_PATH", str(p))
+    cfg = load_harness_config()
+    assert cfg["base_system_prompt"] == "ENV OVERRIDE PROMPT"
+
+
+def test_explicit_arg_beats_env_var(tmp_path, monkeypatch):
+    from agent.travel_agent import load_harness_config
+    env_p = tmp_path / "env.yaml"
+    env_p.write_text('base_system_prompt: "FROM ENV"\n')
+    arg_p = tmp_path / "arg.yaml"
+    arg_p.write_text('base_system_prompt: "FROM ARG"\n')
+    monkeypatch.setenv("HARNESS_CONFIG_PATH", str(env_p))
+    cfg = load_harness_config(config_path=arg_p)
+    assert cfg["base_system_prompt"] == "FROM ARG"
+
+
+def test_no_env_var_uses_default(monkeypatch):
+    from agent.travel_agent import load_harness_config, HARNESS_DEFAULTS
+    monkeypatch.delenv("HARNESS_CONFIG_PATH", raising=False)
+    cfg = load_harness_config()
+    # default file on disk == defaults (verbatim externalization)
+    assert cfg["base_system_prompt"] == HARNESS_DEFAULTS["base_system_prompt"]

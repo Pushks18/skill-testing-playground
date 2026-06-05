@@ -41,8 +41,16 @@ HARNESS_DEFAULTS = {
 }
 
 
-def load_harness_config(config_path: pathlib.Path = _CONFIG_PATH) -> dict:
-    """Load harness config from YAML, falling back to HARNESS_DEFAULTS per key."""
+def load_harness_config(config_path: pathlib.Path | None = None) -> dict:
+    """Load harness config from YAML, falling back to HARNESS_DEFAULTS per key.
+
+    Path resolution: explicit argument → HARNESS_CONFIG_PATH env var → default
+    file next to this module. The env var lets the optimizer evaluate candidate
+    configs without touching the real one.
+    """
+    if config_path is None:
+        env_override = os.environ.get("HARNESS_CONFIG_PATH")
+        config_path = pathlib.Path(env_override) if env_override else _CONFIG_PATH
     cfg = {k: (dict(v) if isinstance(v, dict) else v) for k, v in HARNESS_DEFAULTS.items()}
     if config_path.exists():
         try:
@@ -146,7 +154,7 @@ def make_mcp_tools(base_url: str):
              get_itinerary, add_ancillary]
     # Config-driven descriptions: YAML (when present) overrides the docstrings,
     # making tool descriptions an optimizable harness artifact.
-    descriptions = load_harness_config(_CONFIG_PATH)["tool_descriptions"]
+    descriptions = load_harness_config()["tool_descriptions"]
     for t in tools:
         if t.name in descriptions:
             t.description = descriptions[t.name]
@@ -158,7 +166,7 @@ def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = 
     tools = make_mcp_tools(mock_mcp_url)
     tool_map = {t.name: t for t in tools}
 
-    config = load_harness_config(_CONFIG_PATH)
+    config = load_harness_config()
     system_prompt = config["base_system_prompt"]
     node_prompts = config.get("node_prompts") or {}
     if node_prompts.get("agent_node"):
