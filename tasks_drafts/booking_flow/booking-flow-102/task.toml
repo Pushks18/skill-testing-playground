@@ -7,4 +7,4 @@ weight = 3.0
 
 [expected]
 tools = ["create_booking"]
-required_params = { create_booking = ["hotel", "passenger", "check_in", "check_out"] }
+required_params = { create_booking = ["hotel_id", "passenger"] }

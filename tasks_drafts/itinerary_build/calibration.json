@@ -5,9 +5,9 @@
     "detail": "Missing required tools: ['create_booking']"
   },
   "itinerary-102": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['get_itinerary.booking_reference']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "itinerary-103": {
     "class": "baseline-pass",
@@ -15,9 +15,9 @@
     "detail": "All required tools and params present"
   },
   "itinerary-104": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['get_itinerary.booking_reference']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "itinerary-105": {
     "class": "baseline-fail",
@@ -26,18 +26,18 @@
   },
   "itinerary-106": {
     "class": "baseline-pass",
-    "score": 0.6666666666666666,
-    "detail": "avg=0.67 std=0.14 | The agent provided a list of flights and hotels, but it failed to outline a *potential travel itiner"
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The response suggests October 13th as 'this Friday.' Today is October 26, 2023. This is a critical f"
   },
   "itinerary-107": {
     "class": "baseline-pass",
-    "score": 0.5,
-    "detail": "avg=0.50 std=0.00 | The agent response correctly asks for the origin city and the dates required for the flights. Howeve"
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent's response correctly asks for the origin city for flights and the travel dates for both fl"
   },
   "itinerary-108": {
     "class": "baseline-fail",
     "score": 0.0,
-    "detail": "Missing required tools: ['create_booking']"
+    "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
   },
   "itinerary-109": {
     "class": "baseline-fail",
@@ -45,8 +45,8 @@
     "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
   },
   "itinerary-110": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['get_itinerary.booking_reference']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   }
 }

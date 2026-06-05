@@ -1,52 +1,52 @@
 {
   "ancillery-101": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.meal_type']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "ancillery-102": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.baggage_option']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "ancillery-103": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.lounge_access', 'add_ancillary.date']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "ancillery-104": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.sports_equipment']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "ancillery-105": {
     "class": "baseline-pass",
     "score": 1.0,
-    "detail": "avg=1.00 std=0.00 | The agent directly asks for the booking reference number as per the pass criteria. It also offers fu"
+    "detail": "avg=1.00 std=0.00 | The agent directly asks for the booking reference number as per the pass criteria. It also offers al"
   },
   "ancillery-106": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.transport_service']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "ancillery-107": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.insurance_type']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "ancillery-108": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.car_rental']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "ancillery-109": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.lounge_access', 'add_ancillary.spa_service']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "ancillery-110": {
     "class": "baseline-fail",
     "score": 0.3333333333333333,
-    "detail": "avg=0.33 std=0.29 | The agent's response is problematic because it *assumes* the seat change was desired and *already pe"
+    "detail": "avg=0.33 std=0.29 | The agent directly addresses the user's request by confirming the seat change and mentioning a fee. "
   }
 }

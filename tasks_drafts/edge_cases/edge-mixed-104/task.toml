@@ -7,4 +7,4 @@ weight = 0.5
 
 [expected]
 tools = ["search_flights"]
-required_params = { search_flights = ["departure_city", "arrival_city", "departure_date"] }
+required_params = { search_flights = ["origin", "destination", "date"] }

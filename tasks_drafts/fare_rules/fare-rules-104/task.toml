@@ -7,4 +7,4 @@ weight = 1.0
 
 [expected]
 tools = ["get_fare_rules"]
-required_params = { get_fare_rules = ["BK3X9Z2A"] }
+required_params = { get_fare_rules = ["flight_id"] }

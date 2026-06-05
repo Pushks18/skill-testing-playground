@@ -7,4 +7,4 @@ weight = 2.0
 
 [expected]
 tools = ["search_flights", "modify_booking"]
-required_params = { search_flights = ["origin", "destination"], modify_booking = ["booking_ref", "new_flight_details"] }
+required_params = { search_flights = ["origin", "destination"], modify_booking = ["booking_id", "changes"] }

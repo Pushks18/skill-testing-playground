@@ -5,28 +5,28 @@
     "detail": "Missing required tools: ['check_availability']"
   },
   "edge-mixed-102": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['cancel_booking.booking_reference']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "edge-mixed-103": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['modify_booking.booking_reference', 'modify_booking.new_date']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "edge-mixed-104": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['search_flights.departure_city', 'search_flights.arrival_city', 'search_flights.departure_date']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "edge-mixed-105": {
     "class": "baseline-fail",
     "score": 0.0,
-    "detail": "avg=0.00 std=0.00 | The agent response fails to meet the pass criteria. Instead of asking for additional information to "
+    "detail": "avg=0.00 std=0.00 | The agent did not ask for additional information to clarify the query. Instead, the agent provided g"
   },
   "edge-mixed-106": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['search_flights.departure_city', 'search_flights.arrival_city', 'search_flights.departure_date']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   }
 }

@@ -7,4 +7,4 @@ weight = 3.0
 
 [expected]
 tools = ["get_itinerary"]
-required_params = { get_itinerary = ["booking_ref"] }
+required_params = { get_itinerary = ["booking_id"] }

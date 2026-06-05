@@ -5,9 +5,9 @@
     "detail": "Missing required tools: ['modify_booking']"
   },
   "disruption-102": {
-    "class": "baseline-fail",
-    "score": 0.08333333333333333,
-    "detail": "avg=0.08 std=0.14 | The agent's response provides information about cancellation, changes, baggage, and refundability, w"
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The agent mistakenly focused on cancellation policies rather than compensation for delays, which was"
   },
   "disruption-103": {
     "class": "baseline-fail",
@@ -36,23 +36,23 @@
   },
   "disruption-108": {
     "class": "baseline-fail",
-    "score": 0.25,
-    "detail": "avg=0.25 std=0.00 | The agent's response does not directly suggest possible steps or options for rebooking. Instead, it "
+    "score": 0.16666666666666666,
+    "detail": "avg=0.17 std=0.29 | The agent's response does not suggest any possible steps or options for rebooking. Instead, it asks "
   },
   "disruption-109": {
     "class": "baseline-fail",
     "score": 0.0,
-    "detail": "avg=0.00 std=0.00 | The agent's response completely fails to address the user's request for compensation rules. Instead,"
+    "detail": "avg=0.00 std=0.00 | The agent did not provide any explanation of compensation rules, which was the core task. Instead, t"
   },
   "disruption-110": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "Missing params: ['cancel_booking.booking_ref']"
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   },
   "disruption-111": {
     "class": "baseline-fail",
     "score": 0.0,
-    "detail": "avg=0.00 std=0.00 | The agent completely missed the user's core problem: they needed to check existing availability for "
+    "detail": "avg=0.00 std=0.00 | The agent completely misunderstands the user's intent. The user is asking how to check availability "
   },
   "disruption-112": {
     "class": "baseline-fail",

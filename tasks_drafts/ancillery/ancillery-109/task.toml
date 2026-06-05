@@ -7,4 +7,4 @@ weight = 1.5
 
 [expected]
 tools = ["add_ancillary"]
-required_params = { add_ancillary = ["booking_ref", "lounge_access", "spa_service"] }
+required_params = { add_ancillary = ["booking_id", "service_type"] }

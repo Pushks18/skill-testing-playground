@@ -7,4 +7,4 @@ weight = 3.0
 
 [expected]
 tools = ["validate_passenger", "create_booking"]
-required_params = { validate_passenger = ["name", "dob", "passport"], create_booking = ["flight", "passenger"] }
+required_params = { validate_passenger = ["name", "dob", "passport"], create_booking = ["flight_id", "passenger"] }

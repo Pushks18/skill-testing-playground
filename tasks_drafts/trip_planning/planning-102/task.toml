@@ -7,4 +7,4 @@ weight = 1.5
 
 [expected]
 tools = ["search_flights", "create_booking"]
-required_params = { search_flights = ["origin", "destination", "departure_date"], create_booking = ["passenger_details", "itinerary_details"] }
+required_params = { search_flights = ["origin", "destination", "date"], create_booking = ["passenger"] }

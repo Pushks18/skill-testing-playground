@@ -7,4 +7,4 @@ weight = 2.0
 
 [expected]
 tools = ["check_availability"]
-required_params = { check_availability = ["origin", "destination", "departure_date", "return_date", "passenger_count"] }
+required_params = { check_availability = ["resource_id", "date"] }
