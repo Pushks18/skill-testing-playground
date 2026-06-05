@@ -92,11 +92,20 @@ def make_mcp_tools(base_url: str):
                        json={"booking_id": booking_id}, timeout=10)
         return r.json()
 
+    @tool
+    def add_ancillary(booking_id: str, service_type: str, details: dict = {}) -> dict:
+        """Add an ancillary service to a booking. service_type: seat_selection, extra_baggage, travel_insurance, lounge_access, priority_boarding, car_rental, airport_transfer."""
+        r = httpx.post(f"{base_url}/add_ancillary",
+                       json={"booking_id": booking_id, "service_type": service_type, "details": details}, timeout=10)
+        return r.json()
+
     return [search_flights, search_hotels, check_availability, get_fare_rules,
-            validate_passenger, create_booking, modify_booking, cancel_booking, get_itinerary]
+            validate_passenger, create_booking, modify_booking, cancel_booking,
+            get_itinerary, add_ancillary]
 
 
-def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = MOCK_MCP_URL):
+def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = MOCK_MCP_URL,
+                       model: Optional[str] = None):
     tools = make_mcp_tools(mock_mcp_url)
     tool_map = {t.name: t for t in tools}
 
@@ -108,9 +117,8 @@ def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = 
         system_prompt += f"\n\n## Skill Instructions\n{skill_content}"
 
     llm = ChatOpenAI(
-        model="google/gemini-2.5-flash",
-        api_key=os.environ["OPENROUTER_API_KEY"],
-        base_url="https://openrouter.ai/api/v1",
+        model="gpt-4o-mini",
+        api_key=os.environ["OPENAI_API_KEY"],
     ).bind_tools(tools)
 
     def agent_node(state: AgentState) -> dict:
