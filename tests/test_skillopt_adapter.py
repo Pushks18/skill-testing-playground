@@ -442,3 +442,12 @@ def test_rollout_skill_target_uses_candidate_skill(tmp_path, skill_dir, harness_
     adapter.rollout(items, "# Candidate Body", str(tmp_path / "roll"))
     assert "candidate_skill" in seen["skill_path"]
     assert seen["harness_env"] is None   # skill target: real harness untouched
+
+
+def test_setup_installs_prompts(tmp_path, skill_dir, harness_path, monkeypatch):
+    """setup() must make reflect's prompt names resolvable (footgun guard)."""
+    adapter = _make_adapter(tmp_path, skill_dir, harness_path)
+    adapter.setup({"out_root": str(tmp_path / "out"), "env": "travel"})
+    import skillopt.gradient.reflect as refl
+    assert refl.load_prompt("analyst_error")
+    assert refl.load_prompt("analyst_success")

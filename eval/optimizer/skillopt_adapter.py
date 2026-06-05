@@ -164,6 +164,10 @@ class TravelEnvAdapter(EnvAdapter):
     def setup(self, cfg: dict) -> None:
         super().setup(cfg)
         self.dataloader.setup(cfg)
+        # The 0.1.0 wheel ships no prompt files; reflect/aggregate/clip crash
+        # with FileNotFoundError without our replacements. Idempotent.
+        from eval.optimizer.skillopt_prompts import install_prompts
+        install_prompts()
 
     def get_dataloader(self):
         return self.dataloader
