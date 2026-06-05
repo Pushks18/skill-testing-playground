@@ -21,6 +21,8 @@
     "out_root": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05",
     "seed": 7,
     "skill_init": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05/initial_artifact.md",
+    "split_mode": "split_dir",
+    "split_dir": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05/_stratified_splits",
     "optimizer_backend": "openai_chat",
     "target_backend": "openai_chat",
     "train_size": 5,
@@ -30,7 +32,7 @@
     "skill_update_mode": "patch",
     "lr_control_mode": "fixed"
   },
-  "baseline_selection_hard": 1.0,
+  "baseline_selection_hard": null,
   "best_selection_hard": 1.0,
   "best_step": 0,
   "current_origin": "initial_skill",
@@ -96,12 +98,12 @@
       "current_score_at_epoch_end": 1.0
     }
   ],
-  "baseline_test_hard": 0.0,
-  "baseline_test_soft": 0.0,
-  "test_hard": 0.0,
-  "test_soft": 0.0,
-  "test_delta_hard": 0,
-  "total_wall_time_s": 118.8,
+  "baseline_test_hard": 0.5,
+  "baseline_test_soft": 0.5,
+  "test_hard": 0.5,
+  "test_soft": 0.5,
+  "test_delta_hard": 0.0,
+  "total_wall_time_s": 16.7,
   "token_summary": {
     "_total": {
       "calls": 0,

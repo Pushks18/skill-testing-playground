@@ -8,11 +8,11 @@
     "question": "Booking ref BK9C1A4B. I need to add an extra 23kg checked bag for my trip to London."
   },
   {
-    "id": "ancillery-006",
-    "hard": 0,
-    "soft": 0.0,
-    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "id": "ancillery-008",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
     "task_type": "ancillery",
-    "question": "Booking BK7A3B1E. Can you get me lounge access at JFK for my departure tomorrow?"
+    "question": "Booking BK6E1D9B. I need to add a compact car rental at Miami airport for 3 days."
   }
 ]
