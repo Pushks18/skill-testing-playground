@@ -68,6 +68,7 @@ DOMAIN_TARGETS = {
 
 
 def _read_toml(path: pathlib.Path) -> dict:
+    """Parse a task.toml, tolerating the legacy colon-style inline tables."""
     raw = path.read_text()
     raw = re.sub(r"\{[^}]+\}", lambda m: m.group(0).replace(": ", " = ").replace(":", " = "), raw)
     return tomllib.loads(raw)
@@ -118,6 +119,7 @@ def _embed(texts: list[str]) -> list[list[float]]:
 
 
 def _cos(a: list[float], b: list[float]) -> float:
+    """Cosine similarity (defensive norms; MiniLM vectors are already normalized)."""
     num = sum(x * y for x, y in zip(a, b))
     da = sum(x * x for x in a) ** 0.5
     db = sum(y * y for y in b) ** 0.5
@@ -130,7 +132,8 @@ def find_near_duplicates(
     threshold: float = 0.90,
 ) -> list[tuple[str, str, float]]:
     """Gate 2: (draft_id, matched_id, similarity) for every draft too close to
-    an existing instruction or an earlier draft in the same batch."""
+    an existing instruction or an earlier draft in the same batch.
+    Strictly-greater comparison: a pair at exactly `threshold` is NOT flagged."""
     draft_ids = list(drafts)
     all_texts = [drafts[d] for d in draft_ids] + list(existing.values())
     vecs = _embed(all_texts)
