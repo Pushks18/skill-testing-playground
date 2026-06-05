@@ -71,3 +71,32 @@ def test_multi_turn_loop_accumulates(monkeypatch, tmp_path):
     assert "modify_booking" in r.tools_called       # union of tools seen by verifier
     assert r.passed_verifier
     assert r.input_tokens == 240                    # 90 + 150 accumulated
+
+
+def test_run_task_orchestrated_routes(monkeypatch, tmp_path):
+    """orchestrated mode: router picks the agent; skill_path/condition ignored."""
+    import eval.run_task as rt
+
+    class _FakeAgent:
+        def invoke(self, state, config=None):
+            return {"messages": [], "response": "done",
+                    "tools_called": [{"name": "add_ancillary", "params": {}}],
+                    "step_timings": [], "steps": 1,
+                    "tokens_used": 10, "input_tokens": 8, "output_tokens": 2}
+
+    class _FakeRouter:
+        def route(self, text):
+            return "ancillery-skill", _FakeAgent()
+
+    monkeypatch.setattr(rt, "_get_agent_router", lambda url: _FakeRouter())
+
+    task_dir = tmp_path / "anc-001"
+    task_dir.mkdir()
+    (task_dir / "task.toml").write_text(
+        '[task]\nid = "anc-001"\ndomain = "ancillery"\nskill = "ancillery-skill"\n'
+        'verifier = "tool_call_check"\nweight = 1.5\n\n[expected]\ntools = ["add_ancillary"]\n')
+    (task_dir / "instruction.md").write_text("Add a bag to booking BK1A2B3C")
+
+    r = rt.run_task(str(task_dir), None, "no_skill", "http://unused", agent_mode="orchestrated")
+    assert r.skill_name == "ancillery-skill"      # the ROUTED skill is recorded
+    assert r.passed_verifier

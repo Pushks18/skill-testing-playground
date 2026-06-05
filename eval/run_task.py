@@ -30,6 +30,22 @@ from eval.trajectory import (
 )
 
 # ---------------------------------------------------------------------------
+# Orchestrator singleton (lazy — only constructed when agent_mode="orchestrated")
+# ---------------------------------------------------------------------------
+
+_AGENT_ROUTER = None
+
+
+def _get_agent_router(mock_mcp_url: str):
+    global _AGENT_ROUTER
+    if _AGENT_ROUTER is None:
+        from agent.router import AgentRouter
+        import pathlib as _pl
+        _AGENT_ROUTER = AgentRouter(_pl.Path("../travel-agent-skills/skills"),
+                                    mock_mcp_url=mock_mcp_url)
+    return _AGENT_ROUTER
+
+# ---------------------------------------------------------------------------
 # Task / skill loaders
 # ---------------------------------------------------------------------------
 
@@ -98,16 +114,23 @@ def run_task(
     condition: str = "no_skill",
     mock_mcp_url: str = "http://localhost:8000",
     model: str = None,
+    agent_mode: str = "mono",
 ) -> EvalResult:
     task_dir = pathlib.Path(task_path)
     task = load_task(task_dir)
-    skill_content = load_skill(skill_path)
-    skill_name = pathlib.Path(skill_path).name if skill_path else "no_skill"
     expected = task.get("expected", {})
     run_id = str(uuid.uuid4())
 
     _model = "gpt-4o-mini"
-    agent = build_travel_agent(skill_content=skill_content, mock_mcp_url=mock_mcp_url)
+
+    if agent_mode == "orchestrated":
+        routed_skill, agent = _get_agent_router(mock_mcp_url).route(task["instruction"])
+        skill_name = routed_skill
+        condition = "orchestrated"
+    else:
+        skill_content = load_skill(skill_path)
+        skill_name = pathlib.Path(skill_path).name if skill_path else "no_skill"
+        agent = build_travel_agent(skill_content=skill_content, mock_mcp_url=mock_mcp_url)
 
     max_user_turns = 2 if task.get("multi_turn") else 0
 
@@ -212,7 +235,7 @@ def run_task(
     eval_result = EvalResult(
         task_id=task["id"],
         domain=task["domain"],
-        skill_name=skill_name if skill_path else None,
+        skill_name=skill_name if (skill_path or agent_mode == "orchestrated") else None,
         skill_version=None,
         score=vresult.score,
         steps=result.get("steps", 0),
