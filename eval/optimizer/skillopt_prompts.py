@@ -323,6 +323,42 @@ commentary outside the JSON):
 }
 
 
+STRATEGY_DIRECTIVES: dict[str, str] = {
+    "push-tool-action": (
+        "Steering directive: prefer edits that make the document push the agent to CALL tools "
+        "rather than answer verbally. If the agent is explaining, listing, or summarizing "
+        "without invoking a tool, the document is under-directing. Add or strengthen imperative "
+        "directives (e.g. 'ALWAYS call <tool> before responding') at the earliest decision point."
+    ),
+    "broaden-coverage": (
+        "Steering directive: prefer edits that generalize trigger phrasings, synonyms, or "
+        "example request variants so that more user request styles match the intended workflow. "
+        "The failing tasks are likely phrased differently from the examples in the document — "
+        "add paraphrase examples or widen the described trigger conditions without narrowing "
+        "existing ones."
+    ),
+    "tighten-specificity": (
+        "Steering directive: prefer edits that narrow over-broad instructions causing the agent "
+        "to call the wrong tool, call a tool in the wrong context, or trigger on requests that "
+        "should be handled differently. Replace vague 'whenever the user asks about X' clauses "
+        "with precise conditions that distinguish the correct tool from close alternatives."
+    ),
+    "add-edge-case": (
+        "Steering directive: prefer edits that document the exact failing request pattern with "
+        "explicit step-by-step handling. The failure is likely an under-specified edge case — "
+        "add a concrete example or exception clause that names the scenario and prescribes the "
+        "correct tool sequence and required parameters for it."
+    ),
+    "simplify": (
+        "Steering directive: prefer edits that REMOVE or consolidate redundant, overlapping, or "
+        "contradictory instructions; the document has accumulated repetition that distracts the "
+        "agent and dilutes the signal of the key directives. Delete or merge verbose passages "
+        "that restate earlier instructions, and replace multi-sentence explanations with concise "
+        "action directives."
+    ),
+}
+
+
 def install_prompts() -> None:
     """Route skillopt's load_prompt through PROMPTS, falling back to the original.
 

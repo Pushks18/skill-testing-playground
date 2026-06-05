@@ -547,3 +547,126 @@ def test_rollout_writes_conversation_files(tmp_path, skill_dir, harness_path, mo
     assert any("Add a window seat" in str(c.get("content", "")) for c in conv)
     assert any("NO tools" in str(c.get("content", "")) for c in conv)
     assert any("FAILED" in str(c.get("content", "")) for c in conv)
+
+
+# ── strategy_directive tests ──────────────────────────────────────────────────
+
+def test_reflect_strategy_directive_appended_to_error_system(
+    tmp_path, skill_dir, harness_path, monkeypatch
+):
+    """strategy_directive must appear in the error_system kwarg passed to run_minibatch_reflect."""
+    from eval.optimizer.skillopt_adapter import TravelEnvAdapter, TargetSpec
+    from eval.optimizer.skillopt_prompts import STRATEGY_DIRECTIVES
+
+    tasks = tmp_path / "tasks"
+    for i in range(3):
+        _write_task(tasks, f"ancillery-{i:03d}", "ancillery")
+    spec = TargetSpec(
+        kind="harness", key="base_system_prompt", skill_path=skill_dir,
+        domain="ancillery", tasks_dir=tasks, harness_config_path=harness_path,
+    )
+    directive = STRATEGY_DIRECTIVES["push-tool-action"]
+    adapter = TravelEnvAdapter(
+        spec=spec,
+        mock_mcp_url="http://localhost:8000",
+        strategy_directive=directive,
+    )
+
+    captured = {}
+
+    import eval.optimizer.skillopt_adapter as mod
+    original_reflect = mod.run_minibatch_reflect
+
+    def capturing_reflect(**kwargs):
+        captured.update(kwargs)
+        return []  # stub return
+
+    monkeypatch.setattr(mod, "run_minibatch_reflect", capturing_reflect)
+    adapter.reflect(results=[], skill_content="skill text", out_dir=str(tmp_path / "out"))
+
+    assert "error_system" in captured
+    error_system = captured["error_system"]
+    assert error_system is not None
+    assert directive in error_system, (
+        f"strategy_directive not found in error_system.\n"
+        f"error_system={error_system!r}\n"
+        f"directive={directive!r}"
+    )
+
+
+def test_reflect_no_directive_passes_none_or_base_error_system(
+    tmp_path, skill_dir, harness_path, monkeypatch
+):
+    """When strategy_directive is empty, error_system is passed as the base (or None)."""
+    from eval.optimizer.skillopt_adapter import TravelEnvAdapter, TargetSpec
+    from eval.optimizer.skillopt_prompts import STRATEGY_DIRECTIVES
+
+    tasks = tmp_path / "tasks"
+    for i in range(3):
+        _write_task(tasks, f"ancillery-{i:03d}", "ancillery")
+    spec = TargetSpec(
+        kind="harness", key="base_system_prompt", skill_path=skill_dir,
+        domain="ancillery", tasks_dir=tasks, harness_config_path=harness_path,
+    )
+    adapter = TravelEnvAdapter(
+        spec=spec,
+        mock_mcp_url="http://localhost:8000",
+        strategy_directive="",  # empty — no steering
+    )
+
+    captured = {}
+
+    import eval.optimizer.skillopt_adapter as mod
+
+    def capturing_reflect(**kwargs):
+        captured.update(kwargs)
+        return []
+
+    monkeypatch.setattr(mod, "run_minibatch_reflect", capturing_reflect)
+    adapter.reflect(results=[], skill_content="skill text", out_dir=str(tmp_path / "out"))
+
+    # error_system should not have been augmented
+    error_system = captured.get("error_system")
+    # It should NOT contain any STRATEGY_DIRECTIVES content
+    for directive in STRATEGY_DIRECTIVES.values():
+        assert directive not in (error_system or ""), (
+            "strategy_directive should not appear when adapter.strategy_directive is empty"
+        )
+
+
+def test_reflect_directive_not_appended_to_success_system(
+    tmp_path, skill_dir, harness_path, monkeypatch
+):
+    """strategy_directive must only affect error_system, not success_system."""
+    from eval.optimizer.skillopt_adapter import TravelEnvAdapter, TargetSpec
+    from eval.optimizer.skillopt_prompts import STRATEGY_DIRECTIVES
+
+    tasks = tmp_path / "tasks"
+    for i in range(3):
+        _write_task(tasks, f"ancillery-{i:03d}", "ancillery")
+    spec = TargetSpec(
+        kind="harness", key="base_system_prompt", skill_path=skill_dir,
+        domain="ancillery", tasks_dir=tasks, harness_config_path=harness_path,
+    )
+    directive = STRATEGY_DIRECTIVES["simplify"]
+    adapter = TravelEnvAdapter(
+        spec=spec,
+        mock_mcp_url="http://localhost:8000",
+        strategy_directive=directive,
+    )
+
+    captured = {}
+
+    import eval.optimizer.skillopt_adapter as mod
+
+    def capturing_reflect(**kwargs):
+        captured.update(kwargs)
+        return []
+
+    monkeypatch.setattr(mod, "run_minibatch_reflect", capturing_reflect)
+    adapter.reflect(results=[], skill_content="skill text", out_dir=str(tmp_path / "out"))
+
+    success_system = captured.get("success_system")
+    assert directive not in (success_system or ""), (
+        "strategy_directive must NOT be injected into success_system"
+    )

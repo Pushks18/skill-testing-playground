@@ -253,6 +253,7 @@ class TravelEnvAdapter(EnvAdapter):
         minibatch_size: int = 4,
         edit_budget: int = 3,
         must_split_ids: list[str] | None = None,
+        strategy_directive: str = "",
         **kwargs,
     ):
         self.spec = spec
@@ -262,6 +263,7 @@ class TravelEnvAdapter(EnvAdapter):
         self.minibatch_size = minibatch_size
         self.edit_budget = edit_budget
         self.must_split_ids = must_split_ids
+        self.strategy_directive = strategy_directive
         self.dataloader = TravelTaskLoader(
             tasks_dir=spec.tasks_dir, domain=spec.domain, **kwargs)
 
@@ -366,6 +368,14 @@ class TravelEnvAdapter(EnvAdapter):
     def reflect(self, results: list[dict], skill_content: str, out_dir: str, **kwargs):
         prediction_dir = kwargs.get("prediction_dir", os.path.join(out_dir, "predictions"))
         patches_dir = kwargs.get("patches_dir", os.path.join(out_dir, "patches"))
+
+        # Resolve error_system prompt and optionally append strategy directive.
+        error_system = self.get_error_minibatch_prompt()
+        if self.strategy_directive:
+            from eval.optimizer.skillopt_prompts import PROMPTS
+            base = error_system or PROMPTS["analyst_error"]
+            error_system = base + "\n\n" + self.strategy_directive
+
         return run_minibatch_reflect(
             results=results,
             skill_content=skill_content,
@@ -376,7 +386,7 @@ class TravelEnvAdapter(EnvAdapter):
             minibatch_size=self.minibatch_size,
             edit_budget=self.edit_budget,
             random_seed=kwargs.get("random_seed"),
-            error_system=self.get_error_minibatch_prompt(),
+            error_system=error_system,
             success_system=self.get_success_minibatch_prompt(),
             step_buffer_context=kwargs.get("step_buffer_context", ""),
             meta_skill_context=kwargs.get("meta_skill_context", ""),

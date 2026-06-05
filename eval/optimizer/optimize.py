@@ -30,6 +30,9 @@ import yaml
 from eval.optimizer.skillopt_adapter import (
     TargetSpec, TravelEnvAdapter, initial_artifact, _skill_frontmatter,
 )
+from eval.optimizer.bandit import BanditState, STRATEGIES
+from eval.optimizer.skillopt_prompts import STRATEGY_DIRECTIVES
+from eval.optimizer.archive import Archive, make_entry, _sha256
 
 DEFAULT_TASKS_DIR = pathlib.Path("tasks")
 DEFAULT_HARNESS_CONFIG = pathlib.Path("agent/harness_config.yaml")
@@ -115,6 +118,73 @@ def preflight(mock_mcp_url: str) -> None:
 
 # ── per-cluster run ──────────────────────────────────────────────────────────
 
+def _pick_strategy(args, cluster: dict, bandit_path: pathlib.Path) -> str:
+    """Select a strategy: --strategy override or Thompson-sampling from bandit."""
+    if getattr(args, "strategy", None):
+        return args.strategy
+    return BanditState.load(bandit_path).select_strategy(
+        cluster["layer"], STRATEGIES, seed=getattr(args, "seed", None)
+    )
+
+
+def _pick_seed(args, archive: Archive, target_key_str: str, baseline_text: str) -> tuple[str, str]:
+    """Select seed text: --explore uses archive.pick_parent; default is live artifact."""
+    if getattr(args, "explore", False):
+        return archive.pick_parent(
+            target_key_str, baseline_text, seed=getattr(args, "seed", None)
+        )
+    return baseline_text, "live"
+
+
+def _record_archive(
+    *,
+    archive: Archive,
+    run_tag: str,
+    target_key_str: str,
+    layer: str,
+    strategy: str,
+    seed_text: str,
+    baseline_text: str,
+    best_text: str,
+    sel_baseline,
+    sel_best,
+    improved: bool,
+    no_embed: bool,
+) -> None:
+    """Add initial artifact and best artifact entries to archive."""
+    seed_hash = _sha256(seed_text)
+    baseline_hash = _sha256(baseline_text)
+
+    # Initial artifact (the seed that was used to start the run)
+    archive.add(make_entry(
+        run_tag=run_tag,
+        target=target_key_str,
+        layer=layer,
+        strategy=strategy,
+        artifact_text=seed_text,
+        parent_hash=None,
+        selection_score=float(sel_baseline) if sel_baseline is not None else None,
+        test_score=None,
+        accepted=False,
+        no_embed=no_embed,
+    ))
+
+    # Best artifact (if it differs from seed)
+    if _sha256(best_text) != seed_hash:
+        archive.add(make_entry(
+            run_tag=run_tag,
+            target=target_key_str,
+            layer=layer,
+            strategy=strategy,
+            artifact_text=best_text,
+            parent_hash=seed_hash,
+            selection_score=float(sel_best) if sel_best is not None else None,
+            test_score=None,
+            accepted=improved,
+            no_embed=no_embed,
+        ))
+
+
 def run_cluster(cluster: dict, args) -> dict:
     harness_config_path = pathlib.Path(args.harness_config)
     optimizable = yaml.safe_load(harness_config_path.read_text()).get("optimizable", [])
@@ -139,10 +209,25 @@ def run_cluster(cluster: dict, args) -> dict:
         sys.exit(f"out_root {out_root} already has trainer state — refusing to resume; "
                  "delete the dir or wait a second for a fresh run tag")
 
+    # ── Bandit + Archive paths ───────────────────────────────────────────────
+    no_embed = getattr(args, "no_embed", False)
+    bandit_path = OUTPUT_ROOT / "bandit_state.json"
+    archive_path = OUTPUT_ROOT / "archive.jsonl"
+    archive = Archive(path=archive_path, no_embed=no_embed)
+
+    # Target key string: "harness:<key>" or "skill:<name>"
+    target_key_str = f"{kind}:{key}"
+
+    # Strategy selection (bandit or --strategy override)
+    strategy = _pick_strategy(args, cluster, bandit_path)
+    strategy_directive = STRATEGY_DIRECTIVES[strategy]
+
+    baseline_text = initial_artifact(spec)
+
     adapter = TravelEnvAdapter(spec=spec, mock_mcp_url=args.mock_mcp_url,
                                split_seed=args.seed, seed=args.seed,
-                               must_split_ids=cluster.get("task_ids", []))
-    baseline_text = initial_artifact(spec)
+                               must_split_ids=cluster.get("task_ids", []),
+                               strategy_directive=strategy_directive)
 
     n_items = len(adapter.dataloader.load_raw_items(str(spec.tasks_dir)))
     n_train, n_sel, n_test = _split_counts(n_items)
@@ -152,11 +237,15 @@ def run_cluster(cluster: dict, args) -> dict:
     cfg = flatten_config(load_config(args.config))
 
     est_calls = estimate_rollout_calls(n_train, n_sel, n_test, cfg.get("num_epochs", 5))
-    print(f"[{run_tag}] target={kind}:{key} tasks={n_items} (split {n_train}/{n_sel}/{n_test}) "
-          f"~{est_calls} rollout calls (gpt-4o-mini)")
+    print(f"[{run_tag}] target={kind}:{key} strategy={strategy} tasks={n_items} "
+          f"(split {n_train}/{n_sel}/{n_test}) ~{est_calls} rollout calls (gpt-4o-mini)")
 
     if args.dry_run:
-        return {"run": run_tag, "dry_run": True, "estimated_rollout_calls": est_calls}
+        return {"run": run_tag, "dry_run": True, "estimated_rollout_calls": est_calls,
+                "strategy": strategy}
+
+    # ── Seed selection (archive.pick_parent when --explore) ──────────────────
+    seed_text, seed_source = _pick_seed(args, archive, target_key_str, baseline_text)
 
     # File writes happen only on real runs (after the dry-run guard).
     cfg["out_root"] = str(out_root)
@@ -165,7 +254,7 @@ def run_cluster(cluster: dict, args) -> dict:
     # skill_init MUST be a file path — a text literal is silently treated as a
     # nonexistent path and the skill starts blank (spike findings §1)
     skill_init_path = out_root / "initial_artifact.md"
-    skill_init_path.write_text(baseline_text)
+    skill_init_path.write_text(seed_text)  # use seed_text (may be from archive)
     cfg["skill_init"] = str(skill_init_path)
 
     from skillopt.model.azure_openai import configure_azure_openai
@@ -185,6 +274,7 @@ def run_cluster(cluster: dict, args) -> dict:
             "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
             "crashed": True, "error": f"{type(e).__name__}: {e}",
             "estimated_rollout_calls": est_calls,
+            "strategy": strategy,
         }
         (out_root / "optimization_report.json").write_text(json.dumps(crash_report, indent=2))
         print(f"[{run_tag}] CRASHED: {e} — partial spend recorded in {out_root}/optimization_report.json")
@@ -207,14 +297,50 @@ def run_cluster(cluster: dict, args) -> dict:
     selection_improved = (sel_baseline is not None and sel_best is not None
                           and sel_best > sel_baseline)
     test_regressed = best_score < base_score
+    improved = selection_improved and not test_regressed
+
+    # ── Archive recording + Bandit update ────────────────────────────────────
+    _record_archive(
+        archive=archive,
+        run_tag=run_tag,
+        target_key_str=target_key_str,
+        layer=cluster["layer"],
+        strategy=strategy,
+        seed_text=seed_text,
+        baseline_text=baseline_text,
+        best_text=best_text,
+        sel_baseline=sel_baseline,
+        sel_best=sel_best,
+        improved=improved,
+        no_embed=no_embed,
+    )
+
+    bandit = BanditState.load(bandit_path)
+    bandit.update(cluster["layer"], strategy, improved)
+    bandit.save(bandit_path)
+
+    # Bandit posterior for this arm in the report
+    arm_key = f"{cluster['layer']}|{strategy}"
+    arm_alpha, arm_beta = bandit.arms.get(arm_key, [1.0, 1.0])
+    bandit_arm_after = {
+        "arm": arm_key,
+        "alpha": arm_alpha,
+        "beta": arm_beta,
+        "mean": round(arm_alpha / (arm_alpha + arm_beta), 4),
+        "n": int(arm_alpha + arm_beta - 2),
+    }
+
     report = {
         "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
+        "strategy": strategy,
+        "seed_source": seed_source,
+        "bandit_arm_after": bandit_arm_after,
         "baseline_test_mixed": base_score, "best_test_mixed": best_score,
         "baseline_selection_score": sel_baseline,
         "best_selection_score": sel_best,
         "selection_improved": selection_improved,
         "test_regressed": test_regressed,
-        "improved": selection_improved and not test_regressed,
+        "improved": improved,
         "evidence_note": ("improvement evidence comes from the selection split "
                           "(contains failure tasks); the held-out test split guards "
                           "non-regression on remaining tasks"),
@@ -280,6 +406,12 @@ def main() -> None:
     parser.add_argument("--mock-mcp-url", default="http://localhost:8000")
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--strategy", choices=STRATEGIES, default=None,
+                        help="Override bandit: use this strategy for the run.")
+    parser.add_argument("--explore", action="store_true",
+                        help="Use archive.pick_parent() for ε-greedy seed selection.")
+    parser.add_argument("--no-embed", action="store_true",
+                        help="Skip sentence-transformer embeddings in Archive (pure score pick).")
     args = parser.parse_args()
 
     data = json.loads(pathlib.Path(args.classification).read_text())
