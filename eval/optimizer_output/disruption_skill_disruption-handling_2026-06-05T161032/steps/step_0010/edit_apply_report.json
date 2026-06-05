@@ -1,0 +1,23 @@
+[
+  {
+    "op": "replace",
+    "target": "Use relevant tools or resources to provide explicit compensation rules if a user inquires about it.",
+    "content_preview": "Use relevant tools or resources to provide explicit compensation rules whenever a user inquires about them, especially in cases of delays or cancellations. Avoid responding with general information wh",
+    "status": "applied_replace",
+    "index": 1
+  },
+  {
+    "op": "insert_after",
+    "target": "tool if a rebooking is required.",
+    "content_preview": "Ensure that compensation inquiries are addressed immediately using the appropriate tools, and avoid engaging in prolonged conversational turns without providing the necessary information through tool ",
+    "status": "applied_insert_after",
+    "index": 2
+  },
+  {
+    "op": "insert_after",
+    "target": "**Confirm required inputs.**",
+    "content_preview": "Before proceeding to tool calls, confirm the availability of required parameters such as passenger details and disruption type to ensure efficient use of the tools without unnecessary prompts.",
+    "status": "applied_insert_after",
+    "index": 3
+  }
+]

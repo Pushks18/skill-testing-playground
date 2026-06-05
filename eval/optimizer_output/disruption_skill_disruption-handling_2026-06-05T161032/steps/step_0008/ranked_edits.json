@@ -1,0 +1,19 @@
+{
+  "reasoning": "The failures indicate a consistent issue where the agent did not use the appropriate tool to provide compensation rules when requested, opting instead to ask for personal information unnecessarily. This is a clear misunderstanding of when to use tool calls for retrieving information versus collecting details for actions. Additionally, the instructions need reinforcement to ensure tool use over verbal responses when specific information is asked.",
+  "edits": [
+    {
+      "op": "replace",
+      "content": "Always call the relevant tools to retrieve and present explicit compensation rules when a user inquires about them, even if their query is not associated with a specific disruption type provided this information is within the system’s capabilities.",
+      "target": "Use relevant tools or resources to provide explicit compensation rules if a user inquires about it.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "append",
+      "content": "Ensure that no request for general information, such as inquiries about compensation rules, results solely in requests for additional passenger information when a tool can supply the needed answer.",
+      "target": "## Edge Cases and Quality Checks",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

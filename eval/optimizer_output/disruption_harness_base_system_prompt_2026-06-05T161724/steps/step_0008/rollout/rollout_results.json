@@ -1,0 +1,10 @@
+[
+  {
+    "id": "disruption-104",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights']",
+    "task_type": "disruption",
+    "question": "Can you check which flights are available from Boston to Miami tomorrow morning after my flight got canceled?"
+  }
+]

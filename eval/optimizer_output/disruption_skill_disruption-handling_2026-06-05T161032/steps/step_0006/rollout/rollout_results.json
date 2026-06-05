@@ -1,0 +1,10 @@
+[
+  {
+    "id": "disruption-106",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "disruption",
+    "question": "Is there any chance to add priority boarding to my flight to Los Angeles?"
+  }
+]

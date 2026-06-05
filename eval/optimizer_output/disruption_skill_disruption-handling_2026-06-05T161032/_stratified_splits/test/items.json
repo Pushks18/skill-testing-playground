@@ -1,0 +1,14 @@
+[
+  {
+    "id": "disruption-103",
+    "question": "Something came up, and I can't make it to my London trip. Please cancel my hotel reservation.",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-103"
+  },
+  {
+    "id": "disruption-107",
+    "question": "I'm not sure if my booking reference is BK3X9Z2A or BK4Y7A6B. Can you verify my passenger details?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-107"
+  }
+]

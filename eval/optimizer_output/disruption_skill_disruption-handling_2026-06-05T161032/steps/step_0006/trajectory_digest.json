@@ -1,0 +1,29 @@
+{
+  "step": 6,
+  "action": "reject",
+  "n_total": 1,
+  "n_fail": 1,
+  "failure_patterns": [
+    {
+      "pattern": "Missing required tools",
+      "count": 1,
+      "task_ids": [
+        "disruption-106"
+      ]
+    }
+  ],
+  "score_before": 0.3194444444444444,
+  "score_after": 0.013888888888888888,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "Always ensure to use the required tools for adding services such as ancillary options (e.g., priority boarding) to existing bookings.",
+      "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required."
+    },
+    {
+      "op": "insert_after",
+      "content": "Ensure to provide compensation policy information using the 'retrieve_compensation_policy' tool rather than requesting additional personal information unless it is necessary for verification.",
+      "target": "* **Tool Usage for Communication:** Do not respond with text explanations where a tool can provide structured or authoritative answers. Ensure compensation policies and rebooking options are retrieved and presented using the correct tools."
+    }
+  ]
+}

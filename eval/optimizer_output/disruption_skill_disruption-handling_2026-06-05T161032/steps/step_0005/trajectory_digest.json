@@ -1,0 +1,30 @@
+{
+  "step": 5,
+  "action": "accept_new_best",
+  "n_total": 5,
+  "n_fail": 4,
+  "failure_patterns": [
+    {
+      "pattern": "avg=0.08 std=0.14 | The agent's response completely misses the pass criteria. The user asked to find out *if there's any compensation* and the pass criteria states the response should 'Explain the airline's compensation policy for delayed flights.' Instead, the agent asks for personal information, which is a process to *check* for compensation, not an explanation of the policy itself. The agent hasn't provided any policy information at all.",
+      "count": 1,
+      "task_ids": [
+        "disruption-102"
+      ]
+    },
+    {
+      "pattern": "avg=0.08 std=0.14 | The agent did not provide any information about compensation rules. Instead, it asked for more details that were not requested in the prompt. Therefore, none of the pass criteria were met.",
+      "count": 1,
+      "task_ids": [
+        "disruption-109"
+      ]
+    },
+    {
+      "pattern": "Missing required tools",
+      "count": 2,
+      "task_ids": [
+        "disruption-104",
+        "disruption-112"
+      ]
+    }
+  ]
+}

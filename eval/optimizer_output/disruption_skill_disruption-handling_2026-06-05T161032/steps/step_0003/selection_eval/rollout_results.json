@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.08333333333333333,
+    "fail_reason": "avg=0.08 std=0.14 | The agent did not suggest any possible steps or options for rebooking. Instead, they asked for information from the user, which doesn't fulfill the task instruction of providing options.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The user explicitly stated 'My booking ref is not on hand. What should I do?' The core of the query is about what to do when the booking reference is missing, specifically how to check availability without it. The agent completely ignores the lack of a booking reference and instead asks for travel dates and passenger numbers to check new availability, which is not what the user asked. The user is trying to check *availability for an existing booking*, not make a new one, and is asking for advice on how to proceed without the reference. The agent failed to advise the user to look up or provide specific booking details related to their *existing* booking.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

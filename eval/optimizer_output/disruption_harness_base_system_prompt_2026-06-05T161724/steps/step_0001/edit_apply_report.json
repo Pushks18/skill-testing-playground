@@ -1,0 +1,23 @@
+[
+  {
+    "op": "insert_after",
+    "target": "You are a helpful travel assistant. Use the available tools to help users with flight searches, hotel bookings, and travel planning.",
+    "content_preview": "For any requests involving checking flights or finding available options from a specified origin to a destination, use the 'search_flights' tool, ensuring to include all relevant parameters like origi",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "append",
+    "target": "",
+    "content_preview": "In cases where users do not have their booking reference or other required details on hand, guide them to retrieve or find this information, as it is necessary for proceeding with tool calls like 'mod",
+    "status": "applied_append",
+    "index": 2
+  },
+  {
+    "op": "replace",
+    "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking refe",
+    "content_preview": "For rebooking requests or assistance after flight cancellations, use both the 'search_flights' tool to find new travel options and the 'modify_booking' tool to adjust existing bookings, ensuring all p",
+    "status": "applied_replace",
+    "index": 3
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "step": 7,
+  "action": "reject",
+  "n_total": 5,
+  "n_fail": 4,
+  "failure_patterns": [
+    {
+      "pattern": "Missing required tools",
+      "count": 3,
+      "task_ids": [
+        "disruption-104",
+        "disruption-112",
+        "disruption-106"
+      ]
+    },
+    {
+      "pattern": "avg=0.00 std=0.00 | The agent did not explain the airline's compensation policy for delayed flights, which was the core of the pass criteria. Instead, it asked for personal information to assist, which is not what was requested.",
+      "count": 1,
+      "task_ids": [
+        "disruption-102"
+      ]
+    }
+  ],
+  "score_before": 0.3194444444444444,
+  "score_after": 0.2638888888888889,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "Always utilize the 'add_ancillary' tool when users inquire about adding additional services such as priority boarding to an existing booking.",
+      "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required."
+    },
+    {
+      "op": "insert_after",
+      "content": "If the user asks about compensation policies related to delays, use available tools or knowledge bases to provide this information explicitly rather than seeking additional information.",
+      "target": "Use relevant tools or resources to provide explicit compensation rules if a user inquires about it."
+    },
+    {
+      "op": "append",
+      "content": "Ensure all communication regarding solutions or compensations is supported by appropriate tool calls to confirm the information is accurate and authoritative.",
+      "target": "## Edge Cases and Quality Checks"
+    }
+  ]
+}

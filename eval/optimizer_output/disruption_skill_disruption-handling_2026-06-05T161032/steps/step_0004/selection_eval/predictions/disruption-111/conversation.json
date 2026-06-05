@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.33 std=0.29 | The agent asks for details to check the booking but misses the part where the user explicitly states they *don't have the booking reference*. It doesn't advise on how to look it up or what alternative information might suffice if the booking reference is truly unavailable. While asking for name and contact is a good step, it doesn't quite address the core problem posed by the user regarding the missing reference. (score=0.3333333333333333)"
+  }
+]

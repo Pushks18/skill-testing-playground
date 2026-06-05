@@ -1,0 +1,16 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Use the available tools to help users with flight searches, hotel bookings, and travel planning.",
+    "content_preview": "For rebooking requests or assistance after flight cancellations, use the 'search_flights' tool to find new travel options and the 'modify_booking' tool to adjust existing bookings, ensuring all necess",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "append",
+    "target": "ensuring all necessary parameters like booking reference and service details are provided.",
+    "content_preview": "In cases where users do not have their booking reference or other required details on hand, guide them to retrieve or find this information, as it is necessary for proceeding with tool calls like 'mod",
+    "status": "applied_append",
+    "index": 2
+  }
+]

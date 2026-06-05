@@ -1,0 +1,16 @@
+[
+  {
+    "op": "insert_after",
+    "target": "travel planning.",
+    "content_preview": "For disruptions like flight cancellations, ensure to use the 'search_flights' tool to find alternate flights and 'modify_booking' to reassign the user to a new flight. Always pass required parameters ",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "replace",
+    "target": "always call the 'add_ancillary' tool with the necessary booking reference and details of the request.",
+    "content_preview": "always call the 'add_ancillary' tool with the necessary booking reference, service details, relevant dates, and any other required parameters.",
+    "status": "applied_replace",
+    "index": 2
+  }
+]

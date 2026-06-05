@@ -1,0 +1,16 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required",
+    "content_preview": "Always ensure to use the required tools for adding services such as ancillary options (e.g., priority boarding) to existing bookings.",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "insert_after",
+    "target": "* **Tool Usage for Communication:** Do not respond with text explanations where a tool can provide structured or authoritative answers. Ensure compensation policies and rebooking options are retrieved",
+    "content_preview": "Ensure to provide compensation policy information using the 'retrieve_compensation_policy' tool rather than requesting additional personal information unless it is necessary for verification.",
+    "status": "applied_insert_after",
+    "index": 2
+  }
+]

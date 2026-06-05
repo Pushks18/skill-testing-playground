@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.08333333333333333,
+    "fail_reason": "avg=0.08 std=0.14 | The agent's response completely misses the point of the instruction. The user is asking for general options and steps for rebooking a canceled flight, not for the agent to personally rebook their specific flight. The agent's response is an attempt to gather information to perform a rebooking, which is not what was asked. It does not suggest 'possible steps and options for rebooking'.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The user explicitly stated 'My booking ref is not on hand. What should I do?' The agent's response completely ignored the user's core problem about the missing booking reference and instead pivoted to asking for new flight details. The agent did not advise the user on how to find or provide the booking details, which was the primary instruction for the pass criteria.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

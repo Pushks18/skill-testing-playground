@@ -1,0 +1,18 @@
+[
+  {
+    "id": "disruption-103",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['cancel_booking']",
+    "task_type": "disruption",
+    "question": "Something came up, and I can't make it to my London trip. Please cancel my hotel reservation."
+  },
+  {
+    "id": "disruption-107",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['validate_passenger']",
+    "task_type": "disruption",
+    "question": "I'm not sure if my booking reference is BK3X9Z2A or BK4Y7A6B. Can you verify my passenger details?"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "disruption-106",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "disruption",
+    "question": "Is there any chance to add priority boarding to my flight to Los Angeles?"
+  },
+  {
+    "id": "disruption-102",
+    "hard": 1,
+    "soft": 0.5,
+    "fail_reason": "avg=0.50 std=0.00 | The agent's response directly addresses the user's flight (AB1234) and states that compensation for delays isn't mentioned in the fare rules. However, it fails to explain the airline's compensation policy *in general*, which was the core of the pass criteria. While it provides specific information about that flight's fare rules, it doesn't give a broader overview of how the airline handles delays or if there are other avenues for compensation beyond what's in the fare rules (e.g., EU261, specific airline policies outside of fare rules, or even just suggesting checking the airline's website or contacting them directly). It essentially says 'no info found for this specific case in these specific documents' rather than explaining the policy. It correctly identifies what it *doesn't* find but doesn't fulfill the 'explain the policy' part.",
+    "task_type": "disruption",
+    "question": "I need to find out if there's any compensation for my delayed flight AB1234."
+  },
+  {
+    "id": "disruption-112",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "I've just learned my flight got canceled. Could you assist me with rebooking a similar flight to Denver?"
+  },
+  {
+    "id": "disruption-104",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights']",
+    "task_type": "disruption",
+    "question": "Can you check which flights are available from Boston to Miami tomorrow morning after my flight got canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The user explicitly stated that their booking reference is not on hand, yet the agent directly asks for the travel date, which is a booking detail. The agent did not advise the user to look up or provide specific booking details as per the pass criteria.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  }
+]

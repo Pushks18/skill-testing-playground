@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: PASSED \u2014 avg=0.50 std=0.00 | The agent's response asks for 'the date you plan to travel', which is a booking detail. However, the task instruction explicitly mentions 'My booking ref is not on hand. What should I do?' and the pass criteria advise the user to 'look up or provide specific booking details'. The agent asks for *a* detail, but doesn't fully guide the user on *what to do* about the missing booking reference or other ways to identify their trip. It implies they need to start from scratch without a booking reference rather than helping them find an existing one or understand what alternative information could be used for a lookup. It's a partial step towards getting booking details but doesn't cover the 'what should I do' aspect fully in the context of a missing booking reference. (score=0.5)"
+  }
+]

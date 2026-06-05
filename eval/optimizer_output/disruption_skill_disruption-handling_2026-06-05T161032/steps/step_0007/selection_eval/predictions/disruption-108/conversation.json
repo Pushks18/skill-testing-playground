@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.08 std=0.14 | The agent's response doesn't actually suggest any options or steps for rebooking. Instead, it asks for information needed to *then* look up options. The user asked for options, not for what information the agent needs. While collecting information is a necessary step in the process, it doesn't fulfill the 'suggest possible steps and options' part of the pass criteria directly. (score=0.08333333333333333)"
+  }
+]

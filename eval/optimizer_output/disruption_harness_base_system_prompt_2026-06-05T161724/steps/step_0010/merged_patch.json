@@ -1,0 +1,18 @@
+{
+  "reasoning": "The agent often fails to use the necessary tool to search for flights when there is a disruption like a cancellation. These edits ensure that the agent employs the right tool for flight disruptions without omitting essential parameters or responding verbally.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "When a user reports a flight cancellation or delay and asks for alternative flight options, utilize the 'search_flights' tool to find available flights, making sure to include all necessary parameters such as origin, destination, and date.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "delete",
+      "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

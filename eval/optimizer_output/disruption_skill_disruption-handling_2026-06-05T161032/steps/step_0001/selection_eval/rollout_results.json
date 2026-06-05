@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.25,
+    "fail_reason": "avg=0.25 std=0.00 | The agent's response does not directly address the user's request for options regarding rebooking after a canceled flight. Instead, it asks for more information, which is a necessary step to *perform* the rebooking, but not to *explain the options*. The user is asking 'What are my options?', implying they want to understand the general procedures and possibilities (e.g., rebooking on the same airline, different airline, refund, travel vouchers, specific rights under EU261 for flights from Paris). The agent's response is an attempt to gather data for a transaction, not to provide an informative answer to the question asked.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 0,
+    "soft": 0.4166666666666667,
+    "fail_reason": "avg=0.42 std=0.38 | The agent correctly asks for specific booking details to help with the availability check, which aligns with the pass criteria. However, the user explicitly stated 'My booking ref is not on hand,' meaning they are likely trying to check *general* availability before booking, not check an existing booking. The agent's questions about 'full name as it appears in the booking' and 'contact email or phone number associated with your booking' imply an existing booking, which contradicts the user's statement. If the user is trying to find *new* flights, the agent should have asked for desired dates, number of passengers, and perhaps preferred airlines or times, without implying an existing booking. The response is good for checking an *existing* booking without a reference, but not for checking *general availability* as the user's overall intent implies.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

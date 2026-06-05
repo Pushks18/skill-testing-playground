@@ -1,0 +1,19 @@
+{
+  "reasoning": "The failures indicate a pattern where the agent fails to use appropriate tools for disruption scenarios, specifically for rebooking flights and adding additional services. By reinforcing the need to use specific tools under these circumstances, the agent can improve its performance.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "For instances where a flight has been canceled or needs to be rebooked, use the 'search_flights' tool to find available options and the 'modify_booking' tool to complete the rebooking process.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "append",
+      "content": "In cases where users seek to retrieve booking details without a booking reference at hand, provide guidance on how to locate this information through their airline account or other confirmation methods.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

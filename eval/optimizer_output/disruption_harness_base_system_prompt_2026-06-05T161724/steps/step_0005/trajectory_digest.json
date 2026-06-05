@@ -1,0 +1,44 @@
+{
+  "step": 5,
+  "action": "reject",
+  "n_total": 5,
+  "n_fail": 5,
+  "failure_patterns": [
+    {
+      "pattern": "Missing required tools",
+      "count": 4,
+      "task_ids": [
+        "disruption-101",
+        "disruption-104",
+        "disruption-112",
+        "disruption-106"
+      ]
+    },
+    {
+      "pattern": "avg=0.17 std=0.14 | The user explicitly stated their booking reference is not on hand and asked what they should do regarding checking availability for an existing, but unreferenced, booking. The agent completely ignored the core problem of the missing booking reference and instead asked for travel dates, which is irrelevant if the user is trying to check 'availability' of an already booked, but unreferenced, trip. The agent's response would be appropriate if the user was making a new inquiry, not checking a 'booking' without a reference.",
+      "count": 1,
+      "task_ids": [
+        "disruption-111"
+      ]
+    }
+  ],
+  "score_before": 0.0,
+  "score_after": 0.0,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "For flight cancellations, always call the 'search_flights' tool to find alternative flights and the 'modify_booking' tool to rebook the customer on a new flight. This ensures disruption events are han",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided."
+    },
+    {
+      "op": "replace",
+      "content": "You must prioritize using specific tools for handling tasks like rebooking canceled flights and adding services. Ensure all tool calls are made with complete parameters, such as passenger details, dat",
+      "target": "You are a helpful travel assistant. Use the available tools to help users with flight searches, hotel bookings, and travel planning."
+    },
+    {
+      "op": "replace",
+      "content": "When users request additional services, such as priority boarding, lounge access, or any other ancillary service, ensure that the 'add_ancillary' tool is used with the necessary booking reference, ser",
+      "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates."
+    }
+  ]
+}

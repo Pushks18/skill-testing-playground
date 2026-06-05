@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.08333333333333333,
+    "fail_reason": "avg=0.08 std=0.14 | The agent's response doesn't actually suggest any options or steps for rebooking. Instead, it asks for information needed to *then* look up options. The user asked for options, not for what information the agent needs. While collecting information is a necessary step in the process, it doesn't fulfill the 'suggest possible steps and options' part of the pass criteria directly.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 1,
+    "soft": 0.5,
+    "fail_reason": "avg=0.50 std=0.00 | The agent asks for the user's name and contact information, which are details associated with a booking. However, the user explicitly states 'My booking ref is not on hand,' implying they don't have this information readily available. The agent's response doesn't directly advise on how to look up the booking without the reference number, nor does it provide specific details (like 'exact dates of travel' or 'airline') that could help in a search *without* the booking reference. It does pivot to 'new travel options' if the booking can't be found, which is a good alternative, and asks for dates in that case, but it doesn't fully address the core issue of checking availability for an *existing* but unreferenced booking.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

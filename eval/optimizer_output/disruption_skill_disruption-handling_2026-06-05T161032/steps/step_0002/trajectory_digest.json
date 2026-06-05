@@ -1,0 +1,34 @@
+{
+  "step": 2,
+  "action": "reject",
+  "n_total": 1,
+  "n_fail": 1,
+  "failure_patterns": [
+    {
+      "pattern": "avg=0.00 std=0.00 | The agent did not explain the airline's compensation policy for delayed flights. Instead, they asked for personal information to look up the flight, which does not fulfill the pass criteria.",
+      "count": 1,
+      "task_ids": [
+        "disruption-102"
+      ]
+    }
+  ],
+  "score_before": 0.3055555555555556,
+  "score_after": 0.05555555555555555,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "The agent must use the appropriate tools to provide compensation rules when requested by the user, rather than responding with a verbal inquiry for more information.",
+      "target": "inform the appropriate tools and information to retrieve (e.g., compensation rules are only applicable for certain disruptions)."
+    },
+    {
+      "op": "insert_after",
+      "content": "Ensure all necessary parameters are included in tool calls, such as disruption type, origin/destination, and passenger information, to avoid any missed details during the solution retrieval process.",
+      "target": "Use the provided booking reference or passenger details to look up the affected itinerary."
+    },
+    {
+      "op": "append",
+      "content": "The agent should prioritize the use of available tools to provide solutions such as rebooking or compensation, ensuring that they provide structured and reliable information to the user rather than de",
+      "target": "If after investigating, no suitable rebooking options or compensation information can be found, the agent must clearly state this to the user and explain why."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "op": "insert_after",
+    "target": "travel planning.",
+    "content_preview": "In cases of disruption, such as flight cancellations or changes, ensure to use the 'search_flights' tool to identify available alternatives. Always provide necessary parameters including origin, desti",
+    "status": "applied_insert_after",
+    "index": 1
+  }
+]

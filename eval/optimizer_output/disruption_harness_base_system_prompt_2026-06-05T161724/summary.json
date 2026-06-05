@@ -1,0 +1,138 @@
+{
+  "version": "skillopt-0.1.0",
+  "config": {
+    "model_backend": "openai_chat",
+    "optimizer_model": "gpt-4o",
+    "target_model": "gpt-4o-mini",
+    "num_epochs": 5,
+    "batch_size": 5,
+    "accumulation": 1,
+    "minibatch_size": 4,
+    "merge_batch_size": 8,
+    "analyst_workers": 4,
+    "edit_budget": 3,
+    "use_gate": true,
+    "gate_metric": "mixed",
+    "gate_mixed_weight": 0.5,
+    "sel_env_num": 3,
+    "test_env_num": 2,
+    "eval_test": true,
+    "env": "travel",
+    "out_root": "eval/optimizer_output/disruption_harness_base_system_prompt_2026-06-05T161724",
+    "seed": 7,
+    "skill_init": "eval/optimizer_output/disruption_harness_base_system_prompt_2026-06-05T161724/initial_artifact.md",
+    "split_mode": "split_dir",
+    "split_dir": "eval/optimizer_output/disruption_harness_base_system_prompt_2026-06-05T161724/_stratified_splits",
+    "optimizer_backend": "openai_chat",
+    "target_backend": "openai_chat",
+    "train_size": 6,
+    "steps_per_epoch": 2,
+    "batches_per_epoch": 2,
+    "samples_per_epoch": 6,
+    "skill_update_mode": "patch",
+    "lr_control_mode": "fixed"
+  },
+  "baseline_selection_hard": 0.0,
+  "best_selection_hard": 0.0,
+  "best_step": 0,
+  "current_origin": "initial_skill",
+  "best_origin": "initial_skill",
+  "total_steps": 10,
+  "total_accepts": 0,
+  "total_rejects": 10,
+  "total_skips": 0,
+  "epoch_stats": [
+    {
+      "epoch": 1,
+      "steps": [
+        1,
+        2
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.0,
+      "current_score_at_epoch_end": 0.0
+    },
+    {
+      "epoch": 2,
+      "steps": [
+        3,
+        4
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.0,
+      "current_score_at_epoch_end": 0.0
+    },
+    {
+      "epoch": 3,
+      "steps": [
+        5,
+        6
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.0,
+      "current_score_at_epoch_end": 0.0
+    },
+    {
+      "epoch": 4,
+      "steps": [
+        7,
+        8
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.0,
+      "current_score_at_epoch_end": 0.0
+    },
+    {
+      "epoch": 5,
+      "steps": [
+        9,
+        10
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.0,
+      "current_score_at_epoch_end": 0.0
+    }
+  ],
+  "baseline_test_hard": 0.0,
+  "baseline_test_soft": 0.08333333333333333,
+  "test_hard": 0.0,
+  "test_soft": 0.0,
+  "test_delta_hard": 0,
+  "total_wall_time_s": 177.3,
+  "token_summary": {
+    "analyst": {
+      "calls": 12,
+      "prompt_tokens": 12335,
+      "completion_tokens": 3206,
+      "total_tokens": 15541
+    },
+    "merge": {
+      "calls": 2,
+      "prompt_tokens": 2082,
+      "completion_tokens": 868,
+      "total_tokens": 2950
+    },
+    "ranking": {
+      "calls": 1,
+      "prompt_tokens": 783,
+      "completion_tokens": 106,
+      "total_tokens": 889
+    },
+    "_total": {
+      "calls": 15,
+      "prompt_tokens": 15200,
+      "completion_tokens": 4180,
+      "total_tokens": 19380
+    }
+  }
+}

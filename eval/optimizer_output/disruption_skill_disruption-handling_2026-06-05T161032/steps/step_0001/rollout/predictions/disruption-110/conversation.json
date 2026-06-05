@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: Could you cancel my booking with reference GH8K4J2P?"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "cancel_booking({\"booking_id\": \"GH8K4J2P\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.17 std=0.14 | The agent's response is an information-gathering question rather than providing options. It does not fulfill the pass criteria of suggesting possible steps and options for rebooking a canceled flight from Paris. It only asks for more details, which is not helpful to the user's initial query about their options. (score=0.16666666666666666)"
+  }
+]

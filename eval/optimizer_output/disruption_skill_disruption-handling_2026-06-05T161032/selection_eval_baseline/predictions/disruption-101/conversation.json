@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['search_flights', 'modify_booking'] (score=0.0)"
+  }
+]

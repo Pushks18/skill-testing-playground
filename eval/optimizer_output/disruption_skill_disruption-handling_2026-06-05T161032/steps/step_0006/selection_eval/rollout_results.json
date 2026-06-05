@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.08333333333333333,
+    "fail_reason": "avg=0.08 std=0.14 | The agent's response asks for information to help them assist the user, but it completely fails to answer the user's question about the *options* for rebooking. The user is asking for general steps and possibilities, not for the agent to actively rebook their specific flight. The response is a pre-requisite for help, not the help itself.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent completely missed the part about the booking reference not being on hand. The user wants to check availability, which does not require a booking reference. The prompt specifies to 'advise the user to look up or provide specific booking details' if a booking ref is needed. In this case, it's not. The agent should have simply helped with the availability request without mentioning the booking reference at all.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

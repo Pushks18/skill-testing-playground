@@ -1,0 +1,45 @@
+{
+  "step": 9,
+  "action": "reject",
+  "n_total": 5,
+  "n_fail": 5,
+  "failure_patterns": [
+    {
+      "pattern": "Missing required tools",
+      "count": 3,
+      "task_ids": [
+        "disruption-112",
+        "disruption-101",
+        "disruption-106"
+      ]
+    },
+    {
+      "pattern": "avg=0.42 std=0.14 | The agent did not explain the general airline compensation policies for delayed flights. Instead, they focused on saying the specific fare rules for the customer's flight didn't mention compensation and advised the customer to check with the airline. This only partially addresses the task criteria. The agent should have provided a general overview of common compensation policies (e.g., EU261, US DOT rules, meal vouchers, accommodation, rerouting) and then advised the customer to check with the airline for specifics relevant to their situation.",
+      "count": 1,
+      "task_ids": [
+        "disruption-102"
+      ]
+    },
+    {
+      "pattern": "avg=0.00 std=0.00 | The agent completely missed the key part of the user's request. The user stated 'My booking ref is not on hand. What should I do?'. The agent did not advise the user to look up or provide specific booking details. Instead, the agent asked for travel dates, which is irrelevant to resolving the 'no booking reference' issue first. The agent should have focused on helping the user retrieve or work around the missing booking reference before moving on to check availability for a *new* search.",
+      "count": 1,
+      "task_ids": [
+        "disruption-111"
+      ]
+    }
+  ],
+  "score_before": 0.0,
+  "score_after": 0.0,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "In cases where a flight has been disrupted (e.g., cancellation or delay) and the user needs assistance in finding alternative flights or rebooking, always use the 'search_flights' tool to identify alt",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided."
+    },
+    {
+      "op": "append",
+      "content": "If a user cannot provide a booking reference, advise them to retrieve or look up the booking reference first, or guide them on how to proceed without it before attempting to fulfill the request.",
+      "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request."
+    }
+  ]
+}

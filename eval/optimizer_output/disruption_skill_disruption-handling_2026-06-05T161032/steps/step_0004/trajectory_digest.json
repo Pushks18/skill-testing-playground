@@ -1,0 +1,29 @@
+{
+  "step": 4,
+  "action": "reject",
+  "n_total": 1,
+  "n_fail": 1,
+  "failure_patterns": [
+    {
+      "pattern": "avg=0.00 std=0.00 | The agent did not provide any explanation of compensation rules, which was the core of the pass criteria. Instead, it asked for more information, which is a conversational turn but not an answer to the posed question.",
+      "count": 1,
+      "task_ids": [
+        "disruption-109"
+      ]
+    }
+  ],
+  "score_before": 0.3055555555555556,
+  "score_after": 0.06944444444444443,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "If the user's request involves knowing compensation rules or policies, directly use tools to retrieve and provide these policies without additional questions unless specific critical details are missi",
+      "target": "2. **Identify the type of disruption.** Determine if the disruption is a cancellation, delay, missed connection, or other event impacting a travel itinerary."
+    },
+    {
+      "op": "append",
+      "content": "* **Direct Response Requirement for Compensation:** When asked directly about compensation policies, use the relevant tool to provide this information directly instead of seeking additional input from",
+      "target": "## Edge Cases and Quality Checks"
+    }
+  ]
+}

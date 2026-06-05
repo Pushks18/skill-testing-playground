@@ -1,0 +1,23 @@
+{
+  "patch": {
+    "reasoning": "Failures are primarily due to missing tool calls for compensation information and relying on verbal responses. Edits focus on emphasizing the use of tools for compensation queries and ensuring required parameters are confirmed before proceeding.",
+    "edits": [
+      {
+        "op": "replace",
+        "content": "Use relevant tools or resources to provide explicit compensation rules whenever a user inquires about them, especially in cases of delays or cancellations. Avoid responding with general information when tools can provide detailed compensation guidelines.",
+        "target": "Use relevant tools or resources to provide explicit compensation rules if a user inquires about it."
+      },
+      {
+        "op": "insert_after",
+        "content": "Ensure that compensation inquiries are addressed immediately using the appropriate tools, and avoid engaging in prolonged conversational turns without providing the necessary information through tool use.",
+        "target": "tool if a rebooking is required."
+      },
+      {
+        "op": "insert_after",
+        "content": "Before proceeding to tool calls, confirm the availability of required parameters such as passenger details and disruption type to ensure efficient use of the tools without unnecessary prompts.",
+        "target": "**Confirm required inputs.**"
+      }
+    ]
+  },
+  "source_type": "failure"
+}

@@ -1,0 +1,12 @@
+{
+  "reasoning": "Failures indicate the agent is not using the 'search_flights' tool for disruptions like flight cancellations. This has caused agents to respond verbally when a tool call is necessary. Edits prioritize reinforcing tool use for disrupted travel scenarios.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "In cases of disruption, such as flight cancellations or changes, ensure to use the 'search_flights' tool to identify available alternatives. Always provide necessary parameters including origin, destination, and date.",
+      "target": "travel planning.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

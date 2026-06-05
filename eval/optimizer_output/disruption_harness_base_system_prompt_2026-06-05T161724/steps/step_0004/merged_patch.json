@@ -1,0 +1,19 @@
+{
+  "reasoning": "The failures indicate a pattern where the agent did not use tools when necessary and responded verbally instead. This includes situations where canceled flights need rebooking. The patch reinforces instructions to use the appropriate tool for searching flights, addressing the specific need to handle canceled or required rebookings.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "For cases where a flight has been canceled or needs to be rebooked, first call the 'search_flights' tool to find available options.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "append",
+      "content": "Always prioritize tool calls over verbal responses to ensure users' needs are fully met through available functionalities.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

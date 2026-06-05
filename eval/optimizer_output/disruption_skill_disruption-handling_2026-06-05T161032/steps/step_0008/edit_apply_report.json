@@ -1,0 +1,16 @@
+[
+  {
+    "op": "replace",
+    "target": "Use relevant tools or resources to provide explicit compensation rules if a user inquires about it.",
+    "content_preview": "Always call the relevant tools to retrieve and present explicit compensation rules when a user inquires about them, even if their query is not associated with a specific disruption type provided this ",
+    "status": "applied_replace",
+    "index": 1
+  },
+  {
+    "op": "append",
+    "target": "## Edge Cases and Quality Checks",
+    "content_preview": "Ensure that no request for general information, such as inquiries about compensation rules, results solely in requests for additional passenger information when a tool can supply the needed answer.",
+    "status": "applied_append",
+    "index": 2
+  }
+]

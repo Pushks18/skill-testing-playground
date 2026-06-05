@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.08333333333333333,
+    "fail_reason": "avg=0.08 std=0.14 | The agent's response does not suggest any possible steps or options for rebooking. Instead, it asks for more information to *then* assist, which is not what the task requested. The user wanted to know their options, not be asked for details first.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 0,
+    "soft": 0.3333333333333333,
+    "fail_reason": "avg=0.33 std=0.29 | The agent asks for details to check the booking but misses the part where the user explicitly states they *don't have the booking reference*. It doesn't advise on how to look it up or what alternative information might suffice if the booking reference is truly unavailable. While asking for name and contact is a good step, it doesn't quite address the core problem posed by the user regarding the missing reference.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

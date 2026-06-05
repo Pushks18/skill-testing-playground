@@ -1,0 +1,16 @@
+[
+  {
+    "op": "insert_after",
+    "target": "2. **Identify the type of disruption.** Determine if the disruption is a cancellation, delay, missed connection, or other event impacting a travel itinerary.",
+    "content_preview": "If the user's request involves knowing compensation rules or policies, directly use tools to retrieve and provide these policies without additional questions unless specific critical details are missi",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "append",
+    "target": "## Edge Cases and Quality Checks",
+    "content_preview": "* **Direct Response Requirement for Compensation:** When asked directly about compensation policies, use the relevant tool to provide this information directly instead of seeking additional input from",
+    "status": "applied_append",
+    "index": 2
+  }
+]

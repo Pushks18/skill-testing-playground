@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.08 std=0.14 | The agent's response completely misses the point of the user's request. The user is asking for general options and steps for rebooking a canceled flight, not asking the agent to actually rebook their flight. The agent's response is an information-gathering query to perform a specific rebooking, which is not what the user asked for. It fails to suggest any possible steps or options, which is the core of the pass criteria. (score=0.08333333333333333)"
+  }
+]

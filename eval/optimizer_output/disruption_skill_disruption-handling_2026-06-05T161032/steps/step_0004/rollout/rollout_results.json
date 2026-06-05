@@ -1,0 +1,10 @@
+[
+  {
+    "id": "disruption-109",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent did not provide any explanation of compensation rules, which was the core of the pass criteria. Instead, it asked for more information, which is a conversational turn but not an answer to the posed question.",
+    "task_type": "disruption",
+    "question": "My flight from Tokyo to Sydney has been delayed. Can I find out the compensation rules?"
+  }
+]

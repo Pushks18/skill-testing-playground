@@ -1,0 +1,10 @@
+{
+  "last_completed_step": 10,
+  "current_skill_path": "eval/optimizer_output/disruption_skill_disruption-handling_2026-06-05T161032/skills/skill_v0010.md",
+  "current_score": 0.3194444444444444,
+  "current_origin": "step_0005",
+  "best_skill_path": "eval/optimizer_output/disruption_skill_disruption-handling_2026-06-05T161032/best_skill.md",
+  "best_score": 0.3194444444444444,
+  "best_step": 5,
+  "best_origin": "step_0005"
+}

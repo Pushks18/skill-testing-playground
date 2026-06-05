@@ -1,0 +1,16 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "For instances where a flight has been canceled or needs to be rebooked, use the 'search_flights' tool to find available options and the 'modify_booking' tool to complete the rebooking process.",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "append",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "In cases where users seek to retrieve booking details without a booking reference at hand, provide guidance on how to locate this information through their airline account or other confirmation method",
+    "status": "applied_append",
+    "index": 2
+  }
+]

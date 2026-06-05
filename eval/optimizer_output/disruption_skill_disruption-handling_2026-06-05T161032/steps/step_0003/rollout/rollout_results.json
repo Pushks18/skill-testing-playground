@@ -1,0 +1,42 @@
+[
+  {
+    "id": "disruption-104",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights']",
+    "task_type": "disruption",
+    "question": "Can you check which flights are available from Boston to Miami tomorrow morning after my flight got canceled?"
+  },
+  {
+    "id": "disruption-106",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "disruption",
+    "question": "Is there any chance to add priority boarding to my flight to Los Angeles?"
+  },
+  {
+    "id": "disruption-110",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "disruption",
+    "question": "Could you cancel my booking with reference GH8K4J2P?"
+  },
+  {
+    "id": "disruption-112",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "I've just learned my flight got canceled. Could you assist me with rebooking a similar flight to Denver?"
+  },
+  {
+    "id": "disruption-102",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent's response completely misses the pass criteria, which is to 'explain the airline's compensation policy for delayed flights.' Instead, the agent asks for more information to *check for compensation options*, which is not what was requested. The user is asking *if there's any compensation*, not for the agent to initiate a compensation claim.",
+    "task_type": "disruption",
+    "question": "I need to find out if there's any compensation for my delayed flight AB1234."
+  }
+]

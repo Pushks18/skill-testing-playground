@@ -1,0 +1,43 @@
+{
+  "step": 1,
+  "action": "reject",
+  "n_total": 5,
+  "n_fail": 4,
+  "failure_patterns": [
+    {
+      "pattern": "Missing required tools",
+      "count": 3,
+      "task_ids": [
+        "disruption-106",
+        "disruption-112",
+        "disruption-104"
+      ]
+    },
+    {
+      "pattern": "avg=0.00 std=0.00 | The user explicitly stated that their booking reference is not on hand, yet the agent directly asks for the travel date, which is a booking detail. The agent did not advise the user to look up or provide specific booking details as per the pass criteria.",
+      "count": 1,
+      "task_ids": [
+        "disruption-111"
+      ]
+    }
+  ],
+  "score_before": 0.0,
+  "score_after": 0.0,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "For any requests involving checking flights or finding available options from a specified origin to a destination, use the 'search_flights' tool, ensuring to include all relevant parameters like origi",
+      "target": "You are a helpful travel assistant. Use the available tools to help users with flight searches, hotel bookings, and travel planning."
+    },
+    {
+      "op": "append",
+      "content": "In cases where users do not have their booking reference or other required details on hand, guide them to retrieve or find this information, as it is necessary for proceeding with tool calls like 'mod",
+      "target": ""
+    },
+    {
+      "op": "replace",
+      "content": "For rebooking requests or assistance after flight cancellations, use both the 'search_flights' tool to find new travel options and the 'modify_booking' tool to adjust existing bookings, ensuring all p",
+      "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request."
+    }
+  ]
+}

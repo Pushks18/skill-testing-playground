@@ -1,0 +1,126 @@
+{
+  "version": "skillopt-0.1.0",
+  "config": {
+    "model_backend": "openai_chat",
+    "optimizer_model": "gpt-4o",
+    "target_model": "gpt-4o-mini",
+    "num_epochs": 5,
+    "batch_size": 5,
+    "accumulation": 1,
+    "minibatch_size": 4,
+    "merge_batch_size": 8,
+    "analyst_workers": 4,
+    "edit_budget": 3,
+    "use_gate": true,
+    "gate_metric": "mixed",
+    "gate_mixed_weight": 0.5,
+    "sel_env_num": 3,
+    "test_env_num": 2,
+    "eval_test": true,
+    "env": "travel",
+    "out_root": "eval/optimizer_output/disruption_skill_disruption-handling_2026-06-05T161032",
+    "seed": 7,
+    "skill_init": "eval/optimizer_output/disruption_skill_disruption-handling_2026-06-05T161032/initial_artifact.md",
+    "split_mode": "split_dir",
+    "split_dir": "eval/optimizer_output/disruption_skill_disruption-handling_2026-06-05T161032/_stratified_splits",
+    "optimizer_backend": "openai_chat",
+    "target_backend": "openai_chat",
+    "train_size": 6,
+    "steps_per_epoch": 2,
+    "batches_per_epoch": 2,
+    "samples_per_epoch": 6,
+    "skill_update_mode": "patch",
+    "lr_control_mode": "fixed"
+  },
+  "baseline_selection_hard": 0.3333333333333333,
+  "best_selection_hard": 0.3194444444444444,
+  "best_step": 5,
+  "current_origin": "step_0005",
+  "best_origin": "step_0005",
+  "total_steps": 10,
+  "total_accepts": 1,
+  "total_rejects": 9,
+  "total_skips": 0,
+  "epoch_stats": [
+    {
+      "epoch": 1,
+      "steps": [
+        1,
+        2
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.3055555555555556,
+      "current_score_at_epoch_end": 0.3055555555555556
+    },
+    {
+      "epoch": 2,
+      "steps": [
+        3,
+        4
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.3055555555555556,
+      "current_score_at_epoch_end": 0.3055555555555556
+    },
+    {
+      "epoch": 3,
+      "steps": [
+        5,
+        6
+      ],
+      "accepts": 1,
+      "rejects": 1,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.3194444444444444,
+      "current_score_at_epoch_end": 0.3194444444444444
+    },
+    {
+      "epoch": 4,
+      "steps": [
+        7,
+        8
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.3194444444444444,
+      "current_score_at_epoch_end": 0.3194444444444444
+    },
+    {
+      "epoch": 5,
+      "steps": [
+        9,
+        10
+      ],
+      "accepts": 0,
+      "rejects": 2,
+      "skips": 0,
+      "best_score_at_epoch_end": 0.3194444444444444,
+      "current_score_at_epoch_end": 0.3194444444444444
+    }
+  ],
+  "baseline_test_hard": 0.0,
+  "baseline_test_soft": 0.0,
+  "test_hard": 0.0,
+  "test_soft": 0.0,
+  "test_delta_hard": 0,
+  "total_wall_time_s": 251.1,
+  "token_summary": {
+    "analyst": {
+      "calls": 10,
+      "prompt_tokens": 18439,
+      "completion_tokens": 3200,
+      "total_tokens": 21639
+    },
+    "_total": {
+      "calls": 10,
+      "prompt_tokens": 18439,
+      "completion_tokens": 3200,
+      "total_tokens": 21639
+    }
+  }
+}

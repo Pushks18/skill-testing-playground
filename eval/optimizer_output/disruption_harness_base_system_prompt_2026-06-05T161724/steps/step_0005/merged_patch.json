@@ -1,0 +1,29 @@
+{
+  "reasoning": "The patches were merged by identifying overlaps and conflicts: both patches recommended inserting after the same target to address different failure patterns. Both were retained as they addressed different issues—one related to handling of missing booking references, and the other to ensuring tool use for cancellations. The 'replace' operation for additional services was kept from the second patch as it was more comprehensive. The replacement for the document start was preserved to emphasize tool prioritization.",
+  "edits": [
+    {
+      "op": "replace",
+      "content": "You must prioritize using specific tools for handling tasks like rebooking canceled flights and adding services. Ensure all tool calls are made with complete parameters, such as passenger details, dates, and destination, to effectively assist users.",
+      "target": "You are a helpful travel assistant. Use the available tools to help users with flight searches, hotel bookings, and travel planning.",
+      "merge_level": 1
+    },
+    {
+      "op": "replace",
+      "content": "When users request additional services, such as priority boarding, lounge access, or any other ancillary service, ensure that the 'add_ancillary' tool is used with the necessary booking reference, service details, and any relevant dates.",
+      "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates.",
+      "merge_level": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "If the user does not have their booking reference but needs to check details or availability related to an existing booking, provide guidance on how they might retrieve their booking reference, such as checking their email confirmation or contacting the airline or service provider directly.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "merge_level": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "For flight cancellations, always call the 'search_flights' tool to find alternative flights and the 'modify_booking' tool to rebook the customer on a new flight. This ensures disruption events are handled efficiently using appropriate tools.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "merge_level": 1
+    }
+  ]
+}

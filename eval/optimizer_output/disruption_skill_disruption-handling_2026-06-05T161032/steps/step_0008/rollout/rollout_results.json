@@ -1,0 +1,10 @@
+[
+  {
+    "id": "disruption-109",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent did not provide any information about compensation rules. Instead, it asked for personal information to 'retrieve the necessary details'. The request was to explain the rules, not to find specific compensation for the user. Therefore, the response completely missed the instruction and pass criteria.",
+    "task_type": "disruption",
+    "question": "My flight from Tokyo to Sydney has been delayed. Can I find out the compensation rules?"
+  }
+]

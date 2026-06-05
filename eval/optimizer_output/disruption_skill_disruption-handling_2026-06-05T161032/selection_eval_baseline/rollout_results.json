@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.08333333333333333,
+    "fail_reason": "avg=0.08 std=0.14 | The agent's response completely misses the point of the user's request. The user is asking for general options and steps for rebooking a canceled flight, not asking the agent to actually rebook their flight. The agent's response is an information-gathering query to perform a specific rebooking, which is not what the user asked for. It fails to suggest any possible steps or options, which is the core of the pass criteria.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 1,
+    "soft": 0.75,
+    "fail_reason": "avg=0.75 std=0.00 | The agent's response correctly advises the user to look up or provide specific booking details (full name, email/phone) to assist with an existing booking. However, the user stated 'My booking ref is not on hand. What should I do?' which implies they already have a booking but can't find the reference. The agent then branches into 'If you\u2019re looking for availability of flights and you don\u2019t have a booking yet,' which might be a slight misinterpretation of the user's intent to check 'availability' *of their existing booking*. The primary instruction was about an existing booking without a reference. While good advice for availability, it slightly deviates from the core issue of a 'booking ref not on hand' for an existing booking.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

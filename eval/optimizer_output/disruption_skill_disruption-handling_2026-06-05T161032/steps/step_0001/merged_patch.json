@@ -1,0 +1,26 @@
+{
+  "reasoning": "The agent is failing to call necessary tools when responding to user requests, especially in contexts where tool actions are crucial, such as providing compensation rules, modifying bookings, and checking flight availability. The edits focus on reinforcing the need for tool use in these key areas within the disruption handling workflow.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "Agent must call the appropriate tool to provide compensation information when requested, rather than only asking for additional details from the user.",
+      "target": "Determine if the disruption is a cancellation, delay, missed connection, or other event impacting a travel itinerary. This will inform the appropriate tools and information to retrieve (e.g., compensation rules are only applicable for certain disruptions).",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "Ensure that tools like 'search_flights', 'modify_booking', and 'add_ancillary' are used appropriately when they align with user requests, such as rebooking flights or requesting additional services.",
+      "target": "Based on the disruption type and the traveler's stated needs (e.g., \"rebooking a similar flight to Denver\"), investigate available tools or knowledge bases to find appropriate solutions (e.g., alternative flights, compensation policies). This step was entirely missed in the `NO_TOOL_CALL` failures, as the agent didn't attempt to search for solutions.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "This should particularly involve invoking tools for actions like rescheduling, adding services, or checking available flights based on the user's situation and requests, rather than just text responses.",
+      "target": "Clearly communicate the available rebooking options, compensation information, or other relevant details obtained in the previous step.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

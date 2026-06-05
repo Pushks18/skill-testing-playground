@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent response fails to suggest any possible steps or options for rebooking after a flight cancellation. Instead, it asks for information as if it's going to perform the lookup itself. The task was to *suggest options*, not to ask for details to do the job for the user.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent's response incorrectly assumes the user has a booking. The user explicitly stated 'My booking ref is not on hand' and 'I need to check availability first,' implying they want to *find* availability for a *new* booking, not inquire about an existing one. The agent's questions about passenger name and associated email/phone number are irrelevant for checking general availability for a new flight and only make sense if trying to locate an existing, potentially unreferenced, booking. This completely misunderstands the user's intent.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

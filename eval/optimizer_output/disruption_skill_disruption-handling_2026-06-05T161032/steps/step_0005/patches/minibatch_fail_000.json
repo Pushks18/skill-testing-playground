@@ -1,0 +1,23 @@
+{
+  "patch": {
+    "reasoning": "The current skill document lacks clarity on when and how the agent should initiate tool calls for rebooking, searching flights, and providing compensation information. There are consistent failures in making necessary tool calls when a disruption is identified. These edits provide explicit guidance to ensure tools are used for disruption solutions instead of verbal responses.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "Once the type of disruption and required details are confirmed, immediately use the appropriate tools to retrieve rebooking options, alternative flights, or compensation information based on the situation.",
+        "target": "**Identify the type of disruption.** Determine if the disruption is a cancellation, delay, missed connection, or other event impacting a travel itinerary. This will inform the appropriate tools and information to retrieve (e.g., compensation rules are only applicable for certain disruptions)."
+      },
+      {
+        "op": "insert_after",
+        "content": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required. Use relevant tools or resources to provide explicit compensation rules if a user inquires about it.",
+        "target": "**Evaluate rebooking options or alternative solutions.** Based on the disruption type and the traveler's stated needs (e.g., \"rebooking a similar flight to Denver\"), investigate available tools or knowledge bases to find appropriate solutions (e.g., alternative flights, compensation policies)."
+      },
+      {
+        "op": "replace",
+        "content": "* **Tool Usage for Communication:** Do not respond with text explanations where a tool can provide structured or authoritative answers. Ensure compensation policies and rebooking options are retrieved and presented using the correct tools.",
+        "target": "*   **No Available Solutions:** If after investigating, no suitable rebooking options or compensation information can be found, the agent must clearly state this to the user and explain why."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

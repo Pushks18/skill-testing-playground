@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.00 std=0.00 | The agent completely missed the key part of the user's request. The user stated 'My booking ref is not on hand. What should I do?'. The agent did not advise the user to look up or provide specific booking details. Instead, the agent asked for travel dates, which is irrelevant to resolving the 'no booking reference' issue first. The agent should have focused on helping the user retrieve or work around the missing booking reference before moving on to check availability for a *new* search. (score=0.0)"
+  }
+]

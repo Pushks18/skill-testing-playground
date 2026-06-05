@@ -1,0 +1,43 @@
+{
+  "step": 1,
+  "action": "reject",
+  "n_total": 5,
+  "n_fail": 4,
+  "failure_patterns": [
+    {
+      "pattern": "Missing required tools",
+      "count": 3,
+      "task_ids": [
+        "disruption-106",
+        "disruption-112",
+        "disruption-104"
+      ]
+    },
+    {
+      "pattern": "avg=0.17 std=0.14 | The agent's response does not provide any explanation of compensation rules, which was the core of the task instruction. Instead, it asks for more information, which is a common practice for an agent but doesn't fulfill the specific request to *explain* the rules. Although the information might be needed to give a precise answer, the prompt specifically asked for an explanation of the rules generally in this context first.",
+      "count": 1,
+      "task_ids": [
+        "disruption-109"
+      ]
+    }
+  ],
+  "score_before": 0.3055555555555556,
+  "score_after": 0.11111111111111112,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "Agent must call the appropriate tool to provide compensation information when requested, rather than only asking for additional details from the user.",
+      "target": "Determine if the disruption is a cancellation, delay, missed connection, or other event impacting a travel itinerary. This will inform the appropriate tools and information to retrieve (e.g., compensation rules are only applicable for certain disruptions)."
+    },
+    {
+      "op": "insert_after",
+      "content": "Ensure that tools like 'search_flights', 'modify_booking', and 'add_ancillary' are used appropriately when they align with user requests, such as rebooking flights or requesting additional services.",
+      "target": "Based on the disruption type and the traveler's stated needs (e.g., \"rebooking a similar flight to Denver\"), investigate available tools or knowledge bases to find appropriate solutions (e.g., alternative flights, compensation policies). This step was entirely missed in the `NO_TOOL_CALL` failures, as the agent didn't attempt to search for solutions."
+    },
+    {
+      "op": "insert_after",
+      "content": "This should particularly involve invoking tools for actions like rescheduling, adding services, or checking available flights based on the user's situation and requests, rather than just text response",
+      "target": "Clearly communicate the available rebooking options, compensation information, or other relevant details obtained in the previous step."
+    }
+  ]
+}

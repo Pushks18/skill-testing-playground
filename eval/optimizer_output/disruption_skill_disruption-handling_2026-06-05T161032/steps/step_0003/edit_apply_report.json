@@ -1,0 +1,23 @@
+[
+  {
+    "op": "insert_after",
+    "target": "3. **Retrieve booking details.** Use the provided booking reference or passenger details to look up the affected itinerary. If multiple booking references are provided, attempt to verify each one to f",
+    "content_preview": "Ensure to use tools such as 'search_flights', 'modify_booking', 'add_ancillary' for handling flight rebooking, flight availability checks, and adding services like priority boarding. For compensation ",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "insert_after",
+    "target": "*   **Missing Disruption Type:** If the user's initial instruction does not clearly state the disruption (e.g., \"I need to check availability\"), the agent must prompt the user for more specific inform",
+    "content_preview": "If the user requests information on compensation, immediately use the relevant tool to get the airline's compensation policy details rather than asking for additional information unless it pertains to",
+    "status": "applied_insert_after",
+    "index": 2
+  },
+  {
+    "op": "insert_after",
+    "target": "4. **Evaluate rebooking options or alternative solutions.** Based on the disruption type and the traveler's stated needs (e.g., \"rebooking a similar flight to Denver\"), investigate available tools or ",
+    "content_preview": "Always prioritize tool calls for available tasks that require searching, modification, or addition of booking elements. Avoid purely verbal responses unless explicitly asking for unknown required deta",
+    "status": "applied_insert_after",
+    "index": 3
+  }
+]

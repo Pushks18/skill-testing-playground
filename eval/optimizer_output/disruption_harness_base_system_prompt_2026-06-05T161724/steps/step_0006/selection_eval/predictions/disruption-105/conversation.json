@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: I missed my connection in Chicago. Could you rebook me on the next flight to San Francisco?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['search_flights', 'modify_booking'] (score=0.0)"
+  }
+]

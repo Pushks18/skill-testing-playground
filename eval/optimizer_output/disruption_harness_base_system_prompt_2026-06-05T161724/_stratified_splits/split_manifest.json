@@ -1,0 +1,36 @@
+{
+  "train": [
+    "disruption-101",
+    "disruption-104",
+    "disruption-106",
+    "disruption-112",
+    "disruption-111",
+    "disruption-102"
+  ],
+  "val": [
+    "disruption-103",
+    "disruption-105",
+    "disruption-107",
+    "disruption-110"
+  ],
+  "test": [
+    "disruption-108",
+    "disruption-109"
+  ],
+  "must_split_ids": [
+    "disruption-101",
+    "disruption-103",
+    "disruption-104",
+    "disruption-105",
+    "disruption-106",
+    "disruption-107",
+    "disruption-112"
+  ],
+  "seed": 7,
+  "ratio": [
+    5,
+    3,
+    2
+  ],
+  "duplicated_ids": []
+}

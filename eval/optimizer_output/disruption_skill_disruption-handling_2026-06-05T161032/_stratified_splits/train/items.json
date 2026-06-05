@@ -1,0 +1,38 @@
+[
+  {
+    "id": "disruption-102",
+    "question": "I need to find out if there's any compensation for my delayed flight AB1234.",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-102"
+  },
+  {
+    "id": "disruption-109",
+    "question": "My flight from Tokyo to Sydney has been delayed. Can I find out the compensation rules?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-109"
+  },
+  {
+    "id": "disruption-110",
+    "question": "Could you cancel my booking with reference GH8K4J2P?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-110"
+  },
+  {
+    "id": "disruption-112",
+    "question": "I've just learned my flight got canceled. Could you assist me with rebooking a similar flight to Denver?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-112"
+  },
+  {
+    "id": "disruption-104",
+    "question": "Can you check which flights are available from Boston to Miami tomorrow morning after my flight got canceled?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-104"
+  },
+  {
+    "id": "disruption-106",
+    "question": "Is there any chance to add priority boarding to my flight to Los Angeles?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-106"
+  }
+]

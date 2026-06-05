@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.00 std=0.00 | The agent response fails to suggest any possible steps or options for rebooking after a flight cancellation. Instead, it asks for information as if it's going to perform the lookup itself. The task was to *suggest options*, not to ask for details to do the job for the user. (score=0.0)"
+  }
+]

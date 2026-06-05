@@ -1,0 +1,23 @@
+{
+  "patch": {
+    "reasoning": "The failures across multiple trajectories indicate a pattern where the agent fails to call the appropriate tools for user requests involving modifications or additional services. Specifically, there is a lack of tool usage for adding ancillary services and modifying bookings, as well as failures in guiding users on missing booking references. The edits aim to strengthen instructions around mandatory tool usage for these common scenarios.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "For requests that involve checking availability or modifying bookings due to disruptions such as flight cancellations, use 'search_flights' and 'modify_booking' tools to assist users immediately with finding alternative arrangements.",
+        "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided."
+      },
+      {
+        "op": "append",
+        "content": "If a user cannot provide a booking reference, advise them to retrieve or look up the booking reference first, or guide them on how to proceed without it before attempting to fulfill the request.",
+        "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request."
+      },
+      {
+        "op": "insert_after",
+        "content": "In cases of flight delays or disruptions, it is important to provide users with general airline compensation policies (e.g., EU261, US DOT rules) alongside advising them to check specific fare rules. This information provides users with an overview of potential entitlements, such as meal vouchers or accommodations.",
+        "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-108"
+  },
+  {
+    "id": "disruption-111",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-111"
+  },
+  {
+    "id": "disruption-101",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-101"
+  },
+  {
+    "id": "disruption-105",
+    "question": "I missed my connection in Chicago. Could you rebook me on the next flight to San Francisco?",
+    "task_type": "disruption",
+    "task_path": "tasks/disruption-105"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "reasoning": "The main issues observed include the agent failing to call appropriate tools for retrieving compensation information and not utilizing tools when solution options are required. Enhancing instructions to enforce tool usage when retrieving information about disruptions and specifying the correct parameters for tool calls will address these patterns.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "The agent must use the appropriate tools to provide compensation rules when requested by the user, rather than responding with a verbal inquiry for more information.",
+      "target": "inform the appropriate tools and information to retrieve (e.g., compensation rules are only applicable for certain disruptions).",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "Ensure all necessary parameters are included in tool calls, such as disruption type, origin/destination, and passenger information, to avoid any missed details during the solution retrieval process.",
+      "target": "Use the provided booking reference or passenger details to look up the affected itinerary.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "append",
+      "content": "The agent should prioritize the use of available tools to provide solutions such as rebooking or compensation, ensuring that they provide structured and reliable information to the user rather than defaulting to text responses.",
+      "target": "If after investigating, no suitable rebooking options or compensation information can be found, the agent must clearly state this to the user and explain why.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

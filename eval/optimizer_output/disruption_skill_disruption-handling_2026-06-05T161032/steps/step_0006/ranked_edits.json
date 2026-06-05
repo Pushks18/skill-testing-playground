@@ -1,0 +1,19 @@
+{
+  "reasoning": "Failures indicate that the agent often fails to use tools when they are necessary, specifically for retrieving compensation policies or adding services like priority boarding. The instructions need to strongly emphasize the necessity of using tools to retrieve and provide structured information wherever applicable, rather than defaulting to verbal responses. Additionally, ensuring that required tools and parameters are consistently noted and used during interactions will minimize failures related to missing tool use.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "Always ensure to use the required tools for adding services such as ancillary options (e.g., priority boarding) to existing bookings.",
+      "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "Ensure to provide compensation policy information using the 'retrieve_compensation_policy' tool rather than requesting additional personal information unless it is necessary for verification.",
+      "target": "* **Tool Usage for Communication:** Do not respond with text explanations where a tool can provide structured or authoritative answers. Ensure compensation policies and rebooking options are retrieved and presented using the correct tools.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

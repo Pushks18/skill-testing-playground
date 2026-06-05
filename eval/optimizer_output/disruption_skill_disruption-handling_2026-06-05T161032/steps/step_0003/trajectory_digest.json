@@ -1,0 +1,43 @@
+{
+  "step": 3,
+  "action": "reject",
+  "n_total": 5,
+  "n_fail": 4,
+  "failure_patterns": [
+    {
+      "pattern": "Missing required tools",
+      "count": 3,
+      "task_ids": [
+        "disruption-104",
+        "disruption-106",
+        "disruption-112"
+      ]
+    },
+    {
+      "pattern": "avg=0.00 std=0.00 | The agent's response completely misses the pass criteria, which is to 'explain the airline's compensation policy for delayed flights.' Instead, the agent asks for more information to *check for compensation options*, which is not what was requested. The user is asking *if there's any compensation*, not for the agent to initiate a compensation claim.",
+      "count": 1,
+      "task_ids": [
+        "disruption-102"
+      ]
+    }
+  ],
+  "score_before": 0.3055555555555556,
+  "score_after": 0.013888888888888888,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "Ensure to use tools such as 'search_flights', 'modify_booking', 'add_ancillary' for handling flight rebooking, flight availability checks, and adding services like priority boarding. For compensation ",
+      "target": "3. **Retrieve booking details.** Use the provided booking reference or passenger details to look up the affected itinerary. If multiple booking references are provided, attempt to verify each one to find the correct booking."
+    },
+    {
+      "op": "insert_after",
+      "content": "If the user requests information on compensation, immediately use the relevant tool to get the airline's compensation policy details rather than asking for additional information unless it pertains to",
+      "target": "*   **Missing Disruption Type:** If the user's initial instruction does not clearly state the disruption (e.g., \"I need to check availability\"), the agent must prompt the user for more specific information to determine the `disruption_type`. The agent should not assume a disruption has occurred without explicit confirmation."
+    },
+    {
+      "op": "insert_after",
+      "content": "Always prioritize tool calls for available tasks that require searching, modification, or addition of booking elements. Avoid purely verbal responses unless explicitly asking for unknown required deta",
+      "target": "4. **Evaluate rebooking options or alternative solutions.** Based on the disruption type and the traveler's stated needs (e.g., \"rebooking a similar flight to Denver\"), investigate available tools or knowledge bases to find appropriate solutions (e.g., alternative flights, compensation policies). This step was entirely missed in the `NO_TOOL_CALL` failures, as the agent didn't attempt to search for solutions."
+    }
+  ]
+}

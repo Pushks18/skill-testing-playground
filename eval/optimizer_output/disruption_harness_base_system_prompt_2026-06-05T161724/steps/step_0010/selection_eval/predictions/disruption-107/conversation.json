@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: I'm not sure if my booking reference is BK3X9Z2A or BK4Y7A6B. Can you verify my passenger details?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['validate_passenger'] (score=0.0)"
+  }
+]

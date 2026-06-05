@@ -1,0 +1,16 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "When a user reports a flight cancellation or delay and asks for alternative flight options, utilize the 'search_flights' tool to find available flights, making sure to include all necessary parameters",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "delete",
+    "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking refe",
+    "content_preview": "",
+    "status": "applied_delete",
+    "index": 2
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: I need to find out if there's any compensation for my delayed flight AB1234."
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.00 std=0.00 | The agent did not explain the airline's compensation policy for delayed flights. Instead, they asked for personal information to look up the flight, which does not fulfill the pass criteria. (score=0.0)"
+  }
+]

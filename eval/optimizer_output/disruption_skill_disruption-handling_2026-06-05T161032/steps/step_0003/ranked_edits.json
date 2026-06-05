@@ -1,0 +1,26 @@
+{
+  "reasoning": "Failures are occurring due to the agent's tendency to respond verbally rather than calling the appropriate tools, especially for common scenarios such as rebooking, searching flights, and handling compensation claims. Current instructions do not emphasize tool usage for these specific disruption scenarios.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "Ensure to use tools such as 'search_flights', 'modify_booking', 'add_ancillary' for handling flight rebooking, flight availability checks, and adding services like priority boarding. For compensation inquiries, use the tool provided to retrieve airline policies.",
+      "target": "3. **Retrieve booking details.** Use the provided booking reference or passenger details to look up the affected itinerary. If multiple booking references are provided, attempt to verify each one to find the correct booking.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "If the user requests information on compensation, immediately use the relevant tool to get the airline's compensation policy details rather than asking for additional information unless it pertains to the specific disruption type.",
+      "target": "*   **Missing Disruption Type:** If the user's initial instruction does not clearly state the disruption (e.g., \"I need to check availability\"), the agent must prompt the user for more specific information to determine the `disruption_type`. The agent should not assume a disruption has occurred without explicit confirmation.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "Always prioritize tool calls for available tasks that require searching, modification, or addition of booking elements. Avoid purely verbal responses unless explicitly asking for unknown required details.",
+      "target": "4. **Evaluate rebooking options or alternative solutions.** Based on the disruption type and the traveler's stated needs (e.g., \"rebooking a similar flight to Denver\"), investigate available tools or knowledge bases to find appropriate solutions (e.g., alternative flights, compensation policies). This step was entirely missed in the `NO_TOOL_CALL` failures, as the agent didn't attempt to search for solutions.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

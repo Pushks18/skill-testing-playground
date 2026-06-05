@@ -1,0 +1,26 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.3333333333333333,
+    "fail_reason": "avg=0.33 std=0.14 | The agent's response does not directly answer the user's question about *generic options* for rebooking. Instead, it asks for more information to *personally assist* them. While gathering details is a necessary step for an agent, the prompt asks for 'options' for rebooking, implying a general explanation of what typically happens or what a traveler can generally do in such a situation (e.g., airline rebooking, refund, travel insurance, alternative airlines, etc.). The agent's response doesn't offer any of these general options.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-111",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent's response doesn't advise the user to look up their booking details or explain that they are needed to find a booking without a reference. Instead, it asks for 'desired travel date' and 'full name' which are not necessarily sufficient to find an existing booking, especially when the user explicitly states they don't have the booking reference. The 'contact email or phone number associated with your booking (if available)' is a step in the right direction but is conditional and not given as a primary solution to finding a booking without a reference.",
+    "task_type": "disruption",
+    "question": "I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "id": "disruption-101",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "My flight from JFK to LAX just got canceled. Could you help me rebook the earliest available flight?"
+  }
+]

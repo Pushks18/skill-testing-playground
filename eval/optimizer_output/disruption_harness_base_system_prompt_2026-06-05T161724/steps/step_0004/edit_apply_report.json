@@ -1,0 +1,16 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "For cases where a flight has been canceled or needs to be rebooked, first call the 'search_flights' tool to find available options.",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "append",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "Always prioritize tool calls over verbal responses to ensure users' needs are fully met through available functionalities.",
+    "status": "applied_append",
+    "index": 2
+  }
+]

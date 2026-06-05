@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: Can you check which flights are available from Boston to Miami tomorrow morning after my flight got canceled?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['search_flights'] (score=0.0)"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "reasoning": "The failures primarily stem from the agent not utilizing available tools and insufficient specificity in the guidance for tool usage. Instructions need to reinforce tool usage when providing solutions, including ancillary services, rebooking options, and compensation information. Additionally, ensuring agents recognize when to supplement information with the correct tool calls is crucial.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "Always utilize the 'add_ancillary' tool when users inquire about adding additional services such as priority boarding to an existing booking.",
+      "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "insert_after",
+      "content": "If the user asks about compensation policies related to delays, use available tools or knowledge bases to provide this information explicitly rather than seeking additional information.",
+      "target": "Use relevant tools or resources to provide explicit compensation rules if a user inquires about it.",
+      "source_type": "failure",
+      "support_count": 1
+    },
+    {
+      "op": "append",
+      "content": "Ensure all communication regarding solutions or compensations is supported by appropriate tool calls to confirm the information is accurate and authoritative.",
+      "target": "## Edge Cases and Quality Checks",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: My flight from Tokyo to Sydney has been delayed. Can I find out the compensation rules?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.00 std=0.00 | The agent did not provide any compensation rules, but instead asked for more information, which was unnecessary for the task. The task was to explain general compensation rules, not to look up specific rules for a particular flight. (score=0.0)"
+  }
+]

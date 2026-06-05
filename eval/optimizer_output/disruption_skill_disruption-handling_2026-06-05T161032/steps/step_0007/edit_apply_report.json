@@ -1,0 +1,23 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required",
+    "content_preview": "Always utilize the 'add_ancillary' tool when users inquire about adding additional services such as priority boarding to an existing booking.",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "insert_after",
+    "target": "Use relevant tools or resources to provide explicit compensation rules if a user inquires about it.",
+    "content_preview": "If the user asks about compensation policies related to delays, use available tools or knowledge bases to provide this information explicitly rather than seeking additional information.",
+    "status": "applied_insert_after",
+    "index": 2
+  },
+  {
+    "op": "append",
+    "target": "## Edge Cases and Quality Checks",
+    "content_preview": "Ensure all communication regarding solutions or compensations is supported by appropriate tool calls to confirm the information is accurate and authoritative.",
+    "status": "applied_append",
+    "index": 3
+  }
+]

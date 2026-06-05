@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: FAILED \u2014 avg=0.00 std=0.00 | The agent's response doesn't advise the user to look up their booking details or explain that they are needed to find a booking without a reference. Instead, it asks for 'desired travel date' and 'full name' which are not necessarily sufficient to find an existing booking, especially when the user explicitly states they don't have the booking reference. The 'contact email or phone number associated with your booking (if available)' is a step in the right direction but is conditional and not given as a primary solution to finding a booking without a reference. (score=0.0)"
+  }
+]

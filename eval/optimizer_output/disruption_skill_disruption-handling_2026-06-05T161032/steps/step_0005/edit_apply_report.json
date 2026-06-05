@@ -1,0 +1,23 @@
+[
+  {
+    "op": "insert_after",
+    "target": "**Identify the type of disruption.** Determine if the disruption is a cancellation, delay, missed connection, or other event impacting a travel itinerary. This will inform the appropriate tools and in",
+    "content_preview": "Once the type of disruption and required details are confirmed, immediately use the appropriate tools to retrieve rebooking options, alternative flights, or compensation information based on the situa",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "insert_after",
+    "target": "**Evaluate rebooking options or alternative solutions.** Based on the disruption type and the traveler's stated needs (e.g., \"rebooking a similar flight to Denver\"), investigate available tools or kno",
+    "content_preview": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required",
+    "status": "applied_insert_after",
+    "index": 2
+  },
+  {
+    "op": "replace",
+    "target": "*   **No Available Solutions:** If after investigating, no suitable rebooking options or compensation information can be found, the agent must clearly state this to the user and explain why.",
+    "content_preview": "* **Tool Usage for Communication:** Do not respond with text explanations where a tool can provide structured or authoritative answers. Ensure compensation policies and rebooking options are retrieved",
+    "status": "applied_replace",
+    "index": 3
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "reasoning": "Both patches address the need for better handling of flight disruptions and service modifications. The second patch's insertions are more complete as they include mention of disruptions and compensation guidance. The advice on missing booking references is a unique addition in the second patch. The instructions around using 'search_flights' and 'modify_booking' tools are combined from both patches for a comprehensive approach. Conflicts are resolved by adopting the more detailed or widely applicable guidance.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "In cases where a flight has been disrupted (e.g., cancellation or delay) and the user needs assistance in finding alternative flights or rebooking, always use the 'search_flights' tool to identify alternative flight options, and the 'modify_booking' tool to make changes to the existing booking. Ensure all necessary details such as new destination, travel dates, and booking references are included. Provide users with general airline compensation policies (e.g., EU261, US DOT rules) alongside advising them to check specific fare rules.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided.",
+      "merge_level": 1
+    },
+    {
+      "op": "append",
+      "content": "If a user cannot provide a booking reference, advise them to retrieve or look up the booking reference first, or guide them on how to proceed without it before attempting to fulfill the request.",
+      "target": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request.",
+      "merge_level": 1
+    }
+  ]
+}

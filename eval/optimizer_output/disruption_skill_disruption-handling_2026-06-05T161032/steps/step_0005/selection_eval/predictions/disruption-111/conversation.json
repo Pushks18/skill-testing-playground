@@ -1,0 +1,11 @@
+[
+  {
+    "content": "User request: I'm trying to travel from Seattle to Honolulu, but I need to check availability first. My booking ref is not on hand. What should I do?"
+  },
+  {
+    "content": "Agent called NO tools \u2014 responded with text only."
+  },
+  {
+    "content": "Verifier: PASSED \u2014 avg=0.67 std=0.58 | The agent directly addresses the user's need to check availability by asking for necessary details like the passenger's full name, contact information, and date of travel. This aligns perfectly with the pass criteria of advising the user to provide specific booking details. (score=0.6666666666666666)"
+  }
+]

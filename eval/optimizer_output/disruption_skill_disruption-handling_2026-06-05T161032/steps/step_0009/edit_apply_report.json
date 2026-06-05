@@ -1,0 +1,23 @@
+[
+  {
+    "op": "insert_after",
+    "target": "use relevant tools or resources to provide explicit compensation rules if a user inquires about it.",
+    "content_preview": "Always retrieve and present the compensation policies using the appropriate tool or resource when a disruption involves flight delays or cancellations and the user inquires about potential compensatio",
+    "status": "applied_insert_after_fallback_append",
+    "index": 1
+  },
+  {
+    "op": "insert_after",
+    "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required",
+    "content_preview": "If a user inquires about adding services such as priority boarding, utilize the 'add_ancillary' tool to fulfill the request.",
+    "status": "applied_insert_after",
+    "index": 2
+  },
+  {
+    "op": "replace",
+    "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required",
+    "content_preview": "Ensure to use the 'search_flights' tool when checking for flight availability after a cancellation, and always use the 'modify_booking' tool if a rebooking is being requested by the user. Never respon",
+    "status": "applied_replace",
+    "index": 3
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "patch": {
+    "reasoning": "The agent misses necessary tool calls for task types involving disruptions, such as flight cancellations, where rebooking is needed using 'search_flights' and 'modify_booking' tools. Additionally, there is a failure in calling 'add_ancillary' for adding services like priority boarding. To address these, edits will ensure clear guidance for disruption scenarios and reinforce the adherence to tool use for additional services.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "For disruptions like flight cancellations, ensure to use the 'search_flights' tool to find alternate flights and 'modify_booking' to reassign the user to a new flight. Always pass required parameters like origin, destination, and passenger count.",
+        "target": "travel planning."
+      },
+      {
+        "op": "replace",
+        "content": "always call the 'add_ancillary' tool with the necessary booking reference, service details, relevant dates, and any other required parameters.",
+        "target": "always call the 'add_ancillary' tool with the necessary booking reference and details of the request."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

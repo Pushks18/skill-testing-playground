@@ -1,0 +1,18 @@
+[
+  {
+    "id": "disruption-108",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent's response does not provide any options or steps for rebooking, which was the core of the instruction and pass criteria. Instead, it asks for more information before offering any assistance, completely missing the point of the question. It doesn't even acknowledge the user's initial problem of a canceled flight.",
+    "task_type": "disruption",
+    "question": "What are my options for rebooking after my flight from Paris was canceled?"
+  },
+  {
+    "id": "disruption-109",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "avg=0.00 std=0.00 | The agent did not provide any compensation rules, but instead asked for more information, which was unnecessary for the task. The task was to explain general compensation rules, not to look up specific rules for a particular flight.",
+    "task_type": "disruption",
+    "question": "My flight from Tokyo to Sydney has been delayed. Can I find out the compensation rules?"
+  }
+]

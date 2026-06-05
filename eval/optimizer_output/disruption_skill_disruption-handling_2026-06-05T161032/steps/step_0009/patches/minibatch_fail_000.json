@@ -1,0 +1,23 @@
+{
+  "patch": {
+    "reasoning": "The observed failures indicate that the agent frequently responds verbally instead of utilizing the appropriate tools, particularly for retrieving compensation policies and searching for alternative flights or rebooking options. There is also an omission in calling tools for additional services such as adding ancillaries. To address these issues, edits will emphasize the necessity of tool usage for these common requests and ensure the inclusion of required parameters.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "Always retrieve and present the compensation policies using the appropriate tool or resource when a disruption involves flight delays or cancellations and the user inquires about potential compensation.",
+        "target": "use relevant tools or resources to provide explicit compensation rules if a user inquires about it."
+      },
+      {
+        "op": "insert_after",
+        "content": "If a user inquires about adding services such as priority boarding, utilize the 'add_ancillary' tool to fulfill the request.",
+        "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required."
+      },
+      {
+        "op": "replace",
+        "content": "Ensure to use the 'search_flights' tool when checking for flight availability after a cancellation, and always use the 'modify_booking' tool if a rebooking is being requested by the user. Never respond verbally if these tool calls are required; instead, use the tools to retrieve and present the structured options.",
+        "target": "Always use the 'search_flights' tool to find alternative flights or rebooking options when the disruption involves a cancellation or delay, and use the 'modify_booking' tool if a rebooking is required."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

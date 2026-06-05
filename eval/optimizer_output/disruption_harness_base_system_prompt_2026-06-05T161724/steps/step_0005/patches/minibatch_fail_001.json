@@ -1,0 +1,13 @@
+{
+  "patch": {
+    "reasoning": "The failure pattern indicates that the agent should handle scenarios where users lack their booking reference but still need assistance related to their bookings. This requires the agent to provide guidance rather than request irrelevant information. Edits are needed to instruct the agent to offer alternative solutions or steps in such cases instead of defaulting to information requests suited for new inquiries.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "If the user does not have their booking reference but needs to check details or availability related to an existing booking, provide guidance on how they might retrieve their booking reference, such as checking their email confirmation or contacting the airline or service provider directly.",
+        "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided."
+      }
+    ]
+  },
+  "source_type": "failure"
+}

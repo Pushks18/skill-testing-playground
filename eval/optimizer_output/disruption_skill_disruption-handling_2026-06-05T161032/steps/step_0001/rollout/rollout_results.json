@@ -1,0 +1,42 @@
+[
+  {
+    "id": "disruption-110",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "disruption",
+    "question": "Could you cancel my booking with reference GH8K4J2P?"
+  },
+  {
+    "id": "disruption-106",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "disruption",
+    "question": "Is there any chance to add priority boarding to my flight to Los Angeles?"
+  },
+  {
+    "id": "disruption-112",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights', 'modify_booking']",
+    "task_type": "disruption",
+    "question": "I've just learned my flight got canceled. Could you assist me with rebooking a similar flight to Denver?"
+  },
+  {
+    "id": "disruption-109",
+    "hard": 0,
+    "soft": 0.16666666666666666,
+    "fail_reason": "avg=0.17 std=0.14 | The agent's response does not provide any explanation of compensation rules, which was the core of the task instruction. Instead, it asks for more information, which is a common practice for an agent but doesn't fulfill the specific request to *explain* the rules. Although the information might be needed to give a precise answer, the prompt specifically asked for an explanation of the rules generally in this context first.",
+    "task_type": "disruption",
+    "question": "My flight from Tokyo to Sydney has been delayed. Can I find out the compensation rules?"
+  },
+  {
+    "id": "disruption-104",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['search_flights']",
+    "task_type": "disruption",
+    "question": "Can you check which flights are available from Boston to Miami tomorrow morning after my flight got canceled?"
+  }
+]

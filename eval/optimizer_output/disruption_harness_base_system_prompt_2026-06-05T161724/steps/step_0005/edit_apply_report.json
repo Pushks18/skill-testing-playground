@@ -1,0 +1,23 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are pro",
+    "content_preview": "For flight cancellations, always call the 'search_flights' tool to find alternative flights and the 'modify_booking' tool to rebook the customer on a new flight. This ensures disruption events are han",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "replace",
+    "target": "You are a helpful travel assistant. Use the available tools to help users with flight searches, hotel bookings, and travel planning.",
+    "content_preview": "You must prioritize using specific tools for handling tasks like rebooking canceled flights and adding services. Ensure all tool calls are made with complete parameters, such as passenger details, dat",
+    "status": "applied_replace",
+    "index": 2
+  },
+  {
+    "op": "replace",
+    "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates.",
+    "content_preview": "When users request additional services, such as priority boarding, lounge access, or any other ancillary service, ensure that the 'add_ancillary' tool is used with the necessary booking reference, ser",
+    "status": "applied_replace",
+    "index": 3
+  }
+]

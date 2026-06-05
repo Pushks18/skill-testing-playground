@@ -1,0 +1,23 @@
+[
+  {
+    "op": "insert_after",
+    "target": "Determine if the disruption is a cancellation, delay, missed connection, or other event impacting a travel itinerary. This will inform the appropriate tools and information to retrieve (e.g., compensa",
+    "content_preview": "Agent must call the appropriate tool to provide compensation information when requested, rather than only asking for additional details from the user.",
+    "status": "applied_insert_after",
+    "index": 1
+  },
+  {
+    "op": "insert_after",
+    "target": "Based on the disruption type and the traveler's stated needs (e.g., \"rebooking a similar flight to Denver\"), investigate available tools or knowledge bases to find appropriate solutions (e.g., alterna",
+    "content_preview": "Ensure that tools like 'search_flights', 'modify_booking', and 'add_ancillary' are used appropriately when they align with user requests, such as rebooking flights or requesting additional services.",
+    "status": "applied_insert_after",
+    "index": 2
+  },
+  {
+    "op": "insert_after",
+    "target": "Clearly communicate the available rebooking options, compensation information, or other relevant details obtained in the previous step.",
+    "content_preview": "This should particularly involve invoking tools for actions like rescheduling, adding services, or checking available flights based on the user's situation and requests, rather than just text response",
+    "status": "applied_insert_after",
+    "index": 3
+  }
+]

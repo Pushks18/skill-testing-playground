@@ -1,0 +1,38 @@
+{
+  "step": 3,
+  "action": "reject",
+  "n_total": 5,
+  "n_fail": 4,
+  "failure_patterns": [
+    {
+      "pattern": "avg=0.00 std=0.00 | The agent did not advise the user to look up or provide specific booking details to retrieve their booking, which was the core of the user's problem. Instead, the agent asked for travel dates, which is not relevant to finding an existing booking based on a booking reference that the user claims is not on hand.",
+      "count": 1,
+      "task_ids": [
+        "disruption-111"
+      ]
+    },
+    {
+      "pattern": "Missing required tools",
+      "count": 3,
+      "task_ids": [
+        "disruption-106",
+        "disruption-112",
+        "disruption-101"
+      ]
+    }
+  ],
+  "score_before": 0.0,
+  "score_after": 0.0,
+  "rejected_edits": [
+    {
+      "op": "insert_after",
+      "content": "For instances where a flight has been canceled or needs to be rebooked, use the 'search_flights' tool to find available options and the 'modify_booking' tool to complete the rebooking process.",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided."
+    },
+    {
+      "op": "append",
+      "content": "In cases where users seek to retrieve booking details without a booking reference at hand, provide guidance on how to locate this information through their airline account or other confirmation method",
+      "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "content": "User request: I'm not sure if my booking reference is BK3X9Z2A or BK4Y7A6B. Can you verify my passenger details?"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BK4Y7A6B\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BK4Y7A6B\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['validate_passenger'] (score=0.0)"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "patch": {
+    "reasoning": "The failures indicate the agent is not recognizing disruption scenarios where flight rebooking is necessary. The instructions lack explicit guidance on handling flight disruptions involving rebooking and modifications.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "In cases where a flight has been disrupted (e.g., cancellation or delay) and the user needs assistance in finding alternative flights or rebooking, always use the 'search_flights' tool to identify alternative flight options, and the 'modify_booking' tool to make changes to the existing booking. Ensure all necessary details such as new destination, travel dates, and booking references are included.",
+        "target": "Use the 'add_ancillary' tool for any additional service requests, such as transportation or special accommodations, ensuring all necessary parameters like booking reference and service details are provided."
+      }
+    ]
+  },
+  "source_type": "failure"
+}
