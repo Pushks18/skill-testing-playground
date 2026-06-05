@@ -1,7 +1,7 @@
 [task]
 id = "edge-availability-001"
 domain = "edge_cases"
-skill = "booking-skill"
+skill = "modify-booking"
 verifier = "tool_call_check"
 weight = 0.5
 

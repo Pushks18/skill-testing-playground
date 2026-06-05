@@ -1,7 +1,7 @@
 [task]
 id = "edge-multileg-001"
 domain = "edge_cases"
-skill = "flight-search"
+skill = "modify-booking"
 verifier = "tool_call_check"
 weight = 0.5
 

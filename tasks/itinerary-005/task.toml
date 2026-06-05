@@ -1,7 +1,7 @@
 [task]
 id = "itinerary-005"
 domain = "itinerary_build"
-skill = "booking-skill"
+skill = "planning-skill"
 verifier = "llm_judge"
 weight = 1.5
 

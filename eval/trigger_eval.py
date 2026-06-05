@@ -9,7 +9,7 @@ import pathlib
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage
 
-SKILLS = ["flight-search", "hotel-search", "book-itinerary", "fare-rules"]
+SKILLS = ["flight-search", "hotel-search", "book-itinerary", "fare-rules", "disruption-handling"]
 
 ROUTER_PROMPT = """You are a travel agent skill router. Given a user request, decide which skill (if any) should handle it.
 
@@ -18,6 +18,7 @@ Available skills:
 - hotel-search: finding hotels, checking hotel availability, comparing accommodation
 - book-itinerary: completing bookings, creating reservations, planning full trips
 - fare-rules: cancellation policies, change fees, baggage rules, refund conditions
+- disruption-handling: flight cancellations, delays, missed connections, involuntary rebooking, compensation claims
 
 Respond with ONLY a JSON object:
 {"skill": "<skill-name-or-null>", "confidence": <0.0-1.0>}
