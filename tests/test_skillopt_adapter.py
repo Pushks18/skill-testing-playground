@@ -118,3 +118,39 @@ def test_materialize_skill_without_frontmatter_no_leading_blank(tmp_path, harnes
     ctx = materialize_candidate(spec, "# New Body", tmp_path / "out")
     content = (ctx.skill_path / "SKILL.md").read_text()
     assert content == "# New Body\n"          # no leading blank line
+
+
+from eval.optimizer.skillopt_adapter import TravelTaskLoader
+
+
+def _write_task(tasks_dir, name, domain):
+    d = tasks_dir / name
+    d.mkdir(parents=True)
+    (d / "task.toml").write_text(
+        f'[task]\nid = "{name}"\ndomain = "{domain}"\nweight = 1.5\n\n'
+        '[expected]\ntools = ["add_ancillary"]\n'
+    )
+    (d / "instruction.md").write_text(f"Instruction for {name}")
+    return d
+
+
+def test_loader_filters_by_domain(tmp_path):
+    tasks = tmp_path / "tasks"
+    for i in range(3):
+        _write_task(tasks, f"ancillery-{i:03d}", "ancillery")
+    _write_task(tasks, "hotel-001", "hotel_search")
+
+    loader = TravelTaskLoader(tasks_dir=tasks, domain="ancillery",
+                              split_ratio="5:3:2", split_seed=7, seed=7)
+    items = loader.load_raw_items(str(tasks))
+    assert len(items) == 3
+    assert all(i["task_type"] == "ancillery" for i in items)
+    assert all("task_path" in i and "question" in i and i["id"] for i in items)
+
+
+def test_loader_skips_incomplete_task_dirs(tmp_path):
+    tasks = tmp_path / "tasks"
+    _write_task(tasks, "ancillery-001", "ancillery")
+    (tasks / "broken-task").mkdir()          # no task.toml / instruction.md
+    loader = TravelTaskLoader(tasks_dir=tasks, domain="ancillery")
+    assert len(loader.load_raw_items(str(tasks))) == 1

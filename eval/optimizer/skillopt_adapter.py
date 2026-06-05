@@ -98,3 +98,35 @@ def materialize_candidate(
     candidate_path = out_dir / "candidate_harness_config.yaml"
     candidate_path.write_text(yaml.safe_dump(config, sort_keys=False))
     return CandidateContext(skill_path=spec.skill_path, harness_config_path=candidate_path)
+
+
+from skillopt.datasets.base import BatchSpec, SplitDataLoader
+
+
+class TravelTaskLoader(SplitDataLoader):
+    """Feeds one domain's tasks/ dirs through skillopt's ratio split (train:val:test)."""
+
+    def __init__(self, tasks_dir: pathlib.Path, domain: str, **kwargs):
+        kwargs.setdefault("split_mode", "ratio")
+        kwargs.setdefault("split_ratio", "5:3:2")
+        super().__init__(data_path=str(tasks_dir), **kwargs)
+        self.tasks_dir = pathlib.Path(tasks_dir)
+        self.domain = domain
+
+    def load_raw_items(self, data_path: str) -> list[dict]:
+        items: list[dict] = []
+        for task_dir in sorted(pathlib.Path(data_path).iterdir()):
+            toml_path = task_dir / "task.toml"
+            instr_path = task_dir / "instruction.md"
+            if not (toml_path.exists() and instr_path.exists()):
+                continue
+            m = re.search(r'^domain\s*=\s*"([^"]+)"', toml_path.read_text(), re.MULTILINE)
+            if not m or m.group(1) != self.domain:
+                continue
+            items.append({
+                "id": task_dir.name,
+                "question": instr_path.read_text().strip()[:300],
+                "task_type": self.domain,
+                "task_path": str(task_dir),
+            })
+        return items
