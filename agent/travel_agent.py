@@ -3,8 +3,10 @@
 from __future__ import annotations
 import os
 import operator
+import pathlib
 import time as _time
 import httpx
+import yaml
 from typing import TypedDict, Optional, Annotated
 from langgraph.graph import StateGraph, END
 from langchain_openai import ChatOpenAI
@@ -12,6 +14,44 @@ from langchain_core.messages import HumanMessage, SystemMessage, ToolMessage
 from langchain_core.tools import tool
 
 MOCK_MCP_URL = os.environ.get("MOCK_MCP_URL", "http://localhost:8000")
+
+_CONFIG_PATH = pathlib.Path(__file__).parent / "harness_config.yaml"
+
+# Source-of-truth defaults — used when harness_config.yaml is absent or partial.
+# These are the original hardcoded strings; the YAML overrides them when present.
+HARNESS_DEFAULTS = {
+    "base_system_prompt": (
+        "You are a helpful travel assistant. "
+        "Use the available tools to help users with flight searches, hotel bookings, and travel planning."
+    ),
+    "tool_descriptions": {
+        "search_flights": "Search for available flights between two cities.",
+        "search_hotels": "Search for available hotels at a location.",
+        "check_availability": "Check if a flight or hotel resource is available on a date.",
+        "get_fare_rules": "Get cancellation, change, and baggage rules for a flight.",
+        "validate_passenger": "Validate passenger information before booking.",
+        "create_booking": "Create a flight or hotel booking for a passenger.",
+        "modify_booking": "Modify an existing booking (date change, upgrade, etc).",
+        "cancel_booking": "Cancel a booking and get refund information.",
+        "get_itinerary": "Retrieve the full itinerary for a booking.",
+        "add_ancillary": "Add an ancillary service to a booking. service_type: seat_selection, extra_baggage, travel_insurance, lounge_access, priority_boarding, car_rental, airport_transfer.",
+    },
+    "node_prompts": {},
+}
+
+
+def load_harness_config(config_path: pathlib.Path = _CONFIG_PATH) -> dict:
+    """Load harness config from YAML, falling back to HARNESS_DEFAULTS per key."""
+    cfg = {k: (dict(v) if isinstance(v, dict) else v) for k, v in HARNESS_DEFAULTS.items()}
+    if config_path.exists():
+        try:
+            loaded = yaml.safe_load(config_path.read_text()) or {}
+        except yaml.YAMLError:
+            loaded = {}
+        for key in HARNESS_DEFAULTS:
+            if key in loaded and loaded[key] is not None:
+                cfg[key] = loaded[key]
+    return cfg
 
 
 class AgentState(TypedDict):
