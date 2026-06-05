@@ -168,6 +168,15 @@ def run_cluster(cluster: dict, args) -> dict:
     skill_init_path.write_text(baseline_text)
     cfg["skill_init"] = str(skill_init_path)
 
+    from skillopt.model.azure_openai import configure_azure_openai
+    # skillopt routes all optimizer-model calls through its azure_openai module;
+    # openai_compatible mode points it at real OpenAI with our key.
+    configure_azure_openai(
+        endpoint="https://api.openai.com/v1",
+        auth_mode="openai_compatible",
+        api_key=os.environ["OPENAI_API_KEY"],
+    )
+
     from skillopt.engine.trainer import ReflACTTrainer
     try:
         train_result = ReflACTTrainer(cfg, adapter).train()
