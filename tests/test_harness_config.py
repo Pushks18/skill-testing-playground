@@ -98,3 +98,23 @@ def test_no_env_var_uses_default(monkeypatch):
     # default file on disk retains the default prompt as its opening
     # (the optimizer appends to it, never replaces it)
     assert cfg["base_system_prompt"].startswith(HARNESS_DEFAULTS["base_system_prompt"])
+
+
+def test_build_agent_tools_subset(monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key-not-used")
+    from agent.travel_agent import make_mcp_tools
+    tools = make_mcp_tools("http://localhost:8000", tools_subset=["search_flights", "get_fare_rules"])
+    assert sorted(t.name for t in tools) == ["get_fare_rules", "search_flights"]
+
+
+def test_build_agent_tools_subset_none_means_all(monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key-not-used")
+    from agent.travel_agent import make_mcp_tools
+    assert len(make_mcp_tools("http://localhost:8000", tools_subset=None)) == 10
+
+
+def test_build_agent_tools_subset_unknown_raises(monkeypatch):
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key-not-used")
+    from agent.travel_agent import make_mcp_tools
+    with pytest.raises(ValueError, match="unknown tool"):
+        make_mcp_tools("http://localhost:8000", tools_subset=["teleport"])

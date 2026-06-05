@@ -75,7 +75,7 @@ class AgentState(TypedDict):
     output_tokens: int
 
 
-def make_mcp_tools(base_url: str):
+def make_mcp_tools(base_url: str, tools_subset: list[str] | None = None):
     @tool
     def search_flights(origin: str, destination: str, date: str, passengers: int = 1) -> dict:
         """Search for available flights between two cities."""
@@ -158,12 +158,18 @@ def make_mcp_tools(base_url: str):
     for t in tools:
         if t.name in descriptions:
             t.description = descriptions[t.name]
+    if tools_subset is not None:
+        by_name = {t.name: t for t in tools}
+        unknown = [n for n in tools_subset if n not in by_name]
+        if unknown:
+            raise ValueError(f"unknown tool(s) in subset: {unknown}")
+        tools = [by_name[n] for n in tools_subset]
     return tools
 
 
 def build_travel_agent(skill_content: Optional[str] = None, mock_mcp_url: str = MOCK_MCP_URL,
-                       model: Optional[str] = None):
-    tools = make_mcp_tools(mock_mcp_url)
+                       model: Optional[str] = None, tools_subset: Optional[list] = None):
+    tools = make_mcp_tools(mock_mcp_url, tools_subset=tools_subset)
     tool_map = {t.name: t for t in tools}
 
     config = load_harness_config()
