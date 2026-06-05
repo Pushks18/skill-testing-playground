@@ -191,3 +191,18 @@ def test_promote_refuses_without_review_sheet(tmp_path, monkeypatch):
     _draft(domain_dir, task_id="disruption-101")
     with pytest.raises(SystemExit):
         promote_domain(domain_dir)
+
+
+def test_validate_rejects_invalid_param_names(tmp_path):
+    bad = GOOD_TOML.replace(
+        'tools = ["search_flights", "modify_booking"]',
+        'tools = ["search_flights", "modify_booking"]\nrequired_params = { modify_booking = ["booking_ref"] }')
+    errors = validate_draft(_draft(tmp_path, toml=bad))
+    assert any("booking_ref" in e for e in errors)
+
+
+def test_validate_accepts_real_param_names(tmp_path):
+    good = GOOD_TOML.replace(
+        'tools = ["search_flights", "modify_booking"]',
+        'tools = ["search_flights", "modify_booking"]\nrequired_params = { modify_booking = ["booking_id"] }')
+    assert validate_draft(_draft(tmp_path, toml=good)) == []

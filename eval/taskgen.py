@@ -40,6 +40,21 @@ VALID_TOOLS = frozenset({
     "validate_passenger", "create_booking", "modify_booking", "cancel_booking",
     "get_itinerary", "add_ancillary",
 })
+
+# Real parameter names per tool (from agent/travel_agent.py make_mcp_tools) —
+# required_params entries must reference these, nothing else.
+TOOL_PARAMS: dict[str, frozenset[str]] = {
+    "search_flights": frozenset({"origin", "destination", "date", "passengers"}),
+    "search_hotels": frozenset({"location", "check_in", "check_out", "guests"}),
+    "check_availability": frozenset({"resource_id", "date"}),
+    "get_fare_rules": frozenset({"flight_id"}),
+    "validate_passenger": frozenset({"name", "dob", "passport"}),
+    "create_booking": frozenset({"passenger", "flight_id", "hotel_id"}),
+    "modify_booking": frozenset({"booking_id", "changes"}),
+    "cancel_booking": frozenset({"booking_id"}),
+    "get_itinerary": frozenset({"booking_id"}),
+    "add_ancillary": frozenset({"booking_id", "service_type", "details"}),
+}
 VALID_VERIFIERS = frozenset({"tool_call_check", "llm_judge"})
 
 DOMAIN_SKILL = {
@@ -108,6 +123,16 @@ def validate_draft(draft_dir: pathlib.Path) -> list[str]:
         errors.append(f"{draft_dir.name}: unknown tools {unknown}")
     if task.get("verifier") == "tool_call_check" and not expected.get("tools"):
         errors.append(f"{draft_dir.name}: tool_call_check requires expected.tools")
+
+    for tool, params in expected.get("required_params", {}).items():
+        if tool not in VALID_TOOLS:
+            errors.append(f"{draft_dir.name}: required_params references unknown tool {tool!r}")
+            continue
+        bad = [p for p in params if p not in TOOL_PARAMS[tool]]
+        if bad:
+            errors.append(f"{draft_dir.name}: required_params for {tool} has invalid "
+                          f"param names {bad} (valid: {sorted(TOOL_PARAMS[tool])})")
+
     return errors
 
 
@@ -226,7 +251,7 @@ Write {count} NEW tasks as a JSON array. Each element:
   "instruction": the user's message to the agent (realistic, specific, 1-3 sentences)
   "verifier": "tool_call_check" when success = specific tool calls, else "llm_judge"
   "tools": required tool names for tool_call_check (subset of the list above; [] for llm_judge)
-  "required_params": optional {{tool: [param,...]}} for tool_call_check
+  "required_params": optional {{tool: [param,...]}} for tool_call_check; param names MUST come from the tool signatures above
   "criteria": required for llm_judge — one sentence describing a correct answer
 
 Diversity requirements (spread across the batch):
@@ -308,7 +333,7 @@ def generate_domain(domain: str, count: int | None = None) -> list[pathlib.Path]
     existing = _existing_instructions(domain)
     prompt = GENERATION_PROMPT.format(
         domain=domain,
-        tools="\n".join(f"- {t}" for t in sorted(VALID_TOOLS)),
+        tools="\n".join(f"- {t}({', '.join(sorted(TOOL_PARAMS[t]))})" for t in sorted(VALID_TOOLS)),
         existing="\n".join(f"- {v}" for v in existing.values()) or "(none yet)",
         count=count,
         start=f"{_next_suffix(domain):03d}",
