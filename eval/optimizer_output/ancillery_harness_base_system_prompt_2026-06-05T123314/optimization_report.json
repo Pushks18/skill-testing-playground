@@ -1,0 +1,150 @@
+{
+  "run": "ancillery_harness_base_system_prompt_2026-06-05T123314",
+  "target": "harness:base_system_prompt",
+  "cluster": {
+    "layer": "harness:base_prompt",
+    "domain": "ancillery",
+    "task_ids": [
+      "ancillery-006"
+    ],
+    "dominant_failure_mode": "NO_TOOL_CALL",
+    "target_artifact": "agent/harness_config.yaml::base_system_prompt",
+    "n_failures": 1
+  },
+  "baseline_test_mixed": 0.5,
+  "best_test_mixed": 1.0,
+  "baseline_selection_score": 0.6666666666666666,
+  "best_selection_score": 1.0,
+  "selection_improved": true,
+  "test_regressed": false,
+  "improved": true,
+  "evidence_note": "improvement evidence comes from the selection split (contains failure tasks); the held-out test split guards non-regression on remaining tasks",
+  "estimated_rollout_calls": 47,
+  "train_result": {
+    "version": "skillopt-0.1.0",
+    "config": {
+      "model_backend": "openai_chat",
+      "optimizer_model": "gpt-4o",
+      "target_model": "gpt-4o-mini",
+      "num_epochs": 5,
+      "batch_size": 5,
+      "accumulation": 1,
+      "minibatch_size": 4,
+      "merge_batch_size": 8,
+      "analyst_workers": 4,
+      "edit_budget": 3,
+      "use_gate": true,
+      "gate_metric": "mixed",
+      "gate_mixed_weight": 0.5,
+      "sel_env_num": 3,
+      "test_env_num": 2,
+      "eval_test": true,
+      "env": "travel",
+      "out_root": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05T123314",
+      "seed": 7,
+      "skill_init": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05T123314/initial_artifact.md",
+      "split_mode": "split_dir",
+      "split_dir": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05T123314/_stratified_splits",
+      "optimizer_backend": "openai_chat",
+      "target_backend": "openai_chat",
+      "train_size": 5,
+      "steps_per_epoch": 1,
+      "batches_per_epoch": 1,
+      "samples_per_epoch": 5,
+      "skill_update_mode": "patch",
+      "lr_control_mode": "fixed"
+    },
+    "baseline_selection_hard": 0.6666666666666666,
+    "best_selection_hard": 1.0,
+    "best_step": 1,
+    "current_origin": "step_0001",
+    "best_origin": "step_0001",
+    "total_steps": 5,
+    "total_accepts": 1,
+    "total_rejects": 1,
+    "total_skips": 3,
+    "epoch_stats": [
+      {
+        "epoch": 1,
+        "steps": [
+          1
+        ],
+        "accepts": 1,
+        "rejects": 0,
+        "skips": 0,
+        "best_score_at_epoch_end": 1.0,
+        "current_score_at_epoch_end": 1.0
+      },
+      {
+        "epoch": 2,
+        "steps": [
+          2
+        ],
+        "accepts": 0,
+        "rejects": 0,
+        "skips": 1,
+        "best_score_at_epoch_end": 1.0,
+        "current_score_at_epoch_end": 1.0
+      },
+      {
+        "epoch": 3,
+        "steps": [
+          3
+        ],
+        "accepts": 0,
+        "rejects": 1,
+        "skips": 0,
+        "best_score_at_epoch_end": 1.0,
+        "current_score_at_epoch_end": 1.0
+      },
+      {
+        "epoch": 4,
+        "steps": [
+          4
+        ],
+        "accepts": 0,
+        "rejects": 0,
+        "skips": 1,
+        "best_score_at_epoch_end": 1.0,
+        "current_score_at_epoch_end": 1.0
+      },
+      {
+        "epoch": 5,
+        "steps": [
+          5
+        ],
+        "accepts": 0,
+        "rejects": 0,
+        "skips": 1,
+        "best_score_at_epoch_end": 1.0,
+        "current_score_at_epoch_end": 1.0
+      }
+    ],
+    "baseline_test_hard": 0.5,
+    "baseline_test_soft": 0.5,
+    "test_hard": 1.0,
+    "test_soft": 1.0,
+    "test_delta_hard": 0.5,
+    "total_wall_time_s": 162.5,
+    "token_summary": {
+      "analyst": {
+        "calls": 2,
+        "prompt_tokens": 1848,
+        "completion_tokens": 399,
+        "total_tokens": 2247
+      },
+      "_total": {
+        "calls": 2,
+        "prompt_tokens": 1848,
+        "completion_tokens": 399,
+        "total_tokens": 2247
+      }
+    }
+  },
+  "review_checklist": [
+    "Read the proposed diff against the current artifact",
+    "Run ab_compare on a SECOND skill before merging a harness change",
+    "Verify the test-split tasks were never used for edit selection"
+  ],
+  "proposed_file": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05T123314/harness_config_proposed.yaml"
+}

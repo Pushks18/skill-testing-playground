@@ -1,0 +1,12 @@
+{
+  "reasoning": "The failure indicates that the agent did not call the 'get_fare_rules' tool to check the specific booking details, which was necessary to provide a personalized response. It's crucial for the agent to verify booking-specific rules before concluding if services can be added. This failure can be addressed by emphasizing the importance of verifying booking information even if a generic response could apply.",
+  "edits": [
+    {
+      "op": "insert_after",
+      "content": "For requests regarding seating or fare upgrades, always call the 'get_fare_rules' tool first to check the specific booking's availability and rules using the flight booking reference before providing an answer.",
+      "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates.",
+      "source_type": "failure",
+      "support_count": 1
+    }
+  ]
+}

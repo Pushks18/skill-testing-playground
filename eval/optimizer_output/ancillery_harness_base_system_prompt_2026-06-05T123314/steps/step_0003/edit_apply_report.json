@@ -1,0 +1,9 @@
+[
+  {
+    "op": "insert_after",
+    "target": "When users request additional services like lounge access, always use the 'add_ancillary' tool, providing the necessary booking reference, service details, and any relevant dates.",
+    "content_preview": "For requests regarding seating or fare upgrades, always call the 'get_fare_rules' tool first to check the specific booking's availability and rules using the flight booking reference before providing ",
+    "status": "applied_insert_after",
+    "index": 1
+  }
+]

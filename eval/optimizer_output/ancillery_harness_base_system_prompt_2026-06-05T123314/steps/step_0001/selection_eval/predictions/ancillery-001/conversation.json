@@ -1,0 +1,18 @@
+[
+  {
+    "content": "User request: I just booked flight BK8F2A1C. Please add a window seat selection for me."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BK8F2A1C\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK8F2A1C\", \"service_type\": \"seat_selection\", \"details\": {\"preference\": \"window\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]
