@@ -1,0 +1,714 @@
+{
+  "skill_name": "ancillery-skill",
+  "weighted_delta": -0.25833333333333336,
+  "regression_rate": 0.3,
+  "verdict": "BLOCK",
+  "tier": 1,
+  "flagged_tasks": [],
+  "regression_traces": {},
+  "cost": {
+    "no_skill": {
+      "total_cost_usd": 0.002101,
+      "avg_cost_usd": 0.00021,
+      "total_input_tokens": 10058,
+      "total_output_tokens": 987,
+      "avg_latency_ms": 2161,
+      "p95_latency_ms": 2520
+    },
+    "with_skill": {
+      "total_cost_usd": 0.005015,
+      "avg_cost_usd": 0.000501,
+      "total_input_tokens": 28615,
+      "total_output_tokens": 1202,
+      "avg_latency_ms": 2860,
+      "p95_latency_ms": 3811
+    }
+  },
+  "tasks": [
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-001",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-001",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK8F2A1C",
+            "service_type": "seat_selection",
+            "details": {
+              "seat_type": "window"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2130,
+        "tokens_used": 1072,
+        "input_tokens": 987,
+        "output_tokens": 85,
+        "cost_usd": 0.000199
+      },
+      "with_skill": {
+        "task_id": "ancillery-001",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 4,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules",
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK8F2A1C"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK8F2A1C"
+          },
+          "add_ancillary": {
+            "booking_id": "BK8F2A1C",
+            "service_type": "seat_selection",
+            "details": {
+              "seat": "window"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4236,
+        "tokens_used": 5352,
+        "input_tokens": 5203,
+        "output_tokens": 149,
+        "cost_usd": 0.00087
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 2,
+      "token_delta": 4280,
+      "latency_delta_ms": 2106,
+      "cost_delta_usd": 0.0006709999999999999
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-002",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-002",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BKD3E7F2",
+            "service_type": "meal_selection",
+            "details": {
+              "meal_type": "vegetarian"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2198,
+        "tokens_used": 1066,
+        "input_tokens": 984,
+        "output_tokens": 82,
+        "cost_usd": 0.000197
+      },
+      "with_skill": {
+        "task_id": "ancillery-002",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['add_ancillary']",
+        "latency_ms": 1313,
+        "tokens_used": 1183,
+        "input_tokens": 1148,
+        "output_tokens": 35,
+        "cost_usd": 0.000193
+      },
+      "delta": -1.0,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": -1,
+      "token_delta": 117,
+      "latency_delta_ms": -885,
+      "cost_delta_usd": -3.999999999999989e-06
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-003",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-003",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK9C1A4B",
+            "service_type": "extra_baggage",
+            "details": {
+              "weight": "23kg"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2410,
+        "tokens_used": 1114,
+        "input_tokens": 1001,
+        "output_tokens": 113,
+        "cost_usd": 0.000218
+      },
+      "with_skill": {
+        "task_id": "ancillery-003",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK9C1A4B"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK9C1A4B"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['add_ancillary']",
+        "latency_ms": 2528,
+        "tokens_used": 3865,
+        "input_tokens": 3772,
+        "output_tokens": 93,
+        "cost_usd": 0.000622
+      },
+      "delta": -1.0,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": 1,
+      "token_delta": 2751,
+      "latency_delta_ms": 118,
+      "cost_delta_usd": 0.00040400000000000006
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-004",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-004",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK5D8E3A",
+            "service_type": "priority_boarding",
+            "details": {
+              "passengers": [
+                "me",
+                "my partner"
+              ]
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1728,
+        "tokens_used": 1085,
+        "input_tokens": 992,
+        "output_tokens": 93,
+        "cost_usd": 0.000205
+      },
+      "with_skill": {
+        "task_id": "ancillery-004",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "add_ancillary",
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK5D8E3A",
+            "service_type": "priority_boarding",
+            "details": {
+              "passengers": 2
+            }
+          },
+          "get_itinerary": {
+            "booking_id": "BK5D8E3A"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3798,
+        "tokens_used": 3945,
+        "input_tokens": 3761,
+        "output_tokens": 184,
+        "cost_usd": 0.000675
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 1,
+      "token_delta": 2860,
+      "latency_delta_ms": 2070,
+      "cost_delta_usd": 0.00047000000000000004
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-005",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-005",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK2F6C9D",
+            "service_type": "travel_insurance"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1499,
+        "tokens_used": 1041,
+        "input_tokens": 968,
+        "output_tokens": 73,
+        "cost_usd": 0.000189
+      },
+      "with_skill": {
+        "task_id": "ancillery-005",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK2F6C9D"
+          },
+          "add_ancillary": {
+            "booking_id": "BK2F6C9D",
+            "service_type": "travel_insurance",
+            "details": {
+              "coverage_level": "basic"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3811,
+        "tokens_used": 3879,
+        "input_tokens": 3757,
+        "output_tokens": 122,
+        "cost_usd": 0.000637
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 1,
+      "token_delta": 2838,
+      "latency_delta_ms": 2312,
+      "cost_delta_usd": 0.00044799999999999994
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-006",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-006",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK7A3B1E",
+            "service_type": "lounge_access"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1620,
+        "tokens_used": 1051,
+        "input_tokens": 975,
+        "output_tokens": 76,
+        "cost_usd": 0.000192
+      },
+      "with_skill": {
+        "task_id": "ancillery-006",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['add_ancillary']",
+        "latency_ms": 1029,
+        "tokens_used": 1191,
+        "input_tokens": 1150,
+        "output_tokens": 41,
+        "cost_usd": 0.000197
+      },
+      "delta": -1.0,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": -1,
+      "token_delta": 140,
+      "latency_delta_ms": -591,
+      "cost_delta_usd": 4.999999999999986e-06
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-007",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-007",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK4C8F2A",
+            "service_type": "airport_transfer",
+            "details": {
+              "from": "LAX",
+              "to": "Santa Monica",
+              "type": "private"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2520,
+        "tokens_used": 1146,
+        "input_tokens": 1022,
+        "output_tokens": 124,
+        "cost_usd": 0.000228
+      },
+      "with_skill": {
+        "task_id": "ancillery-007",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK4C8F2A",
+            "service_type": "airport_transfer",
+            "details": {
+              "pickup_location": "LAX",
+              "dropoff_location": "Santa Monica",
+              "transfer_type": "private"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3439,
+        "tokens_used": 2577,
+        "input_tokens": 2445,
+        "output_tokens": 132,
+        "cost_usd": 0.000446
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1431,
+      "latency_delta_ms": 919,
+      "cost_delta_usd": 0.00021799999999999999
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-008",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-008",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK6E1D9B",
+            "service_type": "car_rental",
+            "details": {
+              "car_type": "compact",
+              "location": "Miami airport",
+              "duration_days": 3
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1968,
+        "tokens_used": 1123,
+        "input_tokens": 1019,
+        "output_tokens": 104,
+        "cost_usd": 0.000215
+      },
+      "with_skill": {
+        "task_id": "ancillery-008",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK6E1D9B",
+            "service_type": "car_rental",
+            "details": {
+              "class": "compact",
+              "duration": "3 days",
+              "pickup_location": "Miami airport"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2986,
+        "tokens_used": 2591,
+        "input_tokens": 2435,
+        "output_tokens": 156,
+        "cost_usd": 0.000459
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1468,
+      "latency_delta_ms": 1018,
+      "cost_delta_usd": 0.000244
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-009",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-009",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.5833333333333334,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "BKA2C7F3"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.58 std=0.14 | The agent correctly states the general rule for basic economy tickets regarding extra legroom seats. The advice to check with the airline or upgrade the fare is appropriate. The offer to assist with upgrade options is good. However, the agent could have been more proactive by offering to look up the airline's specific policy for booking BKA2C7F3, instead of solely telling the user to 'check with the airline directly'. This would have made the response a 1.0.",
+        "latency_ms": 1640,
+        "tokens_used": 1078,
+        "input_tokens": 1003,
+        "output_tokens": 75,
+        "cost_usd": 0.000195
+      },
+      "with_skill": {
+        "task_id": "ancillery-009",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "BKA2C7F3"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response is accurate and directly answers the customer's question. It clearly states that extra legroom seats are typically not available with a basic economy ticket and that an upgrade would be required. The follow-up question is also helpful and provides a clear next step for the customer.",
+        "latency_ms": 1889,
+        "tokens_used": 2501,
+        "input_tokens": 2419,
+        "output_tokens": 82,
+        "cost_usd": 0.000412
+      },
+      "delta": 0.41666666666666663,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1423,
+      "latency_delta_ms": 249,
+      "cost_delta_usd": 0.000217
+    },
+    {
+      "skill_name": "ancillery-skill",
+      "task_id": "ancillery-010",
+      "domain": "ancillery",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "ancillery-010",
+        "domain": "ancillery",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary",
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK8B4E1C",
+            "service_type": "seat_selection",
+            "details": {
+              "seat_type": "aisle"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3897,
+        "tokens_used": 1269,
+        "input_tokens": 1107,
+        "output_tokens": 162,
+        "cost_usd": 0.000263
+      },
+      "with_skill": {
+        "task_id": "ancillery-010",
+        "domain": "ancillery",
+        "skill_name": "ancillery-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary",
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK8B4E1C",
+            "service_type": "seat_selection",
+            "details": {
+              "seat_preference": "aisle"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3567,
+        "tokens_used": 2733,
+        "input_tokens": 2525,
+        "output_tokens": 208,
+        "cost_usd": 0.000504
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1464,
+      "latency_delta_ms": -330,
+      "cost_delta_usd": 0.000241
+    }
+  ]
+}
