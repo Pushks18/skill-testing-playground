@@ -1,4 +1,5 @@
 # tests/test_skillopt_adapter.py
+import os
 import pathlib
 
 import pytest
@@ -6,6 +7,7 @@ import yaml
 
 from eval.optimizer.skillopt_adapter import (
     TargetSpec, initial_artifact, materialize_candidate, TravelTaskLoader,
+    TravelEnvAdapter,
 )
 
 SKILL_MD = """---
@@ -350,8 +352,93 @@ def test_all_prompts_contain_edit_op_vocabulary():
         assert name in PROMPTS, f"PROMPTS is missing required entry {name!r}"
         text = PROMPTS[name]
         assert "append" in text, f"prompt {name!r} does not mention 'append'"
+        assert "insert_after" in text, f"prompt {name!r} does not mention 'insert_after'"
         assert "replace" in text, f"prompt {name!r} does not mention 'replace'"
         assert "delete" in text, f"prompt {name!r} does not mention 'delete'"
     # ranking prompt must specify its own output format instead
     assert "ranking" in PROMPTS
     assert "selected_indices" in PROMPTS["ranking"]
+
+
+# ── TravelEnvAdapter rollout tests ─────────────────────────────────────────────
+
+class _FakeEvalResult:
+    def __init__(self, score, passed, reason=""):
+        self.score = score
+        self.passed_verifier = passed
+        self.judge_reasoning = reason
+
+
+def _make_adapter(tmp_path, skill_dir, harness_path, kind="harness", key="base_system_prompt"):
+    tasks = tmp_path / "tasks"
+    for i in range(3):
+        _write_task(tasks, f"ancillery-{i:03d}", "ancillery")
+    spec = TargetSpec(kind=kind, key=key, skill_path=skill_dir, domain="ancillery",
+                      tasks_dir=tasks, harness_config_path=harness_path)
+    return TravelEnvAdapter(spec=spec, mock_mcp_url="http://localhost:8000")
+
+
+def test_rollout_shapes_results(tmp_path, skill_dir, harness_path, monkeypatch):
+    monkeypatch.delenv("HARNESS_CONFIG_PATH", raising=False)
+    adapter = _make_adapter(tmp_path, skill_dir, harness_path)
+    calls = []
+
+    def fake_run_task(task_path, skill_path, condition, mock_mcp_url):
+        calls.append({"task_path": task_path, "skill_path": skill_path,
+                      "condition": condition,
+                      "harness_env": os.environ.get("HARNESS_CONFIG_PATH")})
+        return _FakeEvalResult(score=0.5, passed=False, reason="missing tool")
+
+    import eval.optimizer.skillopt_adapter as mod
+    monkeypatch.setattr(mod, "run_task", fake_run_task)
+
+    items = [{"id": f"ancillery-{i:03d}", "question": f"q{i}", "task_type": "ancillery",
+              "task_path": str(tmp_path / "tasks" / f"ancillery-{i:03d}")} for i in range(3)]
+    results = adapter.rollout(items, "CANDIDATE PROMPT", str(tmp_path / "roll"))
+
+    assert len(results) == 3
+    for r in results:
+        assert set(r) >= {"id", "hard", "soft", "fail_reason", "task_type"}
+        assert r["hard"] == 0 and r["soft"] == 0.5
+    # condition that exposed the failure: with_skill, real skill injected
+    assert all(c["condition"] == "with_skill" for c in calls)
+    assert all(c["skill_path"] == str(skill_dir) for c in calls)
+    # candidate harness config was active DURING rollout...
+    assert all(c["harness_env"] and "candidate_harness_config" in c["harness_env"] for c in calls)
+    # ...and restored afterward
+    assert os.environ.get("HARNESS_CONFIG_PATH") is None
+
+
+def test_rollout_restores_env_var_on_crash(tmp_path, skill_dir, harness_path, monkeypatch):
+    monkeypatch.delenv("HARNESS_CONFIG_PATH", raising=False)
+    adapter = _make_adapter(tmp_path, skill_dir, harness_path)
+
+    def exploding_run_task(*a, **kw):
+        raise RuntimeError("boom")
+
+    import eval.optimizer.skillopt_adapter as mod
+    monkeypatch.setattr(mod, "run_task", exploding_run_task)
+    items = [{"id": "ancillery-000", "question": "q", "task_type": "ancillery",
+              "task_path": str(tmp_path / "tasks" / "ancillery-000")}]
+    with pytest.raises(RuntimeError):
+        adapter.rollout(items, "X", str(tmp_path / "roll"))
+    assert os.environ.get("HARNESS_CONFIG_PATH") is None
+
+
+def test_rollout_skill_target_uses_candidate_skill(tmp_path, skill_dir, harness_path, monkeypatch):
+    monkeypatch.delenv("HARNESS_CONFIG_PATH", raising=False)
+    adapter = _make_adapter(tmp_path, skill_dir, harness_path, kind="skill", key="ancillery-skill")
+    seen = {}
+
+    def fake_run_task(task_path, skill_path, condition, mock_mcp_url):
+        seen["skill_path"] = skill_path
+        seen["harness_env"] = os.environ.get("HARNESS_CONFIG_PATH")
+        return _FakeEvalResult(score=1.0, passed=True)
+
+    import eval.optimizer.skillopt_adapter as mod
+    monkeypatch.setattr(mod, "run_task", fake_run_task)
+    items = [{"id": "ancillery-000", "question": "q", "task_type": "ancillery",
+              "task_path": str(tmp_path / "tasks" / "ancillery-000")}]
+    adapter.rollout(items, "# Candidate Body", str(tmp_path / "roll"))
+    assert "candidate_skill" in seen["skill_path"]
+    assert seen["harness_env"] is None   # skill target: real harness untouched

@@ -56,6 +56,7 @@ IMPORTANT DISCIPLINE:
 Output ONLY a JSON object in exactly this shape (no markdown fences, no commentary \
 outside the JSON):
 
+# Note: source_type is set by the caller (reflect.py); omit it from your output.
 {
   "patch": {
     "reasoning": "<brief explanation of the failure patterns and how these edits address them>",
@@ -66,8 +67,7 @@ outside the JSON):
         "target": "<verbatim text from the document to anchor on — required for insert_after/replace/delete>"
       }
     ]
-  },
-  "source_type": "failure"
+  }
 }
 
 op vocabulary:
@@ -102,6 +102,7 @@ IMPORTANT DISCIPLINE:
 Output ONLY a JSON object in exactly this shape (no markdown fences, no commentary \
 outside the JSON):
 
+# Note: source_type is set by the caller (reflect.py); omit it from your output.
 {
   "patch": {
     "reasoning": "<brief explanation of the successful patterns and how these edits reinforce them>",
@@ -112,8 +113,7 @@ outside the JSON):
         "target": "<verbatim text from the document to anchor on — required for insert_after/replace/delete>"
       }
     ]
-  },
-  "source_type": "success"
+  }
 }
 
 op vocabulary:
