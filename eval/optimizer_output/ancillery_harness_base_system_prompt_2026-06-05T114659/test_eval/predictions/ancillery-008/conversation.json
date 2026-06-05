@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: Booking BK6E1D9B. I need to add a compact car rental at Miami airport for 3 days."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK6E1D9B\", \"service_type\": \"car_rental\", \"details\": {\"car_class\": \"compact\", \"duration_days\": 3, \"pickup_location\": \"Miami airport\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: My booking is BKA2C7F3. I have a basic economy ticket \u2014 can I select an extra legroom seat or do I need to upgrade my fare?"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_fare_rules({\"flight_id\": \"BKA2C7F3\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 avg=0.83 std=0.14 | The agent correctly states that seat selection, including extra legroom, is generally not allowed with a basic economy ticket and that an upgrade would be needed. This directly answers the core question. However, the agent doesn't explicitly confirm whether the *specific* booking (BKA2C7F3) would qualify for an upgrade to allow extra legroom. While the general rule is given, a more precise answer would involve checking if that particular booking is eligible for an upgrade that includes this benefit. The offer to help with upgrading or alternative seating is good follow-up. (score=0.8333333333333334)"
+  }
+]

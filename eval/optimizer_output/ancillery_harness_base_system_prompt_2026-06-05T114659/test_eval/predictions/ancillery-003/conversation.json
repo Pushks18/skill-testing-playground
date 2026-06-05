@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: Booking ref BK9C1A4B. I need to add an extra 23kg checked bag for my trip to London."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK9C1A4B\", \"service_type\": \"extra_baggage\", \"details\": {\"weight\": \"23kg\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

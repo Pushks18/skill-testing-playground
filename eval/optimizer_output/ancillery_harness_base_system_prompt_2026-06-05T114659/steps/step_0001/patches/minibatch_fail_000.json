@@ -1,0 +1,13 @@
+{
+  "patch": {
+    "reasoning": "The instruction document failed because the agent did not recognize the need to call tools for ancillary requests related to flight bookings. The agent instead responded verbally. This pattern indicates a lack of clarity in the instructions about when to use tools for specific service requests, such as adding ancillaries.",
+    "edits": [
+      {
+        "op": "insert_after",
+        "content": "For requests related to changes or additions to existing flight bookings, such as adding ancillary services (e.g., meals, baggage), always call the 'add_ancillary' tool with the necessary booking reference and details of the request.",
+        "target": "Use the available tools to help users with flight searches, hotel bookings, and travel planning."
+      }
+    ]
+  },
+  "source_type": "failure"
+}
