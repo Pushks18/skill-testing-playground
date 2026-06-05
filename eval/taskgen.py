@@ -209,3 +209,190 @@ def write_review_sheet(
     sheet = domain_dir / "REVIEW.md"
     sheet.write_text("\n".join(lines) + "\n")
     return sheet
+
+
+GENERATION_PROMPT = """You are writing evaluation tasks for an AI travel agent.
+
+Domain: {domain}
+The agent has EXACTLY these tools (use no others):
+{tools}
+
+Existing task instructions in this domain (do NOT duplicate any of these; vary
+intent AND surface form):
+{existing}
+
+Write {count} NEW tasks as a JSON array. Each element:
+  "id_suffix": three-digit string, starting at "{start}", incrementing
+  "instruction": the user's message to the agent (realistic, specific, 1-3 sentences)
+  "verifier": "tool_call_check" when success = specific tool calls, else "llm_judge"
+  "tools": required tool names for tool_call_check (subset of the list above; [] for llm_judge)
+  "required_params": optional {{tool: [param,...]}} for tool_call_check
+  "criteria": required for llm_judge — one sentence describing a correct answer
+
+Diversity requirements (spread across the batch):
+- paraphrase families: at least 2 pairs sharing intent with different wording
+- at least 2 missing-info cases where the agent should ask a question, not act
+- at least 2 multi-step tasks needing 2+ tool calls in sequence
+- vary named entities (cities, booking refs like BK3X9Z2A, dates, service types)
+
+Output ONLY the JSON array. No markdown fences.
+{domain_note}"""
+
+DOMAIN_NOTES = {
+    "disruption": ("Domain note: disruption = cancelled/delayed flights, rebooking, "
+                   "compensation. Compose EXISTING tools (search_flights+modify_booking "
+                   "for rebooking; cancel_booking+get_fare_rules for cancellations; "
+                   "llm_judge for compensation/policy advice)."),
+}
+
+
+def parse_generated_tasks(llm_output: str, domain: str, out_dir: pathlib.Path) -> list[pathlib.Path]:
+    """Write LLM-drafted tasks to draft dirs. Returns the dirs created."""
+    _, weight, prefix = DOMAIN_TARGETS[domain]
+    skill = DOMAIN_SKILL[domain]
+    items = json.loads(llm_output)
+    created: list[pathlib.Path] = []
+    for item in items:
+        task_id = f"{prefix}-{item['id_suffix']}"
+        d = out_dir / task_id
+        d.mkdir(parents=True, exist_ok=True)
+        lines = [
+            "[task]",
+            f'id = "{task_id}"',
+            f'domain = "{domain}"',
+            f'skill = "{skill}"',
+            f'verifier = "{item["verifier"]}"',
+            f"weight = {weight}",
+            "",
+            "[expected]",
+        ]
+        if item["verifier"] == "tool_call_check":
+            lines.append(f'tools = {json.dumps(item.get("tools", []))}')
+            rp = item.get("required_params") or {}
+            if rp:
+                inner = ", ".join(f'{t} = {json.dumps(ps)}' for t, ps in rp.items())
+                lines.append(f"required_params = {{ {inner} }}")
+        else:
+            lines.append('tools = []')
+            lines.append(f'criteria = {json.dumps(item.get("criteria", ""))}')
+        (d / "task.toml").write_text("\n".join(lines) + "\n")
+        (d / "instruction.md").write_text(item["instruction"].strip() + "\n")
+        created.append(d)
+    return created
+
+
+def _existing_instructions(domain: str) -> dict[str, str]:
+    out: dict[str, str] = {}
+    for td in sorted(TASKS_DIR.iterdir()):
+        toml_path, instr = td / "task.toml", td / "instruction.md"
+        if not (toml_path.exists() and instr.exists()):
+            continue
+        m = re.search(r'^domain\s*=\s*"([^"]+)"', toml_path.read_text(), re.MULTILINE)
+        if m and m.group(1) == domain:
+            out[td.name] = instr.read_text().strip()
+    return out
+
+
+def _next_suffix(domain: str) -> int:
+    _, _, prefix = DOMAIN_TARGETS[domain]
+    nums = [int(m.group(1)) for td in TASKS_DIR.iterdir()
+            if (m := re.fullmatch(rf"{re.escape(prefix)}-(\d+)", td.name))]
+    return max(nums, default=0) + 1 if max(nums, default=0) >= 100 else 101
+
+
+def generate_domain(domain: str, count: int | None = None) -> list[pathlib.Path]:
+    """Draft `count` tasks for a domain via gpt-4o. Drafts only — no gate passed yet."""
+    import openai
+    target_count, _, _ = DOMAIN_TARGETS[domain]
+    count = count or target_count
+    existing = _existing_instructions(domain)
+    prompt = GENERATION_PROMPT.format(
+        domain=domain,
+        tools="\n".join(f"- {t}" for t in sorted(VALID_TOOLS)),
+        existing="\n".join(f"- {v}" for v in existing.values()) or "(none yet)",
+        count=count,
+        start=f"{_next_suffix(domain):03d}",
+        domain_note=DOMAIN_NOTES.get(domain, ""),
+    )
+    client = openai.OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    resp = client.chat.completions.create(
+        model="gpt-4o", max_tokens=4096,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    out_dir = DRAFTS_DIR / domain
+    return parse_generated_tasks(resp.choices[0].message.content.strip(), domain, out_dir)
+
+
+def promote_domain(domain_dir: pathlib.Path) -> list[str]:
+    """Gate 4: move KEEP rows of the human-reviewed sheet into tasks/."""
+    import shutil
+    sheet = domain_dir / "REVIEW.md"
+    if not sheet.exists():
+        sys.exit(f"promote: no REVIEW.md in {domain_dir} — run the gates and review first")
+    keep: list[str] = []
+    for line in sheet.read_text().splitlines():
+        m = re.match(r"\|\s*(KEEP|DROP)\s*\|\s*(\S+)\s*\|", line)
+        if m and m.group(1) == "KEEP":
+            keep.append(m.group(2))
+    promoted: list[str] = []
+    for task_id in keep:
+        src = domain_dir / task_id
+        if not src.is_dir():
+            print(f"promote: WARNING — KEEP row {task_id} has no draft dir, skipping")
+            continue
+        errors = validate_draft(src)
+        if errors:
+            print(f"promote: WARNING — {task_id} fails validation, skipping: {errors}")
+            continue
+        dst = TASKS_DIR / task_id
+        if dst.exists():
+            print(f"promote: WARNING — {task_id} already in tasks/, skipping")
+            continue
+        shutil.copytree(src, dst)
+        promoted.append(task_id)
+    print(f"promoted {len(promoted)}/{len(keep)} KEEP rows from {domain_dir.name}")
+    return promoted
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Task bank expansion pipeline.")
+    parser.add_argument("command", choices=["generate", "validate", "dedupe", "calibrate", "review-sheet", "promote"])
+    parser.add_argument("--domain", required=True, choices=sorted(DOMAIN_TARGETS))
+    parser.add_argument("--count", type=int, default=None)
+    parser.add_argument("--mock-mcp-url", default="http://localhost:8000")
+    parser.add_argument("--threshold", type=float, default=0.90)
+    args = parser.parse_args()
+
+    domain_dir = DRAFTS_DIR / args.domain
+    drafts = sorted(d for d in domain_dir.iterdir() if d.is_dir()) if domain_dir.exists() else []
+
+    if args.command == "generate":
+        created = generate_domain(args.domain, args.count)
+        print(f"drafted {len(created)} tasks → {domain_dir}")
+    elif args.command == "validate":
+        all_errors = [e for d in drafts for e in validate_draft(d)]
+        print("\n".join(all_errors) if all_errors else f"all {len(drafts)} drafts structurally valid")
+        sys.exit(1 if all_errors else 0)
+    elif args.command == "dedupe":
+        draft_texts = {d.name: (d / "instruction.md").read_text().strip() for d in drafts}
+        dups = find_near_duplicates(draft_texts, _existing_instructions(args.domain), args.threshold)
+        (domain_dir / "dups.json").write_text(json.dumps(dups, indent=2))
+        print(f"{len(dups)} near-duplicates flagged" + (f": {dups}" if dups else ""))
+    elif args.command == "calibrate":
+        report = calibrate_drafts(drafts, args.mock_mcp_url)
+        (domain_dir / "calibration.json").write_text(json.dumps(report, indent=2))
+        counts: dict[str, int] = {}
+        for v in report.values():
+            counts[v["class"]] = counts.get(v["class"], 0) + 1
+        print(f"calibration: {counts}")
+    elif args.command == "review-sheet":
+        report = json.loads((domain_dir / "calibration.json").read_text())
+        dups = [tuple(x) for x in json.loads((domain_dir / "dups.json").read_text())]
+        sheet = write_review_sheet(domain_dir, drafts, report, dups)
+        print(f"review sheet: {sheet}")
+    elif args.command == "promote":
+        promote_domain(domain_dir)
+
+
+if __name__ == "__main__":
+    main()

@@ -11,7 +11,10 @@ TASK_WEIGHTS = {
     "booking_flow": 3.0,
     "flight_search": 2.0,
     "hotel_search": 2.0,
+    "disruption": 2.0,
     "itinerary_build": 1.5,
+    "trip_planning": 1.5,
+    "ancillery": 1.5,
     "fare_rules": 1.0,
     "edge_cases": 0.5,
 }

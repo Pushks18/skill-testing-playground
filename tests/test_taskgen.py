@@ -134,3 +134,60 @@ def test_review_sheet_written(tmp_path):
     text = sheet.read_text()
     assert "disruption-101" in text and "baseline-fail" in text
     assert "APPROVE" in text          # the action column instruction
+
+
+from eval.taskgen import parse_generated_tasks, promote_domain
+
+
+SAMPLE_LLM_OUTPUT = '''[
+  {"id_suffix": "101",
+   "instruction": "My flight got cancelled due to weather. Rebook me on the next available flight to Denver.",
+   "verifier": "tool_call_check",
+   "tools": ["search_flights", "modify_booking"],
+   "required_params": {}},
+  {"id_suffix": "102",
+   "instruction": "Am I entitled to compensation for my 6-hour delay on flight UA123?",
+   "verifier": "llm_judge",
+   "tools": [],
+   "criteria": "Explains compensation eligibility accurately without fabricating policy"}
+]'''
+
+
+def test_parse_generated_tasks(tmp_path):
+    drafts = parse_generated_tasks(SAMPLE_LLM_OUTPUT, domain="disruption", out_dir=tmp_path)
+    assert len(drafts) == 2
+    d = tmp_path / "disruption-101"
+    meta = d / "task.toml"
+    assert meta.exists() and (d / "instruction.md").exists()
+    text = meta.read_text()
+    assert 'domain = "disruption"' in text
+    assert 'skill = "disruption-handling"' in text
+    assert 'weight = 2.0' in text
+    # llm_judge draft has no tools requirement
+    t2 = (tmp_path / "disruption-102" / "task.toml").read_text()
+    assert 'verifier = "llm_judge"' in t2
+
+
+def test_promote_moves_only_keep_rows(tmp_path, monkeypatch):
+    import eval.taskgen as tg
+    monkeypatch.setattr(tg, "TASKS_DIR", tmp_path / "tasks")
+    domain_dir = tmp_path / "drafts" / "disruption"
+    d1 = _draft(domain_dir, task_id="disruption-101")
+    toml2 = GOOD_TOML.replace("disruption-101", "disruption-102")
+    d2 = _draft(domain_dir, task_id="disruption-102", toml=toml2)
+    (domain_dir / "REVIEW.md").write_text(
+        "| action | id |\n|---|---|\n"
+        "| KEEP | disruption-101 |\n| DROP | disruption-102 |\n")
+    promoted = promote_domain(domain_dir)
+    assert (tmp_path / "tasks" / "disruption-101").exists()
+    assert not (tmp_path / "tasks" / "disruption-102").exists()
+    assert promoted == ["disruption-101"]
+
+
+def test_promote_refuses_without_review_sheet(tmp_path, monkeypatch):
+    import eval.taskgen as tg
+    monkeypatch.setattr(tg, "TASKS_DIR", tmp_path / "tasks")
+    domain_dir = tmp_path / "drafts2" / "disruption"
+    _draft(domain_dir, task_id="disruption-101")
+    with pytest.raises(SystemExit):
+        promote_domain(domain_dir)
