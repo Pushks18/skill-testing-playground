@@ -692,6 +692,94 @@ git commit -m "feat: add TravelTaskLoader with domain filtering and ratio split"
 
 ---
 
+### Task 4b: Replacement prompts module (REQUIRED — added after spike findings)
+
+**Why:** the skillopt 0.1.0 wheel ships ZERO `.md` prompt files — `load_prompt(name)` raises `FileNotFoundError` for every prompt. The aggregate stage calls it unconditionally (`merge_failure`/`merge_success`/`merge_final` in patch mode), reflect falls back to it when `error_system`/`success_system` are None, and clip uses it when edits exceed budget. Production runs WILL crash without replacements. (Spike findings §6.)
+
+**Files:**
+- Create: `eval/optimizer/skillopt_prompts.py`
+- Modify: `tests/test_skillopt_adapter.py` (append)
+
+- [ ] **Step 1: Read the parsers to learn the required output format.** Before writing any prompt text, read in `.venv/lib/python3.11/site-packages/skillopt/`:
+  - `gradient/reflect.py` — how the optimizer model's reflect output is parsed into a patch (look for the JSON extraction / expected keys: `edits` with `op`/`content`/`target`, per spike findings §5)
+  - `gradient/aggregate.py` — what `merge_*` prompts must make the model return (merged patch JSON)
+  - `optimizer/clip.py` — what the rank/clip prompt must return
+  Your prompt texts MUST instruct the model to output exactly the JSON those parsers extract.
+
+- [ ] **Step 2: Implement `eval/optimizer/skillopt_prompts.py`:**
+
+```python
+# eval/optimizer/skillopt_prompts.py
+"""Replacement prompts for skillopt 0.1.0 (the wheel ships no .md prompt files).
+
+install_prompts() patches load_prompt at every consuming module so the
+trainer's reflect/aggregate/clip stages get functional prompt text. Texts
+are written against the actual parsers in skillopt.gradient/optimizer —
+the model must emit the JSON shapes those parsers extract.
+"""
+from __future__ import annotations
+
+# name → prompt text. Cover every name reachable with our config
+# (update_mode="patch"): reflect minibatch prompts, merge_{failure,success,final},
+# clip/rank, plus slow_update/meta_skill in case those stages are enabled later.
+PROMPTS: dict[str, str] = {
+    "error_minibatch": "...",        # written in Step 2 against the reflect parser
+    "success_minibatch": "...",
+    "merge_failure": "...",
+    "merge_success": "...",
+    "merge_final": "...",
+    # clip.py's prompt_name — confirm exact name from optimizer/clip.py
+    # slow_update / meta_skill / lr_autonomous — include defensively
+}
+
+
+def install_prompts() -> None:
+    """Route skillopt's load_prompt through PROMPTS, falling back to the original."""
+    import skillopt.prompts as sp
+    original = sp.load_prompt
+
+    def patched(name: str, env: str | None = None) -> str:
+        if name in PROMPTS:
+            return PROMPTS[name]
+        return original(name, env)
+
+    import skillopt.gradient.aggregate as agg
+    import skillopt.gradient.reflect as refl
+    import skillopt.optimizer.clip as clip
+    import skillopt.optimizer.slow_update as slow
+    import skillopt.optimizer.meta_skill as meta
+    for module in (sp, agg, refl, clip, slow, meta):
+        module.load_prompt = patched
+```
+
+(The `"..."` placeholders above are filled IN THIS TASK from Step 1's parser reading — they are not optional. Each prompt must state the role, the failure/success trajectory context it receives, and demand the exact JSON output shape with `edits: [{op, content, target}]` etc.)
+
+- [ ] **Step 3: Test** — append to `tests/test_skillopt_adapter.py`:
+
+```python
+def test_install_prompts_covers_reachable_names():
+    from eval.optimizer.skillopt_prompts import PROMPTS, install_prompts
+    install_prompts()
+    import skillopt.gradient.aggregate as agg
+    # every name aggregate requests in patch mode resolves without FileNotFoundError
+    for name in ("merge_failure", "merge_success", "merge_final"):
+        assert agg.load_prompt(name)
+    # all prompt texts demand JSON edits output
+    for name, text in PROMPTS.items():
+        assert "edits" in text or "JSON" in text, f"prompt {name!r} lacks output-format instruction"
+```
+
+- [ ] **Step 4: Run** `.venv/bin/python -m pytest tests/test_skillopt_adapter.py -v -k prompts` → PASS
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add eval/optimizer/skillopt_prompts.py tests/test_skillopt_adapter.py
+git commit -m "feat: add replacement prompts for stripped skillopt distribution"
+```
+
+---
+
 ### Task 5: `TravelEnvAdapter` — rollout + reflect
 
 **Files:**
@@ -924,34 +1012,43 @@ git commit -m "feat: add TravelEnvAdapter with run_task rollout and reflect dele
 
 - [ ] **Step 1: Create the config** — structured format; keys verified against `skillopt.config._FLATTEN_MAP` and adjusted per the Task 2 spike findings (the spike's working cfg in findings §7 is authoritative; reconcile before committing):
 
+Per spike findings §7 (the authoritative working cfg), the flat keys the trainer requires include `optimizer_model`, `target_model`, `accumulation`, `merge_batch_size`, `analyst_workers`, `sel_env_num`, `test_env_num`, `eval_test`; `steps_per_epoch` is computed by the trainer and ignored if set (findings §8.1); `use_gate=False` raises (§8.5).
+
 ```yaml
 # eval/optimizer/skillopt_config.yaml
 # Trainer config for the two-target optimizer. The driver overrides env.*
-# per run (out_root, skill_init). gate_metric MUST stay mixed/soft — the
-# hard gate rejects every candidate at <=10-task selection scale.
+# per run (out_root, skill_init — skill_init MUST be a file path, findings §1).
+# gate_metric MUST stay mixed/soft — the hard gate rejects every candidate
+# at <=10-task selection scale.
 
 model:
   backend: openai_chat
   optimizer: gpt-4o            # optimizer-side LLM (reflect/aggregate/select)
+  target: gpt-4o-mini          # required key; unused (our adapter owns rollout)
 
 train:
   num_epochs: 5
-  steps_per_epoch: 1
   batch_size: 5                # = train split size (5:3:2 of 10)
+  accumulation: 1
 
 gradient:
   minibatch_size: 4
+  merge_batch_size: 8
 
 optimizer:
   learning_rate: 3             # flattens to edit_budget: max accepted edits/epoch
 
 evaluation:
-  use_gate: true
+  use_gate: true               # mandatory — false raises ValueError
   gate_metric: mixed
   gate_mixed_weight: 0.5
 
 env:
   name: travel
+  analyst_workers: 4
+  sel_env_num: 3               # selection (val) split size
+  test_env_num: 2              # held-out test split size
+  eval_test: true              # trainer runs final test itself (findings §4)
   # out_root and skill_init injected by the driver per run
 ```
 
@@ -1032,9 +1129,10 @@ def test_qualifying_clusters_thresholds():
 
 
 def test_estimate_rollout_calls():
-    # baseline(sel=3) + epochs*(train=5 + sel=3) + final test(2), epochs=5
+    # findings §8.2-8.3: baseline(sel) + per-step (train + sel) + eval_test
+    # runs the test split TWICE (baseline + best). epochs=5, 1 step/epoch.
     est = estimate_rollout_calls(n_train=5, n_selection=3, n_test=2, epochs=5)
-    assert est == 3 + 5 * (5 + 3) + 2
+    assert est == 3 + 5 * (5 + 3) + 2 * 2
 
 
 def test_write_proposed_harness(tmp_path):
@@ -1147,8 +1245,9 @@ def qualifying_clusters(clusters: list[dict]) -> list[dict]:
 
 
 def estimate_rollout_calls(n_train: int, n_selection: int, n_test: int, epochs: int) -> int:
-    """baseline(selection) + per-epoch (train rollout + selection eval) + final test."""
-    return n_selection + epochs * (n_train + n_selection) + n_test
+    """baseline(selection) + per-epoch (train rollout + selection eval)
+    + eval_test runs the test split twice (baseline + best). Findings §8.2-8.3."""
+    return n_selection + epochs * (n_train + n_selection) + 2 * n_test
 
 
 # ── proposal output ──────────────────────────────────────────────────────────
@@ -1216,8 +1315,12 @@ def run_cluster(cluster: dict, args) -> dict:
     cfg = flatten_config(load_config(args.config))
     cfg["out_root"] = str(out_root)
     cfg["seed"] = args.seed
-    # ── INTEGRATION POINT (spike findings §1): skill_init semantics ──
-    cfg["skill_init"] = baseline_text     # adjust to a path if findings say so
+    # skill_init MUST be a file path — a text literal is silently treated as a
+    # nonexistent path and the skill starts blank (spike findings §1)
+    out_root.mkdir(parents=True, exist_ok=True)
+    skill_init_path = out_root / "initial_artifact.md"
+    skill_init_path.write_text(baseline_text)
+    cfg["skill_init"] = str(skill_init_path)
 
     n_items = len(adapter.dataloader.load_raw_items(str(spec.tasks_dir)))
     n_train, n_sel, n_test = _split_counts(n_items)
@@ -1228,18 +1331,24 @@ def run_cluster(cluster: dict, args) -> dict:
     if args.dry_run:
         return {"run": run_tag, "dry_run": True, "estimated_rollout_calls": est_calls}
 
+    from eval.optimizer.skillopt_prompts import install_prompts
+    install_prompts()   # 0.1.0 wheel ships no prompt files (findings §6)
+
     from skillopt.engine.trainer import ReflACTTrainer
     train_result = ReflACTTrainer(cfg, adapter).train()
 
-    # ── INTEGRATION POINT (spike findings §3): best-artifact location ──
-    best_text = _load_best_artifact(out_root, train_result, fallback=baseline_text)
+    # Best artifact: out_root/best_skill.md, overwritten at each accept (findings §3)
+    best_skill_file = out_root / "best_skill.md"
+    best_text = best_skill_file.read_text() if best_skill_file.exists() else baseline_text
 
-    # ── INTEGRATION POINT (spike findings §4): held-out test, exactly once ──
-    test_env = adapter.build_eval_env(env_num=0, split="test", seed=args.seed)
-    base_test = adapter.rollout(test_env, baseline_text, str(out_root / "test_baseline"))
-    best_test = adapter.rollout(test_env, best_text, str(out_root / "test_best"))
-    base_score = _mixed(base_test)
-    best_score = _mixed(best_test)
+    # Held-out test: the trainer runs it itself when eval_test=true (findings §4),
+    # scoring BOTH skill_init (baseline) and best_skill on the test split.
+    # train() returns hard+soft for each; compute the mixed score ourselves.
+    w = cfg.get("gate_mixed_weight", 0.5)
+    base_score = _mixed_from(train_result.get("baseline_test_hard"),
+                             train_result.get("baseline_test_soft"), w)
+    best_score = _mixed_from(train_result.get("test_hard"),
+                             train_result.get("test_soft"), w)
 
     report = {
         "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
@@ -1268,12 +1377,11 @@ def run_cluster(cluster: dict, args) -> dict:
     return report
 
 
-def _mixed(results: list[dict], w: float = 0.5) -> float:
-    if not results:
+def _mixed_from(hard, soft, w: float = 0.5) -> float:
+    """Mixed gate score from the trainer's returned hard/soft test scores."""
+    if hard is None or soft is None:
         return 0.0
-    hard = sum(r["hard"] for r in results) / len(results)
-    soft = sum(r["soft"] for r in results) / len(results)
-    return (1 - w) * hard + w * soft
+    return (1 - w) * float(hard) + w * float(soft)
 
 
 def _split_counts(n: int, ratio=(5, 3, 2)) -> tuple[int, int, int]:
@@ -1287,19 +1395,6 @@ def _skill_for_domain(domain: str, skills_root: pathlib.Path) -> str:
     """Map a task domain to its skill dir (mirrors propose_skill._KNOWN_SKILLS)."""
     from eval.optimizer.propose_skill import _DOMAIN_TO_SKILL_NAME
     return _DOMAIN_TO_SKILL_NAME.get(domain, domain.replace("_", "-"))
-
-
-def _load_best_artifact(out_root: pathlib.Path, train_result, fallback: str) -> str:
-    """Per spike findings §3 — adjust the path/keys to what the trainer persists."""
-    # Default attempt: latest skill file the trainer saved under out_root
-    candidates = sorted(out_root.glob("**/skill_step_*.md")) or sorted(out_root.glob("**/skill*.md"))
-    if candidates:
-        return candidates[-1].read_text()
-    if isinstance(train_result, dict):
-        for k in ("best_skill", "final_skill", "skill"):
-            if isinstance(train_result.get(k), str) and train_result[k].strip():
-                return train_result[k]
-    return fallback
 
 
 def _jsonable(obj):
@@ -1344,9 +1439,9 @@ if __name__ == "__main__":
     main()
 ```
 
-- [ ] **Step 4: Reconcile with spike findings**
+- [ ] **Step 4: Verify against spike findings**
 
-Open `docs/superpowers/specs/skillopt-spike-findings.md` and fix the three INTEGRATION POINT blocks (`skill_init`, `_load_best_artifact`, final-test handling) to match findings §1/§3/§4. If the trainer already evaluates split="test", drop the driver's duplicate test rollout for the trainer's number and keep only the baseline test rollout for comparison.
+The code above is already reconciled with `docs/superpowers/specs/skillopt-spike-findings.md` (§1 skill_init file path, §3 best_skill.md, §4 eval_test=true, §6 install_prompts). Read the findings doc anyway and confirm nothing else applies — findings §8 lists surprises (steps_per_epoch ignored, use_gate mandatory, 3-rollouts-per-step shape).
 
 - [ ] **Step 5: Run to verify pass**
 
