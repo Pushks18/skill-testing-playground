@@ -5,7 +5,7 @@ import pytest
 import yaml
 
 from eval.optimizer.skillopt_adapter import (
-    TargetSpec, initial_artifact, materialize_candidate,
+    TargetSpec, initial_artifact, materialize_candidate, TravelTaskLoader,
 )
 
 SKILL_MD = """---
@@ -118,9 +118,6 @@ def test_materialize_skill_without_frontmatter_no_leading_blank(tmp_path, harnes
     ctx = materialize_candidate(spec, "# New Body", tmp_path / "out")
     content = (ctx.skill_path / "SKILL.md").read_text()
     assert content == "# New Body\n"          # no leading blank line
-
-
-from eval.optimizer.skillopt_adapter import TravelTaskLoader
 
 
 def _write_task(tasks_dir, name, domain):

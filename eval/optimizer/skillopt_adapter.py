@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from typing import Literal, Optional
 
 import yaml
+from skillopt.datasets.base import BatchSpec, SplitDataLoader
 
 from eval.skill_loader import load_skill
 
@@ -100,9 +101,6 @@ def materialize_candidate(
     return CandidateContext(skill_path=spec.skill_path, harness_config_path=candidate_path)
 
 
-from skillopt.datasets.base import BatchSpec, SplitDataLoader
-
-
 class TravelTaskLoader(SplitDataLoader):
     """Feeds one domain's tasks/ dirs through skillopt's ratio split (train:val:test)."""
 
@@ -116,6 +114,8 @@ class TravelTaskLoader(SplitDataLoader):
     def load_raw_items(self, data_path: str) -> list[dict]:
         items: list[dict] = []
         for task_dir in sorted(pathlib.Path(data_path).iterdir()):
+            if not task_dir.is_dir():
+                continue
             toml_path = task_dir / "task.toml"
             instr_path = task_dir / "instruction.md"
             if not (toml_path.exists() and instr_path.exists()):
