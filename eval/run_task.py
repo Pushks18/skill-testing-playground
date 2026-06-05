@@ -1,5 +1,9 @@
 # eval/run_task.py
-"""Run a single task through the travel agent and return an EvalResult."""
+"""Run a single task through the travel agent and return an EvalResult.
+
+Observability: LangSmith auto-tracing is active when LANGCHAIN_API_KEY is set.
+run_name / tags / metadata are forwarded to LangSmith via the invoke config.
+"""
 from __future__ import annotations
 import argparse
 import dataclasses
@@ -24,52 +28,6 @@ from eval.verifiers.llm_judge import LLMJudgeVerifier
 from eval.trajectory import (
     TrajectoryRun, TrajectoryStep, save_run, classify_failure,
 )
-
-# ---------------------------------------------------------------------------
-# Langfuse — optional; eval runs proceed even if keys are absent
-# ---------------------------------------------------------------------------
-_LANGFUSE_ENABLED = bool(
-    os.environ.get("LANGFUSE_PUBLIC_KEY") and os.environ.get("LANGFUSE_SECRET_KEY")
-)
-
-def _make_langfuse_handler(skill_name: str, condition: str, task_id: str, run_id: str):
-    if not _LANGFUSE_ENABLED:
-        return None
-    try:
-        from langfuse.callback import CallbackHandler
-        return CallbackHandler(
-            public_key=os.environ["LANGFUSE_PUBLIC_KEY"],
-            secret_key=os.environ["LANGFUSE_SECRET_KEY"],
-            host=os.environ.get("LANGFUSE_HOST", "https://cloud.langfuse.com"),
-            tags=[f"skill:{skill_name}", f"condition:{condition}", f"task:{task_id}"],
-            session_id=f"{task_id}__{run_id}",
-        )
-    except Exception:
-        return None
-
-
-def _push_score(handler, score: float, reason: str) -> None:
-    if handler is None:
-        return
-    try:
-        handler.langfuse.score(
-            trace_id=handler.get_trace_id(),
-            name="verifier_score",
-            value=score,
-            comment=reason,
-        )
-    except Exception:
-        pass
-
-
-def _trace_url(handler) -> str | None:
-    if handler is None:
-        return None
-    try:
-        return handler.get_trace_url()
-    except Exception:
-        return None
-
 
 # ---------------------------------------------------------------------------
 # Task / skill loaders
@@ -148,14 +106,6 @@ def run_task(
     expected = task.get("expected", {})
     run_id = str(uuid.uuid4())
 
-    langfuse_handler = _make_langfuse_handler(
-        skill_name=skill_name,
-        condition=condition,
-        task_id=task["id"],
-        run_id=run_id,
-    )
-    callbacks = [langfuse_handler] if langfuse_handler else []
-
     _model = "gpt-4o-mini"
     agent = build_travel_agent(skill_content=skill_content, mock_mcp_url=mock_mcp_url)
 
@@ -193,7 +143,6 @@ def run_task(
                 "tags": [f"skill:{skill_name}", f"condition:{condition}",
                          f"domain:{task['domain']}"],
                 "metadata": {"task_id": task["id"], "run_id": run_id},
-                **({"callbacks": callbacks} if callbacks else {}),
             },
         )
 
@@ -256,10 +205,6 @@ def run_task(
     }
     vresult = verifier.verify(agent_output)
 
-    # Push eval score to Langfuse trace
-    _push_score(langfuse_handler, vresult.score, vresult.reason)
-    trace_url = _trace_url(langfuse_handler)
-
     in_tok  = result.get("input_tokens",  0)
     out_tok = result.get("output_tokens", 0)
     model   = _model
@@ -273,7 +218,7 @@ def run_task(
         steps=result.get("steps", 0),
         tools_called=[t["name"] for t in result.get("tools_called", [])],
         tool_params={t["name"]: t.get("params", {}) for t in result.get("tools_called", [])},
-        langsmith_run_id=trace_url or "",
+        langsmith_run_id="",
         passed_verifier=vresult.passed,
         judge_reasoning=vresult.reason,
         latency_ms=latency_ms,
@@ -310,7 +255,7 @@ def run_task(
             skill_name=eval_result.skill_name,
             condition=condition, score=vresult.score,
             passed=vresult.passed, failure_mode=failure_mode,
-            steps=steps_data, langsmith_url=trace_url,
+            steps=steps_data, langsmith_url=None,
         ))
     except Exception:
         pass

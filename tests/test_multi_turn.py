@@ -29,6 +29,7 @@ def test_simulator_prompt_reveals_only_when_asked(monkeypatch):
 
     import openai
     monkeypatch.setattr(openai, "OpenAI", lambda **kw: _FakeClient())
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     task = {"instruction": "My flight is delayed.",
             "expected": {"hidden_details": "booking ref BK7Q2R8T; wants rebooking"}}
     reply = rt._simulate_user_reply(task, "What is your booking reference?")
