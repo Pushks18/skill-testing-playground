@@ -116,8 +116,10 @@ def preflight(mock_mcp_url: str) -> None:
 def run_cluster(cluster: dict, args) -> dict:
     harness_config_path = pathlib.Path(args.harness_config)
     optimizable = yaml.safe_load(harness_config_path.read_text()).get("optimizable", [])
-    is_harness = "::" in cluster["target_artifact"]
-    kind, key = resolve_target(cluster, optimizable=optimizable if is_harness else None)
+    kind, key = resolve_target(
+        cluster,
+        optimizable=optimizable if "::" in cluster["target_artifact"] else None,
+    )
 
     skill_name = (key if kind == "skill"
                   else _skill_for_domain(cluster["domain"]))
@@ -134,19 +136,13 @@ def run_cluster(cluster: dict, args) -> dict:
                                split_seed=args.seed, seed=args.seed)
     baseline_text = initial_artifact(spec)
 
-    from skillopt.config import load_config, flatten_config
-    cfg = flatten_config(load_config(args.config))
-    cfg["out_root"] = str(out_root)
-    cfg["seed"] = args.seed
-    # skill_init MUST be a file path — a text literal is silently treated as a
-    # nonexistent path and the skill starts blank (spike findings §1)
-    out_root.mkdir(parents=True, exist_ok=True)
-    skill_init_path = out_root / "initial_artifact.md"
-    skill_init_path.write_text(baseline_text)
-    cfg["skill_init"] = str(skill_init_path)
-
     n_items = len(adapter.dataloader.load_raw_items(str(spec.tasks_dir)))
     n_train, n_sel, n_test = _split_counts(n_items)
+
+    # Load config early so num_epochs is available for the estimate.
+    from skillopt.config import load_config, flatten_config
+    cfg = flatten_config(load_config(args.config))
+
     est_calls = estimate_rollout_calls(n_train, n_sel, n_test, cfg.get("num_epochs", 5))
     print(f"[{run_tag}] target={kind}:{key} tasks={n_items} (split {n_train}/{n_sel}/{n_test}) "
           f"~{est_calls} rollout calls (gpt-4o-mini)")
@@ -154,8 +150,28 @@ def run_cluster(cluster: dict, args) -> dict:
     if args.dry_run:
         return {"run": run_tag, "dry_run": True, "estimated_rollout_calls": est_calls}
 
+    # File writes happen only on real runs (after the dry-run guard).
+    cfg["out_root"] = str(out_root)
+    cfg["seed"] = args.seed
+    out_root.mkdir(parents=True, exist_ok=True)
+    # skill_init MUST be a file path — a text literal is silently treated as a
+    # nonexistent path and the skill starts blank (spike findings §1)
+    skill_init_path = out_root / "initial_artifact.md"
+    skill_init_path.write_text(baseline_text)
+    cfg["skill_init"] = str(skill_init_path)
+
     from skillopt.engine.trainer import ReflACTTrainer
-    train_result = ReflACTTrainer(cfg, adapter).train()
+    try:
+        train_result = ReflACTTrainer(cfg, adapter).train()
+    except Exception as e:
+        crash_report = {
+            "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
+            "crashed": True, "error": f"{type(e).__name__}: {e}",
+            "estimated_rollout_calls": est_calls,
+        }
+        (out_root / "optimization_report.json").write_text(json.dumps(crash_report, indent=2))
+        print(f"[{run_tag}] CRASHED: {e} — partial spend recorded in {out_root}/optimization_report.json")
+        raise
 
     # Best artifact: out_root/best_skill.md, overwritten at each accept (findings §3)
     best_skill_file = out_root / "best_skill.md"
