@@ -1,0 +1,62 @@
+{
+  "booking-flow-101": {
+    "class": "baseline-fail",
+    "score": 0.8,
+    "detail": "Missing params: ['create_booking.flight']"
+  },
+  "booking-flow-102": {
+    "class": "baseline-fail",
+    "score": 0.25,
+    "detail": "Missing params: ['create_booking.hotel', 'create_booking.check_in', 'create_booking.check_out']"
+  },
+  "booking-flow-103": {
+    "class": "baseline-fail",
+    "score": 0.5,
+    "detail": "Missing params: ['check_availability.hotel']"
+  },
+  "booking-flow-104": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['add_ancillary.booking_ref', 'add_ancillary.ancillary']"
+  },
+  "booking-flow-105": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-106": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['cancel_booking.booking_ref']"
+  },
+  "booking-flow-107": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_fare_rules.fare_code']"
+  },
+  "booking-flow-108": {
+    "class": "baseline-fail",
+    "score": 0.5714285714285714,
+    "detail": "Missing params: ['create_booking.hotel', 'create_booking.check_in', 'create_booking.check_out']"
+  },
+  "booking-flow-109": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent completely failed to adhere to the pass criteria. Instead of asking for missing validation"
+  },
+  "booking-flow-110": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "booking-flow-111": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_itinerary.booking_ref']"
+  },
+  "booking-flow-112": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent directly asks for the date of travel, fulfilling the pass criteria. It also asks for the r"
+  }
+}

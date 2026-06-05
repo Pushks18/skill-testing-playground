@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-105"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = []
+criteria = "The agent should ask for either the flight number or booking reference to find the change fee."

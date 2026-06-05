@@ -1,0 +1,22 @@
+{
+  "flight-search-101": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passenger_count']"
+  },
+  "flight-search-102": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['check_availability']"
+  },
+  "flight-search-103": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passenger_count']"
+  },
+  "flight-search-104": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passenger_count']"
+  }
+}

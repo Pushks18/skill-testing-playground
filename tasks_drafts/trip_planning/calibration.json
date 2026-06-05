@@ -1,0 +1,22 @@
+{
+  "planning-101": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-102": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-103": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent directly asks for the specific travel dates (departure and return), which is the key crite"
+  },
+  "planning-104": {
+    "class": "baseline-fail",
+    "score": 0.16666666666666663,
+    "detail": "Missing params: ['search_flights.departure_date', 'search_flights.return_date', 'search_hotels.city', 'search_hotels.che"
+  }
+}

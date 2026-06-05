@@ -1,0 +1,10 @@
+[task]
+id = "disruption-102"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "Explain the airline's compensation policy for delayed flights."

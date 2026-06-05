@@ -1,0 +1,10 @@
+[task]
+id = "disruption-107"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "tool_call_check"
+weight = 2.0
+
+[expected]
+tools = ["validate_passenger"]
+required_params = { validate_passenger = ["booking_ref"] }

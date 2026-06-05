@@ -1,0 +1,52 @@
+{
+  "fare-rules-101": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_fare_rules.FL999']"
+  },
+  "fare-rules-102": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_fare_rules.FL123']"
+  },
+  "fare-rules-103": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_fare_rules.FL789']"
+  },
+  "fare-rules-104": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_fare_rules.BK3X9Z2A']"
+  },
+  "fare-rules-105": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent provided a list of potential flights and their change fees without asking for either the f"
+  },
+  "fare-rules-106": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_fare_rules.FL890']"
+  },
+  "fare-rules-107": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['get_fare_rules']"
+  },
+  "fare-rules-108": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_fare_rules.FL550']"
+  },
+  "fare-rules-109": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['get_fare_rules.FL700']"
+  },
+  "fare-rules-110": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent makes a definitive statement about a change fee without first asking for the necessary inf"
+  }
+}

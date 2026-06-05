@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-102"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "tool_call_check"
+weight = 2.0
+
+[expected]
+tools = ["check_availability"]
+required_params = { check_availability = ["origin", "destination", "departure_date", "return_date", "passenger_count"] }

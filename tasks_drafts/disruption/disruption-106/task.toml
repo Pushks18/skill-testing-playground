@@ -1,0 +1,10 @@
+[task]
+id = "disruption-106"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "tool_call_check"
+weight = 2.0
+
+[expected]
+tools = ["add_ancillary"]
+required_params = { add_ancillary = ["booking_ref", "service_type"] }

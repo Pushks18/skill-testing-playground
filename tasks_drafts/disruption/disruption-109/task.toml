@@ -1,0 +1,10 @@
+[task]
+id = "disruption-109"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "Provide an explanation of compensation rules for delayed flights on that route."

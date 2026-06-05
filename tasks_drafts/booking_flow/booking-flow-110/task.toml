@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-110"
+domain = "booking_flow"
+skill = "booking-skill"
+verifier = "tool_call_check"
+weight = 3.0
+
+[expected]
+tools = ["check_availability", "create_booking"]
+required_params = { check_availability = ["hotel", "date", "room_type"], create_booking = ["hotel", "passenger", "check_in", "check_out"] }

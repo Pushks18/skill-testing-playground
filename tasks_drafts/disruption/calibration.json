@@ -1,0 +1,62 @@
+{
+  "disruption-101": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-102": {
+    "class": "baseline-fail",
+    "score": 0.08333333333333333,
+    "detail": "avg=0.08 std=0.14 | The agent's response provides information about cancellation, changes, baggage, and refundability, w"
+  },
+  "disruption-103": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['cancel_booking']"
+  },
+  "disruption-104": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "disruption-105": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-106": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['add_ancillary']"
+  },
+  "disruption-107": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['validate_passenger']"
+  },
+  "disruption-108": {
+    "class": "baseline-fail",
+    "score": 0.25,
+    "detail": "avg=0.25 std=0.00 | The agent's response does not directly suggest possible steps or options for rebooking. Instead, it "
+  },
+  "disruption-109": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent's response completely fails to address the user's request for compensation rules. Instead,"
+  },
+  "disruption-110": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing params: ['cancel_booking.booking_ref']"
+  },
+  "disruption-111": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent completely missed the user's core problem: they needed to check existing availability for "
+  },
+  "disruption-112": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'modify_booking']"
+  }
+}

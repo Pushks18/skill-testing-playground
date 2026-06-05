@@ -1,0 +1,10 @@
+[task]
+id = "planning-104"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "tool_call_check"
+weight = 1.5
+
+[expected]
+tools = ["search_flights", "search_hotels"]
+required_params = { search_flights = ["origin", "departure_date", "return_date"], search_hotels = ["city", "check_in_date", "check_out_date"] }
