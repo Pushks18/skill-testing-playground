@@ -53,12 +53,15 @@ Disruption tasks compose existing tools only: rebooking = `search_flights`+`modi
 - `ab_compare --skill-path .../ancillery-skill` smoke on the expanded domain: confirms 20-task discovery and that splits in a future optimizer run will be 10/6/4.
 - Counts match the target table.
 
-## Out of scope
+## Out of scope now → recorded as future work
 
-- Trigger-eval labeled-request expansion (separate follow-up)
-- New mock-MCP endpoints; Docker sandboxing
+1. **Trigger-eval labeled-request expansion.** The 30-message labeled dataset (`eval/trigger/labeled_requests.json`) tests *routing* accuracy — "does the agent pick the right skill for a message" — not task execution. Should grow alongside the bank (target ~60: positives for the new disruption domain, near-misses between ancillery/disruption, more no-skill negatives). Small standalone job; do after this expansion so new-domain positives exist to label.
+2. **New mock-MCP endpoints.** Deliberately avoided here: disruption tasks compose the existing 10 tools, which is cheaper AND tests realistic tool composition. Revisit only if a future domain genuinely cannot be expressed with the current tool set (candidate: a dedicated `rebook_flight` if disruption tasks show composition is unreliable in practice).
+3. **Docker task sandboxing.** The borrowed BenchFlow format supports one-container-per-task isolation; we run directly against the local mock server (faster, simpler). Becomes important when tasks gain side effects or run untrusted code — neither is true today. Revisit at CI-scale or when staging-MCP (real API) tasks arrive.
+
+Also out of scope:
 - Authoring the `disruption-handling` skill (deliberately left for the Phase-6 auto-generation pipeline, per PRD open question #3)
-- Slice 4 archive/bandit (deferred behind this)
+- Slice 4 archive/bandit (deferred behind this expansion — data first)
 
 ## Risks
 
