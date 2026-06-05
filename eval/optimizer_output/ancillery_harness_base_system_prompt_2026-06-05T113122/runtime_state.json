@@ -1,0 +1,10 @@
+{
+  "last_completed_step": 5,
+  "current_skill_path": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05T113122/skills/skill_v0005.md",
+  "current_score": 0.6666666666666666,
+  "current_origin": "initial_skill",
+  "best_skill_path": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05T113122/best_skill.md",
+  "best_score": 0.6666666666666666,
+  "best_step": 0,
+  "best_origin": "initial_skill"
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ancillery-006",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "ancillery",
+    "question": "Booking BK7A3B1E. Can you get me lounge access at JFK for my departure tomorrow?"
+  },
+  {
+    "id": "ancillery-001",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I just booked flight BK8F2A1C. Please add a window seat selection for me."
+  },
+  {
+    "id": "ancillery-005",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "For booking BK2F6C9D, I'd like to add basic travel insurance."
+  }
+]
