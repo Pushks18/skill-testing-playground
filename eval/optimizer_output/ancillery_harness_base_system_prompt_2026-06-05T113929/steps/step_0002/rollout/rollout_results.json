@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ancillery-004",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I have booking BK5D8E3A. Add priority boarding for me and my partner."
+  },
+  {
+    "id": "ancillery-010",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "Booking BK8B4E1C. Add premium travel insurance and an aisle seat for my flight to Tokyo."
+  },
+  {
+    "id": "ancillery-007",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I have a booking BK4C8F2A. Please arrange a private airport transfer from LAX to my hotel in Santa Monica."
+  },
+  {
+    "id": "ancillery-002",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "ancillery",
+    "question": "My booking is BKD3E7F2. I need a vegetarian meal for my flight."
+  },
+  {
+    "id": "ancillery-009",
+    "hard": 1,
+    "soft": 0.6666666666666666,
+    "fail_reason": "avg=0.67 std=0.14 | The agent's response is generally accurate in stating that basic economy tickets typically don't allow seat selection, including extra legroom. However, it completely misses the opportunity to tell the user that they can *buy* an extra legroom seat even without upgrading their fare *class* when holding a basic economy ticket on many airlines. This is a crucial distinction. The user specifically asked 'can I select an extra legroom seat *or* do I need to upgrade my fare?' The agent only addressed the 'upgrade fare' part implicitly and did not directly address if they can *buy* the seat without upgrading the fare class. The offer to check upgrade options is good, but based on incomplete information provided to the user.",
+    "task_type": "ancillery",
+    "question": "My booking is BKA2C7F3. I have a basic economy ticket \u2014 can I select an extra legroom seat or do I need to upgrade my fare?"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ancillery-006",
+    "question": "Booking BK7A3B1E. Can you get me lounge access at JFK for my departure tomorrow?",
+    "task_type": "ancillery",
+    "task_path": "tasks/ancillery-006"
+  },
+  {
+    "id": "ancillery-001",
+    "question": "I just booked flight BK8F2A1C. Please add a window seat selection for me.",
+    "task_type": "ancillery",
+    "task_path": "tasks/ancillery-001"
+  },
+  {
+    "id": "ancillery-005",
+    "question": "For booking BK2F6C9D, I'd like to add basic travel insurance.",
+    "task_type": "ancillery",
+    "task_path": "tasks/ancillery-005"
+  }
+]

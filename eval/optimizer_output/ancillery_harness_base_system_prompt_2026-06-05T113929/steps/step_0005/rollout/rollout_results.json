@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ancillery-002",
+    "hard": 0,
+    "soft": 0.0,
+    "fail_reason": "Missing required tools: ['add_ancillary']",
+    "task_type": "ancillery",
+    "question": "My booking is BKD3E7F2. I need a vegetarian meal for my flight."
+  },
+  {
+    "id": "ancillery-007",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I have a booking BK4C8F2A. Please arrange a private airport transfer from LAX to my hotel in Santa Monica."
+  },
+  {
+    "id": "ancillery-004",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "I have booking BK5D8E3A. Add priority boarding for me and my partner."
+  },
+  {
+    "id": "ancillery-010",
+    "hard": 1,
+    "soft": 1.0,
+    "fail_reason": "All required tools and params present",
+    "task_type": "ancillery",
+    "question": "Booking BK8B4E1C. Add premium travel insurance and an aisle seat for my flight to Tokyo."
+  },
+  {
+    "id": "ancillery-009",
+    "hard": 1,
+    "soft": 0.6666666666666666,
+    "fail_reason": "avg=0.67 std=0.14 | The agent correctly states that basic economy typically doesn't allow extra legroom seat selection and suggests upgrading. However, it doesn't explicitly state that the user *cannot* select an extra legroom seat, only that they \"typically do not have the option.\" In many cases, it's a hard 'no' for basic economy. It offers to help with upgrade options, which is good customer service, but doesn't immediately provide guidance on how to upgrade or how to check the specific fare rules for BKA2C7F3.",
+    "task_type": "ancillery",
+    "question": "My booking is BKA2C7F3. I have a basic economy ticket \u2014 can I select an extra legroom seat or do I need to upgrade my fare?"
+  }
+]

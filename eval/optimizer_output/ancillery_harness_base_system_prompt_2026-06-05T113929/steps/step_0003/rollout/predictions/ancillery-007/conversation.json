@@ -1,0 +1,13 @@
+[
+  {
+    "content": "User request: I have a booking BK4C8F2A. Please arrange a private airport transfer from LAX to my hotel in Santa Monica."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK4C8F2A\", \"service_type\": \"airport_transfer\", \"details\": {\"pickup_location\": \"LAX\", \"destination\": \"Santa Monica\", \"service_type\": \"private\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

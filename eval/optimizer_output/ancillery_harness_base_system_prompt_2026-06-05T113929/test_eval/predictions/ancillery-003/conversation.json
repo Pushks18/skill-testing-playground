@@ -1,0 +1,18 @@
+[
+  {
+    "content": "User request: Booking ref BK9C1A4B. I need to add an extra 23kg checked bag for my trip to London."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BK9C1A4B\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_fare_rules({\"flight_id\": \"BK9C1A4B\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['add_ancillary'] (score=0.0)"
+  }
+]

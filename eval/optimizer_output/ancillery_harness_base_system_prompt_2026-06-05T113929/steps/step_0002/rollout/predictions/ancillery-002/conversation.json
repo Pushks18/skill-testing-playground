@@ -1,0 +1,18 @@
+[
+  {
+    "content": "User request: My booking is BKD3E7F2. I need a vegetarian meal for my flight."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BKD3E7F2\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_fare_rules({\"flight_id\": \"JFK-LAX-2026-07-01\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: FAILED \u2014 Missing required tools: ['add_ancillary'] (score=0.0)"
+  }
+]

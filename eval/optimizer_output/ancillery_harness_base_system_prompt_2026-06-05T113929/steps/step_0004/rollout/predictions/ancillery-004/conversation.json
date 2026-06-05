@@ -1,0 +1,18 @@
+[
+  {
+    "content": "User request: I have booking BK5D8E3A. Add priority boarding for me and my partner."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BK5D8E3A\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK5D8E3A\", \"service_type\": \"priority_boarding\", \"details\": {\"passengers\": 2}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]

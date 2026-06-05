@@ -1,0 +1,28 @@
+[
+  {
+    "content": "User request: Booking BK8B4E1C. Add premium travel insurance and an aisle seat for my flight to Tokyo."
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_itinerary({\"booking_id\": \"BK8B4E1C\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "get_fare_rules({\"flight_id\": \"BK8B4E1C\"})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK8B4E1C\", \"service_type\": \"seat_selection\", \"details\": {\"seat_preference\": \"aisle\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "type": "tool_call",
+    "cmd": "add_ancillary({\"booking_id\": \"BK8B4E1C\", \"service_type\": \"seat_selection\", \"details\": {\"seat_preference\": \"aisle\"}})",
+    "obs": "(tool result not recorded)"
+  },
+  {
+    "content": "Verifier: PASSED \u2014 All required tools and params present (score=1.0)"
+  }
+]
