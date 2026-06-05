@@ -102,6 +102,7 @@ def run_task(
     skill_path=None,
     condition: str = "no_skill",
     mock_mcp_url: str = "http://localhost:8000",
+    model: str = None,
 ) -> EvalResult:
     task_dir = pathlib.Path(task_path)
     task = load_task(task_dir)
@@ -118,6 +119,7 @@ def run_task(
     )
     callbacks = [langfuse_handler] if langfuse_handler else []
 
+    _model = "gpt-4o-mini"
     agent = build_travel_agent(skill_content=skill_content, mock_mcp_url=mock_mcp_url)
 
     start = time.time()
@@ -132,7 +134,14 @@ def run_task(
             "input_tokens": 0,
             "output_tokens": 0,
         },
-        config={"callbacks": callbacks} if callbacks else {},
+        config={
+            # LangSmith trace identity: filterable by skill / condition / task
+            "run_name": f"{task['id']}__{condition}",
+            "tags": [f"skill:{skill_name}", f"condition:{condition}",
+                     f"domain:{task['domain']}"],
+            "metadata": {"task_id": task["id"], "run_id": run_id},
+            **({"callbacks": callbacks} if callbacks else {}),
+        },
     )
     latency_ms = int((time.time() - start) * 1000)
 
@@ -161,7 +170,7 @@ def run_task(
 
     in_tok  = result.get("input_tokens",  0)
     out_tok = result.get("output_tokens", 0)
-    model   = os.environ.get("EVAL_MODEL", "google/gemini-2.5-flash")
+    model   = _model
 
     eval_result = EvalResult(
         task_id=task["id"],
