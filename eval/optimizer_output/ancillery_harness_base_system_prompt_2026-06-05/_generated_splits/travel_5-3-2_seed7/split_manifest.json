@@ -1,0 +1,11 @@
+{
+  "source_data_path": "/Users/pushkaraj/Documents/skill-testing-playground/tasks",
+  "split_mode": "ratio",
+  "split_ratio": "5:3:2",
+  "split_seed": 7,
+  "counts": {
+    "train": 5,
+    "val": 3,
+    "test": 2
+  }
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ancillery-009",
+    "question": "My booking is BKA2C7F3. I have a basic economy ticket — can I select an extra legroom seat or do I need to upgrade my fare?",
+    "task_type": "ancillery",
+    "task_path": "/Users/pushkaraj/Documents/skill-testing-playground/tasks/ancillery-009"
+  },
+  {
+    "id": "ancillery-004",
+    "question": "I have booking BK5D8E3A. Add priority boarding for me and my partner.",
+    "task_type": "ancillery",
+    "task_path": "/Users/pushkaraj/Documents/skill-testing-playground/tasks/ancillery-004"
+  },
+  {
+    "id": "ancillery-002",
+    "question": "My booking is BKD3E7F2. I need a vegetarian meal for my flight.",
+    "task_type": "ancillery",
+    "task_path": "/Users/pushkaraj/Documents/skill-testing-playground/tasks/ancillery-002"
+  },
+  {
+    "id": "ancillery-005",
+    "question": "For booking BK2F6C9D, I'd like to add basic travel insurance.",
+    "task_type": "ancillery",
+    "task_path": "/Users/pushkaraj/Documents/skill-testing-playground/tasks/ancillery-005"
+  },
+  {
+    "id": "ancillery-008",
+    "question": "Booking BK6E1D9B. I need to add a compact car rental at Miami airport for 3 days.",
+    "task_type": "ancillery",
+    "task_path": "/Users/pushkaraj/Documents/skill-testing-playground/tasks/ancillery-008"
+  }
+]

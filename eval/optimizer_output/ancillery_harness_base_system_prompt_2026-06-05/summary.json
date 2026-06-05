@@ -1,0 +1,113 @@
+{
+  "version": "skillopt-0.1.0",
+  "config": {
+    "model_backend": "openai_chat",
+    "optimizer_model": "gpt-4o",
+    "target_model": "gpt-4o-mini",
+    "num_epochs": 5,
+    "batch_size": 5,
+    "accumulation": 1,
+    "minibatch_size": 4,
+    "merge_batch_size": 8,
+    "analyst_workers": 4,
+    "edit_budget": 3,
+    "use_gate": true,
+    "gate_metric": "mixed",
+    "gate_mixed_weight": 0.5,
+    "sel_env_num": 3,
+    "test_env_num": 2,
+    "eval_test": true,
+    "env": "travel",
+    "out_root": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05",
+    "seed": 7,
+    "skill_init": "eval/optimizer_output/ancillery_harness_base_system_prompt_2026-06-05/initial_artifact.md",
+    "optimizer_backend": "openai_chat",
+    "target_backend": "openai_chat",
+    "train_size": 5,
+    "steps_per_epoch": 1,
+    "batches_per_epoch": 1,
+    "samples_per_epoch": 5,
+    "skill_update_mode": "patch",
+    "lr_control_mode": "fixed"
+  },
+  "baseline_selection_hard": 1.0,
+  "best_selection_hard": 1.0,
+  "best_step": 0,
+  "current_origin": "initial_skill",
+  "best_origin": "initial_skill",
+  "total_steps": 5,
+  "total_accepts": 0,
+  "total_rejects": 0,
+  "total_skips": 5,
+  "epoch_stats": [
+    {
+      "epoch": 1,
+      "steps": [
+        1
+      ],
+      "accepts": 0,
+      "rejects": 0,
+      "skips": 1,
+      "best_score_at_epoch_end": 1.0,
+      "current_score_at_epoch_end": 1.0
+    },
+    {
+      "epoch": 2,
+      "steps": [
+        2
+      ],
+      "accepts": 0,
+      "rejects": 0,
+      "skips": 1,
+      "best_score_at_epoch_end": 1.0,
+      "current_score_at_epoch_end": 1.0
+    },
+    {
+      "epoch": 3,
+      "steps": [
+        3
+      ],
+      "accepts": 0,
+      "rejects": 0,
+      "skips": 1,
+      "best_score_at_epoch_end": 1.0,
+      "current_score_at_epoch_end": 1.0
+    },
+    {
+      "epoch": 4,
+      "steps": [
+        4
+      ],
+      "accepts": 0,
+      "rejects": 0,
+      "skips": 1,
+      "best_score_at_epoch_end": 1.0,
+      "current_score_at_epoch_end": 1.0
+    },
+    {
+      "epoch": 5,
+      "steps": [
+        5
+      ],
+      "accepts": 0,
+      "rejects": 0,
+      "skips": 1,
+      "best_score_at_epoch_end": 1.0,
+      "current_score_at_epoch_end": 1.0
+    }
+  ],
+  "baseline_test_hard": 0.0,
+  "baseline_test_soft": 0.0,
+  "test_hard": 0.0,
+  "test_soft": 0.0,
+  "test_delta_hard": 0,
+  "total_wall_time_s": 118.8,
+  "token_summary": {
+    "_total": {
+      "calls": 0,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0
+    }
+  }
+}
