@@ -21,6 +21,13 @@ from eval.gate_check import gate_check, TASK_WEIGHTS
 from eval.cost import cost_summary, format_cost
 
 N_TRIALS = int(os.environ.get("EVAL_TRIALS", "5"))
+EVAL_CONCURRENCY = int(os.environ.get("EVAL_CONCURRENCY", "50"))
+
+
+async def _run_guarded(sem: asyncio.Semaphore, loop, *args):
+    """Run a single run_task call, acquiring the semaphore first."""
+    async with sem:
+        return await loop.run_in_executor(None, run_task, *args)
 
 
 def load_tasks_for_skill(skill_name: str, skill_path: pathlib.Path | None = None):
@@ -68,16 +75,24 @@ def load_tasks_for_skill(skill_name: str, skill_path: pathlib.Path | None = None
         return []
 
 
-async def run_ab_for_task(task_path, skill_path, n_trials: int) -> ABResult:
+async def run_ab_for_task(task_path, skill_path, n_trials: int, sem: asyncio.Semaphore, model: str = None) -> ABResult:
     loop = asyncio.get_event_loop()
+    task_name = pathlib.Path(task_path).name
 
-    no_skill_results = []
-    with_skill_results = []
-    for _ in range(n_trials):
-        r_no = await loop.run_in_executor(None, run_task, str(task_path), None, "no_skill")
-        r_with = await loop.run_in_executor(None, run_task, str(task_path), str(skill_path), "with_skill")
-        no_skill_results.append(r_no)
-        with_skill_results.append(r_with)
+    print(f"  → queued  {task_name} ({n_trials * 2} calls)…", flush=True)
+
+    all_results = await asyncio.gather(*[
+        _run_guarded(sem, loop, str(task_path), None, "no_skill", "http://localhost:8000", model)
+        for _ in range(n_trials)
+    ], *[
+        _run_guarded(sem, loop, str(task_path), str(skill_path), "with_skill", "http://localhost:8000", model)
+        for _ in range(n_trials)
+    ])
+    no_skill_results  = list(all_results[:n_trials])
+    with_skill_results = list(all_results[n_trials:])
+
+    for i, (r_no, r_with) in enumerate(zip(no_skill_results, with_skill_results)):
+        print(f"     {task_name} trial {i+1}/{n_trials}  no_skill={r_no.score:.2f}  with_skill={r_with.score:.2f}", flush=True)
 
     best_no = max(no_skill_results, key=lambda r: r.score)
     best_with = max(with_skill_results, key=lambda r: r.score)
@@ -88,21 +103,29 @@ async def run_ab_for_task(task_path, skill_path, n_trials: int) -> ABResult:
     domain = m.group(1) if m else "unknown"
     weight = TASK_WEIGHTS.get(domain, 1.0)
 
-    return ABResult.from_pair(
+    result = ABResult.from_pair(
         skill_name=pathlib.Path(skill_path).name,
         no_skill=best_no,
         with_skill=best_with,
         task_weight=weight,
     )
+    flag = "REGRESSION" if result.regression else ("✓" if result.delta > 0.05 else "~")
+    print(f"  ✓ {task_name}  Δ={result.delta:+.2f}  [{flag}]", flush=True)
+    return result
 
 
-async def run_ab_compare(skill_name: str, skill_path, n_trials: int):
+async def run_ab_compare(skill_name: str, skill_path, n_trials: int, model: str = None):
     tasks = load_tasks_for_skill(skill_name, pathlib.Path(skill_path))
     if not tasks:
-        print(f"No tasks found for skill '{skill_name}'")
+        print(f"No tasks found for skill '{skill_name}'", flush=True)
         return []
-    coros = [run_ab_for_task(t, skill_path, n_trials) for t in tasks]
-    return await asyncio.gather(*coros)
+    sem = asyncio.Semaphore(EVAL_CONCURRENCY)
+    total_calls = len(tasks) * n_trials * 2
+    print(f"Running {len(tasks)} tasks for '{skill_name}' — {total_calls} calls, concurrency={EVAL_CONCURRENCY}…", flush=True)
+    results = await asyncio.gather(*[
+        run_ab_for_task(t, skill_path, n_trials, sem, model) for t in tasks
+    ])
+    return list(results)
 
 
 def print_report(results, decision):
@@ -135,7 +158,7 @@ def print_report(results, decision):
     print(f"{'total output tokens':<30}  {ns['total_output_tokens']:>12}  {ws['total_output_tokens']:>12}")
 
 
-def _build_summary(results, decision) -> dict:
+def _build_summary(results, decision, model: str = None) -> dict:
     """Produce the ab_results.json payload consumed by CI and the Streamlit UI."""
     regression_traces = {
         r.task_id: r.with_skill.langsmith_run_id
@@ -146,6 +169,7 @@ def _build_summary(results, decision) -> dict:
     with_skill_results = [r.with_skill for r in results]
     return {
         "skill_name": results[0].skill_name if results else "",
+        "model": model or "unknown",
         "weighted_delta": decision.weighted_delta,
         "regression_rate": decision.regression_rate,
         "verdict": decision.verdict,
@@ -174,6 +198,11 @@ if __name__ == "__main__":
     )
     parser.add_argument("--trials", type=int, default=N_TRIALS)
     parser.add_argument(
+        "--model",
+        default=None,
+        help="Model to evaluate with. GPT models use OPENAI_API_KEY directly; others via OpenRouter. Default: EVAL_MODEL env or google/gemini-2.5-flash",
+    )
+    parser.add_argument(
         "--output",
         default=None,
         help="JSON output path. Defaults to ab_results.json at project root.",
@@ -186,12 +215,14 @@ if __name__ == "__main__":
         skill_path = pathlib.Path("skills") / args.skill
     skill_name = skill_path.name
 
-    results = asyncio.run(run_ab_compare(skill_name, skill_path, args.trials))
+    model = args.model or os.environ.get("EVAL_MODEL", "gpt-4o-mini")
+    print(f"Model: {model}")
+    results = asyncio.run(run_ab_compare(skill_name, skill_path, args.trials, model))
     decision = gate_check(results)
     print_report(results, decision)
 
     output = args.output or "ab_results.json"
-    summary = _build_summary(results, decision)
+    summary = _build_summary(results, decision, model)
     pathlib.Path(output).write_text(json.dumps(summary, indent=2))
     print(f"\nResults written to {output}")
 
