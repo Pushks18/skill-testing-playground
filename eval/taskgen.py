@@ -144,8 +144,10 @@ def validate_draft(draft_dir: pathlib.Path) -> list[str]:
     # Actionability: a task may not demand booking-mutation tools unless the
     # instruction supplies a booking reference — otherwise the agent can only
     # satisfy the verifier by fabricating an ID (single-turn eval: it cannot ask).
+    # Exception: multi_turn tasks can supply the ref via hidden_details / simulator.
     mutation_demanded = set(expected.get("tools", [])) & BOOKING_MUTATION_TOOLS
-    if mutation_demanded and instr_path.exists():
+    is_multi_turn = bool(task.get("multi_turn"))
+    if mutation_demanded and instr_path.exists() and not is_multi_turn:
         if not _BOOKING_REF_RE.search(instr_path.read_text()):
             errors.append(
                 f"{draft_dir.name}: expects {sorted(mutation_demanded)} but the "

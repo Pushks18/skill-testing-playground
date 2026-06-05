@@ -4,7 +4,9 @@ domain = "disruption"
 skill = "disruption-handling"
 verifier = "tool_call_check"
 weight = 2.0
+multi_turn = true
 
 [expected]
 tools = ["search_flights"]
 required_params = { search_flights = ["origin", "destination", "date"] }
+hidden_details = "wants to find available flights from Boston (BOS) to Miami (MIA) tomorrow morning after the cancellation; no booking reference needed for this search"

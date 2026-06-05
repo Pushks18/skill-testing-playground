@@ -225,3 +225,14 @@ def test_validate_accepts_mutation_tools_with_booking_ref(tmp_path):
     d = _draft(tmp_path, toml=toml,
                instruction="My flight was cancelled, rebook me. Booking ref BK7Q2R8T.")
     assert validate_draft(d) == []
+
+
+def test_validate_accepts_mutation_tools_without_booking_ref_when_multi_turn(tmp_path):
+    """multi_turn = true exempts the actionability gate: simulator can supply the ref."""
+    toml = GOOD_TOML.replace('tools = ["search_flights", "modify_booking"]',
+                             'tools = ["modify_booking"]').replace(
+        'verifier = "tool_call_check"',
+        'verifier = "tool_call_check"\nmulti_turn = true')
+    d = _draft(tmp_path, toml=toml,
+               instruction="My flight was cancelled, please rebook me.")
+    assert validate_draft(d) == []

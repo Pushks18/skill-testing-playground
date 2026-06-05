@@ -4,7 +4,9 @@ domain = "disruption"
 skill = "disruption-handling"
 verifier = "tool_call_check"
 weight = 2.0
+multi_turn = true
 
 [expected]
 tools = ["validate_passenger"]
 required_params = { validate_passenger = ["name", "dob"] }
+hidden_details = "passenger name is Jordan Rivera; date of birth is 1988-04-22; the correct booking reference is BK3X9Z2A"

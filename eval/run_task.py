@@ -83,7 +83,44 @@ def load_task(task_path: pathlib.Path) -> dict:
     raw = re.sub(r'\{[^}]+\}', fix_inline, raw)
     meta = tomllib.loads(raw)
     instruction = (task_path / "instruction.md").read_text().strip()
-    return {**meta["task"], "expected": meta.get("expected", {}), "instruction": instruction}
+    task = {**meta["task"], "expected": meta.get("expected", {}), "instruction": instruction}
+    # Ensure hidden_details (if present in [expected]) is accessible via task["expected"]
+    # and multi_turn is promoted from meta["task"] into top-level task dict (already merged above).
+    return task
+
+
+# ---------------------------------------------------------------------------
+# Multi-turn user simulation
+# ---------------------------------------------------------------------------
+
+USER_SIM_SYSTEM = """You are a traveler talking to a travel-assistant AI.
+Your situation (already told to the assistant): {instruction}
+Additional facts you know (reveal ONLY what is asked for): {hidden_details}
+The assistant just asked you something. Reply in first person, briefly (1-2
+sentences), answering ONLY what was asked. Do not add new requests. If you
+don't know an asked fact, say you don't know."""
+
+
+def _simulate_user_reply(task: dict, agent_question: str) -> str:
+    """One simulated user turn (gpt-4o-mini). Terse by design — leakage of
+    unasked facts would inflate scores."""
+    import openai
+    client = openai.OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    resp = client.chat.completions.create(
+        model="gpt-4o-mini", max_tokens=80, temperature=0.0,
+        messages=[
+            {"role": "system", "content": USER_SIM_SYSTEM.format(
+                instruction=task["instruction"],
+                hidden_details=task.get("expected", {}).get("hidden_details", "(none)"))},
+            {"role": "user", "content": agent_question},
+        ],
+    )
+    return resp.choices[0].message.content.strip()
+
+
+def _looks_like_question(response: str) -> bool:
+    tail = (response or "").strip()[-300:]
+    return "?" in tail
 
 
 def load_skill(skill_path) -> str | None:
@@ -122,28 +159,83 @@ def run_task(
     _model = "gpt-4o-mini"
     agent = build_travel_agent(skill_content=skill_content, mock_mcp_url=mock_mcp_url)
 
+    max_user_turns = 2 if task.get("multi_turn") else 0
+
+    # Accumulated across all rounds
+    acc_tools_called: list = []
+    acc_step_timings: list = []
+    acc_steps: int = 0
+    acc_tokens_used: int = 0
+    acc_input_tokens: int = 0
+    acc_output_tokens: int = 0
+
+    # Conversation message history — grows across rounds
+    messages: list = [{"role": "user", "content": task["instruction"]}]
+    n_user_turns: int = 0
+    result: dict = {}
+
     start = time.time()
-    result = agent.invoke(
-        {
-            "messages": [{"role": "user", "content": task["instruction"]}],
-            "tools_called": [],
-            "step_timings": [],
-            "response": "",
-            "steps": 0,
-            "tokens_used": 0,
-            "input_tokens": 0,
-            "output_tokens": 0,
-        },
-        config={
-            # LangSmith trace identity: filterable by skill / condition / task
-            "run_name": f"{task['id']}__{condition}",
-            "tags": [f"skill:{skill_name}", f"condition:{condition}",
-                     f"domain:{task['domain']}"],
-            "metadata": {"task_id": task["id"], "run_id": run_id},
-            **({"callbacks": callbacks} if callbacks else {}),
-        },
-    )
+    for _round in range(max_user_turns + 1):
+        result = agent.invoke(
+            {
+                "messages": messages,
+                "tools_called": [],
+                "step_timings": [],
+                "response": "",
+                "steps": 0,
+                "tokens_used": 0,
+                "input_tokens": 0,
+                "output_tokens": 0,
+            },
+            config={
+                # LangSmith trace identity: filterable by skill / condition / task
+                "run_name": f"{task['id']}__{condition}",
+                "tags": [f"skill:{skill_name}", f"condition:{condition}",
+                         f"domain:{task['domain']}"],
+                "metadata": {"task_id": task["id"], "run_id": run_id},
+                **({"callbacks": callbacks} if callbacks else {}),
+            },
+        )
+
+        # Accumulate across rounds
+        round_tools = result.get("tools_called", [])
+        acc_tools_called.extend(round_tools)
+        acc_step_timings.extend(result.get("step_timings", []))
+        acc_steps += result.get("steps", 0)
+        acc_tokens_used += result.get("tokens_used", 0)
+        acc_input_tokens += result.get("input_tokens", 0)
+        acc_output_tokens += result.get("output_tokens", 0)
+
+        response = result.get("response", "")
+
+        # Decide whether to continue: need remaining turns, a question, AND no
+        # tool calls this round (tool use followed by a question is "anything else?" — stop)
+        rounds_remaining = (max_user_turns - n_user_turns) > 0
+        if not rounds_remaining:
+            break
+        if not _looks_like_question(response):
+            break
+        if round_tools:
+            # Agent acted AND asked — treat as done
+            break
+
+        # Simulate user reply and extend the message history
+        user_reply = _simulate_user_reply(task, response)
+        n_user_turns += 1
+        # Build next-round message list: prior messages + assistant turn + user reply
+        messages = list(result.get("messages", messages)) + [
+            {"role": "user", "content": user_reply}
+        ]
+
     latency_ms = int((time.time() - start) * 1000)
+
+    # Expose accumulated values as result fields for verifier / EvalResult building
+    result["tools_called"] = acc_tools_called
+    result["step_timings"] = acc_step_timings
+    result["steps"] = acc_steps
+    result["tokens_used"] = acc_tokens_used
+    result["input_tokens"] = acc_input_tokens
+    result["output_tokens"] = acc_output_tokens
 
     # --- Verify ----------------------------------------------------------
     verifier_type = task.get("verifier", "tool_call_check")

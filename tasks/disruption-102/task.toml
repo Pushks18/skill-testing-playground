@@ -4,7 +4,9 @@ domain = "disruption"
 skill = "disruption-handling"
 verifier = "llm_judge"
 weight = 2.0
+multi_turn = true
 
 [expected]
 tools = []
 criteria = "Explain the airline's compensation policy for delayed flights."
+hidden_details = "flight AB1234 was delayed by 4 hours on a domestic US route; wants to know if eligible for compensation and what the airline's policy says"
