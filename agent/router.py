@@ -5,11 +5,18 @@ Route ONCE per conversation (multi-turn affinity is the caller's job: keep
 using the returned agent). Below-threshold matches fall back to the planning
 specialist, which keeps all tools.
 
-Hybrid margin-gated routing (Phase 8 final):
+Margin-gated routing with safe fallback (Phase 8.1):
 - CONFIDENT: top1.score >= threshold AND (top1.score - top2.score) >= margin
   → use embedding result directly (no LLM).
-- HESITANT: falls back to a gpt-4o-mini tie-break call when llm_tiebreak=True.
-  llm_tiebreak=False → pure threshold behavior (no LLM ever).
+- HESITANT: route to the planning specialist (all tools). A wrong scoped
+  specialist is fatal when the needed tool is outside its subset; planning
+  is never fatal. (2026-06-06 diagnosis: 10 fatal misroutes — 5 from the
+  LLM tie-break, which was wrong on 23/64 decisions, 4 from thin-margin
+  embedding wins. margin=0.08 + fallback leaves 1.)
+
+Legacy policies, selectable per constructor arg:
+- llm_tiebreak=True  → hesitant cases call a gpt-4o-mini tie-break.
+- llm_tiebreak=False → pure threshold behavior (no margin gate, no LLM).
 """
 from __future__ import annotations
 
@@ -24,7 +31,7 @@ from agent.specialists import build_specialist_agent
 
 FALLBACK_SKILL = "planning-skill"
 ROUTE_THRESHOLD = 0.35
-_DEFAULT_MARGIN = 0.05
+_DEFAULT_MARGIN = 0.08
 
 
 class AgentRouter:
@@ -32,7 +39,7 @@ class AgentRouter:
                  mock_mcp_url: str = "http://localhost:8000",
                  threshold: float = ROUTE_THRESHOLD,
                  margin: float = _DEFAULT_MARGIN,
-                 llm_tiebreak: bool = True):
+                 llm_tiebreak: bool | None = None):
         self.skills_root = pathlib.Path(skills_root)
         self.mock_mcp_url = mock_mcp_url
         self.threshold = threshold
@@ -47,8 +54,8 @@ class AgentRouter:
         return self._router.available()
 
     def route_skill(self, text: str) -> str:
-        if not self.llm_tiebreak:
-            # Pure old behavior: threshold only, never call LLM
+        if self.llm_tiebreak is False:
+            # Legacy pure-threshold behavior: top match or fallback, never LLM
             match = self._router.route(text, threshold=self.threshold)
             chosen = match.skill_name if match else FALLBACK_SKILL
             self.last_route_info = {
@@ -57,7 +64,7 @@ class AgentRouter:
             }
             return chosen
 
-        # --- Hybrid margin-gated path ---
+        # --- Margin-gated path ---
         ranked = self._router.rank(text)
 
         if len(ranked) < 2:
@@ -81,9 +88,17 @@ class AgentRouter:
             }
             return top1.skill_name
 
-        # HESITANT — call gpt-4o-mini as tie-breaker
-        chosen = self._llm_tiebreak(text, ranked)
-        return chosen
+        if self.llm_tiebreak:
+            # Legacy hybrid: gamble on a gpt-4o-mini tie-break
+            return self._llm_tiebreak(text, ranked)
+
+        # HESITANT (default policy) — commit only when confident; the planning
+        # specialist keeps all tools, so a soft route is never fatal.
+        self.last_route_info = {
+            "method": "margin_fallback",
+            "top": [(r.skill_name, r.score) for r in ranked[:3]],
+        }
+        return FALLBACK_SKILL
 
     def _llm_tiebreak(self, text: str, ranked: list) -> str:
         """Ask gpt-4o-mini to choose among top-3 candidates."""

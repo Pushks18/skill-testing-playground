@@ -179,3 +179,52 @@ def test_llm_tiebreak_false_never_calls_llm(monkeypatch):
     assert result == "hotel-search"
     assert call_log == [], "LLM must NEVER be called when llm_tiebreak=False"
     assert r.last_route_info["method"] == "embedding"
+
+
+# ---------------------------------------------------------------------------
+# Safe-fallback policy (default): hesitant routes go to planning-skill,
+# never to an LLM gamble. Chosen from the 2026-06-06 misroute diagnosis:
+# the LLM tie-break was wrong on 23/64 decisions and caused 5 of the 10
+# fatal misroutes; thin-margin embedding wins caused 4 more.
+# ---------------------------------------------------------------------------
+
+def test_default_policy_hesitant_falls_back_no_llm(monkeypatch):
+    """Default construction (no llm_tiebreak arg): hesitant → FALLBACK_SKILL, LLM never called."""
+    r = AgentRouter(SKILLS_ROOT, mock_mcp_url="http://localhost:8000")
+
+    rank_results = [
+        RouteMatch(skill_name="modify-booking", score=0.44, description="Modify bookings"),
+        RouteMatch(skill_name="booking-skill",  score=0.39, description="Create bookings"),
+    ]
+    monkeypatch.setattr(r._router, "rank", lambda text: rank_results)
+
+    call_log = []
+    import openai
+    class _FakeClient:
+        class chat:
+            class completions:
+                @staticmethod
+                def create(**kw):
+                    call_log.append(kw)
+    monkeypatch.setattr(openai, "OpenAI", lambda **kw: _FakeClient())
+
+    # gap = 0.05 < default margin 0.08 → hesitant → fallback
+    assert r.route_skill("Book flight FL101 for Jane Roe") == FALLBACK_SKILL
+    assert call_log == [], "default policy must never call the LLM"
+    assert r.last_route_info["method"] == "margin_fallback"
+
+
+def test_default_policy_confident_uses_specialist(monkeypatch):
+    r = AgentRouter(SKILLS_ROOT, mock_mcp_url="http://localhost:8000")
+    rank_results = [
+        RouteMatch(skill_name="hotel-search",  score=0.60, description="Finds hotels"),
+        RouteMatch(skill_name="flight-search", score=0.40, description="Finds flights"),
+    ]
+    monkeypatch.setattr(r._router, "rank", lambda text: rank_results)
+    assert r.route_skill("Find me a hotel in Paris") == "hotel-search"
+    assert r.last_route_info["method"] == "embedding"
+
+
+def test_default_margin_is_008():
+    r = AgentRouter(SKILLS_ROOT, mock_mcp_url="http://localhost:8000")
+    assert r.margin == 0.08
