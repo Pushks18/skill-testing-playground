@@ -670,3 +670,60 @@ def test_reflect_directive_not_appended_to_success_system(
     assert directive not in (success_system or ""), (
         "strategy_directive must NOT be injected into success_system"
     )
+
+
+# ── invalid candidate artifacts must be gated, not fatal ─────────────────────
+
+def test_rollout_invalid_yaml_candidate_scores_zero_not_crash(
+        tmp_path, skill_dir, harness_path, monkeypatch):
+    """A trainer-proposed candidate that breaks the YAML mapping is a BAD
+    CANDIDATE (hard=0/soft=0 so the gate rejects it), not a fatal error."""
+    adapter = _make_adapter(tmp_path, skill_dir, harness_path,
+                            kind="harness", key="tool_descriptions")
+    calls = []
+
+    import eval.optimizer.skillopt_adapter as mod
+    monkeypatch.setattr(mod, "run_task",
+                        lambda *a, **kw: calls.append(a) or _FakeEvalResult(1.0, True))
+
+    items = [{"id": f"ancillery-{i:03d}", "question": f"q{i}", "task_type": "ancillery",
+              "task_path": str(tmp_path / "tasks" / f"ancillery-{i:03d}")} for i in range(3)]
+    # prose line inserted mid-mapping — exactly what gpt-4o produced in the
+    # 2026-06-06 crash (steps/step_0001/candidate_skill.md line 8)
+    bad = ("search_flights: Search flights.\n"
+           "After validating passenger details, ensure to call create_booking.\n"
+           "modify_booking: Modify an existing booking.\n")
+    results = adapter.rollout(items, bad, str(tmp_path / "roll"))
+
+    assert len(results) == 3
+    for r in results:
+        assert r["hard"] == 0 and r["soft"] == 0.0
+        assert "invalid candidate artifact" in r["fail_reason"]
+    assert not calls, "run_task must not run for an unmaterializable candidate"
+    assert os.environ.get("HARNESS_CONFIG_PATH") is None
+
+
+def test_reflect_dict_target_gets_yaml_format_directive(
+        tmp_path, skill_dir, harness_path, monkeypatch):
+    """For dict-valued harness targets the reflect prompt must demand the
+    artifact stays a valid YAML mapping."""
+    adapter = _make_adapter(tmp_path, skill_dir, harness_path,
+                            kind="harness", key="tool_descriptions")
+    captured = {}
+    import eval.optimizer.skillopt_adapter as mod
+    monkeypatch.setattr(mod, "run_minibatch_reflect",
+                        lambda **kw: captured.update(kw) or [])
+    adapter.reflect(results=[], skill_content="x: y\n", out_dir=str(tmp_path / "out"))
+    assert "YAML mapping" in (captured.get("error_system") or "")
+
+
+def test_reflect_scalar_target_gets_no_yaml_directive(
+        tmp_path, skill_dir, harness_path, monkeypatch):
+    adapter = _make_adapter(tmp_path, skill_dir, harness_path,
+                            kind="harness", key="base_system_prompt")
+    captured = {}
+    import eval.optimizer.skillopt_adapter as mod
+    monkeypatch.setattr(mod, "run_minibatch_reflect",
+                        lambda **kw: captured.update(kw) or [])
+    adapter.reflect(results=[], skill_content="prompt", out_dir=str(tmp_path / "out"))
+    assert "YAML mapping" not in (captured.get("error_system") or "")

@@ -313,7 +313,25 @@ class TravelEnvAdapter(EnvAdapter):
     def rollout(self, env_manager, skill_content: str, out_dir: str, **kwargs) -> list[dict]:
         items: list[dict] = env_manager
         out_path = pathlib.Path(out_dir)
-        ctx = materialize_candidate(self.spec, skill_content, out_path)
+        try:
+            ctx = materialize_candidate(self.spec, skill_content, out_path)
+        except ValueError as e:
+            # An unmaterializable candidate (e.g. the optimizer model broke the
+            # YAML mapping of a dict-valued harness key) is a BAD CANDIDATE,
+            # not a fatal error: score it zero so the gate rejects it and
+            # training continues. (2026-06-06: a prose line inserted into
+            # tool_descriptions killed three whole runs via this path.)
+            out_path.mkdir(parents=True, exist_ok=True)
+            results = [{
+                "id": item["id"],
+                "hard": 0,
+                "soft": 0.0,
+                "fail_reason": f"invalid candidate artifact: {e}",
+                "task_type": self.spec.domain,
+                "question": item.get("question", ""),
+            } for item in items]
+            (out_path / "rollout_results.json").write_text(json.dumps(results, indent=2))
+            return results
 
         # Must exist before the loop so conversation files can be written during it.
         out_path.mkdir(parents=True, exist_ok=True)
@@ -376,6 +394,14 @@ class TravelEnvAdapter(EnvAdapter):
             base = error_system or PROMPTS["analyst_error"]
             error_system = base + "\n\n" + self.strategy_directive
 
+        # Dict-valued harness targets are YAML mappings — the optimizer model
+        # must keep them parseable or the candidate is auto-rejected at rollout.
+        fmt_directive = self._artifact_format_directive()
+        if fmt_directive:
+            from eval.optimizer.skillopt_prompts import PROMPTS
+            base = error_system or PROMPTS["analyst_error"]
+            error_system = base + "\n\n" + fmt_directive
+
         return run_minibatch_reflect(
             results=results,
             skill_content=skill_content,
@@ -391,6 +417,28 @@ class TravelEnvAdapter(EnvAdapter):
             step_buffer_context=kwargs.get("step_buffer_context", ""),
             meta_skill_context=kwargs.get("meta_skill_context", ""),
             update_mode=getattr(self, "_cfg", {}).get("skill_update_mode", "patch"),
+        )
+
+    def _artifact_format_directive(self) -> str:
+        """Format constraint for the reflect prompt. Non-empty only for
+        dict-valued harness targets, whose artifact must stay a YAML mapping."""
+        if self.spec.kind != "harness":
+            return ""
+        try:
+            config = yaml.safe_load(self.spec.harness_config_path.read_text())
+            current = config[self.spec.key]
+        except Exception:
+            return ""
+        if not isinstance(current, dict):
+            return ""
+        return (
+            f"FORMAT CONSTRAINT: the text under optimization is the YAML mapping "
+            f"for {self.spec.key!r} in the agent harness config. Every edit MUST "
+            "keep the whole document a valid YAML mapping of `name: description` "
+            "entries (quote or block-scalar long values). NEVER insert freeform "
+            "prose lines between entries — behavioral guidance belongs INSIDE an "
+            "existing entry's description string. Candidates that fail "
+            "yaml.safe_load are rejected outright, wasting the step."
         )
 
     def get_task_types(self) -> list[str]:
