@@ -9,6 +9,16 @@ from typing import Optional
 app = FastAPI(title="Mock Mondee MCP")
 
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+
+@app.get("/")
+def root():
+    return {"status": "ok"}
+
+
 def _seeded(key: str) -> random.Random:
     """Return a Random instance seeded by key so same params → same response."""
     seed = int(hashlib.md5(key.encode()).hexdigest(), 16) % (2**32)
@@ -52,6 +62,11 @@ class CancelBookingRequest(BaseModel):
 
 class GetItineraryRequest(BaseModel):
     booking_id: str
+
+class AncillaryRequest(BaseModel):
+    booking_id: str
+    service_type: str
+    details: Optional[dict] = None
 
 AIRLINES = ["Delta", "United", "American", "JetBlue", "Southwest"]
 HOTEL_CHAINS = ["Marriott", "Hilton", "Hyatt", "IHG", "Wyndham"]
@@ -143,6 +158,32 @@ def get_itinerary(req: GetItineraryRequest):
             {"type": "hotel", "details": "Marriott LA, 2026-07-01 to 2026-07-03"},
         ],
     }
+
+ANCILLARY_PRICES = {
+    "seat_selection": {"window": 15, "aisle": 12, "extra_legroom": 45, "bulkhead": 50},
+    "extra_baggage": {"23kg": 35, "32kg": 60},
+    "travel_insurance": {"basic": 25, "standard": 55, "premium": 90},
+    "lounge_access": {"day_pass": 40},
+    "priority_boarding": {"fee": 12},
+    "car_rental": {"economy": 45, "compact": 55, "suv": 85},
+    "airport_transfer": {"shared": 20, "private": 65},
+}
+
+@app.post("/add_ancillary")
+def add_ancillary(req: AncillaryRequest):
+    prices = ANCILLARY_PRICES.get(req.service_type, {})
+    details = req.details or {}
+    tier = list(details.values())[0] if details else list(prices.keys())[0] if prices else "standard"
+    price = prices.get(str(tier), 30)
+    return {
+        "booking_id": req.booking_id,
+        "ancillary_id": f"ANC{uuid.uuid4().hex[:6].upper()}",
+        "service_type": req.service_type,
+        "details": details,
+        "price_usd": price,
+        "status": "confirmed",
+    }
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

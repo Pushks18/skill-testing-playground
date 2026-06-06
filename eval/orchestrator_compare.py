@@ -399,18 +399,25 @@ async def run_bank(
 def _preflight(mock_mcp_url: str, check_key: bool = True) -> bool:
     """Check that mock MCP is reachable and OPENAI_API_KEY is set."""
     import urllib.request
+    import urllib.error
     ok = True
     if check_key and not os.environ.get("OPENAI_API_KEY"):
         print("ERROR: OPENAI_API_KEY is not set.", flush=True)
         ok = False
-    try:
-        urllib.request.urlopen(mock_mcp_url + "/health", timeout=2)
-    except Exception:
+
+    def _reachable(url: str) -> bool:
         try:
-            urllib.request.urlopen(mock_mcp_url, timeout=2)
+            urllib.request.urlopen(url, timeout=2)
+            return True
+        except urllib.error.HTTPError:
+            # Got an HTTP response (e.g. 404) — server is up, just no route there
+            return True
         except Exception:
-            print(f"ERROR: Mock MCP not reachable at {mock_mcp_url}.", flush=True)
-            ok = False
+            return False
+
+    if not _reachable(mock_mcp_url + "/health") and not _reachable(mock_mcp_url):
+        print(f"ERROR: Mock MCP not reachable at {mock_mcp_url}.", flush=True)
+        ok = False
     return ok
 
 
