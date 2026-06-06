@@ -37,8 +37,12 @@ def specialist_config(skill_name: str, skills_root: pathlib.Path) -> dict:
 
 
 def build_specialist_agent(skill_name: str, skills_root: pathlib.Path,
-                           mock_mcp_url: str = "http://localhost:8000"):
+                           mock_mcp_url: str = "http://localhost:8000",
+                           scoped: bool = True):
+    """scoped=False keeps the skill but grants the full toolset — used for
+    hesitant routes, where a wrong scoped specialist would be fatal but a
+    wrong skill with all tools is recoverable."""
     cfg = specialist_config(skill_name, skills_root)
     return build_travel_agent(skill_content=cfg["skill_content"],
                               mock_mcp_url=mock_mcp_url,
-                              tools_subset=cfg["tools_subset"])
+                              tools_subset=cfg["tools_subset"] if scoped else None)

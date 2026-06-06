@@ -5,14 +5,18 @@ Route ONCE per conversation (multi-turn affinity is the caller's job: keep
 using the returned agent). Below-threshold matches fall back to the planning
 specialist, which keeps all tools.
 
-Margin-gated routing with safe fallback (Phase 8.1):
-- CONFIDENT: top1.score >= threshold AND (top1.score - top2.score) >= margin
-  → use embedding result directly (no LLM).
-- HESITANT: route to the planning specialist (all tools). A wrong scoped
-  specialist is fatal when the needed tool is outside its subset; planning
-  is never fatal. (2026-06-06 diagnosis: 10 fatal misroutes — 5 from the
-  LLM tie-break, which was wrong on 23/64 decisions, 4 from thin-margin
-  embedding wins. margin=0.08 + fallback leaves 1.)
+Margin-gated routing with capability-safe fallback (Phase 8.2):
+- CONFIDENT (top1 >= threshold AND margin >= 0.08): scoped specialist.
+- HESITANT (top1 >= threshold, thin margin): top1's skill with the FULL
+  toolset. Fatality comes from tool scoping, not routing — a wrong skill
+  with all tools is recoverable, a right skill missing its tool is not.
+- OUT OF SCOPE (top1 < threshold): planning specialist (all tools).
+
+Evidence (2026-06-06): 10 fatal misroutes — 5 from the LLM tie-break (wrong
+on 23/64 decisions), 4 from thin-margin embedding wins. A pure planning
+fallback fixed all 10 but regressed correctly-routed thin-margin tasks
+(disruption/fare-rules 1.00→0.00) by discarding their skill; keeping the
+skill and unscoping tools retains both halves.
 
 Legacy policies, selectable per constructor arg:
 - llm_tiebreak=True  → hesitant cases call a gpt-4o-mini tie-break.
@@ -81,9 +85,10 @@ class AgentRouter:
         gap = top1.score - top2.score
 
         if top1.score >= self.threshold and gap >= self.margin:
-            # CONFIDENT — embedding result is good enough
+            # CONFIDENT — embedding result is good enough; tools stay scoped
             self.last_route_info = {
                 "method": "embedding",
+                "scoped": True,
                 "top": [(r.skill_name, r.score) for r in ranked[:3]],
             }
             return top1.skill_name
@@ -92,10 +97,25 @@ class AgentRouter:
             # Legacy hybrid: gamble on a gpt-4o-mini tie-break
             return self._llm_tiebreak(text, ranked)
 
-        # HESITANT (default policy) — commit only when confident; the planning
-        # specialist keeps all tools, so a soft route is never fatal.
+        if top1.score >= self.threshold:
+            # HESITANT but in-scope (default policy) — keep top1's SKILL but
+            # grant the FULL toolset. Fatality comes from tool scoping, not
+            # routing: a wrong skill with all tools is recoverable, a right
+            # skill missing its tool is not. (2026-06-06 second comparison:
+            # planning-fallback fixed all 10 fatal misroutes but threw away
+            # the skill on correctly-routed thin-margin tasks — disruption
+            # and fare-rules regressed 1.00→0.00. This keeps both.)
+            self.last_route_info = {
+                "method": "unscoped_specialist",
+                "scoped": False,
+                "top": [(r.skill_name, r.score) for r in ranked[:3]],
+            }
+            return top1.skill_name
+
+        # OUT OF SCOPE — below threshold entirely: planning fallback
         self.last_route_info = {
             "method": "margin_fallback",
+            "scoped": False,
             "top": [(r.skill_name, r.score) for r in ranked[:3]],
         }
         return FALLBACK_SKILL
@@ -153,13 +173,15 @@ class AgentRouter:
         self.last_route_info["method"] = "fallback"
         return top1.skill_name if top1.score >= self.threshold else FALLBACK_SKILL
 
-    def agent_for(self, skill_name: str):
-        if skill_name not in self._agents:
-            self._agents[skill_name] = build_specialist_agent(
-                skill_name, self.skills_root, self.mock_mcp_url)
-        return self._agents[skill_name]
+    def agent_for(self, skill_name: str, scoped: bool = True):
+        key = (skill_name, scoped)
+        if key not in self._agents:
+            self._agents[key] = build_specialist_agent(
+                skill_name, self.skills_root, self.mock_mcp_url, scoped=scoped)
+        return self._agents[key]
 
     def route(self, text: str):
         """(skill_name, agent) for a new conversation."""
         name = self.route_skill(text)
-        return name, self.agent_for(name)
+        scoped = self.last_route_info.get("scoped", True)
+        return name, self.agent_for(name, scoped=scoped)

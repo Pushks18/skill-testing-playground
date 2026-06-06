@@ -182,14 +182,16 @@ def test_llm_tiebreak_false_never_calls_llm(monkeypatch):
 
 
 # ---------------------------------------------------------------------------
-# Safe-fallback policy (default): hesitant routes go to planning-skill,
-# never to an LLM gamble. Chosen from the 2026-06-06 misroute diagnosis:
-# the LLM tie-break was wrong on 23/64 decisions and caused 5 of the 10
-# fatal misroutes; thin-margin embedding wins caused 4 more.
+# Capability-safe policy (default): hesitant in-scope routes keep top1's
+# skill but get the FULL toolset; below-threshold goes to planning. Never
+# an LLM gamble. From the 2026-06-06 misroute diagnosis: the LLM tie-break
+# was wrong on 23/64 decisions and caused 5 of the 10 fatal misroutes; a
+# pure planning fallback fixed those but regressed correctly-routed
+# thin-margin tasks by discarding their skill.
 # ---------------------------------------------------------------------------
 
-def test_default_policy_hesitant_falls_back_no_llm(monkeypatch):
-    """Default construction (no llm_tiebreak arg): hesitant → FALLBACK_SKILL, LLM never called."""
+def test_default_policy_hesitant_keeps_skill_unscopes_tools(monkeypatch):
+    """Hesitant in-scope: top1 skill chosen, scoped=False, LLM never called."""
     r = AgentRouter(SKILLS_ROOT, mock_mcp_url="http://localhost:8000")
 
     rank_results = [
@@ -208,10 +210,46 @@ def test_default_policy_hesitant_falls_back_no_llm(monkeypatch):
                     call_log.append(kw)
     monkeypatch.setattr(openai, "OpenAI", lambda **kw: _FakeClient())
 
-    # gap = 0.05 < default margin 0.08 → hesitant → fallback
-    assert r.route_skill("Book flight FL101 for Jane Roe") == FALLBACK_SKILL
+    # gap = 0.05 < default margin 0.08 → hesitant → top1 skill, unscoped tools
+    assert r.route_skill("Book flight FL101 for Jane Roe") == "modify-booking"
     assert call_log == [], "default policy must never call the LLM"
+    assert r.last_route_info["method"] == "unscoped_specialist"
+    assert r.last_route_info["scoped"] is False
+
+
+def test_default_policy_below_threshold_falls_back_to_planning(monkeypatch):
+    r = AgentRouter(SKILLS_ROOT, mock_mcp_url="http://localhost:8000")
+    rank_results = [
+        RouteMatch(skill_name="modify-booking", score=0.30, description="Modify bookings"),
+        RouteMatch(skill_name="booking-skill",  score=0.28, description="Create bookings"),
+    ]
+    monkeypatch.setattr(r._router, "rank", lambda text: rank_results)
+    assert r.route_skill("hmm") == FALLBACK_SKILL
     assert r.last_route_info["method"] == "margin_fallback"
+
+
+def test_route_returns_unscoped_agent_for_hesitant(monkeypatch):
+    """route() must build the hesitant specialist WITHOUT a tools_subset."""
+    r = AgentRouter(SKILLS_ROOT, mock_mcp_url="http://localhost:8000")
+    rank_results = [
+        RouteMatch(skill_name="modify-booking", score=0.44, description="Modify bookings"),
+        RouteMatch(skill_name="booking-skill",  score=0.39, description="Create bookings"),
+    ]
+    monkeypatch.setattr(r._router, "rank", lambda text: rank_results)
+
+    built = {}
+    import agent.router as ar
+
+    def fake_build(skill_name, skills_root, mock_mcp_url, scoped=True):
+        built["skill"] = skill_name
+        built["scoped"] = scoped
+        return object()
+
+    monkeypatch.setattr(ar, "build_specialist_agent", fake_build)
+
+    name, _agent = r.route("Book flight FL101 for Jane Roe")
+    assert name == "modify-booking"
+    assert built == {"skill": "modify-booking", "scoped": False}
 
 
 def test_default_policy_confident_uses_specialist(monkeypatch):
