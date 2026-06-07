@@ -30,6 +30,7 @@ import os
 import pathlib
 import re
 import sys
+import time
 
 if sys.version_info >= (3, 11):
     import tomllib
@@ -299,15 +300,29 @@ async def _run_guarded(sem: asyncio.Semaphore, loop, *args, **kwargs):
         return await loop.run_in_executor(None, lambda: _run_task_wrapper(*args, **kwargs))
 
 
-def _run_task_wrapper(task_path, skill_path, condition, mock_mcp_url, agent_mode):
-    from eval.run_task import run_task
-    return run_task(
-        task_path=str(task_path),
-        skill_path=skill_path,
-        condition=condition,
-        mock_mcp_url=mock_mcp_url,
-        agent_mode=agent_mode,
-    )
+def _run_task_wrapper(task_path, skill_path, condition, mock_mcp_url, agent_mode,
+                      _max_attempts: int = 2):
+    """One bounded retry on transient connection errors — a single dropped
+    connection must not kill a 25-minute bank run (it did on 2026-06-06)."""
+    import openai
+
+    import eval.run_task as _rt
+
+    last_exc = None
+    for attempt in range(_max_attempts):
+        try:
+            return _rt.run_task(
+                task_path=str(task_path),
+                skill_path=skill_path,
+                condition=condition,
+                mock_mcp_url=mock_mcp_url,
+                agent_mode=agent_mode,
+            )
+        except (openai.APIConnectionError, openai.APITimeoutError) as e:
+            last_exc = e
+            print(f"  [retry {attempt + 1}/{_max_attempts}] {task_path}: {e}", flush=True)
+            time.sleep(2 * (attempt + 1))
+    raise last_exc
 
 
 def _load_tasks_for_domains(

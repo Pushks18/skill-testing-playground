@@ -11,6 +11,7 @@ import json
 import os
 import pathlib
 import sys
+import threading
 import time
 import uuid
 
@@ -34,15 +35,22 @@ from eval.trajectory import (
 # ---------------------------------------------------------------------------
 
 _AGENT_ROUTER = None
+_AGENT_ROUTER_LOCK = threading.Lock()
 
 
 def _get_agent_router(mock_mcp_url: str):
+    """Thread-safe lazy singleton. The constructor loads a sentence-transformer
+    (~100MB, seconds) — without the lock, a concurrent eval bank's thundering
+    herd loaded it up to 21x and the memory spike got the process SIGKILLed
+    (2026-06-06 orchestrator comparison)."""
     global _AGENT_ROUTER
     if _AGENT_ROUTER is None:
-        from agent.router import AgentRouter
-        import pathlib as _pl
-        _AGENT_ROUTER = AgentRouter(_pl.Path("../travel-agent-skills/skills"),
-                                    mock_mcp_url=mock_mcp_url)
+        with _AGENT_ROUTER_LOCK:
+            if _AGENT_ROUTER is None:
+                from agent.router import AgentRouter
+                import pathlib as _pl
+                _AGENT_ROUTER = AgentRouter(_pl.Path("../travel-agent-skills/skills"),
+                                            mock_mcp_url=mock_mcp_url)
     return _AGENT_ROUTER
 
 # ---------------------------------------------------------------------------
