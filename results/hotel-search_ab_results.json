@@ -1,0 +1,994 @@
+{
+  "skill_name": "hotel-search",
+  "model": "gpt-4o-mini",
+  "weighted_delta": 0.17222222222222222,
+  "regression_rate": 0.0,
+  "verdict": "PASS",
+  "tier": 0,
+  "flagged_tasks": [],
+  "regression_traces": {},
+  "cost": {
+    "no_skill": {
+      "total_cost_usd": 0.00605,
+      "avg_cost_usd": 0.000403,
+      "total_input_tokens": 22537,
+      "total_output_tokens": 4448,
+      "avg_latency_ms": 4485,
+      "p95_latency_ms": 5565
+    },
+    "with_skill": {
+      "total_cost_usd": 0.010118,
+      "avg_cost_usd": 0.000675,
+      "total_input_tokens": 42332,
+      "total_output_tokens": 6278,
+      "avg_latency_ms": 6648,
+      "p95_latency_ms": 9206
+    }
+  },
+  "tasks": [
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-001",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-001",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Chicago",
+            "check_in": "2024-07-15",
+            "check_out": "2024-07-18",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 6254,
+        "tokens_used": 2011,
+        "input_tokens": 1635,
+        "output_tokens": 376,
+        "cost_usd": 0.000471
+      },
+      "with_skill": {
+        "task_id": "hotel-search-001",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Chicago",
+            "check_in": "2023-07-15",
+            "check_out": "2023-07-18",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 8033,
+        "tokens_used": 3486,
+        "input_tokens": 3022,
+        "output_tokens": 464,
+        "cost_usd": 0.000732
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1475,
+      "latency_delta_ms": 1779,
+      "cost_delta_usd": 0.000261
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-002",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-002",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Miami Beach",
+            "check_in": "2026-08-01",
+            "check_out": "2026-08-04",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3535,
+        "tokens_used": 1706,
+        "input_tokens": 1485,
+        "output_tokens": 221,
+        "cost_usd": 0.000355
+      },
+      "with_skill": {
+        "task_id": "hotel-search-002",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Miami Beach",
+            "check_in": "2026-08-01",
+            "check_out": "2026-08-04",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5634,
+        "tokens_used": 3202,
+        "input_tokens": 2963,
+        "output_tokens": 239,
+        "cost_usd": 0.000588
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1496,
+      "latency_delta_ms": 2099,
+      "cost_delta_usd": 0.00023299999999999997
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-003",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-003",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "LAX",
+            "check_in": "2026-09-10",
+            "check_out": "2026-09-11"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5096,
+        "tokens_used": 2018,
+        "input_tokens": 1662,
+        "output_tokens": 356,
+        "cost_usd": 0.000463
+      },
+      "with_skill": {
+        "task_id": "hotel-search-003",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "LAX",
+            "check_in": "2026-09-10",
+            "check_out": "2026-09-11"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 9529,
+        "tokens_used": 3720,
+        "input_tokens": 3140,
+        "output_tokens": 580,
+        "cost_usd": 0.000819
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1702,
+      "latency_delta_ms": 4433,
+      "cost_delta_usd": 0.000356
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-004",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-004",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Denver",
+            "check_in": "2026-10-01",
+            "check_out": "2026-10-08",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4561,
+        "tokens_used": 1860,
+        "input_tokens": 1530,
+        "output_tokens": 330,
+        "cost_usd": 0.000427
+      },
+      "with_skill": {
+        "task_id": "hotel-search-004",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Denver",
+            "check_in": "2026-10-01",
+            "check_out": "2026-10-08"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 7554,
+        "tokens_used": 3479,
+        "input_tokens": 3003,
+        "output_tokens": 476,
+        "cost_usd": 0.000736
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1619,
+      "latency_delta_ms": 2993,
+      "cost_delta_usd": 0.000309
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-005",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-005",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Austin, Texas",
+            "check_in": "2026-09-01",
+            "check_out": "2026-09-04",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4715,
+        "tokens_used": 2028,
+        "input_tokens": 1676,
+        "output_tokens": 352,
+        "cost_usd": 0.000463
+      },
+      "with_skill": {
+        "task_id": "hotel-search-005",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Austin, Texas",
+            "check_in": "2026-09-01",
+            "check_out": "2026-09-04",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 8685,
+        "tokens_used": 3735,
+        "input_tokens": 3154,
+        "output_tokens": 581,
+        "cost_usd": 0.000822
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1707,
+      "latency_delta_ms": 3970,
+      "cost_delta_usd": 0.00035900000000000005
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-006",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-006",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Times Square, New York",
+            "check_in": "2026-12-28",
+            "check_out": "2026-12-31"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4726,
+        "tokens_used": 1924,
+        "input_tokens": 1588,
+        "output_tokens": 336,
+        "cost_usd": 0.00044
+      },
+      "with_skill": {
+        "task_id": "hotel-search-006",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Times Square, New York",
+            "check_in": "2026-12-28",
+            "check_out": "2026-12-31"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 7816,
+        "tokens_used": 3585,
+        "input_tokens": 3066,
+        "output_tokens": 519,
+        "cost_usd": 0.000771
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1661,
+      "latency_delta_ms": 3090,
+      "cost_delta_usd": 0.00033099999999999997
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-007",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-007",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "San Francisco",
+            "check_in": "2026-08-15",
+            "check_out": "2026-08-18"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4876,
+        "tokens_used": 2009,
+        "input_tokens": 1655,
+        "output_tokens": 354,
+        "cost_usd": 0.000461
+      },
+      "with_skill": {
+        "task_id": "hotel-search-007",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "San Francisco",
+            "check_in": "2026-08-15",
+            "check_out": "2026-08-18"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 8074,
+        "tokens_used": 3659,
+        "input_tokens": 3133,
+        "output_tokens": 526,
+        "cost_usd": 0.000786
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1650,
+      "latency_delta_ms": 3198,
+      "cost_delta_usd": 0.00032500000000000004
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-008",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-008",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Boston",
+            "check_in": "2026-10-10",
+            "check_out": "2026-10-11",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5239,
+        "tokens_used": 1861,
+        "input_tokens": 1538,
+        "output_tokens": 323,
+        "cost_usd": 0.000425
+      },
+      "with_skill": {
+        "task_id": "hotel-search-008",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Boston",
+            "check_in": "2026-10-10",
+            "check_out": "2026-10-11",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 7267,
+        "tokens_used": 3494,
+        "input_tokens": 3016,
+        "output_tokens": 478,
+        "cost_usd": 0.000739
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1633,
+      "latency_delta_ms": 2028,
+      "cost_delta_usd": 0.000314
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-009",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-009",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "JFK airport",
+            "check_in": "2026-07-01",
+            "check_out": "2026-07-02"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5565,
+        "tokens_used": 1887,
+        "input_tokens": 1557,
+        "output_tokens": 330,
+        "cost_usd": 0.000432
+      },
+      "with_skill": {
+        "task_id": "hotel-search-009",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "JFK Airport",
+            "check_in": "2026-07-01",
+            "check_out": "2026-07-02"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 7387,
+        "tokens_used": 3578,
+        "input_tokens": 3117,
+        "output_tokens": 461,
+        "cost_usd": 0.000744
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1691,
+      "latency_delta_ms": 1822,
+      "cost_delta_usd": 0.000312
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-010",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-010",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Las Vegas",
+            "check_in": "2026-09-20",
+            "check_out": "2026-09-23"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4171,
+        "tokens_used": 1802,
+        "input_tokens": 1561,
+        "output_tokens": 241,
+        "cost_usd": 0.000379
+      },
+      "with_skill": {
+        "task_id": "hotel-search-010",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Las Vegas",
+            "check_in": "2026-09-20",
+            "check_out": "2026-09-23"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 6121,
+        "tokens_used": 3454,
+        "input_tokens": 3039,
+        "output_tokens": 415,
+        "cost_usd": 0.000705
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1652,
+      "latency_delta_ms": 1950,
+      "cost_delta_usd": 0.000326
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-011",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-011",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent correctly identified the missing required information (check-in date, check-out date) and requested it from the user. It also asked for the number of guests, which is useful for hotel searches, without attempting to call `search_hotels`.",
+        "latency_ms": 791,
+        "tokens_used": 565,
+        "input_tokens": 542,
+        "output_tokens": 23,
+        "cost_usd": 9.5e-05
+      },
+      "with_skill": {
+        "task_id": "hotel-search-011",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent correctly identifies that check-in and check-out dates are missing and asks for them. It also avoids calling `search_hotels` before confirming the dates, adhering to all pass criteria.",
+        "latency_ms": 820,
+        "tokens_used": 1320,
+        "input_tokens": 1281,
+        "output_tokens": 39,
+        "cost_usd": 0.000216
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 755,
+      "latency_delta_ms": 29,
+      "cost_delta_usd": 0.00012099999999999999
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-012",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-012",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "New York",
+            "check_in": "2026-09-15",
+            "check_out": "2026-09-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent failed to identify that the check-in and check-out dates were the same, implying a zero-night stay. Instead, it proceeded to search for hotels and provided options, directly violating the pass criteria. It should have flagged this as an error or sought clarification regarding the dates.",
+        "latency_ms": 3742,
+        "tokens_used": 1725,
+        "input_tokens": 1467,
+        "output_tokens": 258,
+        "cost_usd": 0.000375
+      },
+      "with_skill": {
+        "task_id": "hotel-search-012",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent correctly identified that the check-in and check-out dates were the same, indicating a zero-night stay. It then appropriately sought clarification from the user regarding the intended stay duration, fulfilling all parts of the pass criteria. It did NOT call search_hotels for a zero-night stay and asked the user to confirm their dates.",
+        "latency_ms": 1070,
+        "tokens_used": 1347,
+        "input_tokens": 1302,
+        "output_tokens": 45,
+        "cost_usd": 0.000222
+      },
+      "delta": 1.0,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": -1,
+      "token_delta": -378,
+      "latency_delta_ms": -2672,
+      "cost_delta_usd": -0.000153
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-013",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-013",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.6666666666666666,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Tokyo",
+            "check_in": "2026-11-10",
+            "check_out": "2026-11-14",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.67 std=0.14 | The agent provided a structured format for each hotel, including property name, star rating, price per night, at least one amenity, and cancellation policy. However, it failed to provide the 'total price for the stay', which was a mandatory pass criterion. Additionally, it included an 'Available' field which was not requested.",
+        "latency_ms": 4202,
+        "tokens_used": 1746,
+        "input_tokens": 1472,
+        "output_tokens": 274,
+        "cost_usd": 0.000385
+      },
+      "with_skill": {
+        "task_id": "hotel-search-013",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Tokyo",
+            "check_in": "2026-11-10",
+            "check_out": "2026-11-14",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent presented results in a structured format as requested. For each hotel, it included the property name, star rating, price per night, total price for the stay, at least one amenity, and cancellation policy. All criteria in the pass criteria were met.",
+        "latency_ms": 6725,
+        "tokens_used": 3370,
+        "input_tokens": 2950,
+        "output_tokens": 420,
+        "cost_usd": 0.000695
+      },
+      "delta": 0.33333333333333337,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1624,
+      "latency_delta_ms": 2523,
+      "cost_delta_usd": 0.00031
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-014",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-014",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Orlando",
+            "check_in": "2026-10-20",
+            "check_out": "2026-10-23",
+            "guests": 16
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent completely missed the core pass criterion regarding group bookings and recommending direct contact for group rates. It simply listed hotels without any mention of the special considerations for a group of 8 rooms.",
+        "latency_ms": 5427,
+        "tokens_used": 2067,
+        "input_tokens": 1675,
+        "output_tokens": 392,
+        "cost_usd": 0.000486
+      },
+      "with_skill": {
+        "task_id": "hotel-search-014",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Orlando",
+            "check_in": "2026-10-20",
+            "check_out": "2026-10-23",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent provided a list of hotel options as requested, including star ratings, locations, estimated prices, amenities, and cancellation policies. Crucially, it included the required caveat about group bookings and contacting hotels directly for group rates and availability, which was stated in the 'Notes' section at the end of the response.",
+        "latency_ms": 9206,
+        "tokens_used": 3799,
+        "input_tokens": 3184,
+        "output_tokens": 615,
+        "cost_usd": 0.000847
+      },
+      "delta": 1.0,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1732,
+      "latency_delta_ms": 3779,
+      "cost_delta_usd": 0.000361
+    },
+    {
+      "skill_name": "hotel-search",
+      "task_id": "hotel-search-015",
+      "domain": "hotel_search",
+      "task_weight": 2.0,
+      "no_skill": {
+        "task_id": "hotel-search-015",
+        "domain": "hotel_search",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.5,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Heathrow Airport, London",
+            "check_in": "2026-08-20",
+            "check_out": "2026-08-22"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.50 std=0.00 | The agent provided a list of hotels with relevant details like price, stars, amenities, and cancellation policy, which is a good start. However, it fails on two key pass criteria: it does not clearly state that displayed prices are subject to availability and may change, and while it implicitly lists trade-offs (e.g., Hilton is more expensive but has a spa, Marriott is cheaper but non-refundable), it doesn't explicitly highlight these trade-offs beyond a general 'compare your options'. The prompt specifically asked for the agent to 'highlight trade-offs between options (e.g. price vs location vs amenities)', which it did not do sufficiently. The absence of the price disclaimer is a significant omission given the prompt explicitly called for it.",
+        "latency_ms": 4372,
+        "tokens_used": 1776,
+        "input_tokens": 1494,
+        "output_tokens": 282,
+        "cost_usd": 0.000393
+      },
+      "with_skill": {
+        "task_id": "hotel-search-015",
+        "domain": "hotel_search",
+        "skill_name": "hotel-search",
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "London Heathrow Airport",
+            "check_in": "2026-08-20",
+            "check_out": "2026-08-22"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.75 std=0.25 | The agent's response clearly identifies that prices are subject to availability and may change, which is a key pass criterion. It also effectively highlights trade-offs between options by comparing price, amenities, and cancellation policies in the 'Summary of Differences' section. This directly addresses the other pass criterion of highlighting trade-offs (price vs location vs amenities).",
+        "latency_ms": 5795,
+        "tokens_used": 3382,
+        "input_tokens": 2962,
+        "output_tokens": 420,
+        "cost_usd": 0.000696
+      },
+      "delta": 0.25,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1606,
+      "latency_delta_ms": 1423,
+      "cost_delta_usd": 0.000303
+    }
+  ]
+}

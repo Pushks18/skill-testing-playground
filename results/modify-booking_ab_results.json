@@ -1,0 +1,1082 @@
+{
+  "skill_name": "modify-booking",
+  "model": "gpt-4o-mini",
+  "weighted_delta": -0.18229166666666666,
+  "regression_rate": 0.25,
+  "verdict": "BLOCK",
+  "tier": 1,
+  "flagged_tasks": [],
+  "regression_traces": {},
+  "cost": {
+    "no_skill": {
+      "total_cost_usd": 0.0062,
+      "avg_cost_usd": 0.000388,
+      "total_input_tokens": 23548,
+      "total_output_tokens": 4449,
+      "avg_latency_ms": 4707,
+      "p95_latency_ms": 10104
+    },
+    "with_skill": {
+      "total_cost_usd": 0.011062,
+      "avg_cost_usd": 0.000691,
+      "total_input_tokens": 55201,
+      "total_output_tokens": 4638,
+      "avg_latency_ms": 4958,
+      "p95_latency_ms": 10361
+    }
+  },
+  "tasks": [
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-availability-001",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-availability-001",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "check_availability"
+        ],
+        "tool_params": {
+          "check_availability": {
+            "resource_id": "FL123",
+            "date": "2026-07-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1808,
+        "tokens_used": 1218,
+        "input_tokens": 1161,
+        "output_tokens": 57,
+        "cost_usd": 0.000208
+      },
+      "with_skill": {
+        "task_id": "edge-availability-001",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "check_availability"
+        ],
+        "tool_params": {
+          "check_availability": {
+            "resource_id": "FL123",
+            "date": "2026-07-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2151,
+        "tokens_used": 2767,
+        "input_tokens": 2711,
+        "output_tokens": 56,
+        "cost_usd": 0.00044
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1549,
+      "latency_delta_ms": 343,
+      "cost_delta_usd": 0.00023200000000000003
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-cancel-001",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-cancel-001",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK99887766"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3503,
+        "tokens_used": 1207,
+        "input_tokens": 1144,
+        "output_tokens": 63,
+        "cost_usd": 0.000209
+      },
+      "with_skill": {
+        "task_id": "edge-cancel-001",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK99887766"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2037,
+        "tokens_used": 2762,
+        "input_tokens": 2694,
+        "output_tokens": 68,
+        "cost_usd": 0.000445
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1555,
+      "latency_delta_ms": -1466,
+      "cost_delta_usd": 0.00023599999999999996
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-cancel-002",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-cancel-002",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK11223344"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1340,
+        "tokens_used": 1187,
+        "input_tokens": 1148,
+        "output_tokens": 39,
+        "cost_usd": 0.000196
+      },
+      "with_skill": {
+        "task_id": "edge-cancel-002",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK11223344"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1798,
+        "tokens_used": 2744,
+        "input_tokens": 2698,
+        "output_tokens": 46,
+        "cost_usd": 0.000432
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1557,
+      "latency_delta_ms": 458,
+      "cost_delta_usd": 0.000236
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-cancel-003",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-cancel-003",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK55667788"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1275,
+        "tokens_used": 1202,
+        "input_tokens": 1144,
+        "output_tokens": 58,
+        "cost_usd": 0.000206
+      },
+      "with_skill": {
+        "task_id": "edge-cancel-003",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK55667788"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1427,
+        "tokens_used": 2757,
+        "input_tokens": 2694,
+        "output_tokens": 63,
+        "cost_usd": 0.000442
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1555,
+      "latency_delta_ms": 152,
+      "cost_delta_usd": 0.00023600000000000002
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-datechange-001",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-datechange-001",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "modify_booking"
+        ],
+        "tool_params": {
+          "modify_booking": {
+            "booking_id": "BK11223344",
+            "changes": {
+              "date": "2023-08-20"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1614,
+        "tokens_used": 1230,
+        "input_tokens": 1167,
+        "output_tokens": 63,
+        "cost_usd": 0.000213
+      },
+      "with_skill": {
+        "task_id": "edge-datechange-001",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK11223344"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK11223344"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 3292,
+        "tokens_used": 4430,
+        "input_tokens": 4261,
+        "output_tokens": 169,
+        "cost_usd": 0.000741
+      },
+      "delta": -1.0,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": 1,
+      "token_delta": 3200,
+      "latency_delta_ms": 1678,
+      "cost_delta_usd": 0.000528
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-datechange-002",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-datechange-002",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "modify_booking"
+        ],
+        "tool_params": {
+          "modify_booking": {
+            "booking_id": "BK44332211",
+            "changes": {
+              "date": "2026-09-25"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1886,
+        "tokens_used": 1245,
+        "input_tokens": 1177,
+        "output_tokens": 68,
+        "cost_usd": 0.000217
+      },
+      "with_skill": {
+        "task_id": "edge-datechange-002",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK44332211"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK44332211"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 3302,
+        "tokens_used": 4440,
+        "input_tokens": 4276,
+        "output_tokens": 164,
+        "cost_usd": 0.00074
+      },
+      "delta": -1.0,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": 1,
+      "token_delta": 3195,
+      "latency_delta_ms": 1416,
+      "cost_delta_usd": 0.000523
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-datechange-003",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-datechange-003",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "modify_booking"
+        ],
+        "tool_params": {
+          "modify_booking": {
+            "booking_id": "BK77665544",
+            "changes": {
+              "date": "2026-10-15"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1755,
+        "tokens_used": 1235,
+        "input_tokens": 1171,
+        "output_tokens": 64,
+        "cost_usd": 0.000214
+      },
+      "with_skill": {
+        "task_id": "edge-datechange-003",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK77665544"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK77665544"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 4593,
+        "tokens_used": 4432,
+        "input_tokens": 4267,
+        "output_tokens": 165,
+        "cost_usd": 0.000739
+      },
+      "delta": -1.0,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": 1,
+      "token_delta": 3197,
+      "latency_delta_ms": 2838,
+      "cost_delta_usd": 0.000525
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-mixed-101",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-mixed-101",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "DL456"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['check_availability']",
+        "latency_ms": 2476,
+        "tokens_used": 1314,
+        "input_tokens": 1185,
+        "output_tokens": 129,
+        "cost_usd": 0.000255
+      },
+      "with_skill": {
+        "task_id": "edge-mixed-101",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "check_availability"
+        ],
+        "tool_params": {
+          "check_availability": {
+            "resource_id": "DL456",
+            "date": "2026-08-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2065,
+        "tokens_used": 2772,
+        "input_tokens": 2711,
+        "output_tokens": 61,
+        "cost_usd": 0.000443
+      },
+      "delta": 1.0,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1458,
+      "latency_delta_ms": -411,
+      "cost_delta_usd": 0.00018799999999999996
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-mixed-102",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-mixed-102",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK65432109"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1902,
+        "tokens_used": 1203,
+        "input_tokens": 1144,
+        "output_tokens": 59,
+        "cost_usd": 0.000207
+      },
+      "with_skill": {
+        "task_id": "edge-mixed-102",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK65432109"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1965,
+        "tokens_used": 2778,
+        "input_tokens": 2694,
+        "output_tokens": 84,
+        "cost_usd": 0.000454
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1575,
+      "latency_delta_ms": 63,
+      "cost_delta_usd": 0.000247
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-mixed-103",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-mixed-103",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "modify_booking"
+        ],
+        "tool_params": {
+          "modify_booking": {
+            "booking_id": "BK89345678",
+            "changes": {
+              "date": "2026-09-30"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1657,
+        "tokens_used": 1243,
+        "input_tokens": 1179,
+        "output_tokens": 64,
+        "cost_usd": 0.000215
+      },
+      "with_skill": {
+        "task_id": "edge-mixed-103",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK89345678"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK89345678"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 4035,
+        "tokens_used": 4454,
+        "input_tokens": 4279,
+        "output_tokens": 175,
+        "cost_usd": 0.000747
+      },
+      "delta": -1.0,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": 1,
+      "token_delta": 3211,
+      "latency_delta_ms": 2378,
+      "cost_delta_usd": 0.000532
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-mixed-104",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-mixed-104",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Houston",
+            "destination": "San Francisco",
+            "date": "2023-09-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 9868,
+        "tokens_used": 2587,
+        "input_tokens": 1947,
+        "output_tokens": 640,
+        "cost_usd": 0.000676
+      },
+      "with_skill": {
+        "task_id": "edge-mixed-104",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Houston",
+            "destination": "San Francisco",
+            "date": "2023-09-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 11509,
+        "tokens_used": 4233,
+        "input_tokens": 3497,
+        "output_tokens": 736,
+        "cost_usd": 0.000966
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1646,
+      "latency_delta_ms": 1641,
+      "cost_delta_usd": 0.00029
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-mixed-105",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-mixed-105",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules",
+          "check_availability"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK998877"
+          },
+          "get_fare_rules": {
+            "flight_id": "JFK-LAX-2026-07-01"
+          },
+          "check_availability": {
+            "resource_id": "Marriott LA",
+            "date": "2026-07-01"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not ask for additional information to clarify the query, which was the core requirement of the Pass criteria. Instead, the agent provided general refund policy details without understanding the specific nature of the user's refund inquiry (e.g., has it been cancelled, what is the status, what specific refund details are needed beyond the policy itself?). The response is off-topic regarding the actual task instruction.",
+        "latency_ms": 5340,
+        "tokens_used": 2316,
+        "input_tokens": 2032,
+        "output_tokens": 284,
+        "cost_usd": 0.000475
+      },
+      "with_skill": {
+        "task_id": "edge-mixed-105",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 0.08333333333333333,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK998877"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK998877"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.08 std=0.14 | The agent did not ask for additional information to clarify the query as per the pass criteria. Instead, it proactively provided details about the reservation and refund policy without understanding what 'more details to check the refund' specifically entailed for the customer. The customer might have been looking for an actual refund status, a refund timeline, or an explanation of a partial refund already processed, rather than just the general policy. The agent assumed the customer wanted a summary of the general cancellation policy for their reservation.",
+        "latency_ms": 4625,
+        "tokens_used": 4503,
+        "input_tokens": 4270,
+        "output_tokens": 233,
+        "cost_usd": 0.00078
+      },
+      "delta": 0.08333333333333333,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 2187,
+      "latency_delta_ms": -715,
+      "cost_delta_usd": 0.000305
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-mixed-106",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-mixed-106",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "SFO",
+            "destination": "LAS",
+            "date": "2023-11-18",
+            "passengers": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 12341,
+        "tokens_used": 2738,
+        "input_tokens": 1971,
+        "output_tokens": 767,
+        "cost_usd": 0.000756
+      },
+      "with_skill": {
+        "task_id": "edge-mixed-106",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "SFO",
+            "destination": "LAS",
+            "date": "2023-11-18",
+            "passengers": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 8440,
+        "tokens_used": 4111,
+        "input_tokens": 3521,
+        "output_tokens": 590,
+        "cost_usd": 0.000882
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1373,
+      "latency_delta_ms": -3901,
+      "cost_delta_usd": 0.00012599999999999992
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-multileg-001",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-multileg-001",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "LA",
+            "date": "2026-08-08"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 10104,
+        "tokens_used": 2508,
+        "input_tokens": 1861,
+        "output_tokens": 647,
+        "cost_usd": 0.000667
+      },
+      "with_skill": {
+        "task_id": "edge-multileg-001",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "LA",
+            "date": "2026-08-08"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 8145,
+        "tokens_used": 4028,
+        "input_tokens": 3411,
+        "output_tokens": 617,
+        "cost_usd": 0.000882
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1520,
+      "latency_delta_ms": -1959,
+      "cost_delta_usd": 0.00021500000000000002
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-multileg-002",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-multileg-002",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "DEN",
+            "destination": "LAX",
+            "date": "2026-07-19"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 9668,
+        "tokens_used": 2854,
+        "input_tokens": 2105,
+        "output_tokens": 749,
+        "cost_usd": 0.000765
+      },
+      "with_skill": {
+        "task_id": "edge-multileg-002",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "DEN",
+            "destination": "LAX",
+            "date": "2026-07-19"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 9577,
+        "tokens_used": 4371,
+        "input_tokens": 3655,
+        "output_tokens": 716,
+        "cost_usd": 0.000978
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1517,
+      "latency_delta_ms": -91,
+      "cost_delta_usd": 0.00021299999999999997
+    },
+    {
+      "skill_name": "modify-booking",
+      "task_id": "edge-multileg-003",
+      "domain": "edge_cases",
+      "task_weight": 0.5,
+      "no_skill": {
+        "task_id": "edge-multileg-003",
+        "domain": "edge_cases",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "ORD",
+            "destination": "SEA",
+            "date": "2026-08-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 8770,
+        "tokens_used": 2710,
+        "input_tokens": 2012,
+        "output_tokens": 698,
+        "cost_usd": 0.000721
+      },
+      "with_skill": {
+        "task_id": "edge-multileg-003",
+        "domain": "edge_cases",
+        "skill_name": "modify-booking",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "ORD",
+            "destination": "SEA",
+            "date": "2026-08-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 10361,
+        "tokens_used": 4257,
+        "input_tokens": 3562,
+        "output_tokens": 695,
+        "cost_usd": 0.000951
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1547,
+      "latency_delta_ms": 1591,
+      "cost_delta_usd": 0.00023000000000000006
+    }
+  ]
+}

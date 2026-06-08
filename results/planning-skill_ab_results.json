@@ -1,0 +1,2040 @@
+{
+  "skill_name": "planning-skill",
+  "model": "gpt-4o-mini",
+  "weighted_delta": -0.011309523809523808,
+  "regression_rate": 0.10714285714285714,
+  "verdict": "PASS",
+  "tier": 0,
+  "flagged_tasks": [],
+  "regression_traces": {},
+  "cost": {
+    "no_skill": {
+      "total_cost_usd": 0.021378,
+      "avg_cost_usd": 0.000764,
+      "total_input_tokens": 75315,
+      "total_output_tokens": 16803,
+      "avg_latency_ms": 9588,
+      "p95_latency_ms": 14881
+    },
+    "with_skill": {
+      "total_cost_usd": 0.025325,
+      "avg_cost_usd": 0.000904,
+      "total_input_tokens": 98196,
+      "total_output_tokens": 17658,
+      "avg_latency_ms": 9981,
+      "p95_latency_ms": 18637
+    }
+  },
+  "tasks": [
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-001",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-001",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.5,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "JFK",
+            "date": "2024-05-01",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Times Square, New York",
+            "check_in": "2024-05-01",
+            "check_out": "2024-05-04",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.50 std=0.00 | The agent provided a 4-day itinerary instead of a 3-day itinerary, as specified in the prompt. Additionally, the flight options provided are from LAX to JFK on May 1, but the durations are incorrect for cross-country flights; 2-3 hours is more appropriate for much shorter flights. The hotel cancellation policy for all options being 'Non-refundable' might be a red flag. The itinerary itself is generic and lacks specific recommendations for restaurants, shows, or rooftop bars, which would make it more 'complete'.",
+        "latency_ms": 8732,
+        "tokens_used": 3616,
+        "input_tokens": 2977,
+        "output_tokens": 639,
+        "cost_usd": 0.00083
+      },
+      "with_skill": {
+        "task_id": "itinerary-001",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.5,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "JFK",
+            "date": "2024-04-15",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Times Square, New York",
+            "check_in": "2024-04-15",
+            "check_out": "2024-04-18",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.50 std=0.00 | The agent provided some flight and hotel options, and a basic 3-day itinerary. However, significant information is missing to make this a 'complete' itinerary. The flight durations for American Airlines are unrealistic, making the data inaccurate. The 'check-in' and 'check-out' dates for the hotel suggest a 3-night stay from April 15th to April 18th (for a trip that spans 3 days), but a 3-day trip means 3 days of activities, not necessarily 3 nights. There is no suggested return flight. The daily itinerary is very high-level and lacks crucial details such as suggested transportation, specific timings, or diversity in meal options beyond 'dinner'. The cost estimate is only for flights and hotel, omitting other significant travel expenses like ground transportation, meals, activities, and a return flight, which limits its completeness as a travel plan. The 'different property' for the Hyatt is also a bit ambiguous without more identifying information.",
+        "latency_ms": 12722,
+        "tokens_used": 4343,
+        "input_tokens": 3481,
+        "output_tokens": 862,
+        "cost_usd": 0.001039
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": -1,
+      "token_delta": 727,
+      "latency_delta_ms": 3990,
+      "cost_delta_usd": 0.00020899999999999998
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-002",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-002",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK12345678"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response accurately and completely summarizes the itinerary for booking BK12345678, including flight details (route, departure) and hotel details (location, check-in, check-out) as requested.",
+        "latency_ms": 2744,
+        "tokens_used": 1322,
+        "input_tokens": 1195,
+        "output_tokens": 127,
+        "cost_usd": 0.000255
+      },
+      "with_skill": {
+        "task_id": "itinerary-002",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK12345678"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response provides a clear and concise summary of the itinerary for booking BK12345678, covering both flights and hotel details as requested. The information is accurate and directly addresses the task.",
+        "latency_ms": 3558,
+        "tokens_used": 2785,
+        "input_tokens": 2649,
+        "output_tokens": 136,
+        "cost_usd": 0.000479
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1463,
+      "latency_delta_ms": 814,
+      "cost_delta_usd": 0.00022399999999999997
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-003",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-003",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.5666666666666667,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "Nashville",
+            "date": "2023-11-10",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Nashville",
+            "check_in": "2023-11-10",
+            "check_out": "2023-11-12"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.57 std=0.12 | The agent provided flight and hotel options, which partially addresses the task of planning a weekend trip. However, it failed to present the information as a coherent itinerary. An itinerary should include a day-by-day plan with activities, not just a list of flights and hotels. The flight durations for United and American Airlines also seem incorrect for a direct flight from Chicago to Nashville, and JetBlue doesn't typically fly this route. The hotel price for the 5-star Hilton ($89.09) is unusually low and likely an error. While it provides recommendations, it doesn't construct an actual 'itinerary' as requested.",
+        "latency_ms": 11093,
+        "tokens_used": 2800,
+        "input_tokens": 1958,
+        "output_tokens": 842,
+        "cost_usd": 0.000799
+      },
+      "with_skill": {
+        "task_id": "itinerary-003",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.6666666666666666,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "Nashville",
+            "date": "2023-11-11",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Nashville",
+            "check_in": "2023-11-11",
+            "check_out": "2023-11-13",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.67 std=0.14 | The agent successfully found flights and hotels and presented them as an itinerary. However, there's a significant issue with the travel dates. November 11, 2023, was a Saturday, so November 11-13, 2023, would be Saturday to Monday, not a typical 'weekend trip' as Friday-Sunday would be. While technically 'a weekend' is included, the explicit instruction 'Plan a weekend trip' usually implies a Friday departure and Sunday return. The flight options also have varying durations, with one being an unusually long 4 hours 36 minutes for a direct Chicago-Nashville flight, suggesting it might be a multi-stop flight, which wasn't specified. Providing return flight options would also make the itinerary more complete. The pricing for IHG Nashville seems disproportionately high compared to the other 4-star options for a 3-star hotel.",
+        "latency_ms": 15011,
+        "tokens_used": 4172,
+        "input_tokens": 3302,
+        "output_tokens": 870,
+        "cost_usd": 0.001017
+      },
+      "delta": 0.09999999999999998,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1372,
+      "latency_delta_ms": 3918,
+      "cost_delta_usd": 0.00021799999999999988
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-004",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-004",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.5833333333333334,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "San Francisco",
+            "destination": "Seattle",
+            "date": "2023-11-01",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "downtown Seattle",
+            "check_in": "2023-11-01",
+            "check_out": "2023-11-05",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.58 std=0.14 | The agent provides relevant flight and hotel options as requested. However, there are a few minor issues:\n1. It doesn't specify the return flight, only the outbound. A business trip implies a return as well.\n2. One of the IHG hotels is listed twice. While it's possible there are two IHG hotels with different prices and amenities, it's more likely a duplication or different room types without explicit clarification.\n3. The flight durations for American Airlines and Southwest Airlines (288 and 305 minutes, respectively) seem excessively long for a San Francisco to Seattle flight, which is typically under 2 hours (approx. 120 minutes). This could be an error in data or an itinerary with multiple stops without being specified.",
+        "latency_ms": 11526,
+        "tokens_used": 2693,
+        "input_tokens": 2011,
+        "output_tokens": 682,
+        "cost_usd": 0.000711
+      },
+      "with_skill": {
+        "task_id": "itinerary-004",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.4166666666666667,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "San Francisco",
+            "destination": "Seattle",
+            "date": "2023-11-05",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Seattle",
+            "check_in": "2023-11-01",
+            "check_out": "2023-11-05",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.42 std=0.38 | judge error: Unterminated string starting at: line 3 column 16 (char 34)",
+        "latency_ms": 15159,
+        "tokens_used": 4735,
+        "input_tokens": 3723,
+        "output_tokens": 1012,
+        "cost_usd": 0.001166
+      },
+      "delta": -0.16666666666666669,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": 0,
+      "token_delta": 2042,
+      "latency_delta_ms": 3633,
+      "cost_delta_usd": 0.0004549999999999999
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-005",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-005",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK99887766"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent provided a complete itinerary for the specific booking code requested, including flight and hotel details with dates and times.",
+        "latency_ms": 1793,
+        "tokens_used": 1278,
+        "input_tokens": 1191,
+        "output_tokens": 87,
+        "cost_usd": 0.000231
+      },
+      "with_skill": {
+        "task_id": "itinerary-005",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK99887766"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent provided a clear and concise itinerary for the requested booking number, including flight and hotel details as expected.",
+        "latency_ms": 2680,
+        "tokens_used": 2774,
+        "input_tokens": 2645,
+        "output_tokens": 129,
+        "cost_usd": 0.000474
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1496,
+      "latency_delta_ms": 887,
+      "cost_delta_usd": 0.00024299999999999997
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-006",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-006",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.6666666666666666,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "NYC",
+            "destination": "Miami",
+            "date": "2026-08-07"
+          },
+          "search_hotels": {
+            "location": "Miami",
+            "check_in": "2026-08-07",
+            "check_out": "2026-08-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.67 std=0.14 | The response successfully provides flight options for 2026-08-07 and hotel options for 3 nights (August 7-10, 2026), directly addressing the core task. However, a 'weekend getaway' implies a Friday departure, but the provided date of August 7, 2026, is a Friday, so it correctly aligns with the 'weekend getaway' implicitly. The duration of the flights is listed in minutes, which is helpful. The hotel information includes price per night, stars, amenities, and cancellation policy. The summary is also helpful. The flight durations for NYC to Miami (e.g., 90-108 minutes for most, but one at 244 minutes) are unusually short, typically this flight is around 3 hours (180 minutes). The duration of 244 minutes (over 4 hours) is more realistic for some flights, but 90-106 minutes is certainly an underestimation. This inaccuracy in flight duration is the main reason for not giving a perfect score.",
+        "latency_ms": 11173,
+        "tokens_used": 2748,
+        "input_tokens": 2020,
+        "output_tokens": 728,
+        "cost_usd": 0.00074
+      },
+      "with_skill": {
+        "task_id": "itinerary-006",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.5833333333333334,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "New York City",
+            "destination": "Miami",
+            "date": "2026-08-07"
+          },
+          "search_hotels": {
+            "location": "Miami",
+            "check_in": "2026-08-07",
+            "check_out": "2026-08-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.58 std=0.14 | The agent provided flight options for the correct date and hotel options for the correct nights. However, it presented a weekend getaway, which implies Saturday and Sunday. The agent provided results for a Thursday, Friday, and Saturday. This is a critical misunderstanding of the request, even though the dates given (August 7, 2026 check-in, August 10, 2026 check-out) fulfill the 3-night requirement. The agent should have clarified or adapted the dates to align with a typical 'weekend getaway' concept if unable to find flights for a specific weekend.",
+        "latency_ms": 9815,
+        "tokens_used": 4181,
+        "input_tokens": 3639,
+        "output_tokens": 542,
+        "cost_usd": 0.000871
+      },
+      "delta": -0.08333333333333326,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": 0,
+      "token_delta": 1433,
+      "latency_delta_ms": -1358,
+      "cost_delta_usd": 0.00013100000000000004
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-101",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-101",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "BOS",
+            "destination": "CDG",
+            "date": "2024-04-01",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Montmartre, Paris",
+            "check_in": "2024-04-01",
+            "check_out": "2024-04-06"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 9596,
+        "tokens_used": 2655,
+        "input_tokens": 1970,
+        "output_tokens": 685,
+        "cost_usd": 0.000706
+      },
+      "with_skill": {
+        "task_id": "itinerary-101",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 4,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Paris",
+            "destination": "Boston",
+            "date": "2024-05-06",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Montmartre, Paris",
+            "check_in": "2024-05-01",
+            "check_out": "2024-05-06",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 12834,
+        "tokens_used": 8496,
+        "input_tokens": 7606,
+        "output_tokens": 890,
+        "cost_usd": 0.001675
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 2,
+      "token_delta": 5841,
+      "latency_delta_ms": 3238,
+      "cost_delta_usd": 0.000969
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-102",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-102",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK6XZ8V1"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1838,
+        "tokens_used": 1321,
+        "input_tokens": 1209,
+        "output_tokens": 112,
+        "cost_usd": 0.000249
+      },
+      "with_skill": {
+        "task_id": "itinerary-102",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK6XZ8V1"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2955,
+        "tokens_used": 2798,
+        "input_tokens": 2663,
+        "output_tokens": 135,
+        "cost_usd": 0.00048
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1477,
+      "latency_delta_ms": 1117,
+      "cost_delta_usd": 0.00023100000000000003
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-103",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-103",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Sydney",
+            "destination": "Tokyo",
+            "date": "2024-03-01",
+            "passengers": 4
+          },
+          "search_hotels": {
+            "location": "Tokyo",
+            "check_in": "2024-03-01",
+            "check_out": "2024-03-15",
+            "guests": 4
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 11403,
+        "tokens_used": 3070,
+        "input_tokens": 2178,
+        "output_tokens": 892,
+        "cost_usd": 0.000862
+      },
+      "with_skill": {
+        "task_id": "itinerary-103",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Sydney",
+            "destination": "Tokyo",
+            "date": "2024-04-01",
+            "passengers": 4
+          },
+          "search_hotels": {
+            "location": "Tokyo",
+            "check_in": "2024-04-01",
+            "check_out": "2024-04-15",
+            "guests": 4
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 11649,
+        "tokens_used": 4485,
+        "input_tokens": 3538,
+        "output_tokens": 947,
+        "cost_usd": 0.001099
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1415,
+      "latency_delta_ms": 246,
+      "cost_delta_usd": 0.0002369999999999999
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-104",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-104",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK9T3F0Z"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2072,
+        "tokens_used": 1314,
+        "input_tokens": 1209,
+        "output_tokens": 105,
+        "cost_usd": 0.000244
+      },
+      "with_skill": {
+        "task_id": "itinerary-104",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK9T3F0Z"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2390,
+        "tokens_used": 2811,
+        "input_tokens": 2663,
+        "output_tokens": 148,
+        "cost_usd": 0.000488
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1497,
+      "latency_delta_ms": 318,
+      "cost_delta_usd": 0.000244
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-105",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-105",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 4,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Venice",
+            "destination": "London",
+            "date": "2023-11-04",
+            "passengers": 2
+          },
+          "search_hotels": {
+            "location": "Venice",
+            "check_in": "2023-11-01",
+            "check_out": "2023-11-04",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 7280,
+        "tokens_used": 4832,
+        "input_tokens": 4355,
+        "output_tokens": 477,
+        "cost_usd": 0.000939
+      },
+      "with_skill": {
+        "task_id": "itinerary-105",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']",
+        "latency_ms": 1695,
+        "tokens_used": 1398,
+        "input_tokens": 1285,
+        "output_tokens": 113,
+        "cost_usd": 0.000261
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": -3,
+      "token_delta": -3434,
+      "latency_delta_ms": -5585,
+      "cost_delta_usd": -0.000678
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-106",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-106",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.5833333333333334,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "New Orleans",
+            "destination": "Denver",
+            "date": "2023-11-03"
+          },
+          "search_hotels": {
+            "location": "Denver",
+            "check_in": "2023-11-03",
+            "check_out": "2023-11-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.58 std=0.14 | The response provides flight and hotel options as requested. However, it incorrectly assumes the current date and provides flight departure dates that are in the past (November 3rd). The task explicitly states 'Departure is this Friday', implying an upcoming Friday, not a past date. This significant error makes the suggested itinerary unbookable and therefore not completely fulfilling the request despite outlining the structure of the plan.",
+        "latency_ms": 11574,
+        "tokens_used": 2720,
+        "input_tokens": 2012,
+        "output_tokens": 708,
+        "cost_usd": 0.000727
+      },
+      "with_skill": {
+        "task_id": "itinerary-106",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.5833333333333334,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "New Orleans",
+            "destination": "Denver",
+            "date": "2023-10-27"
+          },
+          "search_hotels": {
+            "location": "Denver",
+            "check_in": "2023-10-27",
+            "check_out": "2023-10-29"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.58 std=0.14 | The agent provided flight and hotel options as requested. However, the departure date given is October 27, 2023. \"This Friday\" from the current date would be April 19, 2024. Therefore, the information provided is outdated and not relevant to the user's current request. Additionally, the second Marriott option is listed as a 4-star hotel when the first Marriott option is a 5-star hotel, which could be confusing if not clarified as a different Marriott property.",
+        "latency_ms": 14242,
+        "tokens_used": 3963,
+        "input_tokens": 3275,
+        "output_tokens": 688,
+        "cost_usd": 0.000904
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1243,
+      "latency_delta_ms": 2668,
+      "cost_delta_usd": 0.00017699999999999997
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-107",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-107",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent response correctly asks for the origin city and dates, which directly fulfills the pass criteria. It also asks for the number of passengers, which is useful supplementary information for booking a trip.",
+        "latency_ms": 1278,
+        "tokens_used": 616,
+        "input_tokens": 550,
+        "output_tokens": 66,
+        "cost_usd": 0.000122
+      },
+      "with_skill": {
+        "task_id": "itinerary-107",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly asks for the origin city and the dates required for both flights and hotel, satisfying all the pass criteria.",
+        "latency_ms": 1357,
+        "tokens_used": 1344,
+        "input_tokens": 1277,
+        "output_tokens": 67,
+        "cost_usd": 0.000232
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 728,
+      "latency_delta_ms": 79,
+      "cost_delta_usd": 0.00011
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-108",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-108",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']",
+        "latency_ms": 920,
+        "tokens_used": 594,
+        "input_tokens": 562,
+        "output_tokens": 32,
+        "cost_usd": 0.000103
+      },
+      "with_skill": {
+        "task_id": "itinerary-108",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']",
+        "latency_ms": 2085,
+        "tokens_used": 1401,
+        "input_tokens": 1289,
+        "output_tokens": 112,
+        "cost_usd": 0.000261
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 807,
+      "latency_delta_ms": 1165,
+      "cost_delta_usd": 0.000158
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-109",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-109",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']",
+        "latency_ms": 11799,
+        "tokens_used": 1156,
+        "input_tokens": 555,
+        "output_tokens": 601,
+        "cost_usd": 0.000444
+      },
+      "with_skill": {
+        "task_id": "itinerary-109",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']",
+        "latency_ms": 7771,
+        "tokens_used": 1465,
+        "input_tokens": 1282,
+        "output_tokens": 183,
+        "cost_usd": 0.000302
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 309,
+      "latency_delta_ms": -4028,
+      "cost_delta_usd": -0.00014199999999999998
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "itinerary-110",
+      "domain": "itinerary_build",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "itinerary-110",
+        "domain": "itinerary_build",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK4P7C9X"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2336,
+        "tokens_used": 1305,
+        "input_tokens": 1211,
+        "output_tokens": 94,
+        "cost_usd": 0.000238
+      },
+      "with_skill": {
+        "task_id": "itinerary-110",
+        "domain": "itinerary_build",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK4P7C9X"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5315,
+        "tokens_used": 2804,
+        "input_tokens": 2665,
+        "output_tokens": 139,
+        "cost_usd": 0.000483
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1499,
+      "latency_delta_ms": 2979,
+      "cost_delta_usd": 0.000245
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-001",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-001",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "New York City",
+            "date": "2026-08-14",
+            "passengers": 2
+          },
+          "search_hotels": {
+            "location": "New York City",
+            "check_in": "2026-08-14",
+            "check_out": "2026-08-17",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 13343,
+        "tokens_used": 2607,
+        "input_tokens": 1883,
+        "output_tokens": 724,
+        "cost_usd": 0.000717
+      },
+      "with_skill": {
+        "task_id": "planning-001",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "New York City",
+            "date": "2026-08-06",
+            "passengers": 2
+          },
+          "search_hotels": {
+            "location": "New York City",
+            "check_in": "2026-08-06",
+            "check_out": "2026-08-09",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 9188,
+        "tokens_used": 4002,
+        "input_tokens": 3237,
+        "output_tokens": 765,
+        "cost_usd": 0.000945
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1395,
+      "latency_delta_ms": -4155,
+      "cost_delta_usd": 0.000228
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-002",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-002",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_flights",
+          "search_hotels",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Rome",
+            "destination": "London",
+            "date": "2026-09-15",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Rome",
+            "check_in": "2026-09-11",
+            "check_out": "2026-09-15",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 27628,
+        "tokens_used": 8688,
+        "input_tokens": 6717,
+        "output_tokens": 1971,
+        "cost_usd": 0.00219
+      },
+      "with_skill": {
+        "task_id": "planning-002",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_flights",
+          "search_hotels",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Rome",
+            "destination": "London",
+            "date": "2026-09-14",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Rome",
+            "check_in": "2026-09-08",
+            "check_out": "2026-09-14",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 23041,
+        "tokens_used": 6360,
+        "input_tokens": 4667,
+        "output_tokens": 1693,
+        "cost_usd": 0.001716
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": -1,
+      "token_delta": -2328,
+      "latency_delta_ms": -4587,
+      "cost_delta_usd": -0.00047400000000000003
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-003",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-003",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAX",
+            "destination": "DPS",
+            "date": "2026-10-12",
+            "passengers": 2
+          },
+          "search_hotels": {
+            "location": "Bali",
+            "check_in": "2026-10-12",
+            "check_out": "2026-10-19",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 14881,
+        "tokens_used": 3589,
+        "input_tokens": 2908,
+        "output_tokens": 681,
+        "cost_usd": 0.000845
+      },
+      "with_skill": {
+        "task_id": "planning-003",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Los Angeles",
+            "destination": "Bali",
+            "date": "2026-10-12",
+            "passengers": 2
+          },
+          "search_hotels": {
+            "location": "Bali",
+            "check_in": "2026-10-12",
+            "check_out": "2026-10-19",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 12552,
+        "tokens_used": 4442,
+        "input_tokens": 3509,
+        "output_tokens": 933,
+        "cost_usd": 0.001086
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": -1,
+      "token_delta": 853,
+      "latency_delta_ms": -2329,
+      "cost_delta_usd": 0.0002409999999999999
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-004",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-004",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Sydney",
+            "destination": "Singapore",
+            "date": "2026-08-19",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Singapore CBD",
+            "check_in": "2026-08-19",
+            "check_out": "2026-08-20"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 9494,
+        "tokens_used": 2678,
+        "input_tokens": 1955,
+        "output_tokens": 723,
+        "cost_usd": 0.000727
+      },
+      "with_skill": {
+        "task_id": "planning-004",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Singapore",
+            "destination": "Sydney",
+            "date": "2026-08-20",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Singapore CBD",
+            "check_in": "2026-08-19",
+            "check_out": "2026-08-20",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 12113,
+        "tokens_used": 4408,
+        "input_tokens": 3692,
+        "output_tokens": 716,
+        "cost_usd": 0.000983
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1730,
+      "latency_delta_ms": 2619,
+      "cost_delta_usd": 0.00025599999999999993
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-005",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-005",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Boston",
+            "destination": "Orlando",
+            "date": "2026-07-04",
+            "passengers": 4
+          },
+          "search_hotels": {
+            "location": "Disney, Orlando",
+            "check_in": "2026-07-04",
+            "check_out": "2026-07-11",
+            "guests": 4
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 10345,
+        "tokens_used": 3856,
+        "input_tokens": 3231,
+        "output_tokens": 625,
+        "cost_usd": 0.00086
+      },
+      "with_skill": {
+        "task_id": "planning-005",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Boston",
+            "destination": "Orlando",
+            "date": "2026-07-04",
+            "passengers": 4
+          },
+          "search_hotels": {
+            "location": "Disney, Orlando",
+            "check_in": "2026-07-04",
+            "check_out": "2026-07-11",
+            "guests": 4
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 12930,
+        "tokens_used": 4403,
+        "input_tokens": 3597,
+        "output_tokens": 806,
+        "cost_usd": 0.001023
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": -1,
+      "token_delta": 547,
+      "latency_delta_ms": 2585,
+      "cost_delta_usd": 0.00016300000000000006
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-006",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-006",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 6,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_flights",
+          "search_flights",
+          "search_hotels",
+          "search_hotels",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Hanoi",
+            "destination": "San Francisco",
+            "date": "2026-11-15"
+          },
+          "search_hotels": {
+            "location": "Hanoi",
+            "check_in": "2026-11-09",
+            "check_out": "2026-11-15",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 23306,
+        "tokens_used": 12497,
+        "input_tokens": 11034,
+        "output_tokens": 1463,
+        "cost_usd": 0.002533
+      },
+      "with_skill": {
+        "task_id": "planning-006",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_hotels",
+          "search_hotels",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Hanoi",
+            "destination": "San Francisco",
+            "date": "2026-11-14",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Hanoi",
+            "check_in": "2026-11-07",
+            "check_out": "2026-11-14",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 14958,
+        "tokens_used": 5529,
+        "input_tokens": 4589,
+        "output_tokens": 940,
+        "cost_usd": 0.001252
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": -4,
+      "token_delta": -6968,
+      "latency_delta_ms": -8348,
+      "cost_delta_usd": -0.001281
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-007",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-007",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.16666666666666666,
+        "steps": 6,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_flights",
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Miami",
+            "destination": "anywhere",
+            "date": "2026-08-28",
+            "passengers": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.17 std=0.14 | The agent completely misunderstood the request. The user asked for a trip *from* Miami, implying flights *and* a destination. The agent provided flight prices *from* Miami but did not specify a destination for these flights, making the information meaningless for planning a trip. Furthermore, the agent presented flight options as if they were round trips, but did not state so. A single flight segment (one way) is not a trip. The core task of finding realistic options for a trip (flight + hotel) within a $300 budget was not met. The agent also included a flight that exceeded the budget for just the flight itself ($369.52), which is completely unrealistic.",
+        "latency_ms": 11633,
+        "tokens_used": 10209,
+        "input_tokens": 9671,
+        "output_tokens": 538,
+        "cost_usd": 0.001773
+      },
+      "with_skill": {
+        "task_id": "planning-007",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent's response completely misses the core constraint of the prompt, which is about *realistic options* for a $300 budget for both flights and hotel in August 2026. Instead of providing any options or explaining why it's unrealistic, the agent asks for more information. This indicates a failure to understand the fundamental challenge presented by the `$300 flights and hotel` budget. For a trip from Miami in August 2026, a $300 budget for both flights and hotel is almost certainly unrealistic for any typical weekend trip to a distinct destination, aside from perhaps camping locally or staying with friends/family. The agent should acknowledge the budget constraint and either state that it's unrealistic for a typical trip or suggest extremely limited, local options, rather than asking for more details as if such options are readily available.",
+        "latency_ms": 2151,
+        "tokens_used": 1420,
+        "input_tokens": 1301,
+        "output_tokens": 119,
+        "cost_usd": 0.000267
+      },
+      "delta": -0.16666666666666666,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": -5,
+      "token_delta": -8789,
+      "latency_delta_ms": -9482,
+      "cost_delta_usd": -0.001506
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-008",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-008",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels",
+          "search_flights",
+          "search_hotels",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "LAS",
+            "destination": "NYC",
+            "date": "2026-09-09",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Las Vegas",
+            "check_in": "2026-09-06",
+            "check_out": "2026-09-09",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 12205,
+        "tokens_used": 4130,
+        "input_tokens": 3216,
+        "output_tokens": 914,
+        "cost_usd": 0.001031
+      },
+      "with_skill": {
+        "task_id": "planning-008",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_hotels",
+          "search_flights",
+          "search_hotels",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Las Vegas",
+            "destination": "NYC",
+            "date": "2026-09-09",
+            "passengers": 1
+          },
+          "search_hotels": {
+            "location": "Las Vegas",
+            "check_in": "2026-09-06",
+            "check_out": "2026-09-09",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 18637,
+        "tokens_used": 5783,
+        "input_tokens": 4520,
+        "output_tokens": 1263,
+        "cost_usd": 0.001436
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1653,
+      "latency_delta_ms": 6432,
+      "cost_delta_usd": 0.000405
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-101",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-101",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Brisbane",
+            "destination": "Melbourne",
+            "date": "2026-01-22",
+            "passengers": 4
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['search_hotels', 'create_booking']",
+        "latency_ms": 14062,
+        "tokens_used": 2664,
+        "input_tokens": 1901,
+        "output_tokens": 763,
+        "cost_usd": 0.000743
+      },
+      "with_skill": {
+        "task_id": "planning-101",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_flights",
+          "search_hotels",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Melbourne",
+            "destination": "Sydney",
+            "date": "2026-01-29",
+            "passengers": 4
+          },
+          "search_hotels": {
+            "location": "Melbourne",
+            "check_in": "2026-01-22",
+            "check_out": "2026-01-29",
+            "guests": 4
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 23850,
+        "tokens_used": 9015,
+        "input_tokens": 7340,
+        "output_tokens": 1675,
+        "cost_usd": 0.002106
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 1,
+      "token_delta": 6351,
+      "latency_delta_ms": 9788,
+      "cost_delta_usd": 0.0013629999999999998
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-102",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-102",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights",
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Berlin",
+            "destination": "Madrid",
+            "date": "2026-05-12"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 10758,
+        "tokens_used": 2778,
+        "input_tokens": 2043,
+        "output_tokens": 735,
+        "cost_usd": 0.000747
+      },
+      "with_skill": {
+        "task_id": "planning-102",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Berlin",
+            "destination": "Madrid",
+            "date": "2026-05-12"
+          },
+          "search_hotels": {
+            "location": "Berlin",
+            "check_in": "2026-05-09",
+            "check_out": "2026-05-12"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 12464,
+        "tokens_used": 6948,
+        "input_tokens": 6109,
+        "output_tokens": 839,
+        "cost_usd": 0.00142
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 1,
+      "token_delta": 4170,
+      "latency_delta_ms": 1706,
+      "cost_delta_usd": 0.000673
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-103",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-103",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asks for the approximate departure date, which is crucial for booking the flight and fulfills the pass criteria.",
+        "latency_ms": 1447,
+        "tokens_used": 624,
+        "input_tokens": 567,
+        "output_tokens": 57,
+        "cost_usd": 0.000119
+      },
+      "with_skill": {
+        "task_id": "planning-103",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asks about the specific travel dates as the first point, fulfilling the pass criteria. It also asks for additional useful information for booking.",
+        "latency_ms": 1936,
+        "tokens_used": 1427,
+        "input_tokens": 1294,
+        "output_tokens": 133,
+        "cost_usd": 0.000274
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 803,
+      "latency_delta_ms": 489,
+      "cost_delta_usd": 0.00015499999999999997
+    },
+    {
+      "skill_name": "planning-skill",
+      "task_id": "planning-104",
+      "domain": "trip_planning",
+      "task_weight": 1.5,
+      "no_skill": {
+        "task_id": "planning-104",
+        "domain": "trip_planning",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Houston",
+            "destination": "Dallas",
+            "date": "2026-05-06",
+            "passengers": 2
+          },
+          "search_hotels": {
+            "location": "Dallas",
+            "check_in": "2026-05-06",
+            "check_out": "2026-05-08",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 12204,
+        "tokens_used": 3758,
+        "input_tokens": 3026,
+        "output_tokens": 732,
+        "cost_usd": 0.000893
+      },
+      "with_skill": {
+        "task_id": "planning-104",
+        "domain": "trip_planning",
+        "skill_name": "planning-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "search_flights",
+          "search_flights",
+          "search_flights",
+          "search_hotels",
+          "search_hotels",
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Houston",
+            "destination": "Dallas",
+            "date": "2026-05-07",
+            "passengers": 2
+          },
+          "search_hotels": {
+            "location": "Dallas",
+            "check_in": "2026-05-07",
+            "check_out": "2026-05-09",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 14408,
+        "tokens_used": 8162,
+        "input_tokens": 7359,
+        "output_tokens": 803,
+        "cost_usd": 0.001586
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 4404,
+      "latency_delta_ms": 2204,
+      "cost_delta_usd": 0.0006929999999999999
+    }
+  ]
+}

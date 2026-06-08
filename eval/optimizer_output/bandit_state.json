@@ -1,0 +1,40 @@
+{
+  "arms": {
+    "harness:tool_description|broaden-coverage": [
+      1.0,
+      2.0
+    ],
+    "harness:node_prompt|broaden-coverage": [
+      1.0,
+      2.0
+    ],
+    "harness:tool_description|add-edge-case": [
+      1.0,
+      3.0
+    ],
+    "harness:tool_description|tighten-specificity": [
+      1.0,
+      2.0
+    ],
+    "skill:content|broaden-coverage": [
+      1.0,
+      2.0
+    ],
+    "harness:tool_description|push-tool-action": [
+      3.0,
+      1.0
+    ],
+    "harness:base_prompt|broaden-coverage": [
+      2.0,
+      1.0
+    ],
+    "skill:content|add-edge-case": [
+      2.0,
+      1.0
+    ],
+    "harness:node_prompt|add-edge-case": [
+      1.0,
+      2.0
+    ]
+  }
+}

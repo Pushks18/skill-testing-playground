@@ -1,0 +1,891 @@
+[
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "booking-flow-001",
+    "domain": "booking_flow",
+    "task_weight": 3.0,
+    "no_skill": {
+      "task_id": "booking-flow-001",
+      "domain": "booking_flow",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 0.0,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": false,
+      "judge_reasoning": "Missing required tools: ['create_booking']",
+      "latency_ms": 1762,
+      "tokens_used": 300
+    },
+    "with_skill": {
+      "task_id": "booking-flow-001",
+      "domain": "booking_flow",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "validate_passenger": {
+          "dob": "1985-03-15",
+          "name": "Alice Johnson"
+        },
+        "create_booking": {
+          "flight_id": "FL123",
+          "passenger": {
+            "dob": "1985-03-15",
+            "name": "Alice Johnson"
+          }
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2538,
+      "tokens_used": 2425
+    },
+    "delta": 1.0,
+    "delta_significant": true,
+    "regression": false,
+    "step_delta": 2,
+    "token_delta": 2125
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "booking-flow-002",
+    "domain": "booking_flow",
+    "task_weight": 3.0,
+    "no_skill": {
+      "task_id": "booking-flow-002",
+      "domain": "booking_flow",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 0.0,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": false,
+      "judge_reasoning": "Missing required tools: ['create_booking']",
+      "latency_ms": 1595,
+      "tokens_used": 327
+    },
+    "with_skill": {
+      "task_id": "booking-flow-002",
+      "domain": "booking_flow",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "validate_passenger": {
+          "dob": "1988-05-20",
+          "name": "Bob Smith"
+        },
+        "create_booking": {
+          "hotel_id": "HT456",
+          "passenger": {
+            "dob": "1988-05-20",
+            "name": "Bob Smith"
+          }
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2433,
+      "tokens_used": 2545
+    },
+    "delta": 1.0,
+    "delta_significant": true,
+    "regression": false,
+    "step_delta": 2,
+    "token_delta": 2218
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "booking-flow-003",
+    "domain": "booking_flow",
+    "task_weight": 3.0,
+    "no_skill": {
+      "task_id": "booking-flow-003",
+      "domain": "booking_flow",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "check_availability",
+        "create_booking"
+      ],
+      "tool_params": {
+        "check_availability": {
+          "date": "2026-08-01",
+          "resource_id": "FL789"
+        },
+        "create_booking": {
+          "flight_id": "FL789",
+          "passenger": {
+            "dob": "1990-11-03",
+            "name": "Carol Davis"
+          }
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 3148,
+      "tokens_used": 1109
+    },
+    "with_skill": {
+      "task_id": "booking-flow-003",
+      "domain": "booking_flow",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 4,
+      "tools_called": [
+        "check_availability",
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "check_availability": {
+          "date": "2026-08-01",
+          "resource_id": "FL789"
+        },
+        "validate_passenger": {
+          "dob": "1990-11-03",
+          "name": "Carol Davis"
+        },
+        "create_booking": {
+          "passenger": {
+            "name": "Carol Davis",
+            "dob": "1990-11-03"
+          },
+          "flight_id": "FL789"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2985,
+      "tokens_used": 3413
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 1,
+    "token_delta": 2304
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "booking-flow-004",
+    "domain": "booking_flow",
+    "task_weight": 3.0,
+    "no_skill": {
+      "task_id": "booking-flow-004",
+      "domain": "booking_flow",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "validate_passenger": {
+          "dob": "1992-07-22",
+          "name": "Eve Wilson",
+          "passport": "A1234567"
+        },
+        "create_booking": {
+          "flight_id": "FL321",
+          "passenger": {
+            "passport": "A1234567",
+            "name": "Eve Wilson",
+            "dob": "1992-07-22"
+          }
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 3295,
+      "tokens_used": 1073
+    },
+    "with_skill": {
+      "task_id": "booking-flow-004",
+      "domain": "booking_flow",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "validate_passenger": {
+          "passport": "A1234567",
+          "dob": "1992-07-22",
+          "name": "Eve Wilson"
+        },
+        "create_booking": {
+          "passenger": {
+            "dob": "1992-07-22",
+            "name": "Eve Wilson"
+          },
+          "flight_id": "FL321"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2452,
+      "tokens_used": 2478
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 0,
+    "token_delta": 1405
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "booking-flow-005",
+    "domain": "booking_flow",
+    "task_weight": 3.0,
+    "no_skill": {
+      "task_id": "booking-flow-005",
+      "domain": "booking_flow",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 2,
+      "tools_called": [
+        "create_booking"
+      ],
+      "tool_params": {
+        "create_booking": {
+          "flight_id": "FL456",
+          "passenger": {
+            "name": "James Miller",
+            "dob": "1975-08-12"
+          }
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2496,
+      "tokens_used": 657
+    },
+    "with_skill": {
+      "task_id": "booking-flow-005",
+      "domain": "booking_flow",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "validate_passenger": {
+          "dob": "1975-08-12",
+          "name": "James Miller"
+        },
+        "create_booking": {
+          "flight_id": "FL456",
+          "passenger": {
+            "dob": "1975-08-12",
+            "name": "James Miller"
+          }
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2257,
+      "tokens_used": 2440
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 1,
+    "token_delta": 1783
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "booking-flow-006",
+    "domain": "booking_flow",
+    "task_weight": 3.0,
+    "no_skill": {
+      "task_id": "booking-flow-006",
+      "domain": "booking_flow",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "validate_passenger": {
+          "dob": "1984-05-30",
+          "name": "Sarah Connor"
+        },
+        "create_booking": {
+          "passenger": {
+            "name": "Sarah Connor",
+            "dob": "1984-05-30"
+          },
+          "hotel_id": "HT789"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2906,
+      "tokens_used": 1001
+    },
+    "with_skill": {
+      "task_id": "booking-flow-006",
+      "domain": "booking_flow",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "validate_passenger": {
+          "dob": "1984-05-30",
+          "name": "Sarah Connor"
+        },
+        "create_booking": {
+          "passenger": {
+            "name": "Sarah Connor",
+            "dob": "1984-05-30"
+          },
+          "hotel_id": "HT789"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2058,
+      "tokens_used": 2426
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 0,
+    "token_delta": 1425
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "booking-flow-007",
+    "domain": "booking_flow",
+    "task_weight": 3.0,
+    "no_skill": {
+      "task_id": "booking-flow-007",
+      "domain": "booking_flow",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 3,
+      "tools_called": [
+        "check_availability",
+        "create_booking"
+      ],
+      "tool_params": {
+        "check_availability": {
+          "date": "2026-09-01",
+          "resource_id": "FL999"
+        },
+        "create_booking": {
+          "passenger": {
+            "dob": "1979-09-15",
+            "name": "Tom Hardy"
+          },
+          "flight_id": "FL999"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 3174,
+      "tokens_used": 1109
+    },
+    "with_skill": {
+      "task_id": "booking-flow-007",
+      "domain": "booking_flow",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 4,
+      "tools_called": [
+        "check_availability",
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "check_availability": {
+          "resource_id": "FL999",
+          "date": "2026-09-01"
+        },
+        "validate_passenger": {
+          "name": "Tom Hardy",
+          "dob": "1979-09-15"
+        },
+        "create_booking": {
+          "passenger": {
+            "name": "Tom Hardy",
+            "dob": "1979-09-15"
+          },
+          "flight_id": "FL999"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 3083,
+      "tokens_used": 3401
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 1,
+    "token_delta": 2292
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "booking-flow-008",
+    "domain": "booking_flow",
+    "task_weight": 3.0,
+    "no_skill": {
+      "task_id": "booking-flow-008",
+      "domain": "booking_flow",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 0.0,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": false,
+      "judge_reasoning": "Missing required tools: ['create_booking']",
+      "latency_ms": 2323,
+      "tokens_used": 311
+    },
+    "with_skill": {
+      "task_id": "booking-flow-008",
+      "domain": "booking_flow",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 4,
+      "tools_called": [
+        "check_availability",
+        "validate_passenger",
+        "create_booking"
+      ],
+      "tool_params": {
+        "check_availability": {
+          "date": "2026-11-10",
+          "resource_id": "HT321"
+        },
+        "validate_passenger": {
+          "dob": "1991-03-22",
+          "name": "Diana Prince"
+        },
+        "create_booking": {
+          "hotel_id": "HT321",
+          "passenger": {
+            "dob": "1991-03-22",
+            "name": "Diana Prince"
+          }
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 3282,
+      "tokens_used": 3378
+    },
+    "delta": 1.0,
+    "delta_significant": true,
+    "regression": false,
+    "step_delta": 3,
+    "token_delta": 3067
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "edge-availability-001",
+    "domain": "edge_cases",
+    "task_weight": 0.5,
+    "no_skill": {
+      "task_id": "edge-availability-001",
+      "domain": "edge_cases",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 2,
+      "tools_called": [
+        "check_availability"
+      ],
+      "tool_params": {
+        "check_availability": {
+          "resource_id": "FL123",
+          "date": "2026-07-15"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 2578,
+      "tokens_used": 621
+    },
+    "with_skill": {
+      "task_id": "edge-availability-001",
+      "domain": "edge_cases",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 2,
+      "tools_called": [
+        "check_availability"
+      ],
+      "tool_params": {
+        "check_availability": {
+          "date": "2026-07-15",
+          "resource_id": "FL123"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "All required tools and params present",
+      "latency_ms": 1390,
+      "tokens_used": 1562
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 0,
+    "token_delta": 941
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "itinerary-001",
+    "domain": "itinerary_build",
+    "task_weight": 1.5,
+    "no_skill": {
+      "task_id": "itinerary-001",
+      "domain": "itinerary_build",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 0.5,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=0.50 std=0.00 | The agent acknowledges the request and asks for necessary clarifying information. However, it does not provide any part of the requested itinerary (flights, hotel, or daily plan), which is the core of the task. It's a good first step in a conversational interaction but doesn't fulfill the 'build a complete 3-day New York itinerary' instruction yet.",
+      "latency_ms": 2014,
+      "tokens_used": 365
+    },
+    "with_skill": {
+      "task_id": "itinerary-001",
+      "domain": "itinerary_build",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 0.3333333333333333,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": false,
+      "judge_reasoning": "avg=0.33 std=0.14 | The agent's response is an attempt to address the task, but it doesn't provide any of the requested information (itinerary, flights, hotel). Instead, it asks for clarification. While clarification is often a good first step, the prompt explicitly asked for a *complete* 3-day itinerary, implying the agent should either generate a default one or state they need more information *before* asking a question. By only asking a question, it largely misses the core request of building the itinerary.",
+      "latency_ms": 618,
+      "tokens_used": 753
+    },
+    "delta": -0.16666666666666669,
+    "delta_significant": true,
+    "regression": true,
+    "step_delta": 0,
+    "token_delta": 388
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "itinerary-002",
+    "domain": "itinerary_build",
+    "task_weight": 1.5,
+    "no_skill": {
+      "task_id": "itinerary-002",
+      "domain": "itinerary_build",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 2,
+      "tools_called": [
+        "get_itinerary"
+      ],
+      "tool_params": {
+        "get_itinerary": {
+          "booking_id": "BK12345678"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=1.00 std=0.00 | The agent's response completely and accurately summarizes the itinerary for booking BK12345678 as requested by the task instruction. It includes the flight details (departure, arrival, date, time) and the hotel details (name, check-in, check-out dates).",
+      "latency_ms": 2429,
+      "tokens_used": 703
+    },
+    "with_skill": {
+      "task_id": "itinerary-002",
+      "domain": "itinerary_build",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 2,
+      "tools_called": [
+        "get_itinerary"
+      ],
+      "tool_params": {
+        "get_itinerary": {
+          "booking_id": "BK12345678"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=1.00 std=0.00 | The agent's response completely and accurately summarizes the itinerary for booking BK12345678, providing the flight details (JFK to LAX, July 1, 2026, 09:00) and accommodation details (Marriott LA, July 1 to July 3, 2026). It directly addresses the task.",
+      "latency_ms": 1439,
+      "tokens_used": 1635
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 0,
+    "token_delta": 932
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "itinerary-003",
+    "domain": "itinerary_build",
+    "task_weight": 1.5,
+    "no_skill": {
+      "task_id": "itinerary-003",
+      "domain": "itinerary_build",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 0.0,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": false,
+      "judge_reasoning": "avg=0.00 std=0.00 | The agent did not address the core task which was to plan a trip, find flights, and a hotel, and present an itinerary. Instead, it asked for more information, effectively punting the task back to the user. This is a common failure mode when the agent is designed to be highly conversational and gather details before acting, but in a task-completion scenario, it means it hasn't actually done anything yet.",
+      "latency_ms": 2060,
+      "tokens_used": 338
+    },
+    "with_skill": {
+      "task_id": "itinerary-003",
+      "domain": "itinerary_build",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 0.25,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": false,
+      "judge_reasoning": "avg=0.25 std=0.00 | The agent identifies the need for more information, which is a reasonable first step. However, the task instruction is to *plan* the trip and provide an *itinerary*. Instead of making reasonable assumptions (e.g., a typical weekend, 1-2 passengers/guests) and generating a sample plan, the agent immediately asks for more input without providing any substance or attempting to fulfill the core request. It's an attempt but largely fails to address the planning or itinerary creation aspects of the prompt.",
+      "latency_ms": 809,
+      "tokens_used": 793
+    },
+    "delta": 0.25,
+    "delta_significant": true,
+    "regression": false,
+    "step_delta": 0,
+    "token_delta": 455
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "itinerary-004",
+    "domain": "itinerary_build",
+    "task_weight": 1.5,
+    "no_skill": {
+      "task_id": "itinerary-004",
+      "domain": "itinerary_build",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 0.5,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=0.50 std=0.00 | The agent's response is partially helpful by asking for clarifying information, which is a common practice in personalized travel planning. However, it fails to provide any initial recommendations, which would be more directly addressing the task. A better response would offer some default suggestions (e.g., 'Assuming a trip next month for one person, here are some flight options and downtown hotels...') while still asking for more specific details. The request for 'Specific dates for the hotel stay' is redundant given 'Desired travel dates' and '4-day trip' imply the hotel dates. The prompt was to 'Plan a 4-day business trip', and the agent's response is purely asking for input, not *planning* anything yet.",
+      "latency_ms": 2035,
+      "tokens_used": 348
+    },
+    "with_skill": {
+      "task_id": "itinerary-004",
+      "domain": "itinerary_build",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 0.5,
+      "steps": 1,
+      "tools_called": [],
+      "tool_params": {},
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=0.50 std=0.00 | The agent identifies key missing information (dates, number of guests) that are necessary to fulfill the request. However, it fails to acknowledge that I specified a '4-day business trip.' Based on this, it could infer the return date from the departure date. It also does not ask about specific flight preferences (e.g., airline, time of day, class) or hotel preferences (e.g., budget, specific amenities, star rating), which would be crucial for a complete itinerary. The response is a good starter but doesn't anticipate other common travel planning needs.",
+      "latency_ms": 997,
+      "tokens_used": 789
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 0,
+    "token_delta": 441
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "itinerary-005",
+    "domain": "itinerary_build",
+    "task_weight": 1.5,
+    "no_skill": {
+      "task_id": "itinerary-005",
+      "domain": "itinerary_build",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 2,
+      "tools_called": [
+        "get_itinerary"
+      ],
+      "tool_params": {
+        "get_itinerary": {
+          "booking_id": "BK99887766"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=1.00 std=0.00 | The agent's response completely and accurately provides the requested itinerary for the given booking number. It includes both flight and hotel details as expected for an itinerary.",
+      "latency_ms": 2375,
+      "tokens_used": 700
+    },
+    "with_skill": {
+      "task_id": "itinerary-005",
+      "domain": "itinerary_build",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 1.0,
+      "steps": 2,
+      "tools_called": [
+        "get_itinerary"
+      ],
+      "tool_params": {
+        "get_itinerary": {
+          "booking_id": "BK99887766"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly and accurately provides the itinerary for the specified booking number, fulfilling the request completely.",
+      "latency_ms": 1617,
+      "tokens_used": 1641
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 0,
+    "token_delta": 941
+  },
+  {
+    "skill_name": "book-itinerary",
+    "task_id": "itinerary-006",
+    "domain": "itinerary_build",
+    "task_weight": 1.5,
+    "no_skill": {
+      "task_id": "itinerary-006",
+      "domain": "itinerary_build",
+      "skill_name": null,
+      "skill_version": null,
+      "score": 0.5833333333333334,
+      "steps": 2,
+      "tools_called": [
+        "search_flights",
+        "search_hotels"
+      ],
+      "tool_params": {
+        "search_flights": {
+          "origin": "NYC",
+          "destination": "Miami",
+          "date": "2026-08-07"
+        },
+        "search_hotels": {
+          "location": "Miami",
+          "check_out": "2026-08-10",
+          "check_in": "2026-08-07"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=0.58 std=0.14 | The agent provided a list of flights for the specified date and hotels for the specified nights. However, the task asked for a 'weekend getaway', which implies Friday, August 7th, is a Friday. The hotel stay for August 7-10 is a Friday to Monday. Therefore, it is important to check whether the flights listed are actually for Friday, August 7, 2026. A quick check of a calendar reveals that August 7, 2026, is a Friday. So the booking is for the correct dates. The output has a severe error with the duration of the Southwest flight at '1h 39m duration' from NYC to Miami, which is impossible. Similarly, the 5-star Wyndham is cheaper than the 3-star one, which is highly unlikely, suggesting potential data errors. Additionally, the hotel names could specify location within Miami (e.g., Miami Beach, Downtown), which is often crucial for travelers. The flight durations also vary greatly which might be suspicious, but not necessarily wrong.",
+      "latency_ms": 2766,
+      "tokens_used": 1278
+    },
+    "with_skill": {
+      "task_id": "itinerary-006",
+      "domain": "itinerary_build",
+      "skill_name": "book-itinerary",
+      "skill_version": null,
+      "score": 0.5833333333333334,
+      "steps": 2,
+      "tools_called": [
+        "search_flights",
+        "search_hotels"
+      ],
+      "tool_params": {
+        "search_flights": {
+          "date": "2026-08-07",
+          "destination": "Miami",
+          "origin": "NYC"
+        },
+        "search_hotels": {
+          "location": "Miami",
+          "check_out": "2026-08-10",
+          "check_in": "2026-08-07"
+        }
+      },
+      "langsmith_run_id": "",
+      "passed_verifier": true,
+      "judge_reasoning": "avg=0.58 std=0.14 | The agent successfully found flights on the specified date and hotels for 3 nights. However, a 'weekend getaway' typically implies returning on Sunday evening or Monday morning, and the task instruction asked for a weekend getaway (which usually means Friday to Sunday/Monday). The agent correctly found flights for Friday, 2026-08-07, and hotels for 3 nights starting on that Friday, meaning until Monday, 2026-08-10. This technically fits the '3 nights' and start date. The only minor gap is that flights back to NYC were not provided, which would be essential for a complete 'weekend getaway' plan, but the prompt only explicitly asked to 'search for flights on 2026-08-07' and 'hotels for 3 nights', which the agent fulfilled for the departure.",
+      "latency_ms": 2706,
+      "tokens_used": 2259
+    },
+    "delta": 0.0,
+    "delta_significant": false,
+    "regression": false,
+    "step_delta": 0,
+    "token_delta": 981
+  }
+]

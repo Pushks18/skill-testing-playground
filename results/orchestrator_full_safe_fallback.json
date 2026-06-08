@@ -1,0 +1,2941 @@
+{
+  "mono": [
+    {
+      "task_id": "ancillery-001",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-002",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-003",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-004",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-005",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-006",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-007",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-008",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-009",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-010",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-101",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-102",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-103",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-104",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-105",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-106",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-107",
+      "domain": "ancillery",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-108",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-109",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-110",
+      "domain": "ancillery",
+      "score": 0.6666666666666666,
+      "routed_skill": null,
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-001",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-002",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-003",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-004",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-005",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-006",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-007",
+      "domain": "booking_flow",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-008",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-101",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-102",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-103",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-104",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-105",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-106",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-107",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-108",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-109",
+      "domain": "booking_flow",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-110",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-111",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "booking-flow-112",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "booking-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-101",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-102",
+      "domain": "disruption",
+      "score": 0.25,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-103",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-104",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-105",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-106",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-107",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-108",
+      "domain": "disruption",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-109",
+      "domain": "disruption",
+      "score": 0.3333333333333333,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-110",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-111",
+      "domain": "disruption",
+      "score": 0.25,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-112",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-availability-001",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-cancel-001",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-cancel-002",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-cancel-003",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-datechange-001",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-datechange-002",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-datechange-003",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-101",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-102",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-103",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-104",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-105",
+      "domain": "edge_cases",
+      "score": 0.08333333333333333,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-106",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-multileg-001",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-multileg-002",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-multileg-003",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-001",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-002",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-003",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-004",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-005",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-006",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-101",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-102",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-103",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-104",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-105",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-106",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-107",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-108",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-109",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-110",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-001",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-002",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-003",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-004",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-005",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-006",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-007",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-008",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-009",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-010",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-101",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-102",
+      "domain": "flight_search",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-103",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-104",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-001",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-002",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-003",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-004",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-005",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-006",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-007",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-008",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-009",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-010",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-011",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-012",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-013",
+      "domain": "hotel_search",
+      "score": 0.6666666666666666,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-014",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-015",
+      "domain": "hotel_search",
+      "score": 0.8333333333333334,
+      "routed_skill": null,
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-001",
+      "domain": "itinerary_build",
+      "score": 0.6666666666666666,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-002",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-003",
+      "domain": "itinerary_build",
+      "score": 0.5,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-004",
+      "domain": "itinerary_build",
+      "score": 0.6666666666666666,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-005",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-006",
+      "domain": "itinerary_build",
+      "score": 0.3333333333333333,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-101",
+      "domain": "itinerary_build",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-102",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-103",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-104",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-105",
+      "domain": "itinerary_build",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-106",
+      "domain": "itinerary_build",
+      "score": 0.75,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-107",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-108",
+      "domain": "itinerary_build",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-109",
+      "domain": "itinerary_build",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-110",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-001",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-002",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-003",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-004",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-005",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-006",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-007",
+      "domain": "trip_planning",
+      "score": 0.3333333333333333,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-008",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-101",
+      "domain": "trip_planning",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-102",
+      "domain": "trip_planning",
+      "score": 0.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-103",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-104",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": null,
+      "designated_skill": "planning-skill",
+      "misroute": false
+    }
+  ],
+  "orchestrated": [
+    {
+      "task_id": "ancillery-001",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-002",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-003",
+      "domain": "ancillery",
+      "score": 0.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-004",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-005",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-006",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-007",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-008",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-009",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-010",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-101",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-102",
+      "domain": "ancillery",
+      "score": 0.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-103",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-104",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-105",
+      "domain": "ancillery",
+      "score": 0.9166666666666666,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-106",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-107",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-108",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "ancillery-109",
+      "domain": "ancillery",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "ancillery-110",
+      "domain": "ancillery",
+      "score": 0.8333333333333334,
+      "routed_skill": "planning-skill",
+      "designated_skill": "ancillery-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-001",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-002",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-003",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-004",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-005",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-006",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-007",
+      "domain": "booking_flow",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-008",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-101",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-102",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-103",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-104",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-105",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-106",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-107",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-108",
+      "domain": "booking_flow",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-109",
+      "domain": "booking_flow",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-110",
+      "domain": "booking_flow",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-111",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "booking-flow-112",
+      "domain": "booking_flow",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "booking-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-101",
+      "domain": "disruption",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-102",
+      "domain": "disruption",
+      "score": 0.25,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-103",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-104",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-105",
+      "domain": "disruption",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-106",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-107",
+      "domain": "disruption",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-108",
+      "domain": "disruption",
+      "score": 0.16666666666666666,
+      "routed_skill": "disruption-handling",
+      "designated_skill": "disruption-handling",
+      "misroute": false
+    },
+    {
+      "task_id": "disruption-109",
+      "domain": "disruption",
+      "score": 0.08333333333333333,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-110",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-111",
+      "domain": "disruption",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "disruption-112",
+      "domain": "disruption",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "disruption-handling",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-availability-001",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-cancel-001",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-cancel-002",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-cancel-003",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-datechange-001",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-datechange-002",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-datechange-003",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-101",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-mixed-102",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-mixed-103",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-104",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-mixed-105",
+      "domain": "edge_cases",
+      "score": 0.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "modify-booking",
+      "misroute": false
+    },
+    {
+      "task_id": "edge-mixed-106",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-multileg-001",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-multileg-002",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "edge-multileg-003",
+      "domain": "edge_cases",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "modify-booking",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-001",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "fare-rules",
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-002",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "fare-rules",
+      "designated_skill": "fare-rules",
+      "misroute": false
+    },
+    {
+      "task_id": "fare-rules-003",
+      "domain": "fare_rules",
+      "score": 0.75,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-004",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-005",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-006",
+      "domain": "fare_rules",
+      "score": 0.5833333333333334,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-101",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-102",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "modify-booking",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-103",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-104",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-105",
+      "domain": "fare_rules",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-106",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-107",
+      "domain": "fare_rules",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-108",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-109",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "ancillery-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "fare-rules-110",
+      "domain": "fare_rules",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "fare-rules",
+      "misroute": true
+    },
+    {
+      "task_id": "flight-search-001",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-002",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-003",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-004",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-005",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-006",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-007",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-008",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-009",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-010",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-101",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-102",
+      "domain": "flight_search",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "flight-search",
+      "misroute": true
+    },
+    {
+      "task_id": "flight-search-103",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "flight-search-104",
+      "domain": "flight_search",
+      "score": 1.0,
+      "routed_skill": "flight-search",
+      "designated_skill": "flight-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-001",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "hotel-search",
+      "misroute": true
+    },
+    {
+      "task_id": "hotel-search-002",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "hotel-search",
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-003",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "hotel-search",
+      "misroute": true
+    },
+    {
+      "task_id": "hotel-search-004",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "hotel-search",
+      "misroute": true
+    },
+    {
+      "task_id": "hotel-search-005",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "hotel-search",
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-006",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "hotel-search",
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-007",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "hotel-search",
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-008",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "hotel-search",
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-009",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "hotel-search",
+      "misroute": true
+    },
+    {
+      "task_id": "hotel-search-010",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "hotel-search",
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-011",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "hotel-search",
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-012",
+      "domain": "hotel_search",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "hotel-search",
+      "misroute": true
+    },
+    {
+      "task_id": "hotel-search-013",
+      "domain": "hotel_search",
+      "score": 0.8333333333333334,
+      "routed_skill": "hotel-search",
+      "designated_skill": "hotel-search",
+      "misroute": false
+    },
+    {
+      "task_id": "hotel-search-014",
+      "domain": "hotel_search",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "hotel-search",
+      "misroute": true
+    },
+    {
+      "task_id": "hotel-search-015",
+      "domain": "hotel_search",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "hotel-search",
+      "misroute": true
+    },
+    {
+      "task_id": "itinerary-001",
+      "domain": "itinerary_build",
+      "score": 0.5,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-002",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-003",
+      "domain": "itinerary_build",
+      "score": 0.25,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-004",
+      "domain": "itinerary_build",
+      "score": 0.5833333333333334,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-005",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-006",
+      "domain": "itinerary_build",
+      "score": 0.5,
+      "routed_skill": "flight-search",
+      "designated_skill": "planning-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "itinerary-101",
+      "domain": "itinerary_build",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-102",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-103",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-104",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-105",
+      "domain": "itinerary_build",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-106",
+      "domain": "itinerary_build",
+      "score": 0.75,
+      "routed_skill": "flight-search",
+      "designated_skill": "planning-skill",
+      "misroute": true
+    },
+    {
+      "task_id": "itinerary-107",
+      "domain": "itinerary_build",
+      "score": 0.75,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-108",
+      "domain": "itinerary_build",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-109",
+      "domain": "itinerary_build",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "itinerary-110",
+      "domain": "itinerary_build",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-001",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-002",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-003",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-004",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-005",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-006",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-007",
+      "domain": "trip_planning",
+      "score": 0.08333333333333333,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-008",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-101",
+      "domain": "trip_planning",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-102",
+      "domain": "trip_planning",
+      "score": 0.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-103",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    },
+    {
+      "task_id": "planning-104",
+      "domain": "trip_planning",
+      "score": 1.0,
+      "routed_skill": "planning-skill",
+      "designated_skill": "planning-skill",
+      "misroute": false
+    }
+  ],
+  "summary": {
+    "per_domain": {
+      "ancillery": {
+        "mono_mean": 0.9333333333333333,
+        "orch_mean": 0.8874999999999998,
+        "delta": -0.045833333333333504,
+        "weight": 1.5,
+        "n_tasks": 20
+      },
+      "booking_flow": {
+        "mono_mean": 0.9,
+        "orch_mean": 0.8,
+        "delta": -0.09999999999999998,
+        "weight": 3.0,
+        "n_tasks": 20
+      },
+      "disruption": {
+        "mono_mean": 0.736111111111111,
+        "orch_mean": 0.4583333333333333,
+        "delta": -0.27777777777777773,
+        "weight": 2.0,
+        "n_tasks": 12
+      },
+      "edge_cases": {
+        "mono_mean": 0.6927083333333333,
+        "orch_mean": 0.625,
+        "delta": -0.06770833333333326,
+        "weight": 0.5,
+        "n_tasks": 16
+      },
+      "fare_rules": {
+        "mono_mean": 1.0,
+        "orch_mean": 0.8333333333333333,
+        "delta": -0.16666666666666674,
+        "weight": 1.0,
+        "n_tasks": 16
+      },
+      "flight_search": {
+        "mono_mean": 0.9285714285714286,
+        "orch_mean": 0.9285714285714286,
+        "delta": 0.0,
+        "weight": 2.0,
+        "n_tasks": 14
+      },
+      "hotel_search": {
+        "mono_mean": 0.9666666666666667,
+        "orch_mean": 0.8555555555555556,
+        "delta": -0.11111111111111105,
+        "weight": 2.0,
+        "n_tasks": 15
+      },
+      "itinerary_build": {
+        "mono_mean": 0.6197916666666666,
+        "orch_mean": 0.5833333333333334,
+        "delta": -0.03645833333333326,
+        "weight": 1.5,
+        "n_tasks": 16
+      },
+      "trip_planning": {
+        "mono_mean": 0.7777777777777777,
+        "orch_mean": 0.7569444444444443,
+        "delta": -0.02083333333333337,
+        "weight": 1.5,
+        "n_tasks": 12
+      }
+    },
+    "overall_delta": -0.0955324074074074,
+    "misroutes": [
+      {
+        "task_id": "ancillery-002",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-006",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-007",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-008",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-010",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-101",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-103",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-105",
+        "domain": "ancillery",
+        "score": 0.9166666666666666,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-106",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-107",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-108",
+        "domain": "ancillery",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "ancillery-110",
+        "domain": "ancillery",
+        "score": 0.8333333333333334,
+        "routed_skill": "planning-skill",
+        "designated_skill": "ancillery-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-001",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-002",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-003",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-004",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-005",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-006",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-007",
+        "domain": "booking_flow",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-008",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-101",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-102",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-103",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-104",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-105",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "flight-search",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-106",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "modify-booking",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-107",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-108",
+        "domain": "booking_flow",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-109",
+        "domain": "booking_flow",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-110",
+        "domain": "booking_flow",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-111",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "booking-flow-112",
+        "domain": "booking_flow",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "booking-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-101",
+        "domain": "disruption",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-102",
+        "domain": "disruption",
+        "score": 0.25,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-103",
+        "domain": "disruption",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-104",
+        "domain": "disruption",
+        "score": 1.0,
+        "routed_skill": "flight-search",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-105",
+        "domain": "disruption",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-106",
+        "domain": "disruption",
+        "score": 1.0,
+        "routed_skill": "ancillery-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-107",
+        "domain": "disruption",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-109",
+        "domain": "disruption",
+        "score": 0.08333333333333333,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-110",
+        "domain": "disruption",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-111",
+        "domain": "disruption",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "disruption-112",
+        "domain": "disruption",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "disruption-handling",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-availability-001",
+        "domain": "edge_cases",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-cancel-002",
+        "domain": "edge_cases",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-mixed-101",
+        "domain": "edge_cases",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-mixed-102",
+        "domain": "edge_cases",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-mixed-104",
+        "domain": "edge_cases",
+        "score": 1.0,
+        "routed_skill": "flight-search",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-mixed-106",
+        "domain": "edge_cases",
+        "score": 1.0,
+        "routed_skill": "flight-search",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-multileg-001",
+        "domain": "edge_cases",
+        "score": 1.0,
+        "routed_skill": "flight-search",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-multileg-002",
+        "domain": "edge_cases",
+        "score": 1.0,
+        "routed_skill": "flight-search",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "edge-multileg-003",
+        "domain": "edge_cases",
+        "score": 1.0,
+        "routed_skill": "flight-search",
+        "designated_skill": "modify-booking",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-003",
+        "domain": "fare_rules",
+        "score": 0.75,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-004",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-005",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-006",
+        "domain": "fare_rules",
+        "score": 0.5833333333333334,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-101",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "ancillery-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-102",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "modify-booking",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-103",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-104",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-105",
+        "domain": "fare_rules",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-106",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-107",
+        "domain": "fare_rules",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-108",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "ancillery-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-109",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "ancillery-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "fare-rules-110",
+        "domain": "fare_rules",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "fare-rules",
+        "misroute": true
+      },
+      {
+        "task_id": "flight-search-102",
+        "domain": "flight_search",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "flight-search",
+        "misroute": true
+      },
+      {
+        "task_id": "hotel-search-001",
+        "domain": "hotel_search",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "hotel-search",
+        "misroute": true
+      },
+      {
+        "task_id": "hotel-search-003",
+        "domain": "hotel_search",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "hotel-search",
+        "misroute": true
+      },
+      {
+        "task_id": "hotel-search-004",
+        "domain": "hotel_search",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "hotel-search",
+        "misroute": true
+      },
+      {
+        "task_id": "hotel-search-009",
+        "domain": "hotel_search",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "hotel-search",
+        "misroute": true
+      },
+      {
+        "task_id": "hotel-search-012",
+        "domain": "hotel_search",
+        "score": 1.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "hotel-search",
+        "misroute": true
+      },
+      {
+        "task_id": "hotel-search-014",
+        "domain": "hotel_search",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "hotel-search",
+        "misroute": true
+      },
+      {
+        "task_id": "hotel-search-015",
+        "domain": "hotel_search",
+        "score": 0.0,
+        "routed_skill": "planning-skill",
+        "designated_skill": "hotel-search",
+        "misroute": true
+      },
+      {
+        "task_id": "itinerary-006",
+        "domain": "itinerary_build",
+        "score": 0.5,
+        "routed_skill": "flight-search",
+        "designated_skill": "planning-skill",
+        "misroute": true
+      },
+      {
+        "task_id": "itinerary-106",
+        "domain": "itinerary_build",
+        "score": 0.75,
+        "routed_skill": "flight-search",
+        "designated_skill": "planning-skill",
+        "misroute": true
+      }
+    ],
+    "total_weight": 15.0
+  }
+}

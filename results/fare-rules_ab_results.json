@@ -1,0 +1,1011 @@
+{
+  "skill_name": "fare-rules",
+  "model": "gpt-4o-mini",
+  "weighted_delta": 0.16666666666666666,
+  "regression_rate": 0.0,
+  "verdict": "PASS",
+  "tier": 0,
+  "flagged_tasks": [],
+  "regression_traces": {},
+  "cost": {
+    "no_skill": {
+      "total_cost_usd": 0.004337,
+      "avg_cost_usd": 0.000271,
+      "total_input_tokens": 22229,
+      "total_output_tokens": 1671,
+      "avg_latency_ms": 2780,
+      "p95_latency_ms": 4380
+    },
+    "with_skill": {
+      "total_cost_usd": 0.007739,
+      "avg_cost_usd": 0.000484,
+      "total_input_tokens": 43719,
+      "total_output_tokens": 1969,
+      "avg_latency_ms": 2943,
+      "p95_latency_ms": 4344
+    }
+  },
+  "tasks": [
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-001",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-001",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL555"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly and accurately answers the question regarding cancellation and change fees for flight FL555. It provides clear, specific information for both. This meets all criteria for a score of 1.0.",
+        "latency_ms": 2197,
+        "tokens_used": 1278,
+        "input_tokens": 1177,
+        "output_tokens": 101,
+        "cost_usd": 0.000237
+      },
+      "with_skill": {
+        "task_id": "fare-rules-001",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL555"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response is complete, accurate, directly addresses the task, and fulfills all criteria by clearly stating the cancellation and change fees for flight FL555.",
+        "latency_ms": 4344,
+        "tokens_used": 2818,
+        "input_tokens": 2707,
+        "output_tokens": 111,
+        "cost_usd": 0.000473
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1540,
+      "latency_delta_ms": 2147,
+      "cost_delta_usd": 0.00023600000000000002
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-002",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-002",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL888"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly answers both questions asked. It explicitly states that flight FL888 is refundable and provides clear details about the baggage allowance (1 carry-on included, checked bag costs $35).",
+        "latency_ms": 2286,
+        "tokens_used": 1253,
+        "input_tokens": 1177,
+        "output_tokens": 76,
+        "cost_usd": 0.000222
+      },
+      "with_skill": {
+        "task_id": "fare-rules-002",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL888"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The response directly and accurately answers both questions: FL888 is refundable, and the baggage allowance is 1 carry-on bag included, with checked baggage costing $35.",
+        "latency_ms": 2871,
+        "tokens_used": 2840,
+        "input_tokens": 2707,
+        "output_tokens": 133,
+        "cost_usd": 0.000486
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1587,
+      "latency_delta_ms": 585,
+      "cost_delta_usd": 0.000264
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-003",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-003",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL200"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.75 std=0.00 | The agent's response effectively explains the fare conditions in plain language as requested. It covers key aspects like cancellation, changes, baggage, and refundability clearly. The only minor gap is that 'non-refundable' is stated, but it then mentions a $150 cancellation fee 'if you want to cancel'. This creates a slight ambiguity: can you cancel and pay the fee even if it's non-refundable, or does the fee apply only if a partial refund is possible (which contradicts 'non-refundable')? Clarifying that the $150 fee is to *change* or *partially refund* (if applicable for a specific portion of the fare) would make it perfectly clear. However, the intent is largely understood, and the 24-hour free cancellation is well-stated.",
+        "latency_ms": 3120,
+        "tokens_used": 1333,
+        "input_tokens": 1175,
+        "output_tokens": 158,
+        "cost_usd": 0.000271
+      },
+      "with_skill": {
+        "task_id": "fare-rules-003",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL200"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response clearly and accurately explains the fare conditions for FL200 in plain language, directly addressing all aspects of the task. It breaks down complex terms like 'cancellation,' 'changes,' 'baggage,' and 'refundability' into easily understandable points with specific figures where applicable. The language is simple and avoids jargon, making it highly effective for a travel agent's client.",
+        "latency_ms": 3310,
+        "tokens_used": 2883,
+        "input_tokens": 2705,
+        "output_tokens": 178,
+        "cost_usd": 0.000513
+      },
+      "delta": 0.25,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1550,
+      "latency_delta_ms": 190,
+      "cost_delta_usd": 0.00024200000000000003
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-004",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-004",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL777"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly and accurately answers both questions posed in the task instruction. It specifies the change fee and confirms the ability to change the date.",
+        "latency_ms": 1870,
+        "tokens_used": 1244,
+        "input_tokens": 1185,
+        "output_tokens": 59,
+        "cost_usd": 0.000213
+      },
+      "with_skill": {
+        "task_id": "fare-rules-004",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL777"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly and accurately answers both questions posed in the task instruction. It clearly states the change fee ($75) and confirms that the date can be changed, following the format of the provided information.",
+        "latency_ms": 2007,
+        "tokens_used": 2806,
+        "input_tokens": 2715,
+        "output_tokens": 91,
+        "cost_usd": 0.000462
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1562,
+      "latency_delta_ms": 137,
+      "cost_delta_usd": 0.000249
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-005",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-005",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL444"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly and accurately answers the question. It explicitly states that a free checked bag is not included and provides the cost, which is helpful additional information.",
+        "latency_ms": 1241,
+        "tokens_used": 1213,
+        "input_tokens": 1173,
+        "output_tokens": 40,
+        "cost_usd": 0.0002
+      },
+      "with_skill": {
+        "task_id": "fare-rules-005",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL444"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly and accurately answers the question 'Does flight FL444 include a free checked bag?' by stating that a checked bag is not included for free and specifies the associated fee. It also provides additional relevant information about carry-on bags.",
+        "latency_ms": 2619,
+        "tokens_used": 2793,
+        "input_tokens": 2703,
+        "output_tokens": 90,
+        "cost_usd": 0.000459
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1580,
+      "latency_delta_ms": 1378,
+      "cost_delta_usd": 0.000259
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-006",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-006",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.5833333333333334,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL666"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.58 std=0.14 | The response provides clear and comprehensive details regarding cancellation and change fees. It also explicitly states that the ticket is refundable. However, it's missing important aspects of 'refund conditions' such as the specific refund amount (e.g., full refund, partial refund after fees), timeline for receiving the refund, and any specific scenarios where a refund might not be granted (non-refundable conditions). While it covers the fees deducted from a refund, it doesn't give a complete picture of the refund process itself.",
+        "latency_ms": 3343,
+        "tokens_used": 1291,
+        "input_tokens": 1173,
+        "output_tokens": 118,
+        "cost_usd": 0.000247
+      },
+      "with_skill": {
+        "task_id": "fare-rules-006",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL666"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The response directly and accurately answers the question by providing the refund status and cancellation deadline, which are key components of refund conditions. It's concise and easy to understand.",
+        "latency_ms": 2374,
+        "tokens_used": 2787,
+        "input_tokens": 2703,
+        "output_tokens": 84,
+        "cost_usd": 0.000456
+      },
+      "delta": 0.41666666666666663,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1496,
+      "latency_delta_ms": -969,
+      "cost_delta_usd": 0.00020900000000000004
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-101",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-101",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL999"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2792,
+        "tokens_used": 1308,
+        "input_tokens": 1187,
+        "output_tokens": 121,
+        "cost_usd": 0.000251
+      },
+      "with_skill": {
+        "task_id": "fare-rules-101",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL999"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3933,
+        "tokens_used": 2869,
+        "input_tokens": 2717,
+        "output_tokens": 152,
+        "cost_usd": 0.000499
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1561,
+      "latency_delta_ms": 1141,
+      "cost_delta_usd": 0.000248
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-102",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-102",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL123"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2779,
+        "tokens_used": 1308,
+        "input_tokens": 1181,
+        "output_tokens": 127,
+        "cost_usd": 0.000253
+      },
+      "with_skill": {
+        "task_id": "fare-rules-102",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL123"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2887,
+        "tokens_used": 2867,
+        "input_tokens": 2711,
+        "output_tokens": 156,
+        "cost_usd": 0.0005
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1559,
+      "latency_delta_ms": 108,
+      "cost_delta_usd": 0.000247
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-103",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-103",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL789"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3375,
+        "tokens_used": 1297,
+        "input_tokens": 1187,
+        "output_tokens": 110,
+        "cost_usd": 0.000244
+      },
+      "with_skill": {
+        "task_id": "fare-rules-103",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL789"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2275,
+        "tokens_used": 2861,
+        "input_tokens": 2717,
+        "output_tokens": 144,
+        "cost_usd": 0.000494
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1564,
+      "latency_delta_ms": -1100,
+      "cost_delta_usd": 0.00025
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-104",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-104",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK3X9Z2A"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK3X9Z2A"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2812,
+        "tokens_used": 2081,
+        "input_tokens": 1984,
+        "output_tokens": 97,
+        "cost_usd": 0.000356
+      },
+      "with_skill": {
+        "task_id": "fare-rules-104",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK3X9Z2A"
+          },
+          "get_fare_rules": {
+            "flight_id": "BK3X9Z2A"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4440,
+        "tokens_used": 4475,
+        "input_tokens": 4279,
+        "output_tokens": 196,
+        "cost_usd": 0.000759
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 2394,
+      "latency_delta_ms": 1628,
+      "cost_delta_usd": 0.00040300000000000004
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-105",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-105",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 4,
+        "tools_called": [
+          "search_flights",
+          "get_fare_rules",
+          "get_fare_rules",
+          "get_fare_rules",
+          "get_fare_rules",
+          "get_fare_rules",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "New York",
+            "destination": "London",
+            "date": "2023-07-10"
+          },
+          "get_fare_rules": {
+            "flight_id": "FL585"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not ask for the flight number or booking reference, which was the pass criteria. Instead, the agent provided a general list of fees. Therefore, it fails the instruction directly.",
+        "latency_ms": 7734,
+        "tokens_used": 4665,
+        "input_tokens": 4348,
+        "output_tokens": 317,
+        "cost_usd": 0.000842
+      },
+      "with_skill": {
+        "task_id": "fare-rules-105",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asks for the booking reference (PNR), which is explicitly mentioned in the pass criteria. This allows the agent to find the change fee, fulfilling the task requirement.",
+        "latency_ms": 1310,
+        "tokens_used": 1369,
+        "input_tokens": 1322,
+        "output_tokens": 47,
+        "cost_usd": 0.000226
+      },
+      "delta": 1.0,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": -3,
+      "token_delta": -3296,
+      "latency_delta_ms": -6424,
+      "cost_delta_usd": -0.000616
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-106",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-106",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL890"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1940,
+        "tokens_used": 1268,
+        "input_tokens": 1185,
+        "output_tokens": 83,
+        "cost_usd": 0.000228
+      },
+      "with_skill": {
+        "task_id": "fare-rules-106",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL890"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2450,
+        "tokens_used": 2811,
+        "input_tokens": 2715,
+        "output_tokens": 96,
+        "cost_usd": 0.000465
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1543,
+      "latency_delta_ms": 510,
+      "cost_delta_usd": 0.00023700000000000001
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-107",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-107",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "LC6V5R0"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['get_fare_rules']",
+        "latency_ms": 2176,
+        "tokens_used": 1226,
+        "input_tokens": 1172,
+        "output_tokens": 54,
+        "cost_usd": 0.000208
+      },
+      "with_skill": {
+        "task_id": "fare-rules-107",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 3,
+        "tools_called": [
+          "get_itinerary",
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "LC6V5R0"
+          },
+          "get_fare_rules": {
+            "flight_id": "JFK\u2192LAX"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3772,
+        "tokens_used": 4411,
+        "input_tokens": 4268,
+        "output_tokens": 143,
+        "cost_usd": 0.000726
+      },
+      "delta": 1.0,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 1,
+      "token_delta": 3185,
+      "latency_delta_ms": 1596,
+      "cost_delta_usd": 0.000518
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-108",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-108",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL550"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4380,
+        "tokens_used": 1319,
+        "input_tokens": 1185,
+        "output_tokens": 134,
+        "cost_usd": 0.000258
+      },
+      "with_skill": {
+        "task_id": "fare-rules-108",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL550"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3521,
+        "tokens_used": 2900,
+        "input_tokens": 2715,
+        "output_tokens": 185,
+        "cost_usd": 0.000518
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1581,
+      "latency_delta_ms": -859,
+      "cost_delta_usd": 0.00026000000000000003
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-109",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-109",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL700"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1544,
+        "tokens_used": 1222,
+        "input_tokens": 1187,
+        "output_tokens": 35,
+        "cost_usd": 0.000199
+      },
+      "with_skill": {
+        "task_id": "fare-rules-109",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL700"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 4121,
+        "tokens_used": 2848,
+        "input_tokens": 2717,
+        "output_tokens": 131,
+        "cost_usd": 0.000486
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1626,
+      "latency_delta_ms": 2577,
+      "cost_delta_usd": 0.000287
+    },
+    {
+      "skill_name": "fare-rules",
+      "task_id": "fare-rules-110",
+      "domain": "fare_rules",
+      "task_weight": 1.0,
+      "no_skill": {
+        "task_id": "fare-rules-110",
+        "domain": "fare_rules",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly addresses the pass criteria by asking for the flight ID or booking reference to determine if changes can be made at no cost. This is exactly what was expected.",
+        "latency_ms": 897,
+        "tokens_used": 594,
+        "input_tokens": 553,
+        "output_tokens": 41,
+        "cost_usd": 0.000108
+      },
+      "with_skill": {
+        "task_id": "fare-rules-110",
+        "domain": "fare_rules",
+        "skill_name": "fare-rules",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly addresses the user's implicit question about changing the flight without additional cost. It correctly identifies the need for specific information (booking reference or fare class code) to determine if a no-cost change is possible, which aligns with the pass criteria of asking for the flight number or booking reference.",
+        "latency_ms": 860,
+        "tokens_used": 1350,
+        "input_tokens": 1318,
+        "output_tokens": 32,
+        "cost_usd": 0.000217
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 756,
+      "latency_delta_ms": -37,
+      "cost_delta_usd": 0.00010899999999999999
+    }
+  ]
+}
