@@ -4,3 +4,20 @@ __pycache__/
 .env
 ab_results.json
 *.egg-info/
+
+# macOS cruft
+.DS_Store
+
+# local agent/runtime state
+.claude/
+
+# generated local trace DB
+trajectory.db
+
+# generated classifier output (regenerable, like ab_results.json)
+failure_classification*.json
+
+# optimizer per-run output dirs (the timestamped runs are generated artifacts).
+# archive.jsonl and bandit_state.json live here too and ARE tracked — the
+# trailing-slash pattern only matches directories, so those two files are kept.
+eval/optimizer_output/*/
