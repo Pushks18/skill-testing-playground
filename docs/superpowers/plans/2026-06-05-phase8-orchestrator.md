@@ -1,3 +1,8 @@
+> **⚠️ SHELVED (2026-06-08):** Orchestrated mode loses to mono on the full bank
+> (best variant −0.061 weighted, 6 of 9 domains worse). Verdict + numbers:
+> `docs/superpowers/specs/2026-06-08-orchestrator-verdict.md`. Default stays
+> `agent_mode="mono"`; the code below is retained but dormant.
+
 # Phase 8 Orchestrator Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
