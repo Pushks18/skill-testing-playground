@@ -8,7 +8,7 @@ import yaml
 
 from eval.optimizer.optimize import (
     resolve_target, qualifying_clusters, estimate_rollout_calls, write_proposed,
-    _pick_strategy, _pick_seed, _record_archive,
+    _pick_strategy, _pick_seed, _record_archive, refine_harness_key,
 )
 from eval.optimizer.archive import Archive, _sha256
 from eval.optimizer.bandit import BanditState, STRATEGIES
@@ -288,3 +288,44 @@ def test_dry_run_does_not_create_archive_or_bandit(tmp_path, monkeypatch):
     assert "strategy" in report
     assert not archive_path.exists(), "archive.jsonl must not be created on dry-run"
     assert not bandit_path.exists(), "bandit_state.json must not be created on dry-run"
+
+
+# ── dict-valued harness keys narrow to one sub-key (safe plain-text target) ──
+
+_CONFIG_WITH_TOOLS = {
+    "base_system_prompt": "You are helpful.",
+    "tool_descriptions": {"validate_passenger": "Validate a passenger.",
+                          "modify_booking": "Modify a booking."},
+    "node_prompts": {},
+}
+
+
+def test_refine_harness_key_picks_tool_from_evidence():
+    cluster = {"task_ids": ["booking-flow-109"], "domain": "booking_flow"}
+    classifications = [{"task_id": "booking-flow-109",
+                        "evidence": {"first_tool_name": "validate_passenger"}}]
+    key = refine_harness_key("tool_descriptions", cluster, classifications, _CONFIG_WITH_TOOLS)
+    assert key == "tool_descriptions.validate_passenger"
+
+
+def test_refine_harness_key_falls_back_without_evidence():
+    cluster = {"task_ids": ["x"], "domain": "booking_flow"}
+    # no matching classification → cannot resolve a sub-key → unchanged
+    assert refine_harness_key("tool_descriptions", cluster, [], _CONFIG_WITH_TOOLS) == "tool_descriptions"
+    # empty dict (node_prompts) → unchanged
+    assert refine_harness_key("node_prompts", cluster, [], _CONFIG_WITH_TOOLS) == "node_prompts"
+    # scalar key → unchanged
+    assert refine_harness_key("base_system_prompt", cluster, [], _CONFIG_WITH_TOOLS) == "base_system_prompt"
+
+
+def test_write_proposed_harness_dotted_subkey(tmp_path):
+    base_path = tmp_path / "harness_config.yaml"
+    base_path.write_text(yaml.safe_dump(_CONFIG_WITH_TOOLS))
+    out = write_proposed(kind="harness", key="tool_descriptions.validate_passenger",
+                         artifact_text="Validate the passenger BEFORE booking. Use first.",
+                         out_dir=tmp_path, harness_config_path=base_path, skill_path=None)
+    proposed = yaml.safe_load(out.read_text())
+    assert proposed["tool_descriptions"]["validate_passenger"].startswith("Validate the passenger BEFORE")
+    # sibling description preserved; real config untouched
+    assert proposed["tool_descriptions"]["modify_booking"] == "Modify a booking."
+    assert yaml.safe_load(base_path.read_text())["tool_descriptions"]["validate_passenger"] == "Validate a passenger."

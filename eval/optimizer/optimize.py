@@ -27,8 +27,11 @@ import sys
 import httpx
 import yaml
 
+from collections import Counter
+
 from eval.optimizer.skillopt_adapter import (
     TargetSpec, TravelEnvAdapter, initial_artifact, _skill_frontmatter,
+    _get_nested, _set_nested,
 )
 from eval.optimizer.bandit import BanditState, STRATEGIES
 from eval.optimizer.skillopt_prompts import STRATEGY_DIRECTIVES
@@ -56,6 +59,36 @@ def resolve_target(cluster: dict, optimizable: list[str] | None = None) -> tuple
     # skills/<name>/SKILL.md
     parts = pathlib.PurePosixPath(target).parts
     return "skill", parts[parts.index("skills") + 1]
+
+
+def refine_harness_key(
+    key: str,
+    cluster: dict,
+    classifications: list[dict] | None,
+    config: dict,
+) -> str:
+    """Narrow a dict-valued harness key to one sub-key, picked from the cluster's
+    failure evidence.
+
+    'tool_descriptions' becomes e.g. 'tool_descriptions.validate_passenger' (the
+    tool the failing tasks actually reached for, per evidence.first_tool_name).
+    Editing that single plain-text description can never corrupt the YAML, unlike
+    editing the whole serialized dict. Falls back to the unchanged key when the
+    value is a scalar, an empty dict, or no implicated sub-key can be found.
+    """
+    value = config.get(key)
+    if not isinstance(value, dict) or not value:
+        return key
+    task_ids = set(cluster.get("task_ids", []))
+    counts: Counter = Counter()
+    for c in classifications or []:
+        if c.get("task_id") in task_ids:
+            tool = (c.get("evidence") or {}).get("first_tool_name")
+            if tool in value:
+                counts[tool] += 1
+    if not counts:
+        return key
+    return f"{key}.{counts.most_common(1)[0][0]}"
 
 
 def qualifying_clusters(clusters: list[dict]) -> list[dict]:
@@ -92,8 +125,9 @@ def write_proposed(
     out_dir.mkdir(parents=True, exist_ok=True)
     if kind == "harness":
         config = yaml.safe_load(harness_config_path.read_text())
-        current = config[key]
-        config[key] = yaml.safe_load(artifact_text) if isinstance(current, dict) else artifact_text
+        current = _get_nested(config, key)
+        _set_nested(config, key,
+                    yaml.safe_load(artifact_text) if isinstance(current, dict) else artifact_text)
         out_path = out_dir / "harness_config_proposed.yaml"
         out_path.write_text(yaml.safe_dump(config, sort_keys=False))
         return out_path
@@ -185,13 +219,18 @@ def _record_archive(
         ))
 
 
-def run_cluster(cluster: dict, args) -> dict:
+def run_cluster(cluster: dict, args, classifications: list[dict] | None = None) -> dict:
     harness_config_path = pathlib.Path(args.harness_config)
-    optimizable = yaml.safe_load(harness_config_path.read_text()).get("optimizable", [])
+    full_config = yaml.safe_load(harness_config_path.read_text())
+    optimizable = full_config.get("optimizable", [])
     kind, key = resolve_target(
         cluster,
         optimizable=optimizable if "::" in cluster["target_artifact"] else None,
     )
+    # For a dict-valued harness key, optimize one leaf string (safe plain-text
+    # edits) instead of the whole serialized dict (free-text edits break YAML).
+    if kind == "harness":
+        key = refine_harness_key(key, cluster, classifications, full_config)
 
     skill_name = (key if kind == "skill"
                   else _skill_for_domain(cluster["domain"]))
@@ -425,8 +464,9 @@ def main() -> None:
     if not args.dry_run:
         preflight(args.mock_mcp_url)
 
+    classifications = data.get("classifications", [])
     for cluster in targets:
-        run_cluster(cluster, args)
+        run_cluster(cluster, args, classifications=classifications)
 
 
 if __name__ == "__main__":

@@ -46,15 +46,37 @@ class CandidateContext:
     harness_config_path: Optional[pathlib.Path]    # set only for harness targets
 
 
+def _get_nested(config: dict, dotted_key: str):
+    """Read a config value by dotted path, e.g. 'tool_descriptions.add_ancillary'."""
+    node = config
+    for part in dotted_key.split("."):
+        node = node[part]
+    return node
+
+
+def _set_nested(config: dict, dotted_key: str, value) -> None:
+    """Set a config value by dotted path (parent keys must already exist)."""
+    parts = dotted_key.split(".")
+    node = config
+    for part in parts[:-1]:
+        node = node[part]
+    node[parts[-1]] = value
+
+
 def initial_artifact(spec: TargetSpec) -> str:
-    """The current text of the artifact under optimization."""
+    """The current text of the artifact under optimization.
+
+    A dotted harness key (e.g. 'tool_descriptions.add_ancillary') points at a
+    single leaf string, which is optimized as plain text — far safer than
+    editing a whole serialized dict, whose YAML structure free-text edits break.
+    """
     if spec.kind == "skill":
         skill = load_skill(spec.skill_path)
         if skill is None:
             raise FileNotFoundError(f"no SKILL.md under {spec.skill_path}")
         return skill.body
     config = yaml.safe_load(spec.harness_config_path.read_text())
-    value = config[spec.key]
+    value = _get_nested(config, spec.key)
     if isinstance(value, dict):
         return yaml.safe_dump(value, sort_keys=False)
     return str(value)
@@ -192,8 +214,11 @@ def materialize_candidate(
 
     # harness target
     config = yaml.safe_load(spec.harness_config_path.read_text())
-    current = config[spec.key]
+    current = _get_nested(config, spec.key)
     if isinstance(current, dict):
+        # Whole-dict target (e.g. 'tool_descriptions'): the candidate is
+        # YAML and must round-trip. Free-text edits can break this — prefer a
+        # dotted sub-key target instead. Kept for back-compat / empty dicts.
         try:
             new_value = yaml.safe_load(artifact_text)
         except yaml.YAMLError as e:
@@ -201,9 +226,11 @@ def materialize_candidate(
                              f"{spec.key!r}: {e}") from e
         if not isinstance(new_value, dict):
             raise ValueError(f"candidate artifact is not valid YAML mapping for key {spec.key!r}")
-        config[spec.key] = new_value
+        _set_nested(config, spec.key, new_value)
     else:
-        config[spec.key] = artifact_text
+        # Leaf string target (scalar key or dotted sub-key): plain substitution,
+        # never parsed as YAML, so a candidate can never corrupt the structure.
+        _set_nested(config, spec.key, artifact_text)
     candidate_path = out_dir / "candidate_harness_config.yaml"
     candidate_path.write_text(yaml.safe_dump(config, sort_keys=False))
     return CandidateContext(skill_path=spec.skill_path, harness_config_path=candidate_path)

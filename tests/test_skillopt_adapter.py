@@ -110,6 +110,33 @@ def test_materialize_harness_invalid_yaml_artifact_raises(skill_dir, harness_pat
         materialize_candidate(spec, "key: [unclosed", tmp_path / "out")
 
 
+# ── dotted sub-key targets: optimize ONE description as plain text ───────────
+
+def test_initial_artifact_harness_dotted_subkey_is_plain_string(skill_dir, harness_path, tmp_path):
+    spec = make_spec("harness", "tool_descriptions.add_ancillary", skill_dir, harness_path, tmp_path)
+    assert initial_artifact(spec) == "Add an ancillary service."
+
+
+def test_materialize_harness_dotted_subkey_substitutes_leaf(skill_dir, harness_path, tmp_path):
+    spec = make_spec("harness", "tool_descriptions.add_ancillary", skill_dir, harness_path, tmp_path)
+    ctx = materialize_candidate(spec, "Call this to add bags, seats, or meals.", tmp_path / "out")
+    written = yaml.safe_load(ctx.harness_config_path.read_text())
+    assert written["tool_descriptions"]["add_ancillary"] == "Call this to add bags, seats, or meals."
+    # other keys untouched
+    assert written["base_system_prompt"] == HARNESS_YAML["base_system_prompt"]
+
+
+def test_materialize_harness_dotted_subkey_prose_with_colon_does_not_break(skill_dir, harness_path, tmp_path):
+    """The whole point: free-text that would break a YAML dict is fine for a leaf."""
+    spec = make_spec("harness", "tool_descriptions.add_ancillary", skill_dir, harness_path, tmp_path)
+    prose = "Use when: the traveler wants extras.\nmodify_booking: do NOT use that here."
+    ctx = materialize_candidate(spec, prose, tmp_path / "out")
+    written = yaml.safe_load(ctx.harness_config_path.read_text())
+    assert written["tool_descriptions"]["add_ancillary"] == prose
+    # the sibling key must still exist and be a real description, not corrupted
+    assert set(written["tool_descriptions"]) == {"add_ancillary"}
+
+
 def test_materialize_skill_without_frontmatter_no_leading_blank(tmp_path, harness_path):
     bare = tmp_path / "bare-skill"
     bare.mkdir()
