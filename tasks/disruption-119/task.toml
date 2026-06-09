@@ -1,0 +1,10 @@
+[task]
+id = "disruption-119"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "A correct answer guides the user on finding their booking ID or alternative steps before action."

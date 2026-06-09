@@ -1,0 +1,10 @@
+[task]
+id = "disruption-115"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "A correct answer describes how to get compensation or rebook based on the overbooking policy."

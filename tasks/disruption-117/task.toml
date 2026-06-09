@@ -1,0 +1,10 @@
+[task]
+id = "disruption-117"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "A correct answer revolves around the compensation rules for delayed flights."
