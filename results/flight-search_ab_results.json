@@ -1,5 +1,6 @@
 {
   "skill_name": "flight-search",
+  "model": "gpt-4o-mini",
   "weighted_delta": 0.0,
   "regression_rate": 0.0,
   "verdict": "PASS",
@@ -8,224 +9,23 @@
   "regression_traces": {},
   "cost": {
     "no_skill": {
-      "total_cost_usd": 0.009328,
-      "avg_cost_usd": 0.000549,
-      "total_input_tokens": 28830,
-      "total_output_tokens": 8340,
-      "avg_latency_ms": 7365,
-      "p95_latency_ms": 13553
+      "total_cost_usd": 0.007393,
+      "avg_cost_usd": 0.000528,
+      "total_input_tokens": 23702,
+      "total_output_tokens": 6399,
+      "avg_latency_ms": 28192,
+      "p95_latency_ms": 14819
     },
     "with_skill": {
-      "total_cost_usd": 0.014749,
-      "avg_cost_usd": 0.000868,
-      "total_input_tokens": 49910,
-      "total_output_tokens": 12105,
-      "avg_latency_ms": 10311,
-      "p95_latency_ms": 15028
+      "total_cost_usd": 0.011207,
+      "avg_cost_usd": 0.0008,
+      "total_input_tokens": 40212,
+      "total_output_tokens": 8628,
+      "avg_latency_ms": 9551,
+      "p95_latency_ms": 18256
     }
   },
   "tasks": [
-    {
-      "skill_name": "flight-search",
-      "task_id": "edge-multileg-001",
-      "domain": "edge_cases",
-      "task_weight": 0.5,
-      "no_skill": {
-        "task_id": "edge-multileg-001",
-        "domain": "edge_cases",
-        "skill_name": null,
-        "skill_version": null,
-        "score": 1.0,
-        "steps": 2,
-        "tools_called": [
-          "search_flights",
-          "search_flights"
-        ],
-        "tool_params": {
-          "search_flights": {
-            "origin": "Chicago",
-            "destination": "LA",
-            "date": "2026-08-08"
-          }
-        },
-        "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 8194,
-        "tokens_used": 2510,
-        "input_tokens": 1861,
-        "output_tokens": 649,
-        "cost_usd": 0.000669
-      },
-      "with_skill": {
-        "task_id": "edge-multileg-001",
-        "domain": "edge_cases",
-        "skill_name": "flight-search",
-        "skill_version": null,
-        "score": 1.0,
-        "steps": 2,
-        "tools_called": [
-          "search_flights",
-          "search_flights"
-        ],
-        "tool_params": {
-          "search_flights": {
-            "origin": "Chicago",
-            "destination": "LA",
-            "date": "2026-08-08"
-          }
-        },
-        "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 13637,
-        "tokens_used": 4002,
-        "input_tokens": 3101,
-        "output_tokens": 901,
-        "cost_usd": 0.001006
-      },
-      "delta": 0.0,
-      "delta_significant": false,
-      "regression": false,
-      "step_delta": 0,
-      "token_delta": 1492,
-      "latency_delta_ms": 5443,
-      "cost_delta_usd": 0.00033699999999999995
-    },
-    {
-      "skill_name": "flight-search",
-      "task_id": "edge-multileg-002",
-      "domain": "edge_cases",
-      "task_weight": 0.5,
-      "no_skill": {
-        "task_id": "edge-multileg-002",
-        "domain": "edge_cases",
-        "skill_name": null,
-        "skill_version": null,
-        "score": 1.0,
-        "steps": 2,
-        "tools_called": [
-          "search_flights",
-          "search_flights"
-        ],
-        "tool_params": {
-          "search_flights": {
-            "origin": "DEN",
-            "destination": "LAX",
-            "date": "2026-07-19"
-          }
-        },
-        "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 14663,
-        "tokens_used": 3019,
-        "input_tokens": 2105,
-        "output_tokens": 914,
-        "cost_usd": 0.000864
-      },
-      "with_skill": {
-        "task_id": "edge-multileg-002",
-        "domain": "edge_cases",
-        "skill_name": "flight-search",
-        "skill_version": null,
-        "score": 1.0,
-        "steps": 2,
-        "tools_called": [
-          "search_flights",
-          "search_flights"
-        ],
-        "tool_params": {
-          "search_flights": {
-            "origin": "DEN",
-            "destination": "LAX",
-            "date": "2026-07-19"
-          }
-        },
-        "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 14463,
-        "tokens_used": 4321,
-        "input_tokens": 3345,
-        "output_tokens": 976,
-        "cost_usd": 0.001087
-      },
-      "delta": 0.0,
-      "delta_significant": false,
-      "regression": false,
-      "step_delta": 0,
-      "token_delta": 1302,
-      "latency_delta_ms": -200,
-      "cost_delta_usd": 0.0002230000000000001
-    },
-    {
-      "skill_name": "flight-search",
-      "task_id": "edge-multileg-003",
-      "domain": "edge_cases",
-      "task_weight": 0.5,
-      "no_skill": {
-        "task_id": "edge-multileg-003",
-        "domain": "edge_cases",
-        "skill_name": null,
-        "skill_version": null,
-        "score": 1.0,
-        "steps": 2,
-        "tools_called": [
-          "search_flights",
-          "search_flights"
-        ],
-        "tool_params": {
-          "search_flights": {
-            "origin": "ORD",
-            "destination": "SEA",
-            "date": "2026-08-05"
-          }
-        },
-        "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 8966,
-        "tokens_used": 2719,
-        "input_tokens": 2012,
-        "output_tokens": 707,
-        "cost_usd": 0.000726
-      },
-      "with_skill": {
-        "task_id": "edge-multileg-003",
-        "domain": "edge_cases",
-        "skill_name": "flight-search",
-        "skill_version": null,
-        "score": 1.0,
-        "steps": 2,
-        "tools_called": [
-          "search_flights",
-          "search_flights"
-        ],
-        "tool_params": {
-          "search_flights": {
-            "origin": "ORD",
-            "destination": "SEA",
-            "date": "2026-08-05"
-          }
-        },
-        "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 18806,
-        "tokens_used": 4520,
-        "input_tokens": 3252,
-        "output_tokens": 1268,
-        "cost_usd": 0.001249
-      },
-      "delta": 0.0,
-      "delta_significant": false,
-      "regression": false,
-      "step_delta": 0,
-      "token_delta": 1801,
-      "latency_delta_ms": 9840,
-      "cost_delta_usd": 0.0005229999999999999
-    },
     {
       "skill_name": "flight-search",
       "task_id": "flight-search-001",
@@ -237,7 +37,7 @@
         "skill_name": null,
         "skill_version": null,
         "score": 1.0,
-        "steps": 2,
+        "steps": 3,
         "tools_called": [
           "search_flights",
           "search_flights"
@@ -253,11 +53,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 10981,
-        "tokens_used": 2789,
-        "input_tokens": 1967,
-        "output_tokens": 822,
-        "cost_usd": 0.000788
+        "latency_ms": 10946,
+        "tokens_used": 3510,
+        "input_tokens": 2812,
+        "output_tokens": 698,
+        "cost_usd": 0.000841
       },
       "with_skill": {
         "task_id": "flight-search-001",
@@ -281,19 +81,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 15028,
-        "tokens_used": 4330,
+        "latency_ms": 18256,
+        "tokens_used": 4264,
         "input_tokens": 3207,
-        "output_tokens": 1123,
-        "cost_usd": 0.001155
+        "output_tokens": 1057,
+        "cost_usd": 0.001115
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 0,
-      "token_delta": 1541,
-      "latency_delta_ms": 4047,
-      "cost_delta_usd": 0.00036700000000000003
+      "step_delta": -1,
+      "token_delta": 754,
+      "latency_delta_ms": 7310,
+      "cost_delta_usd": 0.00027400000000000015
     },
     {
       "skill_name": "flight-search",
@@ -321,11 +121,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 5941,
-        "tokens_used": 1974,
+        "latency_ms": 6299,
+        "tokens_used": 1967,
         "input_tokens": 1562,
-        "output_tokens": 412,
-        "cost_usd": 0.000481
+        "output_tokens": 405,
+        "cost_usd": 0.000477
       },
       "with_skill": {
         "task_id": "flight-search-002",
@@ -348,19 +148,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 9456,
-        "tokens_used": 3410,
+        "latency_ms": 10311,
+        "tokens_used": 3322,
         "input_tokens": 2802,
-        "output_tokens": 608,
-        "cost_usd": 0.000785
+        "output_tokens": 520,
+        "cost_usd": 0.000732
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1436,
-      "latency_delta_ms": 3515,
-      "cost_delta_usd": 0.000304
+      "token_delta": 1355,
+      "latency_delta_ms": 4012,
+      "cost_delta_usd": 0.000255
     },
     {
       "skill_name": "flight-search",
@@ -387,11 +187,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3400,
-        "tokens_used": 1831,
+        "latency_ms": 6162,
+        "tokens_used": 2083,
         "input_tokens": 1632,
-        "output_tokens": 199,
-        "cost_usd": 0.000364
+        "output_tokens": 451,
+        "cost_usd": 0.000515
       },
       "with_skill": {
         "task_id": "flight-search-003",
@@ -413,19 +213,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 8559,
-        "tokens_used": 3413,
+        "latency_ms": 6833,
+        "tokens_used": 3234,
         "input_tokens": 2872,
-        "output_tokens": 541,
-        "cost_usd": 0.000755
+        "output_tokens": 362,
+        "cost_usd": 0.000648
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1582,
-      "latency_delta_ms": 5159,
-      "cost_delta_usd": 0.000391
+      "token_delta": 1151,
+      "latency_delta_ms": 671,
+      "cost_delta_usd": 0.00013299999999999998
     },
     {
       "skill_name": "flight-search",
@@ -452,11 +252,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4089,
-        "tokens_used": 1628,
+        "latency_ms": 4627,
+        "tokens_used": 1664,
         "input_tokens": 1388,
-        "output_tokens": 240,
-        "cost_usd": 0.000352
+        "output_tokens": 276,
+        "cost_usd": 0.000374
       },
       "with_skill": {
         "task_id": "flight-search-004",
@@ -478,19 +278,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4044,
-        "tokens_used": 2898,
+        "latency_ms": 6198,
+        "tokens_used": 2979,
         "input_tokens": 2628,
-        "output_tokens": 270,
-        "cost_usd": 0.000556
+        "output_tokens": 351,
+        "cost_usd": 0.000605
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1270,
-      "latency_delta_ms": -45,
-      "cost_delta_usd": 0.00020399999999999997
+      "token_delta": 1315,
+      "latency_delta_ms": 1571,
+      "cost_delta_usd": 0.00023099999999999998
     },
     {
       "skill_name": "flight-search",
@@ -518,11 +318,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 5850,
-        "tokens_used": 1928,
+        "latency_ms": 6951,
+        "tokens_used": 1966,
         "input_tokens": 1550,
-        "output_tokens": 378,
-        "cost_usd": 0.000459
+        "output_tokens": 416,
+        "cost_usd": 0.000482
       },
       "with_skill": {
         "task_id": "flight-search-005",
@@ -545,19 +345,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 9325,
-        "tokens_used": 3491,
+        "latency_ms": 8750,
+        "tokens_used": 3399,
         "input_tokens": 2790,
-        "output_tokens": 701,
-        "cost_usd": 0.000839
+        "output_tokens": 609,
+        "cost_usd": 0.000784
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1563,
-      "latency_delta_ms": 3475,
-      "cost_delta_usd": 0.00038
+      "token_delta": 1433,
+      "latency_delta_ms": 1799,
+      "cost_delta_usd": 0.00030199999999999997
     },
     {
       "skill_name": "flight-search",
@@ -578,17 +378,18 @@
           "search_flights": {
             "origin": "LAX",
             "destination": "JFK",
-            "date": "2026-07-04"
+            "date": "2026-07-04",
+            "passengers": 1
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2788,
-        "tokens_used": 1662,
-        "input_tokens": 1478,
-        "output_tokens": 184,
-        "cost_usd": 0.000332
+        "latency_ms": 5214,
+        "tokens_used": 1672,
+        "input_tokens": 1483,
+        "output_tokens": 189,
+        "cost_usd": 0.000336
       },
       "with_skill": {
         "task_id": "flight-search-006",
@@ -610,19 +411,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3376,
-        "tokens_used": 2935,
+        "latency_ms": 4397,
+        "tokens_used": 2929,
         "input_tokens": 2718,
-        "output_tokens": 217,
-        "cost_usd": 0.000538
+        "output_tokens": 211,
+        "cost_usd": 0.000534
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1273,
-      "latency_delta_ms": 588,
-      "cost_delta_usd": 0.00020599999999999997
+      "token_delta": 1257,
+      "latency_delta_ms": -817,
+      "cost_delta_usd": 0.000198
     },
     {
       "skill_name": "flight-search",
@@ -649,7 +450,7 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4936,
+        "latency_ms": 6935,
         "tokens_used": 1946,
         "input_tokens": 1547,
         "output_tokens": 399,
@@ -675,19 +476,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 7583,
-        "tokens_used": 3314,
+        "latency_ms": 9281,
+        "tokens_used": 3421,
         "input_tokens": 2787,
-        "output_tokens": 527,
-        "cost_usd": 0.000734
+        "output_tokens": 634,
+        "cost_usd": 0.000798
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1368,
-      "latency_delta_ms": 2647,
-      "cost_delta_usd": 0.00026299999999999994
+      "token_delta": 1475,
+      "latency_delta_ms": 2346,
+      "cost_delta_usd": 0.000327
     },
     {
       "skill_name": "flight-search",
@@ -716,11 +517,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 13553,
-        "tokens_used": 2651,
+        "latency_ms": 14819,
+        "tokens_used": 2674,
         "input_tokens": 1960,
-        "output_tokens": 691,
-        "cost_usd": 0.000709
+        "output_tokens": 714,
+        "cost_usd": 0.000722
       },
       "with_skill": {
         "task_id": "flight-search-008",
@@ -744,19 +545,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 12276,
-        "tokens_used": 4140,
+        "latency_ms": 18935,
+        "tokens_used": 4228,
         "input_tokens": 3200,
-        "output_tokens": 940,
-        "cost_usd": 0.001044
+        "output_tokens": 1028,
+        "cost_usd": 0.001097
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1489,
-      "latency_delta_ms": -1277,
-      "cost_delta_usd": 0.000335
+      "token_delta": 1554,
+      "latency_delta_ms": 4116,
+      "cost_delta_usd": 0.0003750000000000001
     },
     {
       "skill_name": "flight-search",
@@ -783,11 +584,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 5146,
-        "tokens_used": 1920,
+        "latency_ms": 7195,
+        "tokens_used": 1986,
         "input_tokens": 1554,
-        "output_tokens": 366,
-        "cost_usd": 0.000453
+        "output_tokens": 432,
+        "cost_usd": 0.000492
       },
       "with_skill": {
         "task_id": "flight-search-009",
@@ -809,19 +610,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 8267,
-        "tokens_used": 3367,
+        "latency_ms": 6715,
+        "tokens_used": 3286,
         "input_tokens": 2794,
-        "output_tokens": 573,
-        "cost_usd": 0.000763
+        "output_tokens": 492,
+        "cost_usd": 0.000714
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1447,
-      "latency_delta_ms": 3121,
-      "cost_delta_usd": 0.00031
+      "token_delta": 1300,
+      "latency_delta_ms": -480,
+      "cost_delta_usd": 0.00022199999999999998
     },
     {
       "skill_name": "flight-search",
@@ -848,11 +649,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 7140,
-        "tokens_used": 1778,
+        "latency_ms": 6622,
+        "tokens_used": 1808,
         "input_tokens": 1467,
-        "output_tokens": 311,
-        "cost_usd": 0.000407
+        "output_tokens": 341,
+        "cost_usd": 0.000425
       },
       "with_skill": {
         "task_id": "flight-search-010",
@@ -874,19 +675,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 9079,
-        "tokens_used": 3228,
+        "latency_ms": 5350,
+        "tokens_used": 3101,
         "input_tokens": 2707,
-        "output_tokens": 521,
-        "cost_usd": 0.000719
+        "output_tokens": 394,
+        "cost_usd": 0.000642
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1450,
-      "latency_delta_ms": 1939,
-      "cost_delta_usd": 0.000312
+      "token_delta": 1293,
+      "latency_delta_ms": -1272,
+      "cost_delta_usd": 0.00021700000000000002
     },
     {
       "skill_name": "flight-search",
@@ -914,11 +715,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 6790,
-        "tokens_used": 2042,
+        "latency_ms": 6887,
+        "tokens_used": 2108,
         "input_tokens": 1626,
-        "output_tokens": 416,
-        "cost_usd": 0.000494
+        "output_tokens": 482,
+        "cost_usd": 0.000533
       },
       "with_skill": {
         "task_id": "flight-search-101",
@@ -941,19 +742,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 9368,
-        "tokens_used": 3505,
+        "latency_ms": 7935,
+        "tokens_used": 3506,
         "input_tokens": 2866,
-        "output_tokens": 639,
-        "cost_usd": 0.000813
+        "output_tokens": 640,
+        "cost_usd": 0.000814
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1463,
-      "latency_delta_ms": 2578,
-      "cost_delta_usd": 0.00031900000000000006
+      "token_delta": 1398,
+      "latency_delta_ms": 1048,
+      "cost_delta_usd": 0.000281
     },
     {
       "skill_name": "flight-search",
@@ -982,11 +783,11 @@
         "langsmith_run_id": "",
         "passed_verifier": false,
         "judge_reasoning": "Missing required tools: ['check_availability']",
-        "latency_ms": 11317,
-        "tokens_used": 2748,
+        "latency_ms": 9472,
+        "tokens_used": 2695,
         "input_tokens": 1979,
-        "output_tokens": 769,
-        "cost_usd": 0.000758
+        "output_tokens": 716,
+        "cost_usd": 0.000726
       },
       "with_skill": {
         "task_id": "flight-search-102",
@@ -1010,19 +811,19 @@
         "langsmith_run_id": "",
         "passed_verifier": false,
         "judge_reasoning": "Missing required tools: ['check_availability']",
-        "latency_ms": 14804,
-        "tokens_used": 4269,
+        "latency_ms": 14640,
+        "tokens_used": 4313,
         "input_tokens": 3219,
-        "output_tokens": 1050,
-        "cost_usd": 0.001113
+        "output_tokens": 1094,
+        "cost_usd": 0.001139
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1521,
-      "latency_delta_ms": 3487,
-      "cost_delta_usd": 0.00035500000000000006
+      "token_delta": 1618,
+      "latency_delta_ms": 5168,
+      "cost_delta_usd": 0.00041300000000000006
     },
     {
       "skill_name": "flight-search",
@@ -1050,11 +851,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 5381,
-        "tokens_used": 2152,
+        "latency_ms": 296880,
+        "tokens_used": 2121,
         "input_tokens": 1634,
-        "output_tokens": 518,
-        "cost_usd": 0.000556
+        "output_tokens": 487,
+        "cost_usd": 0.000537
       },
       "with_skill": {
         "task_id": "flight-search-103",
@@ -1077,19 +878,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 9854,
-        "tokens_used": 3622,
+        "latency_ms": 10322,
+        "tokens_used": 3640,
         "input_tokens": 2874,
-        "output_tokens": 748,
-        "cost_usd": 0.00088
+        "output_tokens": 766,
+        "cost_usd": 0.000891
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1470,
-      "latency_delta_ms": 4473,
-      "cost_delta_usd": 0.00032400000000000007
+      "token_delta": 1519,
+      "latency_delta_ms": -286558,
+      "cost_delta_usd": 0.00035399999999999993
     },
     {
       "skill_name": "flight-search",
@@ -1117,11 +918,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 6071,
-        "tokens_used": 1873,
+        "latency_ms": 5681,
+        "tokens_used": 1901,
         "input_tokens": 1508,
-        "output_tokens": 365,
-        "cost_usd": 0.000445
+        "output_tokens": 393,
+        "cost_usd": 0.000462
       },
       "with_skill": {
         "task_id": "flight-search-104",
@@ -1144,19 +945,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 7361,
-        "tokens_used": 3250,
+        "latency_ms": 5794,
+        "tokens_used": 3218,
         "input_tokens": 2748,
-        "output_tokens": 502,
-        "cost_usd": 0.000713
+        "output_tokens": 470,
+        "cost_usd": 0.000694
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1377,
-      "latency_delta_ms": 1290,
-      "cost_delta_usd": 0.000268
+      "token_delta": 1317,
+      "latency_delta_ms": 113,
+      "cost_delta_usd": 0.00023199999999999995
     }
   ]
 }

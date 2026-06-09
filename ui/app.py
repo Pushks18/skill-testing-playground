@@ -66,7 +66,7 @@ def color_delta(val):
     return ""
 
 st.dataframe(
-    df.style.applymap(color_delta, subset=["Weighted Δ"]),
+    df.style.map(color_delta, subset=["Weighted Δ"]),
     use_container_width=True,
     hide_index=True,
 )
@@ -92,7 +92,7 @@ if selected:
         })
     task_df = pd.DataFrame(task_rows)
     st.dataframe(
-        task_df.style.applymap(color_delta, subset=["Δ"]),
+        task_df.style.map(color_delta, subset=["Δ"]),
         use_container_width=True,
         hide_index=True,
     )

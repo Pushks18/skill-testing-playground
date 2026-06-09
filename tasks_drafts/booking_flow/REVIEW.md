@@ -15,6 +15,6 @@ Only rows still marked KEEP are promoted. To APPROVE the whole sheet leave it as
 | KEEP | booking-flow-107 | baseline-pass | I need a list of rules associated with fare code FC302. | get_fare_rules |
 | KEEP | booking-flow-108 | baseline-pass | After verifying Mia Cheng (DOB 1995-09-25, passport C3456789), book hotel HT654 for 2026-10-02 to 20 | validate_passenger, create_booking |
 | KEEP | booking-flow-109 | baseline-fail | I want to reserve flight FL101 for Jane Roe, with her birth date 1987-04-17. |  |
-| KEEP | booking-flow-110 | baseline-fail | Check if any double rooms are open for hotel HT123 on 2026-11-05 and confirm for Mark Twain (DOB 196 | check_availability, create_booking |
+| KEEP | booking-flow-110 | baseline-fail | Check if any double rooms are open for hotel HT123 on 2026-11-05 and confirm for Mark Twain (DOB 196) | check_availability, create_booking |
 | KEEP | booking-flow-111 | baseline-pass | Get the details of the itinerary for booking reference BK7X6Z5R. | get_itinerary |
 | KEEP | booking-flow-112 | baseline-pass | Reserve a flight for Emily Carter to Paris without specifying a date. |  |

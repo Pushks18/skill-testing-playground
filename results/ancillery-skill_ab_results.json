@@ -1,27 +1,28 @@
 {
   "skill_name": "ancillery-skill",
-  "weighted_delta": -0.025,
-  "regression_rate": 0.05,
+  "model": "gpt-4o-mini",
+  "weighted_delta": 0.012500000000000004,
+  "regression_rate": 0.0,
   "verdict": "PASS",
   "tier": 0,
   "flagged_tasks": [],
   "regression_traces": {},
   "cost": {
     "no_skill": {
-      "total_cost_usd": 0.004755,
+      "total_cost_usd": 0.004759,
       "avg_cost_usd": 0.000238,
-      "total_input_tokens": 24124,
-      "total_output_tokens": 1894,
-      "avg_latency_ms": 2217,
-      "p95_latency_ms": 3659
+      "total_input_tokens": 24180,
+      "total_output_tokens": 1884,
+      "avg_latency_ms": 2470,
+      "p95_latency_ms": 3250
     },
     "with_skill": {
-      "total_cost_usd": 0.009515,
-      "avg_cost_usd": 0.000476,
-      "total_input_tokens": 53414,
-      "total_output_tokens": 2509,
-      "avg_latency_ms": 2631,
-      "p95_latency_ms": 4267
+      "total_cost_usd": 0.009491,
+      "avg_cost_usd": 0.000475,
+      "total_input_tokens": 53345,
+      "total_output_tokens": 2482,
+      "avg_latency_ms": 2858,
+      "p95_latency_ms": 5002
     }
   },
   "tasks": [
@@ -52,10 +53,10 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2514,
+        "latency_ms": 2354,
         "tokens_used": 1299,
-        "input_tokens": 1214,
-        "output_tokens": 85,
+        "input_tokens": 1215,
+        "output_tokens": 84,
         "cost_usd": 0.000233
       },
       "with_skill": {
@@ -80,19 +81,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2958,
-        "tokens_used": 2726,
-        "input_tokens": 2634,
-        "output_tokens": 92,
-        "cost_usd": 0.00045
+        "latency_ms": 2388,
+        "tokens_used": 2739,
+        "input_tokens": 2632,
+        "output_tokens": 107,
+        "cost_usd": 0.000459
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1427,
-      "latency_delta_ms": 444,
-      "cost_delta_usd": 0.000217
+      "token_delta": 1440,
+      "latency_delta_ms": 34,
+      "cost_delta_usd": 0.000226
     },
     {
       "skill_name": "ancillery-skill",
@@ -114,18 +115,18 @@
             "booking_id": "BKD3E7F2",
             "service_type": "meal",
             "details": {
-              "type": "vegetarian"
+              "meal_type": "vegetarian"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2537,
-        "tokens_used": 1289,
-        "input_tokens": 1210,
-        "output_tokens": 79,
-        "cost_usd": 0.000229
+        "latency_ms": 2033,
+        "tokens_used": 1294,
+        "input_tokens": 1212,
+        "output_tokens": 82,
+        "cost_usd": 0.000231
       },
       "with_skill": {
         "task_id": "ancillery-002",
@@ -149,19 +150,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1784,
-        "tokens_used": 2724,
-        "input_tokens": 2629,
-        "output_tokens": 95,
-        "cost_usd": 0.000451
+        "latency_ms": 2233,
+        "tokens_used": 2730,
+        "input_tokens": 2630,
+        "output_tokens": 100,
+        "cost_usd": 0.000454
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1435,
-      "latency_delta_ms": -753,
-      "cost_delta_usd": 0.000222
+      "token_delta": 1436,
+      "latency_delta_ms": 200,
+      "cost_delta_usd": 0.00022299999999999997
     },
     {
       "skill_name": "ancillery-skill",
@@ -183,18 +184,18 @@
             "booking_id": "BK9C1A4B",
             "service_type": "extra_baggage",
             "details": {
-              "weight": "23kg"
+              "weight_kg": 23
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1564,
-        "tokens_used": 1313,
-        "input_tokens": 1231,
-        "output_tokens": 82,
-        "cost_usd": 0.000234
+        "latency_ms": 2563,
+        "tokens_used": 1325,
+        "input_tokens": 1232,
+        "output_tokens": 93,
+        "cost_usd": 0.000241
       },
       "with_skill": {
         "task_id": "ancillery-003",
@@ -218,19 +219,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2339,
-        "tokens_used": 2765,
-        "input_tokens": 2646,
-        "output_tokens": 119,
-        "cost_usd": 0.000468
+        "latency_ms": 2301,
+        "tokens_used": 2755,
+        "input_tokens": 2647,
+        "output_tokens": 108,
+        "cost_usd": 0.000462
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1452,
-      "latency_delta_ms": 775,
-      "cost_delta_usd": 0.000234
+      "token_delta": 1430,
+      "latency_delta_ms": -262,
+      "cost_delta_usd": 0.000221
     },
     {
       "skill_name": "ancillery-skill",
@@ -259,7 +260,7 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1553,
+        "latency_ms": 2261,
         "tokens_used": 1300,
         "input_tokens": 1215,
         "output_tokens": 85,
@@ -287,19 +288,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2385,
+        "latency_ms": 1897,
         "tokens_used": 2734,
-        "input_tokens": 2630,
-        "output_tokens": 104,
-        "cost_usd": 0.000457
+        "input_tokens": 2632,
+        "output_tokens": 102,
+        "cost_usd": 0.000456
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
       "token_delta": 1434,
-      "latency_delta_ms": 832,
-      "cost_delta_usd": 0.000224
+      "latency_delta_ms": -364,
+      "cost_delta_usd": 0.00022300000000000003
     },
     {
       "skill_name": "ancillery-skill",
@@ -325,11 +326,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2644,
-        "tokens_used": 1277,
-        "input_tokens": 1200,
-        "output_tokens": 77,
-        "cost_usd": 0.000226
+        "latency_ms": 2965,
+        "tokens_used": 1267,
+        "input_tokens": 1197,
+        "output_tokens": 70,
+        "cost_usd": 0.000222
       },
       "with_skill": {
         "task_id": "ancillery-005",
@@ -337,10 +338,9 @@
         "skill_name": "ancillery-skill",
         "skill_version": null,
         "score": 1.0,
-        "steps": 3,
+        "steps": 2,
         "tools_called": [
-          "add_ancillary",
-          "get_itinerary"
+          "add_ancillary"
         ],
         "tool_params": {
           "add_ancillary": {
@@ -349,27 +349,24 @@
             "details": {
               "coverage_level": "basic"
             }
-          },
-          "get_itinerary": {
-            "booking_id": "BK2F6C9D"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 5223,
-        "tokens_used": 4305,
-        "input_tokens": 4100,
-        "output_tokens": 205,
-        "cost_usd": 0.000738
+        "latency_ms": 2690,
+        "tokens_used": 2722,
+        "input_tokens": 2627,
+        "output_tokens": 95,
+        "cost_usd": 0.000451
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 1,
-      "token_delta": 3028,
-      "latency_delta_ms": 2579,
-      "cost_delta_usd": 0.0005120000000000001
+      "step_delta": 0,
+      "token_delta": 1455,
+      "latency_delta_ms": -275,
+      "cost_delta_usd": 0.000229
     },
     {
       "skill_name": "ancillery-skill",
@@ -392,18 +389,18 @@
             "service_type": "lounge_access",
             "details": {
               "location": "JFK",
-              "date": "2023-10-11"
+              "departure_date": "2023-10-04"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2082,
-        "tokens_used": 1326,
-        "input_tokens": 1238,
-        "output_tokens": 88,
-        "cost_usd": 0.000238
+        "latency_ms": 1985,
+        "tokens_used": 1320,
+        "input_tokens": 1242,
+        "output_tokens": 78,
+        "cost_usd": 0.000233
       },
       "with_skill": {
         "task_id": "ancillery-006",
@@ -421,25 +418,25 @@
             "service_type": "lounge_access",
             "details": {
               "location": "JFK",
-              "date": "2023-10-03"
+              "date": "2023-10-02"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2985,
-        "tokens_used": 2795,
-        "input_tokens": 2655,
-        "output_tokens": 140,
-        "cost_usd": 0.000482
+        "latency_ms": 2690,
+        "tokens_used": 2786,
+        "input_tokens": 2654,
+        "output_tokens": 132,
+        "cost_usd": 0.000477
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1469,
-      "latency_delta_ms": 903,
+      "token_delta": 1466,
+      "latency_delta_ms": 705,
       "cost_delta_usd": 0.000244
     },
     {
@@ -471,11 +468,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2176,
-        "tokens_used": 1351,
-        "input_tokens": 1250,
-        "output_tokens": 101,
-        "cost_usd": 0.000248
+        "latency_ms": 2777,
+        "tokens_used": 1372,
+        "input_tokens": 1249,
+        "output_tokens": 123,
+        "cost_usd": 0.000261
       },
       "with_skill": {
         "task_id": "ancillery-007",
@@ -492,28 +489,28 @@
             "booking_id": "BK4C8F2A",
             "service_type": "airport_transfer",
             "details": {
-              "from": "LAX",
-              "to": "Santa Monica",
-              "type": "private"
+              "pickup_location": "LAX",
+              "destination": "Santa Monica",
+              "service": "private"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2327,
-        "tokens_used": 2794,
-        "input_tokens": 2667,
-        "output_tokens": 127,
+        "latency_ms": 6000,
+        "tokens_used": 2795,
+        "input_tokens": 2670,
+        "output_tokens": 125,
         "cost_usd": 0.000476
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1443,
-      "latency_delta_ms": 151,
-      "cost_delta_usd": 0.000228
+      "token_delta": 1423,
+      "latency_delta_ms": 3223,
+      "cost_delta_usd": 0.00021500000000000002
     },
     {
       "skill_name": "ancillery-skill",
@@ -535,20 +532,20 @@
             "booking_id": "BK6E1D9B",
             "service_type": "car_rental",
             "details": {
-              "location": "Miami Airport",
-              "duration_days": 3,
-              "car_type": "compact"
+              "vehicle_type": "compact",
+              "location": "Miami airport",
+              "duration_days": 3
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2165,
-        "tokens_used": 1346,
+        "latency_ms": 2573,
+        "tokens_used": 1344,
         "input_tokens": 1248,
-        "output_tokens": 98,
-        "cost_usd": 0.000246
+        "output_tokens": 96,
+        "cost_usd": 0.000245
       },
       "with_skill": {
         "task_id": "ancillery-008",
@@ -565,28 +562,28 @@
             "booking_id": "BK6E1D9B",
             "service_type": "car_rental",
             "details": {
-              "car_class": "compact",
-              "duration": "3 days",
-              "location": "Miami Airport"
+              "class": "compact",
+              "duration_days": 3,
+              "location": "Miami airport"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2046,
-        "tokens_used": 2790,
-        "input_tokens": 2664,
-        "output_tokens": 126,
-        "cost_usd": 0.000475
+        "latency_ms": 2406,
+        "tokens_used": 2804,
+        "input_tokens": 2662,
+        "output_tokens": 142,
+        "cost_usd": 0.000485
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1444,
-      "latency_delta_ms": -119,
-      "cost_delta_usd": 0.00022899999999999998
+      "token_delta": 1460,
+      "latency_delta_ms": -167,
+      "cost_delta_usd": 0.00024000000000000003
     },
     {
       "skill_name": "ancillery-skill",
@@ -598,7 +595,7 @@
         "domain": "ancillery",
         "skill_name": null,
         "skill_version": null,
-        "score": 0.75,
+        "score": 0.5833333333333334,
         "steps": 2,
         "tools_called": [
           "get_fare_rules"
@@ -610,19 +607,19 @@
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
-        "judge_reasoning": "avg=0.75 std=0.00 | The agent correctly states that basic economy tickets generally don't allow for extra legroom seat selection or upgrades, and suggests upgrading the fare. This directly answers the user's two main questions. However, the agent doesn't proactively check for specific options for the user's booking (BKA2C7F3), only offers to assist if interested. A perfect score would involve a more proactive check or explanation of *why* they can't check without more info.",
-        "latency_ms": 1622,
-        "tokens_used": 1319,
+        "judge_reasoning": "avg=0.58 std=0.14 | The response is accurate in that basic economy tickets generally don't allow free seat selection, including extra legroom. However, the agent doesn't check the specific booking (BKA2C7F3) to confirm this or check for any potential exceptions or specific airline policies. It makes a general statement rather than a specific answer for the given booking. Simply asking if they want to upgrade without verifying the current status for *that specific booking* is a gap.",
+        "latency_ms": 2449,
+        "tokens_used": 1306,
         "input_tokens": 1233,
-        "output_tokens": 86,
-        "cost_usd": 0.000237
+        "output_tokens": 73,
+        "cost_usd": 0.000229
       },
       "with_skill": {
         "task_id": "ancillery-009",
         "domain": "ancillery",
         "skill_name": "ancillery-skill",
         "skill_version": null,
-        "score": 0.75,
+        "score": 0.5833333333333334,
         "steps": 2,
         "tools_called": [
           "get_fare_rules"
@@ -634,20 +631,20 @@
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
-        "judge_reasoning": "avg=0.75 std=0.00 | The agent correctly states that basic economy tickets typically don't allow extra legroom seat selection and suggests upgrading. However, it doesn't explicitly state whether the customer *needs* to upgrade or if there are other options (like paying for the seat as an ancillary purchase without a full fare upgrade). The phrasing \"you may need to upgrade\" is slightly ambiguous, even though it's likely the correct path. It could be improved by clarifying if purchasing the seat individually is an option or if an upgrade is strictly required for this specific airline/fare.",
-        "latency_ms": 1791,
-        "tokens_used": 2743,
+        "judge_reasoning": "avg=0.58 std=0.14 | The agent's response is accurate and directly answers the user's question about basic economy tickets and extra legroom. It correctly states that extra legroom is generally not available without an upgrade. However, it doesn't explicitly state 'you need to upgrade your fare' as a definitive requirement, using 'typically' and 'usually restricts you'. While this is generally true for basic economy, some airlines might offer the option to *purchase* a seat assignment, including extra legroom, even with a basic economy ticket, without necessarily 'upgrading the fare' in its entirety. The response implies an upgrade is the only path, which might not be universally true across all airlines for all basic economy tickets. A more precise answer would clarify that direct seat selection (including extra legroom) is usually denied, and often, the only way to get it is by purchasing an upgrade or a separate Preferred/Economy Plus seat fee, if offered for that specific fare type. It does offer further assistance, which is good.",
+        "latency_ms": 3482,
+        "tokens_used": 2742,
         "input_tokens": 2649,
-        "output_tokens": 94,
-        "cost_usd": 0.000454
+        "output_tokens": 93,
+        "cost_usd": 0.000453
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1424,
-      "latency_delta_ms": 169,
-      "cost_delta_usd": 0.000217
+      "token_delta": 1436,
+      "latency_delta_ms": 1033,
+      "cost_delta_usd": 0.000224
     },
     {
       "skill_name": "ancillery-skill",
@@ -670,17 +667,17 @@
             "booking_id": "BK8B4E1C",
             "service_type": "seat_selection",
             "details": {
-              "seat_type": "aisle"
+              "preference": "aisle"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2600,
+        "latency_ms": 4270,
         "tokens_used": 1496,
-        "input_tokens": 1334,
-        "output_tokens": 162,
+        "input_tokens": 1335,
+        "output_tokens": 161,
         "cost_usd": 0.000297
       },
       "with_skill": {
@@ -706,19 +703,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3945,
-        "tokens_used": 2965,
-        "input_tokens": 2755,
-        "output_tokens": 210,
-        "cost_usd": 0.000539
+        "latency_ms": 4278,
+        "tokens_used": 2948,
+        "input_tokens": 2753,
+        "output_tokens": 195,
+        "cost_usd": 0.00053
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1469,
-      "latency_delta_ms": 1345,
-      "cost_delta_usd": 0.00024199999999999997
+      "token_delta": 1452,
+      "latency_delta_ms": 8,
+      "cost_delta_usd": 0.00023299999999999997
     },
     {
       "skill_name": "ancillery-skill",
@@ -747,11 +744,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2030,
-        "tokens_used": 1297,
+        "latency_ms": 1881,
+        "tokens_used": 1301,
         "input_tokens": 1214,
-        "output_tokens": 83,
-        "cost_usd": 0.000232
+        "output_tokens": 87,
+        "cost_usd": 0.000234
       },
       "with_skill": {
         "task_id": "ancillery-101",
@@ -775,19 +772,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2069,
-        "tokens_used": 2721,
-        "input_tokens": 2631,
-        "output_tokens": 90,
-        "cost_usd": 0.000449
+        "latency_ms": 2038,
+        "tokens_used": 2718,
+        "input_tokens": 2629,
+        "output_tokens": 89,
+        "cost_usd": 0.000448
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1424,
-      "latency_delta_ms": 39,
-      "cost_delta_usd": 0.00021700000000000002
+      "token_delta": 1417,
+      "latency_delta_ms": 157,
+      "cost_delta_usd": 0.000214
     },
     {
       "skill_name": "ancillery-skill",
@@ -813,11 +810,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1588,
-        "tokens_used": 1291,
+        "latency_ms": 2692,
+        "tokens_used": 1289,
         "input_tokens": 1208,
-        "output_tokens": 83,
-        "cost_usd": 0.000231
+        "output_tokens": 81,
+        "cost_usd": 0.00023
       },
       "with_skill": {
         "task_id": "ancillery-102",
@@ -832,26 +829,25 @@
         "tool_params": {
           "add_ancillary": {
             "booking_id": "BK6F9C4B",
-            "service_type": "extra_baggage",
-            "details": {}
+            "service_type": "extra_baggage"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2320,
-        "tokens_used": 2736,
-        "input_tokens": 2629,
-        "output_tokens": 107,
-        "cost_usd": 0.000459
+        "latency_ms": 2471,
+        "tokens_used": 2720,
+        "input_tokens": 2623,
+        "output_tokens": 97,
+        "cost_usd": 0.000452
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1445,
-      "latency_delta_ms": 732,
-      "cost_delta_usd": 0.00022799999999999999
+      "token_delta": 1431,
+      "latency_delta_ms": -221,
+      "cost_delta_usd": 0.00022199999999999998
     },
     {
       "skill_name": "ancillery-skill",
@@ -873,6 +869,7 @@
             "booking_id": "BK3X9Z2A",
             "service_type": "lounge_access",
             "details": {
+              "location": "Heathrow",
               "date": "2024-04-15"
             }
           }
@@ -880,11 +877,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2732,
-        "tokens_used": 1331,
-        "input_tokens": 1238,
-        "output_tokens": 93,
-        "cost_usd": 0.000241
+        "latency_ms": 2757,
+        "tokens_used": 1348,
+        "input_tokens": 1252,
+        "output_tokens": 96,
+        "cost_usd": 0.000245
       },
       "with_skill": {
         "task_id": "ancillery-103",
@@ -901,6 +898,7 @@
             "booking_id": "BK3X9Z2A",
             "service_type": "lounge_access",
             "details": {
+              "airport": "Heathrow",
               "date": "2023-04-15"
             }
           }
@@ -908,19 +906,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2242,
-        "tokens_used": 2775,
-        "input_tokens": 2655,
-        "output_tokens": 120,
-        "cost_usd": 0.00047
+        "latency_ms": 2388,
+        "tokens_used": 2770,
+        "input_tokens": 2668,
+        "output_tokens": 102,
+        "cost_usd": 0.000461
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1444,
-      "latency_delta_ms": -490,
-      "cost_delta_usd": 0.00022899999999999998
+      "token_delta": 1422,
+      "latency_delta_ms": -369,
+      "cost_delta_usd": 0.000216
     },
     {
       "skill_name": "ancillery-skill",
@@ -942,18 +940,18 @@
             "booking_id": "BX7H3C5I",
             "service_type": "extra_baggage",
             "details": {
-              "item": "ski equipment"
+              "description": "Ski equipment"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2219,
-        "tokens_used": 1304,
-        "input_tokens": 1225,
-        "output_tokens": 79,
-        "cost_usd": 0.000231
+        "latency_ms": 2143,
+        "tokens_used": 1316,
+        "input_tokens": 1227,
+        "output_tokens": 89,
+        "cost_usd": 0.000237
       },
       "with_skill": {
         "task_id": "ancillery-104",
@@ -971,28 +969,27 @@
             "service_type": "extra_baggage",
             "details": {
               "description": "Ski equipment",
-              "price": "$75",
-              "per_person": true,
-              "per_leg": true
+              "price": "$50 per bag, per leg",
+              "size": "up to 200cm"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2584,
-        "tokens_used": 2802,
-        "input_tokens": 2675,
-        "output_tokens": 127,
-        "cost_usd": 0.000477
+        "latency_ms": 3236,
+        "tokens_used": 2846,
+        "input_tokens": 2681,
+        "output_tokens": 165,
+        "cost_usd": 0.000501
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1498,
-      "latency_delta_ms": 365,
-      "cost_delta_usd": 0.000246
+      "token_delta": 1530,
+      "latency_delta_ms": 1093,
+      "cost_delta_usd": 0.000264
     },
     {
       "skill_name": "ancillery-skill",
@@ -1010,12 +1007,12 @@
         "tool_params": {},
         "langsmith_run_id": "",
         "passed_verifier": true,
-        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asks for the booking reference number, which is the primary pass criterion. Additionally, the agent offers an alternative way to assist if the booking reference is still unavailable, showing helpfulness without losing focus on the main task.",
-        "latency_ms": 926,
-        "tokens_used": 598,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly asks for the booking reference number, which is the sole pass criterion for this task. It clearly states that the reference is needed to proceed with checking travel insurance options, fulfilling the task's requirement comprehensively and accurately.",
+        "latency_ms": 974,
+        "tokens_used": 585,
         "input_tokens": 558,
-        "output_tokens": 40,
-        "cost_usd": 0.000108
+        "output_tokens": 27,
+        "cost_usd": 0.0001
       },
       "with_skill": {
         "task_id": "ancillery-105",
@@ -1028,20 +1025,20 @@
         "tool_params": {},
         "langsmith_run_id": "",
         "passed_verifier": true,
-        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly asks for the booking reference number, which is the primary pass criterion. It also offers alternative ways to retrieve the itinerary, demonstrating good customer service practice even though it's not explicitly part of the pass criteria.",
-        "latency_ms": 1227,
-        "tokens_used": 1335,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asks for the booking reference number, which fulfills the pass criteria. It also provides a helpful alternative if the user cannot find the reference.",
+        "latency_ms": 909,
+        "tokens_used": 1320,
         "input_tokens": 1266,
-        "output_tokens": 69,
-        "cost_usd": 0.000231
+        "output_tokens": 54,
+        "cost_usd": 0.000222
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 737,
-      "latency_delta_ms": 301,
-      "cost_delta_usd": 0.000123
+      "token_delta": 735,
+      "latency_delta_ms": -65,
+      "cost_delta_usd": 0.000122
     },
     {
       "skill_name": "ancillery-skill",
@@ -1072,11 +1069,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2045,
-        "tokens_used": 1351,
-        "input_tokens": 1249,
-        "output_tokens": 102,
-        "cost_usd": 0.000249
+        "latency_ms": 2250,
+        "tokens_used": 1349,
+        "input_tokens": 1250,
+        "output_tokens": 99,
+        "cost_usd": 0.000247
       },
       "with_skill": {
         "task_id": "ancillery-106",
@@ -1093,28 +1090,28 @@
             "booking_id": "BK2K7M9N",
             "service_type": "airport_transfer",
             "details": {
-              "pickup_location": "JFK",
-              "dropoff_location": "Manhattan",
-              "service_type": "limousine"
+              "service": "limousine",
+              "from": "JFK",
+              "to": "Manhattan"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2596,
-        "tokens_used": 2794,
-        "input_tokens": 2663,
+        "latency_ms": 2330,
+        "tokens_used": 2787,
+        "input_tokens": 2656,
         "output_tokens": 131,
-        "cost_usd": 0.000478
+        "cost_usd": 0.000477
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1443,
-      "latency_delta_ms": 551,
-      "cost_delta_usd": 0.00022900000000000004
+      "token_delta": 1438,
+      "latency_delta_ms": 80,
+      "cost_delta_usd": 0.00023
     },
     {
       "skill_name": "ancillery-skill",
@@ -1134,43 +1131,54 @@
         "tool_params": {
           "add_ancillary": {
             "booking_id": "BK9X2Q3P",
-            "service_type": "travel_insurance"
+            "service_type": "travel_insurance",
+            "details": {}
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1681,
-        "tokens_used": 1293,
-        "input_tokens": 1218,
-        "output_tokens": 75,
-        "cost_usd": 0.000228
+        "latency_ms": 2271,
+        "tokens_used": 1304,
+        "input_tokens": 1219,
+        "output_tokens": 85,
+        "cost_usd": 0.000234
       },
       "with_skill": {
         "task_id": "ancillery-107",
         "domain": "ancillery",
         "skill_name": "ancillery-skill",
         "skill_version": null,
-        "score": 0.0,
-        "steps": 1,
-        "tools_called": [],
-        "tool_params": {},
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK9X2Q3P",
+            "service_type": "travel_insurance",
+            "details": {
+              "coverage_level": "Basic"
+            }
+          }
+        },
         "langsmith_run_id": "",
-        "passed_verifier": false,
-        "judge_reasoning": "Missing required tools: ['add_ancillary']",
-        "latency_ms": 1470,
-        "tokens_used": 1353,
-        "input_tokens": 1270,
-        "output_tokens": 83,
-        "cost_usd": 0.00024
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2443,
+        "tokens_used": 2754,
+        "input_tokens": 2645,
+        "output_tokens": 109,
+        "cost_usd": 0.000462
       },
-      "delta": -1.0,
-      "delta_significant": true,
-      "regression": true,
-      "step_delta": -1,
-      "token_delta": 60,
-      "latency_delta_ms": -211,
-      "cost_delta_usd": 1.1999999999999994e-05
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1450,
+      "latency_delta_ms": 172,
+      "cost_delta_usd": 0.000228
     },
     {
       "skill_name": "ancillery-skill",
@@ -1192,20 +1200,20 @@
             "booking_id": "BK1H5T7G",
             "service_type": "car_rental",
             "details": {
-              "location": "Fort Worth Airport",
+              "location": "Fort Worth airport",
               "duration": "5 days",
-              "vehicle_type": "sedan"
+              "car_type": "sedan"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3659,
-        "tokens_used": 1383,
-        "input_tokens": 1262,
-        "output_tokens": 121,
-        "cost_usd": 0.000262
+        "latency_ms": 2103,
+        "tokens_used": 1352,
+        "input_tokens": 1263,
+        "output_tokens": 89,
+        "cost_usd": 0.000243
       },
       "with_skill": {
         "task_id": "ancillery-108",
@@ -1222,28 +1230,28 @@
             "booking_id": "BK1H5T7G",
             "service_type": "car_rental",
             "details": {
-              "car_class": "sedan",
-              "location": "Fort Worth airport",
-              "duration": "5 days"
+              "class": "Sedan",
+              "location": "Fort Worth Airport",
+              "duration_days": 5
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3009,
-        "tokens_used": 2809,
-        "input_tokens": 2678,
-        "output_tokens": 131,
-        "cost_usd": 0.00048
+        "latency_ms": 2577,
+        "tokens_used": 2814,
+        "input_tokens": 2676,
+        "output_tokens": 138,
+        "cost_usd": 0.000484
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1426,
-      "latency_delta_ms": -650,
-      "cost_delta_usd": 0.00021799999999999999
+      "token_delta": 1462,
+      "latency_delta_ms": 474,
+      "cost_delta_usd": 0.000241
     },
     {
       "skill_name": "ancillery-skill",
@@ -1264,21 +1272,21 @@
         "tool_params": {
           "add_ancillary": {
             "booking_id": "BK4U8J2L",
-            "service_type": "spa",
+            "service_type": "car_rental",
             "details": {
-              "location": "Hong Kong airport",
-              "service": "massage"
+              "location": "Hong Kong Airport",
+              "service": "massage reservation at the SPA"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4097,
-        "tokens_used": 1530,
-        "input_tokens": 1347,
-        "output_tokens": 183,
-        "cost_usd": 0.000312
+        "latency_ms": 3250,
+        "tokens_used": 1581,
+        "input_tokens": 1382,
+        "output_tokens": 199,
+        "cost_usd": 0.000327
       },
       "with_skill": {
         "task_id": "ancillery-109",
@@ -1296,27 +1304,28 @@
             "booking_id": "BK4U8J2L",
             "service_type": "airport_transfer",
             "details": {
-              "service": "SPA massage reservation",
-              "location": "Hong Kong airport"
+              "service": "massage reservation at the SPA",
+              "location": "Hong Kong airport",
+              "date": "2023-10-25"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4267,
-        "tokens_used": 3030,
-        "input_tokens": 2798,
-        "output_tokens": 232,
-        "cost_usd": 0.000559
+        "latency_ms": 5002,
+        "tokens_used": 3080,
+        "input_tokens": 2825,
+        "output_tokens": 255,
+        "cost_usd": 0.000577
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1500,
-      "latency_delta_ms": 170,
-      "cost_delta_usd": 0.00024700000000000004
+      "token_delta": 1499,
+      "latency_delta_ms": 1752,
+      "cost_delta_usd": 0.00025000000000000006
     },
     {
       "skill_name": "ancillery-skill",
@@ -1328,7 +1337,7 @@
         "domain": "ancillery",
         "skill_name": null,
         "skill_version": null,
-        "score": 0.16666666666666666,
+        "score": 0.3333333333333333,
         "steps": 2,
         "tools_called": [
           "add_ancillary"
@@ -1338,25 +1347,25 @@
             "booking_id": "BK7A3F8P",
             "service_type": "seat_selection",
             "details": {
-              "preferred_seat": "window"
+              "preference": "window"
             }
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": false,
-        "judge_reasoning": "avg=0.17 std=0.29 | The agent's response incorrectly implies that the seat change was already performed and confirmed, which is not what the user requested. The user asked 'Can you tell me if I can switch...?', which requires an explanation of possibility, not an immediate action. The agent failed to explain if seat changes are possible, and bypassed the potential need for an upgrade by directly confirming a change that wasn't asked for as an action.",
-        "latency_ms": 1900,
-        "tokens_used": 1324,
-        "input_tokens": 1232,
-        "output_tokens": 92,
-        "cost_usd": 0.00024
+        "judge_reasoning": "avg=0.33 std=0.29 | The agent's response claims the seat change has already occurred and a fee charged, which is not what the user asked. The user asked if they *can* switch, implying a question about the possibility and process, not an immediate action. The agent has misunderstood the intent of the question and acted prematurely. While it implies a seat change is possible (by stating it was done), it doesn't *explain* if it's possible or if an upgrade is required as per the pass criteria. It simply states it was done for a fee, which is a different scenario.",
+        "latency_ms": 2859,
+        "tokens_used": 1316,
+        "input_tokens": 1229,
+        "output_tokens": 87,
+        "cost_usd": 0.000237
       },
       "with_skill": {
         "task_id": "ancillery-110",
         "domain": "ancillery",
         "skill_name": "ancillery-skill",
         "skill_version": null,
-        "score": 0.6666666666666666,
+        "score": 0.5833333333333334,
         "steps": 3,
         "tools_called": [
           "get_itinerary",
@@ -1372,20 +1381,20 @@
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
-        "judge_reasoning": "avg=0.67 std=0.14 | The agent explains that seat changes are usually dependent on availability, which addresses the first part of the pass criteria. However, it does not explicitly mention that an upgrade might be required, which was part of the criteria. It then proactively offers to check, which is a good follow-up, but the initial explanation was not exhaustive regarding the 'upgrade' possibility.",
-        "latency_ms": 3047,
-        "tokens_used": 4227,
+        "judge_reasoning": "avg=0.58 std=0.14 | The agent addresses the possibility of seat changes and mentions potential costs, which aligns with 'requiring an upgrade.' However, the response doesn't directly state if seat changes *are* possible, but rather offers to 'look up seat selection options.' It also doesn't explicitly mention 'upgrade' but rather 'incur additional costs', which is a related concept but not an exact match to the pass criteria. It's a conditional and indirect answer to the core question of whether it *can* be done.",
+        "latency_ms": 3399,
+        "tokens_used": 4263,
         "input_tokens": 4120,
-        "output_tokens": 107,
-        "cost_usd": 0.000682
+        "output_tokens": 143,
+        "cost_usd": 0.000704
       },
-      "delta": 0.5,
+      "delta": 0.25000000000000006,
       "delta_significant": true,
       "regression": false,
       "step_delta": 1,
-      "token_delta": 2903,
-      "latency_delta_ms": 1147,
-      "cost_delta_usd": 0.000442
+      "token_delta": 2947,
+      "latency_delta_ms": 540,
+      "cost_delta_usd": 0.00046699999999999997
     }
   ]
 }

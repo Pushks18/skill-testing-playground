@@ -1,8 +1,8 @@
 {
   "skill_name": "disruption-handling",
   "model": "gpt-4o-mini",
-  "weighted_delta": 0.28472222222222227,
-  "regression_rate": 0.16666666666666666,
+  "weighted_delta": 0.13194444444444445,
+  "regression_rate": 0.25,
   "verdict": "SOFT_BLOCK",
   "tier": 2,
   "flagged_tasks": [
@@ -11,20 +11,20 @@
   "regression_traces": {},
   "cost": {
     "no_skill": {
-      "total_cost_usd": 0.004098,
-      "avg_cost_usd": 0.000341,
-      "total_input_tokens": 20470,
-      "total_output_tokens": 1712,
-      "avg_latency_ms": 3258,
-      "p95_latency_ms": 6101
+      "total_cost_usd": 0.003833,
+      "avg_cost_usd": 0.000319,
+      "total_input_tokens": 19501,
+      "total_output_tokens": 1512,
+      "avg_latency_ms": 2845,
+      "p95_latency_ms": 5171
     },
     "with_skill": {
-      "total_cost_usd": 0.007307,
-      "avg_cost_usd": 0.000609,
-      "total_input_tokens": 43063,
-      "total_output_tokens": 1411,
-      "avg_latency_ms": 3798,
-      "p95_latency_ms": 8040
+      "total_cost_usd": 0.007432,
+      "avg_cost_usd": 0.000619,
+      "total_input_tokens": 44581,
+      "total_output_tokens": 1242,
+      "avg_latency_ms": 3248,
+      "p95_latency_ms": 6397
     }
   },
   "tasks": [
@@ -38,43 +38,41 @@
         "domain": "disruption",
         "skill_name": null,
         "skill_version": null,
-        "score": 0.0,
+        "score": 1.0,
         "steps": 4,
         "tools_called": [
           "search_flights",
           "create_booking",
-          "cancel_booking",
-          "add_ancillary"
+          "modify_booking"
         ],
         "tool_params": {
           "search_flights": {
             "origin": "JFK",
             "destination": "LAX",
-            "date": "2023-10-03"
+            "date": "2023-11-07"
           },
           "create_booking": {
             "passenger": {
               "name": "Passenger",
-              "dob": "Date of Birth"
+              "dob": "1970-01-01"
             },
-            "flight_id": "FL980"
+            "flight_id": "FL443"
           },
-          "cancel_booking": {
-            "booking_id": "BK7Q2R8T"
-          },
-          "add_ancillary": {
-            "booking_id": "BK5E53B9F7",
-            "service_type": "extra_baggage"
+          "modify_booking": {
+            "booking_id": "BK7Q2R8T",
+            "changes": {
+              "new_booking_id": "BK443ECA1E"
+            }
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": false,
-        "judge_reasoning": "Missing required tools: ['modify_booking']",
-        "latency_ms": 6101,
-        "tokens_used": 4195,
-        "input_tokens": 3942,
-        "output_tokens": 253,
-        "cost_usd": 0.000743
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 5171,
+        "tokens_used": 3845,
+        "input_tokens": 3619,
+        "output_tokens": 226,
+        "cost_usd": 0.000678
       },
       "with_skill": {
         "task_id": "disruption-101",
@@ -107,19 +105,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 8523,
-        "tokens_used": 6471,
+        "latency_ms": 4689,
+        "tokens_used": 6432,
         "input_tokens": 6302,
-        "output_tokens": 169,
-        "cost_usd": 0.001047
+        "output_tokens": 130,
+        "cost_usd": 0.001023
       },
-      "delta": 1.0,
-      "delta_significant": true,
+      "delta": 0.0,
+      "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 2276,
-      "latency_delta_ms": 2422,
-      "cost_delta_usd": 0.000304
+      "token_delta": 2587,
+      "latency_delta_ms": -482,
+      "cost_delta_usd": 0.00034500000000000004
     },
     {
       "skill_name": "disruption-handling",
@@ -143,19 +141,19 @@
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
-        "judge_reasoning": "avg=0.50 std=0.00 | The agent's response is partially accurate and helpful but fails to fully meet the pass criteria. While it correctly states that fare rules often don't cover delays and advises checking with the airline, it doesn't actually explain a general airline compensation policy for delayed flights, which was the core request in the pass criteria. It hints at the existence of such policies and criteria for eligibility (travel vouchers, refunds), but it doesn't elaborate on common scenarios, typical compensation structures, or global regulations (like EU261 or US DOT rules) that often govern these situations. It leaves the user to do the primary research, rather than providing a concise explanation of what they might expect to find.",
-        "latency_ms": 3036,
-        "tokens_used": 1309,
+        "judge_reasoning": "avg=0.50 std=0.00 | The agent's response is partially helpful. It correctly identifies that the provided fare rules don't explicitly mention compensation for delays, and it advises checking directly with the airline, which is a good practical step. It also correctly states that compensation often varies by airline, region, delay length, and reason. However, it fails to explain the airline's compensation policy, which was the core pass criteria. Instead, it listed other rules (cancellation, changes, baggage, refundable) that were not asked for and are largely irrelevant to the user's specific query about delayed flight compensation. It also doesn't elaborate on general compensation policies even though it mentions they exist.",
+        "latency_ms": 4065,
+        "tokens_used": 1368,
         "input_tokens": 1189,
-        "output_tokens": 120,
-        "cost_usd": 0.00025
+        "output_tokens": 179,
+        "cost_usd": 0.000286
       },
       "with_skill": {
         "task_id": "disruption-102",
         "domain": "disruption",
         "skill_name": "disruption-handling",
         "skill_version": null,
-        "score": 0.08333333333333333,
+        "score": 0.16666666666666666,
         "steps": 2,
         "tools_called": [
           "get_fare_rules"
@@ -167,20 +165,20 @@
         },
         "langsmith_run_id": "",
         "passed_verifier": false,
-        "judge_reasoning": "avg=0.08 std=0.14 | The agent completely failed to address the task. The task was to 'explain the airline's compensation policy for delayed flights'. The agent explicitly states 'there is no specific mention of compensation for delays' and then proceeds to discuss cancellation and change fees, which are irrelevant to the user's question about delay compensation. The response does not explain any policy, rather it states there isn't one mentioned in the fare rules, which is not what the user asked for. The user wants to know ABOUT THE POLICY, not if it's explicitly mentioned in the fare rules they have. They are asking for the airline's policy, and the agent should be able to provide details on how the airline handles delays, rather than just stating it's not in the fare rules.",
-        "latency_ms": 1974,
-        "tokens_used": 2747,
+        "judge_reasoning": "avg=0.17 std=0.29 | The agent's response fails the pass criteria because it does not explain the airline's compensation policy for delayed flights. Instead, it states that the fare rules for this specific flight don't have details and then gives general advice about checking local regulations and contacting the airline. This does not fulfill the requirement of explaining *the airline's* policy.",
+        "latency_ms": 2365,
+        "tokens_used": 2762,
         "input_tokens": 2641,
-        "output_tokens": 106,
-        "cost_usd": 0.00046
+        "output_tokens": 121,
+        "cost_usd": 0.000469
       },
-      "delta": -0.4166666666666667,
+      "delta": -0.33333333333333337,
       "delta_significant": true,
       "regression": true,
       "step_delta": 0,
-      "token_delta": 1438,
-      "latency_delta_ms": -1062,
-      "cost_delta_usd": 0.00021
+      "token_delta": 1394,
+      "latency_delta_ms": -1700,
+      "cost_delta_usd": 0.000183
     },
     {
       "skill_name": "disruption-handling",
@@ -205,11 +203,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1164,
-        "tokens_used": 1244,
+        "latency_ms": 2166,
+        "tokens_used": 1255,
         "input_tokens": 1188,
-        "output_tokens": 56,
-        "cost_usd": 0.000212
+        "output_tokens": 67,
+        "cost_usd": 0.000218
       },
       "with_skill": {
         "task_id": "disruption-103",
@@ -229,19 +227,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1688,
-        "tokens_used": 2691,
+        "latency_ms": 1644,
+        "tokens_used": 2695,
         "input_tokens": 2640,
-        "output_tokens": 51,
-        "cost_usd": 0.000427
+        "output_tokens": 55,
+        "cost_usd": 0.000429
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1447,
-      "latency_delta_ms": 524,
-      "cost_delta_usd": 0.00021500000000000002
+      "token_delta": 1440,
+      "latency_delta_ms": -522,
+      "cost_delta_usd": 0.000211
     },
     {
       "skill_name": "disruption-handling",
@@ -269,11 +267,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4397,
-        "tokens_used": 1741,
+        "latency_ms": 3628,
+        "tokens_used": 1718,
         "input_tokens": 1471,
-        "output_tokens": 270,
-        "cost_usd": 0.000383
+        "output_tokens": 247,
+        "cost_usd": 0.000369
       },
       "with_skill": {
         "task_id": "disruption-104",
@@ -281,33 +279,33 @@
         "skill_name": "disruption-handling",
         "skill_version": null,
         "score": 1.0,
-        "steps": 3,
+        "steps": 4,
         "tools_called": [
           "search_flights"
         ],
         "tool_params": {
           "search_flights": {
-            "origin": "BOS",
-            "destination": "MIA",
-            "date": "2023-10-01"
+            "origin": "Boston",
+            "destination": "Miami",
+            "date": "2023-10-06"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 6469,
-        "tokens_used": 4571,
-        "input_tokens": 4281,
-        "output_tokens": 290,
-        "cost_usd": 0.000816
+        "latency_ms": 6397,
+        "tokens_used": 5985,
+        "input_tokens": 5806,
+        "output_tokens": 179,
+        "cost_usd": 0.000978
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 1,
-      "token_delta": 2830,
-      "latency_delta_ms": 2072,
-      "cost_delta_usd": 0.000433
+      "step_delta": 2,
+      "token_delta": 4267,
+      "latency_delta_ms": 2769,
+      "cost_delta_usd": 0.000609
     },
     {
       "skill_name": "disruption-handling",
@@ -345,11 +343,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3338,
-        "tokens_used": 3560,
+        "latency_ms": 3797,
+        "tokens_used": 3545,
         "input_tokens": 3384,
-        "output_tokens": 176,
-        "cost_usd": 0.000613
+        "output_tokens": 161,
+        "cost_usd": 0.000604
       },
       "with_skill": {
         "task_id": "disruption-105",
@@ -382,19 +380,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3803,
-        "tokens_used": 6448,
+        "latency_ms": 4384,
+        "tokens_used": 6453,
         "input_tokens": 6288,
-        "output_tokens": 160,
-        "cost_usd": 0.001039
+        "output_tokens": 165,
+        "cost_usd": 0.001042
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 2888,
-      "latency_delta_ms": 465,
-      "cost_delta_usd": 0.00042599999999999995
+      "token_delta": 2908,
+      "latency_delta_ms": 587,
+      "cost_delta_usd": 0.0004379999999999999
     },
     {
       "skill_name": "disruption-handling",
@@ -420,11 +418,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2079,
-        "tokens_used": 1290,
+        "latency_ms": 1734,
+        "tokens_used": 1281,
         "input_tokens": 1214,
-        "output_tokens": 76,
-        "cost_usd": 0.000228
+        "output_tokens": 67,
+        "cost_usd": 0.000222
       },
       "with_skill": {
         "task_id": "disruption-106",
@@ -445,9 +443,9 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2152,
-        "tokens_used": 2729,
-        "input_tokens": 2664,
+        "latency_ms": 1597,
+        "tokens_used": 2731,
+        "input_tokens": 2666,
         "output_tokens": 65,
         "cost_usd": 0.000439
       },
@@ -455,9 +453,9 @@
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1439,
-      "latency_delta_ms": 73,
-      "cost_delta_usd": 0.00021099999999999998
+      "token_delta": 1450,
+      "latency_delta_ms": -137,
+      "cost_delta_usd": 0.000217
     },
     {
       "skill_name": "disruption-handling",
@@ -483,11 +481,11 @@
         "langsmith_run_id": "",
         "passed_verifier": false,
         "judge_reasoning": "Missing required tools: ['validate_passenger']",
-        "latency_ms": 2446,
-        "tokens_used": 1503,
+        "latency_ms": 3569,
+        "tokens_used": 1517,
         "input_tokens": 1358,
-        "output_tokens": 145,
-        "cost_usd": 0.000291
+        "output_tokens": 159,
+        "cost_usd": 0.000299
       },
       "with_skill": {
         "task_id": "disruption-107",
@@ -513,19 +511,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 8040,
-        "tokens_used": 5866,
-        "input_tokens": 5649,
-        "output_tokens": 217,
-        "cost_usd": 0.000978
+        "latency_ms": 5925,
+        "tokens_used": 5858,
+        "input_tokens": 5640,
+        "output_tokens": 218,
+        "cost_usd": 0.000977
       },
       "delta": 1.0,
       "delta_significant": true,
       "regression": false,
       "step_delta": 2,
-      "token_delta": 4363,
-      "latency_delta_ms": 5594,
-      "cost_delta_usd": 0.0006869999999999999
+      "token_delta": 4341,
+      "latency_delta_ms": 2356,
+      "cost_delta_usd": 0.000678
     },
     {
       "skill_name": "disruption-handling",
@@ -537,43 +535,43 @@
         "domain": "disruption",
         "skill_name": null,
         "skill_version": null,
-        "score": 0.25,
-        "steps": 1,
-        "tools_called": [],
-        "tool_params": {},
-        "langsmith_run_id": "",
-        "passed_verifier": false,
-        "judge_reasoning": "avg=0.25 std=0.00 | The agent's response does not suggest any possible steps or options for rebooking. Instead, it asks for more information, which is a conversational turn but doesn't fulfill the primary requirement of the task. The pass criteria explicitly state 'Suggest possible steps and options for rebooking,' which the agent fails to do. While gathering more information is a logical next step in a real interaction, for this specific task instruction, it is not a direct answer.",
-        "latency_ms": 1410,
-        "tokens_used": 635,
-        "input_tokens": 550,
-        "output_tokens": 85,
-        "cost_usd": 0.000133
-      },
-      "with_skill": {
-        "task_id": "disruption-108",
-        "domain": "disruption",
-        "skill_name": "disruption-handling",
-        "skill_version": null,
         "score": 0.16666666666666666,
         "steps": 1,
         "tools_called": [],
         "tool_params": {},
         "langsmith_run_id": "",
         "passed_verifier": false,
-        "judge_reasoning": "avg=0.17 std=0.14 | The agent did not provide general options for rebooking a canceled flight. Instead, the agent asked for booking information. The task was to suggest *possible steps and options* for rebooking, not to actually rebook the flight or ask for specific details.",
-        "latency_ms": 1087,
-        "tokens_used": 1307,
-        "input_tokens": 1276,
-        "output_tokens": 31,
-        "cost_usd": 0.00021
+        "judge_reasoning": "avg=0.17 std=0.14 | The agent's response is an information-gathering one, not a problem-solving one. It does not suggest any possible steps or options for rebooking a canceled flight. Instead, it asks for more information before it can even begin to *look* for options. The user wants to know what their options *are*, not what information they need to provide to get options.",
+        "latency_ms": 1531,
+        "tokens_used": 637,
+        "input_tokens": 550,
+        "output_tokens": 87,
+        "cost_usd": 0.000135
       },
-      "delta": -0.08333333333333334,
+      "with_skill": {
+        "task_id": "disruption-108",
+        "domain": "disruption",
+        "skill_name": "disruption-handling",
+        "skill_version": null,
+        "score": 0.08333333333333333,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.08 std=0.14 | The agent's response does not address the prompt's request for general options for rebooking a canceled flight. Instead, it asks for specific booking details, which is a conversational turn but not an answer to the posed question. Therefore, it fails to meet the pass criteria of suggesting possible steps and options.",
+        "latency_ms": 805,
+        "tokens_used": 1310,
+        "input_tokens": 1276,
+        "output_tokens": 34,
+        "cost_usd": 0.000212
+      },
+      "delta": -0.08333333333333333,
       "delta_significant": true,
       "regression": true,
       "step_delta": 0,
-      "token_delta": 672,
-      "latency_delta_ms": -323,
+      "token_delta": 673,
+      "latency_delta_ms": -726,
       "cost_delta_usd": 7.7e-05
     },
     {
@@ -586,50 +584,44 @@
         "domain": "disruption",
         "skill_name": null,
         "skill_version": null,
-        "score": 0.16666666666666666,
-        "steps": 2,
-        "tools_called": [
-          "get_fare_rules"
-        ],
-        "tool_params": {
-          "get_fare_rules": {
-            "flight_id": "your_flight_id_here"
-          }
-        },
+        "score": 0.08333333333333333,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
         "langsmith_run_id": "",
         "passed_verifier": false,
-        "judge_reasoning": "avg=0.17 std=0.14 | The user is asking about compensation rules for a delayed flight from Tokyo to Sydney. The agent correctly identifies that it cannot provide specific compensation rules without knowing the flight details, which is fair. However, it then proceeds to give general rules for cancellation, changes, baggage, and refundability of the ticket. These details are completely irrelevant to the user's question about COMPENSATION FOR A DELAYED FLIGHT. The agent completely failed to address the actual task of explaining compensation rules, even generally, for a delayed flight on that route. It provided transactional rules instead of delay compensation rules.",
-        "latency_ms": 4456,
-        "tokens_used": 1373,
-        "input_tokens": 1195,
-        "output_tokens": 178,
-        "cost_usd": 0.000286
+        "judge_reasoning": "avg=0.08 std=0.14 | The agent did not provide any information about the compensation rules. Instead, it asked for additional information. This fails the pass criteria completely.",
+        "latency_ms": 612,
+        "tokens_used": 584,
+        "input_tokens": 553,
+        "output_tokens": 31,
+        "cost_usd": 0.000102
       },
       "with_skill": {
         "task_id": "disruption-109",
         "domain": "disruption",
         "skill_name": "disruption-handling",
         "skill_version": null,
-        "score": 0.4166666666666667,
+        "score": 0.16666666666666666,
         "steps": 1,
         "tools_called": [],
         "tool_params": {},
         "langsmith_run_id": "",
         "passed_verifier": false,
-        "judge_reasoning": "avg=0.42 std=0.14 | The agent's response is partially correct in that providing booking details would allow them to look up specific fare rules. However, the task instruction is to 'Provide an explanation of compensation rules for delayed flights on that route.' This implies a general explanation of relevant regulations (e.g., EU261 if applicable, airline's own policies, IATA standards) for the Tokyo-Sydney route, rather than immediately asking for specific booking details to look up 'fare rules'. While fare rules might contain some delay compensation information, international flight compensation beyond that is often governed by supranational regulations or airline-specific policies, which don't necessarily require a booking reference to explain in general terms. The agent should have first offered a general overview of potential compensation rules for this route, and then offered to look into specifics if the user provides details. By immediately asking for specifics, it falls short of explaining the *rules*.",
-        "latency_ms": 3539,
-        "tokens_used": 1310,
+        "judge_reasoning": "avg=0.17 std=0.14 | The agent's response does not directly address the user's need to understand compensation rules. Instead, it asks for more information. While asking for details can be part of a real-world interaction, the prompt specifically asks the agent to 'Provide an explanation of compensation rules'. Because it doesn't give any information, it largely fails the task. It's not 0.0 because it's a plausible first step in a conversational agent, but it doesn't meet the explicit criteria of the prompt.",
+        "latency_ms": 1130,
+        "tokens_used": 1302,
         "input_tokens": 1279,
-        "output_tokens": 31,
-        "cost_usd": 0.00021
+        "output_tokens": 23,
+        "cost_usd": 0.000206
       },
-      "delta": 0.25,
+      "delta": 0.08333333333333333,
       "delta_significant": true,
       "regression": false,
-      "step_delta": -1,
-      "token_delta": -63,
-      "latency_delta_ms": -917,
-      "cost_delta_usd": -7.6e-05
+      "step_delta": 0,
+      "token_delta": 718,
+      "latency_delta_ms": 518,
+      "cost_delta_usd": 0.000104
     },
     {
       "skill_name": "disruption-handling",
@@ -654,7 +646,7 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1944,
+        "latency_ms": 1729,
         "tokens_used": 1223,
         "input_tokens": 1158,
         "output_tokens": 65,
@@ -678,7 +670,7 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1959,
+        "latency_ms": 2047,
         "tokens_used": 2663,
         "input_tokens": 2610,
         "output_tokens": 53,
@@ -689,7 +681,7 @@
       "regression": false,
       "step_delta": 0,
       "token_delta": 1440,
-      "latency_delta_ms": 15,
+      "latency_delta_ms": 318,
       "cost_delta_usd": 0.00020999999999999998
     },
     {
@@ -702,44 +694,44 @@
         "domain": "disruption",
         "skill_name": null,
         "skill_version": null,
-        "score": 0.3333333333333333,
+        "score": 0.08333333333333333,
         "steps": 1,
         "tools_called": [],
         "tool_params": {},
         "langsmith_run_id": "",
         "passed_verifier": false,
-        "judge_reasoning": "avg=0.33 std=0.29 | The response identifies that the user needs the booking reference but it doesn't provide specific advice to look up the booking details without it. It also doesn't offer to help with a new search with the information provided.",
-        "latency_ms": 1901,
-        "tokens_used": 665,
+        "judge_reasoning": "avg=0.08 std=0.14 | The user explicitly stated they need to 'check availability first' and mentioned their 'booking ref is not on hand' as a problem. The agent's response completely bypasses the user's core issue of 'checking availability' related to an existing booking without a reference number. Instead, the agent asks for travel dates and number of passengers, which implies a new search, not looking up an existing booking or its availability. The agent failed to advise the user to look up or provide specific booking details to address the 'booking ref not on hand' problem related to checking availability for an *existing* (implied) booking.",
+        "latency_ms": 816,
+        "tokens_used": 605,
         "input_tokens": 565,
-        "output_tokens": 100,
-        "cost_usd": 0.000145
+        "output_tokens": 40,
+        "cost_usd": 0.000109
       },
       "with_skill": {
         "task_id": "disruption-111",
         "domain": "disruption",
         "skill_name": "disruption-handling",
         "skill_version": null,
-        "score": 1.0,
+        "score": 0.0,
         "steps": 1,
         "tools_called": [],
         "tool_params": {},
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "avg=1.00 std=0.00 | The agent's response directly addresses the user's issue and provides clear instructions on what information is needed, aligning perfectly with the pass criteria. It advises the user to look up or provide specific booking details (travel date or booking reference).",
-        "latency_ms": 1415,
-        "tokens_used": 1348,
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent's response completely misses the point that the user is trying to check availability *without* a booking reference. The response asks for the travel date, which is irrelevant to retrieving an existing booking or the process of checking availability in this specific context where the booking reference is missing. The user explicitly stated 'My booking ref is not on hand. What should I do?' The expected response would advise on how to look up or provide necessary booking details (like full name, email, flight number, etc.) to find the booking without the reference. The agent's query for a travel date is suitable for a new booking inquiry, not the stated problem of a missing booking reference for an *existing* (or assumed existing) travel plan.",
+        "latency_ms": 894,
+        "tokens_used": 1320,
         "input_tokens": 1291,
-        "output_tokens": 57,
-        "cost_usd": 0.000228
+        "output_tokens": 29,
+        "cost_usd": 0.000211
       },
-      "delta": 0.6666666666666667,
+      "delta": -0.08333333333333333,
       "delta_significant": true,
-      "regression": false,
+      "regression": true,
       "step_delta": 0,
-      "token_delta": 683,
-      "latency_delta_ms": -486,
-      "cost_delta_usd": 8.300000000000001e-05
+      "token_delta": 715,
+      "latency_delta_ms": 78,
+      "cost_delta_usd": 0.000102
     },
     {
       "skill_name": "disruption-handling",
@@ -769,9 +761,8 @@
           },
           "create_booking": {
             "passenger": {
-              "name": "Passenger",
-              "dob": "1970-01-01",
-              "passport": "N/A"
+              "name": "John Doe",
+              "dob": "1990-01-01"
             },
             "flight_id": "FL584"
           }
@@ -779,11 +770,11 @@
         "langsmith_run_id": "",
         "passed_verifier": false,
         "judge_reasoning": "Missing required tools: ['modify_booking']",
-        "latency_ms": 6819,
-        "tokens_used": 3444,
-        "input_tokens": 3256,
-        "output_tokens": 188,
-        "cost_usd": 0.000601
+        "latency_ms": 5327,
+        "tokens_used": 3435,
+        "input_tokens": 3252,
+        "output_tokens": 183,
+        "cost_usd": 0.000598
       },
       "with_skill": {
         "task_id": "disruption-112",
@@ -816,19 +807,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4929,
-        "tokens_used": 6323,
+        "latency_ms": 7098,
+        "tokens_used": 6312,
         "input_tokens": 6142,
-        "output_tokens": 181,
-        "cost_usd": 0.00103
+        "output_tokens": 170,
+        "cost_usd": 0.001023
       },
       "delta": 1.0,
       "delta_significant": true,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 2879,
-      "latency_delta_ms": -1890,
-      "cost_delta_usd": 0.00042900000000000013
+      "token_delta": 2877,
+      "latency_delta_ms": 1771,
+      "cost_delta_usd": 0.00042500000000000003
     }
   ]
 }

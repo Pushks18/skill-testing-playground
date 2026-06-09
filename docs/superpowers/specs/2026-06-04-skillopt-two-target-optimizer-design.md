@@ -41,7 +41,7 @@ eval/optimizer/optimize.py  (driver, NEW)
         │ rollout = run_task on split tasks (real eval, mock MCP)
         ▼
   best artifact from out_root
-        │
+        │ 
         ▼
   PROPOSED FILES (never committed by the tool):
     harness target → eval/optimizer_output/<run>/harness_config_proposed.yaml
