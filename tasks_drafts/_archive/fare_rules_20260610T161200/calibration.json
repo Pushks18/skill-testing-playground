@@ -1,0 +1,52 @@
+{
+  "fare-rules-131": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-132": {
+    "class": "baseline-pass",
+    "score": 0.9166666666666666,
+    "detail": "avg=0.92 std=0.14 | The agent verified additional fees and stated the amount, directly addressing the core of the task i"
+  },
+  "fare-rules-133": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-134": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-135": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-136": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent provided specific fee information without asking for details, which is contrary to the pas"
+  },
+  "fare-rules-137": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent completely misunderstood the request. The user asked about adding a passenger, but the age"
+  },
+  "fare-rules-138": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-139": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-140": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "itinerary-133": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-134": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The response identifies flights from a US-based perspective (JetBlue, American Airlines, Southwest, "
+  },
+  "itinerary-135": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-136": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-137": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-138": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-139": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-140": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent's response is an information-seeking question that does not propose any flight options. It"
+  },
+  "itinerary-141": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-142": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  }
+}

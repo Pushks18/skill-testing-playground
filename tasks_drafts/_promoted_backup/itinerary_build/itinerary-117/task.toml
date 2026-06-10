@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-117"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Agent should require clarification on the specific dates before proceeding."

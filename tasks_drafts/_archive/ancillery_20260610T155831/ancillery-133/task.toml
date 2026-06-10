@@ -1,0 +1,10 @@
+[task]
+id = "ancillery-133"
+domain = "ancillery"
+skill = "ancillery-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Instruct the user to provide the booking reference or suggest checking their email for the details."

@@ -1,0 +1,52 @@
+{
+  "planning-112": {
+    "class": "baseline-fail",
+    "score": 0.3333333333333333,
+    "detail": "avg=0.33 std=0.29 | The response asks for information that would lead to fulfilling the request, but doesn't actually pr"
+  },
+  "planning-113": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-114": {
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The agent acknowledges the open return date and asks for clarification, but doesn't proactively sugg"
+  },
+  "planning-115": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-116": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
+  },
+  "planning-117": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-118": {
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The response identifies airports and nearby resorts, but it completely misses flight availability an"
+  },
+  "planning-119": {
+    "class": "baseline-pass",
+    "score": 0.75,
+    "detail": "avg=0.75 std=0.00 | The agent asked for specific travel dates and offered to search for flights and accommodations. It m"
+  },
+  "planning-120": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
+  },
+  "planning-121": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
+  }
+}

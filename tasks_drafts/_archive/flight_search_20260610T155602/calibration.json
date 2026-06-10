@@ -1,0 +1,52 @@
+{
+  "flight-search-121": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-122": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-123": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-124": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not prompt for a specific date, instead arbitrarily picking March 7th. This fails a cr"
+  },
+  "flight-search-125": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-126": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-127": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "flight-search-128": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent provided a specific date, but the user requested 'a Friday in June 2026'. June 1, 2026 is "
+  },
+  "flight-search-129": {
+    "class": "baseline-fail",
+    "score": 0.8571428571428572,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "flight-search-130": {
+    "class": "baseline-fail",
+    "score": 0.8333333333333334,
+    "detail": "Missing params: ['search_flights.passengers']"
+  }
+}

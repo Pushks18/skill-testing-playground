@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-132"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Provide flights and accommodation options for a 2-week stay in Reykjavik starting next month."

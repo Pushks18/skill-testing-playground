@@ -1,0 +1,10 @@
+[task]
+id = "disruption-124"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent should inform the user that they need to provide the booking reference or passenger details to proceed."

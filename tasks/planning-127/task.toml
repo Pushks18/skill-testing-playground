@@ -1,0 +1,10 @@
+[task]
+id = "planning-127"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "A suitable response should suggest creating a day-by-day activity schedule including recommendations for art venues."

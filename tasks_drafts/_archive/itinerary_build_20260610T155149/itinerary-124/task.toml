@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-124"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Outline the flights and hotel stay options for a 5-day duration in Athens from Berlin."

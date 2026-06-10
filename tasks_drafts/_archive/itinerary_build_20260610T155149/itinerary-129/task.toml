@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-129"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Detail a travel plan including flights and a romantic hotel stay in Rio de Janeiro."

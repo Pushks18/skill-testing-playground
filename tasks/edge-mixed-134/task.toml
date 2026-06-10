@@ -1,0 +1,10 @@
+[task]
+id = "edge-mixed-134"
+domain = "edge_cases"
+skill = "modify-booking"
+verifier = "llm_judge"
+weight = 0.5
+
+[expected]
+tools = []
+criteria = "The response should ask for more information on the type of change to the booking."

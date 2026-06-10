@@ -1,0 +1,52 @@
+{
+  "flight-search-131": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not prompt the user for a specific date, which was the primary Pass Criteria. Instead,"
+  },
+  "flight-search-132": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-133": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-134": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-135": {
+    "class": "baseline-pass",
+    "score": 0.6666666666666666,
+    "detail": "avg=0.67 std=0.14 | The agent provided flight options without asking for the number of passengers, which was a pass crit"
+  },
+  "flight-search-136": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-137": {
+    "class": "baseline-fail",
+    "score": 0.875,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "flight-search-138": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent provided specific flight details which is not what was requested by the pass criteria. The"
+  },
+  "flight-search-139": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-140": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['add_ancillary']"
+  }
+}

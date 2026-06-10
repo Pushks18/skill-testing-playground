@@ -1,0 +1,10 @@
+[task]
+id = "disruption-126"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent should request the booking reference number to proceed with the cancellation."

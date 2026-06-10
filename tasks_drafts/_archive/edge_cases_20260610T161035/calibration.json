@@ -1,0 +1,52 @@
+{
+  "edge-mixed-117": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['check_availability']"
+  },
+  "edge-mixed-118": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "edge-mixed-119": {
+    "class": "baseline-fail",
+    "score": 0.08333333333333333,
+    "detail": "avg=0.08 std=0.14 | The agent did not ask for the service type. Instead, it corrected the user, which was not part of th"
+  },
+  "edge-mixed-120": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-121": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking', 'search_hotels']"
+  },
+  "edge-mixed-122": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-123": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent failed to ask for validation details (date of birth, passport) before making the name chan"
+  },
+  "edge-mixed-124": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "edge-mixed-125": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['check_availability']"
+  },
+  "edge-mixed-126": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  }
+}

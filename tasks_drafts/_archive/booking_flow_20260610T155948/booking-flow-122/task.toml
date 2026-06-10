@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-122"
+domain = "booking_flow"
+skill = "booking-skill"
+verifier = "tool_call_check"
+weight = 3.0
+
+[expected]
+tools = ["add_ancillary"]
+required_params = { add_ancillary = ["booking_id", "details", "service_type"] }

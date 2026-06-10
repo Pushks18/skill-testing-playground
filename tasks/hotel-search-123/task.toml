@@ -1,0 +1,10 @@
+[task]
+id = "hotel-search-123"
+domain = "hotel_search"
+skill = "hotel-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent identifies available hotels with the specified amenities for the given dates."

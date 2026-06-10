@@ -1,0 +1,10 @@
+[task]
+id = "disruption-143"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The response should ask for the hotel booking ID before proceeding with cancellation."

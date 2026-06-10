@@ -1,0 +1,57 @@
+{
+  "hotel-search-101": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-102": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-103": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-104": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-105": {
+    "class": "baseline-pass",
+    "score": 0.8333333333333334,
+    "detail": "avg=0.83 std=0.14 | The agent confirmed the city, number of guests, and dates. They provided options with relevant detai"
+  },
+  "hotel-search-106": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent's response directly asks for the essential information required to find hotels, specifical"
+  },
+  "hotel-search-107": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-108": {
+    "class": "baseline-fail",
+    "score": 0.08333333333333333,
+    "detail": "avg=0.08 std=0.14 | The agent completely missed the primary request to 'find rooms in Sydney from August 8 to August 12 "
+  },
+  "hotel-search-109": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-110": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-111": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent response perfectly meets the pass criteria by acknowledging the missing check-in and check"
+  }
+}

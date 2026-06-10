@@ -1,0 +1,10 @@
+[task]
+id = "disruption-137"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "A correct answer will explain how the user can check eligibility for delay compensation."

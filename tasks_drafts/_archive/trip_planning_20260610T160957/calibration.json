@@ -1,0 +1,32 @@
+{
+  "planning-142": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not ask for the return date, which was the main pass criterion. It only provided one-w"
+  },
+  "planning-143": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'create_booking', 'search_hotels']"
+  },
+  "planning-144": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['add_ancillary']"
+  },
+  "planning-145": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-146": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent directly asks for the exact travel dates in June, fulfilling the pass criteria."
+  },
+  "planning-147": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'create_booking']"
+  }
+}

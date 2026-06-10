@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-124"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The correct answer should prompt for a specific date if only given 'Saturday in March 2026'."

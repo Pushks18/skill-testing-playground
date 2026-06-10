@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-129"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "tool_call_check"
+weight = 2.0
+
+[expected]
+tools = ["search_flights", "add_ancillary"]
+required_params = { search_flights = ["date", "destination", "origin", "passengers"], add_ancillary = ["booking_id", "details", "service_type"] }

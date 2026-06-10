@@ -1,0 +1,27 @@
+{
+  "booking-flow-143": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "booking-flow-144": {
+    "class": "baseline-fail",
+    "score": 0.6666666666666667,
+    "detail": "Missing params: ['add_ancillary.details']"
+  },
+  "booking-flow-145": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-146": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-147": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not ask for a specific date (it just gave flights for 'tomorrow') or a Flight ID as sp"
+  }
+}

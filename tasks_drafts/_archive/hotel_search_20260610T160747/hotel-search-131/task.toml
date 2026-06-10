@@ -1,0 +1,10 @@
+[task]
+id = "hotel-search-131"
+domain = "hotel_search"
+skill = "hotel-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent should ask the user for specific check-in and check-out dates."

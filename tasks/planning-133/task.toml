@@ -1,0 +1,10 @@
+[task]
+id = "planning-133"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent should ask for clarification on travel details, such as duration and specific interests, as these are not provided."

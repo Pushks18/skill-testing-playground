@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-140"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent should ask for a specific date in April 2026."

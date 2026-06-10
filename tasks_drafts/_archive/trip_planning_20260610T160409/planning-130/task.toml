@@ -1,0 +1,10 @@
+[task]
+id = "planning-130"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The response should express readiness to assist with trip planning and seek further details like travel dates and departures."

@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-127"
+domain = "booking_flow"
+skill = "booking-skill"
+verifier = "tool_call_check"
+weight = 3.0
+
+[expected]
+tools = ["validate_passenger", "create_booking"]
+required_params = { validate_passenger = ["dob", "name", "passport"], create_booking = ["hotel_id", "passenger"] }

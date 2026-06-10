@@ -1,0 +1,42 @@
+{
+  "booking-flow-148": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "booking-flow-149": {
+    "class": "baseline-fail",
+    "score": 0.8,
+    "detail": "Missing params: ['validate_passenger.passport']"
+  },
+  "booking-flow-150": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-151": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-152": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "booking-flow-153": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "booking-flow-154": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent directly asks for Mia Williams' date of birth, fulfilling the pass criteria before proceed"
+  },
+  "booking-flow-155": {
+    "class": "baseline-fail",
+    "score": 0.3333333333333333,
+    "detail": "avg=0.33 std=0.29 | The agent did not confirm if more details are needed as per the pass criteria. Instead, it re-reques"
+  }
+}

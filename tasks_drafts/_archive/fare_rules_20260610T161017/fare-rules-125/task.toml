@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-125"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = []
+criteria = "The response should describe conditions for itinerary changes and suggest checking the fare rules."

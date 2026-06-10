@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-120"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "Respond by asking for a more specific date since 'this summer' is not precise enough."

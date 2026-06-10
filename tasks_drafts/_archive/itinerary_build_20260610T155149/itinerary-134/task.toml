@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-134"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Create a detailed plan with flights and serviced apartment options in Tokyo for a month."

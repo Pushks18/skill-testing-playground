@@ -1,0 +1,52 @@
+{
+  "disruption-131": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-132": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-133": {
+    "class": "baseline-pass",
+    "score": 0.75,
+    "detail": "avg=0.75 std=0.00 | The response provides good steps but doesn't explicitly mention that US domestic flights generally d"
+  },
+  "disruption-134": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "disruption-135": {
+    "class": "baseline-fail",
+    "score": 0.25,
+    "detail": "avg=0.25 std=0.00 | The response provides flight options, which is a rebooking option. However, it completely misses the"
+  },
+  "disruption-136": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "disruption-137": {
+    "class": "baseline-pass",
+    "score": 0.75,
+    "detail": "avg=0.75 std=0.00 | The response explains the factors for eligibility but doesn't directly provide a method for the user"
+  },
+  "disruption-138": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-139": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent's response directly asks for the necessary information (name, date, departure city) to ret"
+  },
+  "disruption-140": {
+    "class": "baseline-fail",
+    "score": 0.3333333333333333,
+    "detail": "avg=0.33 std=0.29 | The agent asked for some relevant information (date), but missed crucial identifying details like th"
+  }
+}

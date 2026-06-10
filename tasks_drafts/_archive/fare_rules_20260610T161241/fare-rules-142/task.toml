@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-142"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = []
+criteria = "The response must clarify if there is a charge for bringing a bicycle as additional baggage on this flight."

@@ -1,0 +1,10 @@
+[task]
+id = "planning-118"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Suggest airports near popular ski resorts in the Alps, flight availability, and travel advice."

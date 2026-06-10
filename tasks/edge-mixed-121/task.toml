@@ -1,0 +1,10 @@
+[task]
+id = "edge-mixed-121"
+domain = "edge_cases"
+skill = "modify-booking"
+verifier = "tool_call_check"
+weight = 0.5
+
+[expected]
+tools = ["create_booking", "search_hotels"]
+required_params = { create_booking = ["flight_id", "passenger"], search_hotels = ["check_in", "check_out", "guests", "location"] }

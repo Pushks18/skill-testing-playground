@@ -1,0 +1,10 @@
+[task]
+id = "planning-123"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The response should indicate a willingness to assist but request specific dates and other details about the trip."

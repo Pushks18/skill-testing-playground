@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-135"
+domain = "booking_flow"
+skill = "booking-skill"
+verifier = "tool_call_check"
+weight = 3.0
+
+[expected]
+tools = ["get_itinerary"]
+required_params = { get_itinerary = ["booking_id"] }

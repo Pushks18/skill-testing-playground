@@ -1,0 +1,10 @@
+[task]
+id = "planning-141"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent should provide options for ski resorts and accommodation in the Canadian Rockies, suitable for a week-long trip."

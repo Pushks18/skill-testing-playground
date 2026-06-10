@@ -1,0 +1,10 @@
+[task]
+id = "disruption-148"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The response should ask for more information or suggest contacting the hotel for alternative arrangements."

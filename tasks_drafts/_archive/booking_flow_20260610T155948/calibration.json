@@ -1,0 +1,52 @@
+{
+  "booking-flow-113": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-114": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "booking-flow-115": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-116": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "booking-flow-117": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-118": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent correctly identified the missing information and asked for it, fulfilling the pass criteri"
+  },
+  "booking-flow-119": {
+    "class": "baseline-fail",
+    "score": 0.3333333333333333,
+    "detail": "avg=0.33 std=0.58 | The agent was asked to book a flight and find the ID. Instead, the agent requested further informati"
+  },
+  "booking-flow-120": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-121": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-122": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['add_ancillary']"
+  }
+}

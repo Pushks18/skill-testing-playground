@@ -1,0 +1,52 @@
+{
+  "itinerary-123": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-124": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-125": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-126": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-127": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking', 'search_flights', 'search_hotels']"
+  },
+  "itinerary-128": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "itinerary-129": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-130": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights']"
+  },
+  "itinerary-131": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-132": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  }
+}

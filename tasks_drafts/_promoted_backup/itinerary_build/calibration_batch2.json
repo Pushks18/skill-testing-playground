@@ -1,0 +1,62 @@
+{
+  "itinerary-111": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-112": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-113": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-114": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
+  },
+  "itinerary-115": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-116": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not identify missing travel dates and instead fabricated them. The task explicitly sta"
+  },
+  "itinerary-117": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not ask for clarification on the specific dates for 'Christmas'. Instead, the agent as"
+  },
+  "itinerary-118": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-119": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
+  },
+  "itinerary-120": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent's response is excellent. It not only addresses the initial requests (flight and lodging se"
+  },
+  "itinerary-121": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "itinerary-122": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
+  }
+}

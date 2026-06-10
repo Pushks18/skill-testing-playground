@@ -1,0 +1,17 @@
+{
+  "itinerary-143": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_hotels']"
+  },
+  "itinerary-144": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "itinerary-145": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights']"
+  }
+}

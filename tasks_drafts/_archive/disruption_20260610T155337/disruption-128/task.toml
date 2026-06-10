@@ -1,0 +1,10 @@
+[task]
+id = "disruption-128"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent should state that they need more details like the flight number or booking reference to find alternative solutions."

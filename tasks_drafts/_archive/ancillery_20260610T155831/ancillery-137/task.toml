@@ -1,0 +1,10 @@
+[task]
+id = "ancillery-137"
+domain = "ancillery"
+skill = "ancillery-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Advise the user to find their booking number in their email or account before proceeding."

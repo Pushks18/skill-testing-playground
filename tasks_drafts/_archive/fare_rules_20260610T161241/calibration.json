@@ -1,0 +1,22 @@
+{
+  "fare-rules-141": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-142": {
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The response identifies a fee for checking a bag, but it doesn't clarify if this applies to a bicycl"
+  },
+  "fare-rules-143": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-144": {
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The response clarifies that seat selection isn't included but fails to provide the requested informa"
+  }
+}

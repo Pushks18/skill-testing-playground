@@ -1,0 +1,10 @@
+[task]
+id = "planning-114"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Advise on flexible booking options for a round trip with an open return date."

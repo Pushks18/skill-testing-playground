@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-112"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "tool_call_check"
+weight = 1.0
+
+[expected]
+tools = ["get_itinerary"]
+required_params = { get_itinerary = ["booking_id"] }

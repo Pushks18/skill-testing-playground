@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-134"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent should confirm availability for flights from Jakarta to Bali for the specified timeframe."

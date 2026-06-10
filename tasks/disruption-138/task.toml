@@ -1,0 +1,10 @@
+[task]
+id = "disruption-138"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "tool_call_check"
+weight = 2.0
+
+[expected]
+tools = ["modify_booking"]
+required_params = { modify_booking = ["booking_id", "changes"] }

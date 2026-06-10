@@ -1,0 +1,10 @@
+[task]
+id = "hotel-search-126"
+domain = "hotel_search"
+skill = "hotel-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent asks for specific dates to proceed with the booking."

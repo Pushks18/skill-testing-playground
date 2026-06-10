@@ -1,0 +1,52 @@
+{
+  "fare-rules-121": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-122": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-123": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['get_fare_rules', 'search_flights']"
+  },
+  "fare-rules-124": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-125": {
+    "class": "baseline-fail",
+    "score": 0.3333333333333333,
+    "detail": "avg=0.33 std=0.29 | The response fails to describe the conditions for changing the itinerary or suggest checking fare ru"
+  },
+  "fare-rules-126": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-127": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-128": {
+    "class": "baseline-fail",
+    "score": 0.16666666666666666,
+    "detail": "avg=0.17 std=0.29 | The response makes specific claims about baggage which cannot be known without fare rules. It doesn'"
+  },
+  "fare-rules-129": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-130": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  }
+}

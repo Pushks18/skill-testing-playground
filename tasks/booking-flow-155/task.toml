@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-155"
+domain = "booking_flow"
+skill = "booking-skill"
+verifier = "llm_judge"
+weight = 3.0
+
+[expected]
+tools = []
+criteria = "The agent confirms whether additional passenger information is required or not."

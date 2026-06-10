@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-131"
+domain = "booking_flow"
+skill = "booking-skill"
+verifier = "llm_judge"
+weight = 3.0
+
+[expected]
+tools = []
+criteria = "The agent should ask the user for the check-in and check-out dates before proceeding."

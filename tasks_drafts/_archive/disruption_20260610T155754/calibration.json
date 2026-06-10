@@ -1,0 +1,12 @@
+{
+  "disruption-151": {
+    "class": "baseline-fail",
+    "score": 0.16666666666666666,
+    "detail": "avg=0.17 std=0.14 | The agent did not ask for identifiable information to locate the original booking, which was a key r"
+  },
+  "disruption-152": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent completely failed to request necessary information to identify the user's original flight "
+  }
+}

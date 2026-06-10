@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-128"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The correct answer should request a specific date instead of 'a Friday in June 2026'."

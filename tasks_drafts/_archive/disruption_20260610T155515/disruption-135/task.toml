@@ -1,0 +1,10 @@
+[task]
+id = "disruption-135"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The response should describe potential options for the user such as rebooking or receiving compensation."

@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-113"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "tool_call_check"
+weight = 2.0
+
+[expected]
+tools = ["search_flights", "search_hotels"]
+required_params = { search_flights = ["date", "destination", "origin", "passengers"], search_hotels = ["check_in", "check_out", "guests", "location"] }

@@ -1,0 +1,10 @@
+[task]
+id = "planning-139"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent should inquire about specific activities and destinations within New Zealand to tailor the adventure trip accordingly."

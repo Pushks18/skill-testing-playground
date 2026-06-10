@@ -1,0 +1,52 @@
+{
+  "edge-mixed-127": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-128": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-129": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-130": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-131": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-132": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['check_availability']"
+  },
+  "edge-mixed-133": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not ask for service type details. Instead, it confirmed a modification without knowing"
+  },
+  "edge-mixed-134": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not ask for more information as per the pass criteria. Instead, it directly made the c"
+  },
+  "edge-mixed-135": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-136": {
+    "class": "baseline-fail",
+    "score": 0.4166666666666667,
+    "detail": "avg=0.42 std=0.38 | The agent cancelled the reservation immediately and provided a refund amount without checking the re"
+  }
+}

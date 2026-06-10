@@ -1,0 +1,52 @@
+{
+  "hotel-search-109": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-110": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-111": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-112": {
+    "class": "baseline-pass",
+    "score": 0.8333333333333334,
+    "detail": "avg=0.83 std=0.14 | The agent did ask for dates, which is good. However, it also asked for additional information that w"
+  },
+  "hotel-search-113": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-114": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent failed to identify an on-site restaurant for any of the listed hotels. This was a critical"
+  },
+  "hotel-search-115": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-116": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "hotel-search-117": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "hotel-search-118": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  }
+}

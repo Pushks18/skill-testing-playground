@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-144"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = []
+criteria = "The response must indicate whether seat selection is part of the booking or if an additional charge applies."

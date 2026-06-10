@@ -1,0 +1,52 @@
+{
+  "edge-mixed-107": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['check_availability']"
+  },
+  "edge-mixed-108": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-109": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent proceeds with the change without confirming details or asking clarifying questions, direct"
+  },
+  "edge-mixed-110": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'create_booking', 'search_hotels']"
+  },
+  "edge-mixed-111": {
+    "class": "baseline-pass",
+    "score": 0.75,
+    "detail": "avg=0.75 std=0.00 | The agent explains the steps for modification and asks for follow-up details. However, it doesn't cl"
+  },
+  "edge-mixed-112": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "edge-mixed-113": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-114": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'create_booking']"
+  },
+  "edge-mixed-115": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-116": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  }
+}

@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-137"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = []
+criteria = "The agent should determine if adding a passenger is possible and what fees, if any, are entailed."

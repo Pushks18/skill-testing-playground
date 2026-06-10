@@ -1,0 +1,10 @@
+[task]
+id = "disruption-151"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent should ask the user for any identifiable information or guidance to locate or verify their booking to proceed with rebooking."

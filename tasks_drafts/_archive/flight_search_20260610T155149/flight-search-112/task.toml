@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-112"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent should either search flights from Miami to Boston on 2026-09-15 and retrieve fare rules for a specific resulting flight, or ask the user which flight/fare they mean before proceeding."

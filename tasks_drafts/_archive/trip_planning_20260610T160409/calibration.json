@@ -1,0 +1,52 @@
+{
+  "planning-122": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels', 'create_booking']"
+  },
+  "planning-123": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The response clearly indicates willingness to assist and requests specific dates and other necessary"
+  },
+  "planning-124": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-125": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent's response clearly implies that more specific timing details (check-in/out dates) are need"
+  },
+  "planning-126": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-127": {
+    "class": "baseline-pass",
+    "score": 0.8333333333333334,
+    "detail": "avg=0.83 std=0.14 | The response provides a detailed day-by-day itinerary for an art tour, including specific art venues"
+  },
+  "planning-128": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-129": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "planning-130": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The response is comprehensive, expresses readiness to assist, and explicitly asks for travel dates, "
+  },
+  "planning-131": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The response proposes a good sequence of cities known for their cuisine and correctly identifies the"
+  }
+}

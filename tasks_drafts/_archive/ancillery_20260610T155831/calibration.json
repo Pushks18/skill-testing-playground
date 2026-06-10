@@ -1,0 +1,52 @@
+{
+  "ancillery-131": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "ancillery-132": {
+    "class": "baseline-fail",
+    "score": 0.6666666666666667,
+    "detail": "Missing params: ['add_ancillary.details']"
+  },
+  "ancillery-133": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent directly asks for the booking reference and provides multiple helpful suggestions for retr"
+  },
+  "ancillery-134": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['add_ancillary']"
+  },
+  "ancillery-135": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "ancillery-136": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "ancillery-137": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent's response fully addresses the user's need to find their booking number by providing clear"
+  },
+  "ancillery-138": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "ancillery-139": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "ancillery-140": {
+    "class": "baseline-fail",
+    "score": 0.6666666666666667,
+    "detail": "Missing params: ['add_ancillary.details']"
+  }
+}

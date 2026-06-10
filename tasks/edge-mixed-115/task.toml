@@ -1,0 +1,10 @@
+[task]
+id = "edge-mixed-115"
+domain = "edge_cases"
+skill = "modify-booking"
+verifier = "tool_call_check"
+weight = 0.5
+
+[expected]
+tools = ["get_fare_rules"]
+required_params = { get_fare_rules = ["flight_id"] }

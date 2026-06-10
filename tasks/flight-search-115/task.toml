@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-115"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The AI should ask how many passengers are traveling instead of proceeding without this information."

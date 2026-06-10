@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-136"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = []
+criteria = "The agent should request flight specifics or booking details to provide accurate fee and availability information."

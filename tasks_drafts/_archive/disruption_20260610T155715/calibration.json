@@ -1,0 +1,52 @@
+{
+  "disruption-141": {
+    "class": "baseline-fail",
+    "score": 0.25,
+    "detail": "avg=0.25 std=0.00 | (reasoning truncated)"
+  },
+  "disruption-142": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'modify_booking']"
+  },
+  "disruption-143": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent's response directly asks for the booking reference or details needed for cancellation, ful"
+  },
+  "disruption-144": {
+    "class": "baseline-fail",
+    "score": 0.25,
+    "detail": "avg=0.25 std=0.00 | The agent provided information on cancellation, changes, and baggage, which was not requested. It ex"
+  },
+  "disruption-145": {
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The agent asks for some relevant details (date, passengers) but misses both pass criteria: asking fo"
+  },
+  "disruption-146": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-147": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-148": {
+    "class": "baseline-fail",
+    "score": 0.3333333333333333,
+    "detail": "avg=0.33 std=0.29 | The response did not ask for more information (like budget or preferences) nor did it suggest contac"
+  },
+  "disruption-149": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-150": {
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The response indirectly addresses the user's need by asking for more information necessary to fulfil"
+  }
+}

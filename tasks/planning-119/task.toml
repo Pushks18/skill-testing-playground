@@ -1,0 +1,10 @@
+[task]
+id = "planning-119"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Ask for specific travel dates and provide options for flights and accommodations considering conference location."

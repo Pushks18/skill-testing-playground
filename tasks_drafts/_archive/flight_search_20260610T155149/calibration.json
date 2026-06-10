@@ -1,0 +1,52 @@
+{
+  "flight-search-111": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-112": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent hallucinates flight information, including flight IDs, airlines, and specific fare rules f"
+  },
+  "flight-search-113": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-114": {
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.43 | judge error: Unterminated string starting at: line 1 column 30 (char 29)"
+  },
+  "flight-search-115": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-116": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-117": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-118": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-119": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-120": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | judge error: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+  }
+}

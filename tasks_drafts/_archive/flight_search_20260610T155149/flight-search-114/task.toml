@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-114"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The agent should search flights from JFK to SFO on 2026-08-21 for one passenger and present or compare morning versus evening departure options from the results."

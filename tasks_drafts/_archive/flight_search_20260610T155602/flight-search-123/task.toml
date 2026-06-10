@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-123"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "tool_call_check"
+weight = 2.0
+
+[expected]
+tools = ["search_flights", "get_fare_rules"]
+required_params = { search_flights = ["date", "destination", "origin", "passengers"], get_fare_rules = ["flight_id"] }

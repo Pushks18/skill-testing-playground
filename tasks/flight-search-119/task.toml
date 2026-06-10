@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-119"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The AI should ask for more specific date information to proceed."

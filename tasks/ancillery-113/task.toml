@@ -1,0 +1,10 @@
+[task]
+id = "ancillery-113"
+domain = "ancillery"
+skill = "ancillery-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent must ask for the travel date to check lounge availability."

@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-133"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Offer a plan for flights and a culturally rich accommodation in Buenos Aires."

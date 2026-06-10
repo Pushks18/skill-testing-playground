@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-128"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Provide a well-structured plan with flights and accommodation for a 10-day visit to Melbourne."

@@ -1,0 +1,10 @@
+[task]
+id = "edge-mixed-116"
+domain = "edge_cases"
+skill = "modify-booking"
+verifier = "tool_call_check"
+weight = 0.5
+
+[expected]
+tools = ["get_itinerary"]
+required_params = { get_itinerary = ["booking_id"] }

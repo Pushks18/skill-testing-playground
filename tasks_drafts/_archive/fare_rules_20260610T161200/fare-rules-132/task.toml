@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-132"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = []
+criteria = "The agent should verify if additional fees apply for pet inclusion in the booking."

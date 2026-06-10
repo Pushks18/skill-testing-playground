@@ -1,0 +1,52 @@
+{
+  "booking-flow-133": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-134": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-135": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-136": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not request the Flight ID, which was explicitly stated as needed in the pass criteria."
+  },
+  "booking-flow-137": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "booking-flow-138": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "booking-flow-139": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "booking-flow-140": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not ask for the number of passengers before providing flight options, which was a pass"
+  },
+  "booking-flow-141": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-142": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent successfully provided options for hotels in New York City, fulfilling the pass criteria."
+  }
+}

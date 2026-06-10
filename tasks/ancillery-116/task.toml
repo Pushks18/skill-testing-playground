@@ -1,0 +1,10 @@
+[task]
+id = "ancillery-116"
+domain = "ancillery"
+skill = "ancillery-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The answer should acknowledge the request and confirm the need for further details to assist."

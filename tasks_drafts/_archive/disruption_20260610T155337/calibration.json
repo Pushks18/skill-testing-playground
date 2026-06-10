@@ -1,0 +1,52 @@
+{
+  "disruption-121": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "disruption-122": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-123": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "disruption-124": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not ask for the booking reference or passenger details, which is a key requirement for"
+  },
+  "disruption-125": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['get_fare_rules']"
+  },
+  "disruption-126": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent directly requested the booking reference number, fulfilling the pass criteria entirely."
+  },
+  "disruption-127": {
+    "class": "broken",
+    "score": 0.0,
+    "detail": "ValidationError: 1 validation error for create_booking\nhotel_id\n  Input should be a valid string [type=string_type, inpu"
+  },
+  "disruption-128": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not meet the pass criteria. They asked for origin city and date, but the instruction s"
+  },
+  "disruption-129": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  },
+  "disruption-130": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['get_fare_rules']"
+  }
+}

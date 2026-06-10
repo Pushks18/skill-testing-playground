@@ -1,0 +1,52 @@
+{
+  "booking-flow-123": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['get_itinerary']"
+  },
+  "booking-flow-124": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-125": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-126": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The response accurately and completely lists available flights from Chicago to Boston for the specif"
+  },
+  "booking-flow-127": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-128": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['create_booking']"
+  },
+  "booking-flow-129": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-130": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "booking-flow-131": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent directly asks for the essential missing information, the check-in and check-out dates, ful"
+  },
+  "booking-flow-132": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['modify_booking']"
+  }
+}

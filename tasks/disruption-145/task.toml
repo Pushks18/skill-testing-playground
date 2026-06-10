@@ -1,0 +1,10 @@
+[task]
+id = "disruption-145"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The response should ask for additional details such as preferred travel time or inquire if the passenger can retrieve the booking information."

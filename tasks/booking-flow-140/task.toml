@@ -1,0 +1,10 @@
+[task]
+id = "booking-flow-140"
+domain = "booking_flow"
+skill = "booking-skill"
+verifier = "llm_judge"
+weight = 3.0
+
+[expected]
+tools = []
+criteria = "The agent should ask for the number of passengers before performing a flight search."

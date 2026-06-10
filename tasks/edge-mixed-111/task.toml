@@ -1,0 +1,10 @@
+[task]
+id = "edge-mixed-111"
+domain = "edge_cases"
+skill = "modify-booking"
+verifier = "llm_judge"
+weight = 0.5
+
+[expected]
+tools = []
+criteria = "The agent should explain the steps or options for modifying a booking, and ask any necessary follow-up questions."

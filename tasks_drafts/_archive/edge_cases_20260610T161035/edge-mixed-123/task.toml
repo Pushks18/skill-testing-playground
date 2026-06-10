@@ -1,0 +1,10 @@
+[task]
+id = "edge-mixed-123"
+domain = "edge_cases"
+skill = "modify-booking"
+verifier = "llm_judge"
+weight = 0.5
+
+[expected]
+tools = []
+criteria = "The agent should ask for the correct date of birth and passport to validate the passenger's identity for the name change."

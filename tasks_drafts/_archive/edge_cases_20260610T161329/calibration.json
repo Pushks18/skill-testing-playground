@@ -1,0 +1,22 @@
+{
+  "edge-mixed-137": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['check_availability']"
+  },
+  "edge-mixed-138": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "edge-mixed-139": {
+    "class": "baseline-fail",
+    "score": 0.875,
+    "detail": "Missing params: ['search_flights.passengers']"
+  },
+  "edge-mixed-140": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  }
+}

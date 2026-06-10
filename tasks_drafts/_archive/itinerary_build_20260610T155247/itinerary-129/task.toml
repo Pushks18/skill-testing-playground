@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-129"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "tool_call_check"
+weight = 1.5
+
+[expected]
+tools = ["search_flights", "search_hotels"]
+required_params = { search_flights = ["date", "destination", "origin", "passengers"], search_hotels = ["check_in", "check_out", "guests", "location"] }

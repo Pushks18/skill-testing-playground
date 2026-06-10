@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-140"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent should propose several flight options from Cape Town to Dubai during the specified period."

@@ -1,0 +1,10 @@
+[task]
+id = "disruption-133"
+domain = "disruption"
+skill = "disruption-handling"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The response should guide the user on how to determine eligibility for compensation."

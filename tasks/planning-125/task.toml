@@ -1,0 +1,10 @@
+[task]
+id = "planning-125"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The response should imply that more specific timing details are needed."

@@ -1,0 +1,10 @@
+[task]
+id = "ancillery-127"
+domain = "ancillery"
+skill = "ancillery-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Agent should ask for the booking reference before taking any actions."

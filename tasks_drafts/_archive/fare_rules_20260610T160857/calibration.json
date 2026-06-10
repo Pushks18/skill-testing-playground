@@ -1,0 +1,52 @@
+{
+  "fare-rules-111": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-112": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['get_itinerary']"
+  },
+  "fare-rules-113": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-114": {
+    "class": "baseline-fail",
+    "score": 0.08333333333333333,
+    "detail": "avg=0.08 std=0.14 | The agent did not provide any cancellation policies or explain fees. It asked for more information, "
+  },
+  "fare-rules-115": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-116": {
+    "class": "baseline-pass",
+    "score": 0.5833333333333334,
+    "detail": "avg=0.58 std=0.14 | The response details the penalty for no-showing (forfeiting the entire fare) but includes irrelevant"
+  },
+  "fare-rules-117": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-118": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "fare-rules-119": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['get_itinerary']"
+  },
+  "fare-rules-120": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  }
+}

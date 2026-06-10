@@ -1,0 +1,10 @@
+[task]
+id = "fare-rules-114"
+domain = "fare_rules"
+skill = "fare-rules"
+verifier = "llm_judge"
+weight = 1.0
+
+[expected]
+tools = []
+criteria = "The answer must explain any fees or penalties associated with canceling the mentioned flight."

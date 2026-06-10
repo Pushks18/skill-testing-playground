@@ -1,0 +1,10 @@
+[task]
+id = "itinerary-116"
+domain = "itinerary_build"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "Agent should identify missing travel dates and ask for them."

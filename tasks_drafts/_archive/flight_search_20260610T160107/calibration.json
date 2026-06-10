@@ -1,0 +1,27 @@
+{
+  "flight-search-140": {
+    "class": "baseline-fail",
+    "score": 0.3333333333333333,
+    "detail": "avg=0.33 std=0.58 | The agent did not ask for a specific date in April 2026. Instead, it provided flight options for all"
+  },
+  "flight-search-141": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-142": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-143": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-144": {
+    "class": "baseline-fail",
+    "score": 0.25,
+    "detail": "avg=0.25 std=0.25 | The agent provided flight options on March 2nd without confirming a specific weekday with the user. "
+  }
+}
