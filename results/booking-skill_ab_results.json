@@ -1,30 +1,28 @@
 {
   "skill_name": "booking-skill",
   "model": "gpt-4o-mini",
-  "weighted_delta": -0.05,
-  "regression_rate": 0.05,
-  "verdict": "BLOCK",
-  "tier": 1,
-  "flagged_tasks": [
-    "booking-flow-007"
-  ],
+  "weighted_delta": 0.0014619883040935665,
+  "regression_rate": 0.017543859649122806,
+  "verdict": "PASS",
+  "tier": 0,
+  "flagged_tasks": [],
   "regression_traces": {},
   "cost": {
     "no_skill": {
-      "total_cost_usd": 0.006507,
-      "avg_cost_usd": 0.000325,
-      "total_input_tokens": 32476,
-      "total_output_tokens": 2728,
-      "avg_latency_ms": 3494,
-      "p95_latency_ms": 7225
+      "total_cost_usd": 0.014977,
+      "avg_cost_usd": 0.000263,
+      "total_input_tokens": 82069,
+      "total_output_tokens": 4444,
+      "avg_latency_ms": 2166,
+      "p95_latency_ms": 3599
     },
     "with_skill": {
-      "total_cost_usd": 0.01191,
-      "avg_cost_usd": 0.000595,
-      "total_input_tokens": 68864,
-      "total_output_tokens": 2632,
-      "avg_latency_ms": 3433,
-      "p95_latency_ms": 6200
+      "total_cost_usd": 0.02796,
+      "avg_cost_usd": 0.000491,
+      "total_input_tokens": 167445,
+      "total_output_tokens": 4737,
+      "avg_latency_ms": 2166,
+      "p95_latency_ms": 3694
     }
   },
   "tasks": [
@@ -38,74 +36,63 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
-        "steps": 3,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Alice Johnson",
             "dob": "1985-03-15"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Alice Johnson",
-              "dob": "1985-03-15"
-            },
-            "flight_id": "FL123"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3386,
-        "tokens_used": 1981,
-        "input_tokens": 1856,
-        "output_tokens": 125,
-        "cost_usd": 0.000353
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 3110,
+        "tokens_used": 1530,
+        "input_tokens": 1481,
+        "output_tokens": 49,
+        "cost_usd": 0.000252
       },
       "with_skill": {
         "task_id": "booking-flow-001",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 1.0,
+        "score": 0.0,
         "steps": 3,
         "tools_called": [
           "validate_passenger",
-          "create_booking"
+          "check_availability"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Alice Johnson",
             "dob": "1985-03-15"
           },
-          "create_booking": {
-            "passenger": {
-              "name": "Alice Johnson",
-              "dob": "1985-03-15"
-            },
-            "flight_id": "FL123"
+          "check_availability": {
+            "resource_id": "FL123",
+            "date": "2023-11-01"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3088,
-        "tokens_used": 3982,
-        "input_tokens": 3852,
-        "output_tokens": 130,
-        "cost_usd": 0.000656
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2848,
+        "tokens_used": 4703,
+        "input_tokens": 4609,
+        "output_tokens": 94,
+        "cost_usd": 0.000748
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 0,
-      "token_delta": 2001,
-      "latency_delta_ms": -298,
-      "cost_delta_usd": 0.000303
+      "step_delta": 1,
+      "token_delta": 3173,
+      "latency_delta_ms": -262,
+      "cost_delta_usd": 0.0004959999999999999
     },
     {
       "skill_name": "booking-skill",
@@ -118,9 +105,10 @@
         "skill_name": null,
         "skill_version": null,
         "score": 1.0,
-        "steps": 2,
+        "steps": 3,
         "tools_called": [
-          "create_booking"
+          "create_booking",
+          "check_availability"
         ],
         "tool_params": {
           "create_booking": {
@@ -128,19 +116,21 @@
               "name": "Bob Smith",
               "dob": "1988-05-20"
             },
-            "hotel_id": "HT456",
-            "check_in": "2026-07-15",
-            "check_out": "2026-07-17"
+            "hotel_id": "HT456"
+          },
+          "check_availability": {
+            "resource_id": "HT456",
+            "date": "2026-07-15"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2862,
-        "tokens_used": 1404,
-        "input_tokens": 1254,
-        "output_tokens": 150,
-        "cost_usd": 0.000278
+        "latency_ms": 3572,
+        "tokens_used": 2488,
+        "input_tokens": 2357,
+        "output_tokens": 131,
+        "cost_usd": 0.000432
       },
       "with_skill": {
         "task_id": "booking-flow-002",
@@ -150,44 +140,38 @@
         "score": 1.0,
         "steps": 3,
         "tools_called": [
-          "validate_passenger",
-          "check_availability",
-          "check_availability",
-          "create_booking"
+          "create_booking",
+          "check_availability"
         ],
         "tool_params": {
-          "validate_passenger": {
-            "name": "Bob Smith",
-            "dob": "1988-05-20"
-          },
-          "check_availability": {
-            "resource_id": "HT456",
-            "date": "2026-07-17"
-          },
           "create_booking": {
             "passenger": {
               "name": "Bob Smith",
               "dob": "1988-05-20"
             },
             "hotel_id": "HT456"
+          },
+          "check_availability": {
+            "resource_id": "HT456",
+            "date": "2026-07-15"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4525,
-        "tokens_used": 4369,
-        "input_tokens": 4148,
-        "output_tokens": 221,
-        "cost_usd": 0.000755
+        "latency_ms": 3507,
+        "tokens_used": 4806,
+        "input_tokens": 4682,
+        "output_tokens": 124,
+        "cost_usd": 0.000777
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 1,
-      "token_delta": 2965,
-      "latency_delta_ms": 1663,
-      "cost_delta_usd": 0.00047700000000000005
+      "step_delta": 0,
+      "token_delta": 2318,
+      "latency_delta_ms": -65,
+      "cost_delta_usd": 0.00034500000000000004
     },
     {
       "skill_name": "booking-skill",
@@ -199,84 +183,63 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
-        "steps": 4,
+        "score": 0.0,
+        "steps": 3,
         "tools_called": [
-          "check_availability",
-          "validate_passenger",
-          "create_booking"
+          "get_fare_rules",
+          "search_flights"
         ],
         "tool_params": {
-          "check_availability": {
-            "resource_id": "FL789",
-            "date": "2026-08-01"
-          },
-          "validate_passenger": {
-            "name": "Carol Davis",
-            "dob": "1990-11-03"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Carol Davis",
-              "dob": "1990-11-03"
-            },
+          "get_fare_rules": {
             "flight_id": "FL789"
+          },
+          "search_flights": {
+            "origin": "Unknown",
+            "destination": "Unknown",
+            "date": "2026-08-01"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3987,
-        "tokens_used": 2793,
-        "input_tokens": 2642,
-        "output_tokens": 151,
-        "cost_usd": 0.000487
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['check_availability', 'create_booking']",
+        "latency_ms": 3599,
+        "tokens_used": 2423,
+        "input_tokens": 2313,
+        "output_tokens": 110,
+        "cost_usd": 0.000413
       },
       "with_skill": {
         "task_id": "booking-flow-003",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 1.0,
-        "steps": 4,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "check_availability",
-          "validate_passenger",
-          "create_booking"
+          "check_availability"
         ],
         "tool_params": {
           "check_availability": {
             "resource_id": "FL789",
             "date": "2026-08-01"
-          },
-          "validate_passenger": {
-            "name": "Carol Davis",
-            "dob": "1990-11-03"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Carol Davis",
-              "dob": "1990-11-03"
-            },
-            "flight_id": "FL789"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4242,
-        "tokens_used": 5458,
-        "input_tokens": 5301,
-        "output_tokens": 157,
-        "cost_usd": 0.000889
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2406,
+        "tokens_used": 3124,
+        "input_tokens": 3058,
+        "output_tokens": 66,
+        "cost_usd": 0.000498
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 0,
-      "token_delta": 2665,
-      "latency_delta_ms": 255,
-      "cost_delta_usd": 0.000402
+      "step_delta": -1,
+      "token_delta": 701,
+      "latency_delta_ms": -1193,
+      "cost_delta_usd": 8.499999999999995e-05
     },
     {
       "skill_name": "booking-skill",
@@ -288,78 +251,60 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
+        "score": 0.0,
         "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Eve Wilson",
             "dob": "1992-07-22",
             "passport": "A1234567"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Eve Wilson",
-              "dob": "1992-07-22",
-              "passport": "A1234567"
-            },
-            "flight_id": "FL321"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2642,
-        "tokens_used": 1436,
-        "input_tokens": 1285,
-        "output_tokens": 151,
-        "cost_usd": 0.000283
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2334,
+        "tokens_used": 1593,
+        "input_tokens": 1497,
+        "output_tokens": 96,
+        "cost_usd": 0.000282
       },
       "with_skill": {
         "task_id": "booking-flow-004",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 1.0,
-        "steps": 3,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Eve Wilson",
             "dob": "1992-07-22",
             "passport": "A1234567"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Eve Wilson",
-              "dob": "1992-07-22",
-              "passport": "A1234567"
-            },
-            "flight_id": "FL321"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3538,
-        "tokens_used": 4032,
-        "input_tokens": 3888,
-        "output_tokens": 144,
-        "cost_usd": 0.00067
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2178,
+        "tokens_used": 3178,
+        "input_tokens": 3047,
+        "output_tokens": 131,
+        "cost_usd": 0.000536
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 1,
-      "token_delta": 2596,
-      "latency_delta_ms": 896,
-      "cost_delta_usd": 0.00038700000000000003
+      "step_delta": 0,
+      "token_delta": 1585,
+      "latency_delta_ms": -156,
+      "cost_delta_usd": 0.000254
     },
     {
       "skill_name": "booking-skill",
@@ -371,69 +316,58 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
+        "score": 0.0,
         "steps": 2,
         "tools_called": [
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
-          "create_booking": {
-            "passenger": {
-              "name": "James Miller",
-              "dob": "1975-08-12"
-            },
-            "flight_id": "FL456"
+          "validate_passenger": {
+            "name": "James Miller",
+            "dob": "1975-08-12"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3716,
-        "tokens_used": 1295,
-        "input_tokens": 1197,
-        "output_tokens": 98,
-        "cost_usd": 0.000238
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1649,
+        "tokens_used": 1533,
+        "input_tokens": 1481,
+        "output_tokens": 52,
+        "cost_usd": 0.000253
       },
       "with_skill": {
         "task_id": "booking-flow-005",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 1.0,
-        "steps": 3,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "check_availability"
         ],
         "tool_params": {
-          "validate_passenger": {
-            "name": "James Miller",
-            "dob": "1975-08-12"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "James Miller",
-              "dob": "1975-08-12"
-            },
-            "flight_id": "FL456"
+          "check_availability": {
+            "resource_id": "FL456",
+            "date": "2023-10-03"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2927,
-        "tokens_used": 3977,
-        "input_tokens": 3851,
-        "output_tokens": 126,
-        "cost_usd": 0.000653
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1540,
+        "tokens_used": 3102,
+        "input_tokens": 3032,
+        "output_tokens": 70,
+        "cost_usd": 0.000497
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 1,
-      "token_delta": 2682,
-      "latency_delta_ms": -789,
-      "cost_delta_usd": 0.000415
+      "step_delta": 0,
+      "token_delta": 1569,
+      "latency_delta_ms": -109,
+      "cost_delta_usd": 0.00024400000000000002
     },
     {
       "skill_name": "booking-skill",
@@ -445,74 +379,63 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
-        "steps": 3,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Sarah Connor",
             "dob": "1984-05-30"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Sarah Connor",
-              "dob": "1984-05-30"
-            },
-            "hotel_id": "HT789"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2971,
-        "tokens_used": 1970,
-        "input_tokens": 1856,
-        "output_tokens": 114,
-        "cost_usd": 0.000347
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1563,
+        "tokens_used": 1535,
+        "input_tokens": 1481,
+        "output_tokens": 54,
+        "cost_usd": 0.000255
       },
       "with_skill": {
         "task_id": "booking-flow-006",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 1.0,
-        "steps": 3,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
           "validate_passenger",
-          "create_booking"
+          "check_availability"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Sarah Connor",
             "dob": "1984-05-30"
           },
-          "create_booking": {
-            "passenger": {
-              "name": "Sarah Connor",
-              "dob": "1984-05-30"
-            },
-            "hotel_id": "HT789"
+          "check_availability": {
+            "resource_id": "HT789",
+            "date": "2023-10-17"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3207,
-        "tokens_used": 3980,
-        "input_tokens": 3852,
-        "output_tokens": 128,
-        "cost_usd": 0.000655
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 4325,
+        "tokens_used": 3285,
+        "input_tokens": 3085,
+        "output_tokens": 200,
+        "cost_usd": 0.000583
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 2010,
-      "latency_delta_ms": 236,
-      "cost_delta_usd": 0.000308
+      "token_delta": 1750,
+      "latency_delta_ms": 2762,
+      "cost_delta_usd": 0.00032799999999999995
     },
     {
       "skill_name": "booking-skill",
@@ -524,39 +447,30 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
-        "steps": 4,
+        "score": 0.0,
+        "steps": 3,
         "tools_called": [
-          "check_availability",
-          "search_flights",
-          "create_booking"
+          "get_fare_rules",
+          "search_flights"
         ],
         "tool_params": {
-          "check_availability": {
-            "resource_id": "FL999",
-            "date": "2026-09-01"
+          "get_fare_rules": {
+            "flight_id": "FL999"
           },
           "search_flights": {
-            "origin": "Unknown",
-            "destination": "Unknown",
-            "date": "2026-09-01"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Tom Hardy",
-              "dob": "1979-09-15"
-            },
-            "flight_id": "FL197"
+            "origin": "unknown",
+            "destination": "unknown",
+            "date": "2026-09-02"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4778,
-        "tokens_used": 3731,
-        "input_tokens": 3551,
-        "output_tokens": 180,
-        "cost_usd": 0.000641
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['check_availability', 'create_booking']",
+        "latency_ms": 2926,
+        "tokens_used": 2407,
+        "input_tokens": 2301,
+        "output_tokens": 106,
+        "cost_usd": 0.000409
       },
       "with_skill": {
         "task_id": "booking-flow-007",
@@ -571,25 +485,25 @@
         "tool_params": {
           "check_availability": {
             "resource_id": "FL999",
-            "date": "2026-09-01"
+            "date": "2026-09-02"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": false,
         "judge_reasoning": "Missing required tools: ['create_booking']",
-        "latency_ms": 1614,
-        "tokens_used": 2583,
-        "input_tokens": 2521,
+        "latency_ms": 1686,
+        "tokens_used": 3112,
+        "input_tokens": 3050,
         "output_tokens": 62,
-        "cost_usd": 0.000415
+        "cost_usd": 0.000495
       },
-      "delta": -1.0,
-      "delta_significant": true,
-      "regression": true,
-      "step_delta": -2,
-      "token_delta": -1148,
-      "latency_delta_ms": -3164,
-      "cost_delta_usd": -0.00022599999999999996
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": -1,
+      "token_delta": 705,
+      "latency_delta_ms": -1240,
+      "cost_delta_usd": 8.599999999999998e-05
     },
     {
       "skill_name": "booking-skill",
@@ -602,9 +516,10 @@
         "skill_name": null,
         "skill_version": null,
         "score": 1.0,
-        "steps": 2,
+        "steps": 3,
         "tools_called": [
-          "create_booking"
+          "create_booking",
+          "check_availability"
         ],
         "tool_params": {
           "create_booking": {
@@ -613,16 +528,20 @@
               "dob": "1991-03-22"
             },
             "hotel_id": "HT321"
+          },
+          "check_availability": {
+            "resource_id": "HT321",
+            "date": "2026-11-10"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3091,
-        "tokens_used": 1319,
-        "input_tokens": 1209,
-        "output_tokens": 110,
-        "cost_usd": 0.000247
+        "latency_ms": 2321,
+        "tokens_used": 2432,
+        "input_tokens": 2320,
+        "output_tokens": 112,
+        "cost_usd": 0.000415
       },
       "with_skill": {
         "task_id": "booking-flow-008",
@@ -630,9 +549,10 @@
         "skill_name": "booking-skill",
         "skill_version": null,
         "score": 1.0,
-        "steps": 2,
+        "steps": 3,
         "tools_called": [
-          "create_booking"
+          "create_booking",
+          "check_availability"
         ],
         "tool_params": {
           "create_booking": {
@@ -641,24 +561,28 @@
               "dob": "1991-03-22"
             },
             "hotel_id": "HT321"
+          },
+          "check_availability": {
+            "resource_id": "HT321",
+            "date": "2026-11-10"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2599,
-        "tokens_used": 2656,
-        "input_tokens": 2539,
-        "output_tokens": 117,
-        "cost_usd": 0.000451
+        "latency_ms": 2420,
+        "tokens_used": 4771,
+        "input_tokens": 4645,
+        "output_tokens": 126,
+        "cost_usd": 0.000772
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1337,
-      "latency_delta_ms": -492,
-      "cost_delta_usd": 0.00020400000000000003
+      "token_delta": 2339,
+      "latency_delta_ms": 99,
+      "cost_delta_usd": 0.000357
     },
     {
       "skill_name": "booking-skill",
@@ -670,78 +594,60 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
-        "steps": 3,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Lisa Wong",
             "dob": "1993-02-11",
             "passport": "B9876543"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Lisa Wong",
-              "dob": "1993-02-11",
-              "passport": "B9876543"
-            },
-            "flight_id": "FL876"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3940,
-        "tokens_used": 2050,
-        "input_tokens": 1897,
-        "output_tokens": 153,
-        "cost_usd": 0.000376
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2102,
+        "tokens_used": 1603,
+        "input_tokens": 1500,
+        "output_tokens": 103,
+        "cost_usd": 0.000287
       },
       "with_skill": {
         "task_id": "booking-flow-101",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 1.0,
-        "steps": 3,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Lisa Wong",
             "dob": "1993-02-11",
             "passport": "B9876543"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Lisa Wong",
-              "dob": "1993-02-11",
-              "passport": "B9876543"
-            },
-            "flight_id": "FL876"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3228,
-        "tokens_used": 4032,
-        "input_tokens": 3891,
-        "output_tokens": 141,
-        "cost_usd": 0.000668
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1772,
+        "tokens_used": 3129,
+        "input_tokens": 3050,
+        "output_tokens": 79,
+        "cost_usd": 0.000505
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1982,
-      "latency_delta_ms": -712,
-      "cost_delta_usd": 0.000292
+      "token_delta": 1526,
+      "latency_delta_ms": -330,
+      "cost_delta_usd": 0.00021800000000000004
     },
     {
       "skill_name": "booking-skill",
@@ -754,9 +660,10 @@
         "skill_name": null,
         "skill_version": null,
         "score": 1.0,
-        "steps": 2,
+        "steps": 3,
         "tools_called": [
-          "create_booking"
+          "create_booking",
+          "check_availability"
         ],
         "tool_params": {
           "create_booking": {
@@ -764,16 +671,20 @@
               "name": "John Doe"
             },
             "hotel_id": "HT987"
+          },
+          "check_availability": {
+            "resource_id": "HT987",
+            "date": "2026-10-05"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2716,
-        "tokens_used": 1329,
-        "input_tokens": 1208,
-        "output_tokens": 121,
-        "cost_usd": 0.000254
+        "latency_ms": 3100,
+        "tokens_used": 2417,
+        "input_tokens": 2312,
+        "output_tokens": 105,
+        "cost_usd": 0.00041
       },
       "with_skill": {
         "task_id": "booking-flow-102",
@@ -781,9 +692,10 @@
         "skill_name": "booking-skill",
         "skill_version": null,
         "score": 1.0,
-        "steps": 2,
+        "steps": 3,
         "tools_called": [
-          "create_booking"
+          "create_booking",
+          "check_availability"
         ],
         "tool_params": {
           "create_booking": {
@@ -791,24 +703,28 @@
               "name": "John Doe"
             },
             "hotel_id": "HT987"
+          },
+          "check_availability": {
+            "resource_id": "HT987",
+            "date": "2026-10-05"
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2589,
-        "tokens_used": 2666,
-        "input_tokens": 2539,
-        "output_tokens": 127,
-        "cost_usd": 0.000457
+        "latency_ms": 2209,
+        "tokens_used": 4730,
+        "input_tokens": 4637,
+        "output_tokens": 93,
+        "cost_usd": 0.000751
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1337,
-      "latency_delta_ms": -127,
-      "cost_delta_usd": 0.000203
+      "token_delta": 2313,
+      "latency_delta_ms": -891,
+      "cost_delta_usd": 0.00034100000000000005
     },
     {
       "skill_name": "booking-skill",
@@ -834,11 +750,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1369,
-        "tokens_used": 1210,
-        "input_tokens": 1163,
-        "output_tokens": 47,
-        "cost_usd": 0.000203
+        "latency_ms": 1386,
+        "tokens_used": 1535,
+        "input_tokens": 1472,
+        "output_tokens": 63,
+        "cost_usd": 0.000259
       },
       "with_skill": {
         "task_id": "booking-flow-103",
@@ -859,19 +775,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1731,
-        "tokens_used": 2554,
-        "input_tokens": 2493,
-        "output_tokens": 61,
-        "cost_usd": 0.000411
+        "latency_ms": 2227,
+        "tokens_used": 3091,
+        "input_tokens": 3022,
+        "output_tokens": 69,
+        "cost_usd": 0.000495
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1344,
-      "latency_delta_ms": 362,
-      "cost_delta_usd": 0.00020800000000000001
+      "token_delta": 1556,
+      "latency_delta_ms": 841,
+      "cost_delta_usd": 0.000236
     },
     {
       "skill_name": "booking-skill",
@@ -897,11 +813,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1650,
-        "tokens_used": 1272,
-        "input_tokens": 1193,
-        "output_tokens": 79,
-        "cost_usd": 0.000226
+        "latency_ms": 2325,
+        "tokens_used": 1562,
+        "input_tokens": 1476,
+        "output_tokens": 86,
+        "cost_usd": 0.000273
       },
       "with_skill": {
         "task_id": "booking-flow-104",
@@ -922,19 +838,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2167,
-        "tokens_used": 2619,
-        "input_tokens": 2524,
-        "output_tokens": 95,
-        "cost_usd": 0.000436
+        "latency_ms": 2233,
+        "tokens_used": 3134,
+        "input_tokens": 3026,
+        "output_tokens": 108,
+        "cost_usd": 0.000519
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1347,
-      "latency_delta_ms": 517,
-      "cost_delta_usd": 0.00021000000000000004
+      "token_delta": 1572,
+      "latency_delta_ms": -92,
+      "cost_delta_usd": 0.000246
     },
     {
       "skill_name": "booking-skill",
@@ -961,11 +877,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 9133,
-        "tokens_used": 2062,
-        "input_tokens": 1617,
-        "output_tokens": 445,
-        "cost_usd": 0.00051
+        "latency_ms": 1935,
+        "tokens_used": 1555,
+        "input_tokens": 1469,
+        "output_tokens": 86,
+        "cost_usd": 0.000272
       },
       "with_skill": {
         "task_id": "booking-flow-105",
@@ -979,27 +895,28 @@
         ],
         "tool_params": {
           "search_flights": {
-            "origin": "JFK",
-            "destination": "HND",
-            "date": "2026-12-01"
+            "origin": "anywhere",
+            "destination": "Tokyo",
+            "date": "2026-12-01",
+            "passengers": 1
           }
         },
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 10262,
-        "tokens_used": 2990,
-        "input_tokens": 2716,
-        "output_tokens": 274,
-        "cost_usd": 0.000572
+        "latency_ms": 4678,
+        "tokens_used": 3113,
+        "input_tokens": 3024,
+        "output_tokens": 89,
+        "cost_usd": 0.000507
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 928,
-      "latency_delta_ms": 1129,
-      "cost_delta_usd": 6.199999999999999e-05
+      "token_delta": 1558,
+      "latency_delta_ms": 2743,
+      "cost_delta_usd": 0.00023499999999999997
     },
     {
       "skill_name": "booking-skill",
@@ -1024,11 +941,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 1752,
-        "tokens_used": 1232,
-        "input_tokens": 1162,
-        "output_tokens": 70,
-        "cost_usd": 0.000216
+        "latency_ms": 2379,
+        "tokens_used": 1543,
+        "input_tokens": 1466,
+        "output_tokens": 77,
+        "cost_usd": 0.000266
       },
       "with_skill": {
         "task_id": "booking-flow-106",
@@ -1048,19 +965,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2400,
-        "tokens_used": 2564,
-        "input_tokens": 2492,
-        "output_tokens": 72,
-        "cost_usd": 0.000417
+        "latency_ms": 1444,
+        "tokens_used": 3091,
+        "input_tokens": 3016,
+        "output_tokens": 75,
+        "cost_usd": 0.000497
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1332,
-      "latency_delta_ms": 648,
-      "cost_delta_usd": 0.000201
+      "token_delta": 1548,
+      "latency_delta_ms": -935,
+      "cost_delta_usd": 0.00023100000000000003
     },
     {
       "skill_name": "booking-skill",
@@ -1085,11 +1002,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3812,
-        "tokens_used": 1300,
-        "input_tokens": 1179,
-        "output_tokens": 121,
-        "cost_usd": 0.000249
+        "latency_ms": 1801,
+        "tokens_used": 1528,
+        "input_tokens": 1457,
+        "output_tokens": 71,
+        "cost_usd": 0.000261
       },
       "with_skill": {
         "task_id": "booking-flow-107",
@@ -1109,19 +1026,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2888,
-        "tokens_used": 2611,
-        "input_tokens": 2509,
-        "output_tokens": 102,
-        "cost_usd": 0.000438
+        "latency_ms": 1505,
+        "tokens_used": 3068,
+        "input_tokens": 3007,
+        "output_tokens": 61,
+        "cost_usd": 0.000488
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1311,
-      "latency_delta_ms": -924,
-      "cost_delta_usd": 0.00018900000000000004
+      "token_delta": 1540,
+      "latency_delta_ms": -296,
+      "cost_delta_usd": 0.000227
     },
     {
       "skill_name": "booking-skill",
@@ -1133,48 +1050,37 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
-        "steps": 3,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Mia Cheng",
             "dob": "1995-09-25",
             "passport": "C3456789"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Mia Cheng",
-              "dob": "1995-09-25",
-              "passport": "C3456789"
-            },
-            "hotel_id": "HT654"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 3693,
-        "tokens_used": 2086,
-        "input_tokens": 1937,
-        "output_tokens": 149,
-        "cost_usd": 0.00038
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1774,
+        "tokens_used": 1601,
+        "input_tokens": 1527,
+        "output_tokens": 74,
+        "cost_usd": 0.000273
       },
       "with_skill": {
         "task_id": "booking-flow-108",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 1.0,
-        "steps": 5,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
           "validate_passenger",
-          "check_availability",
-          "check_availability",
-          "create_booking"
+          "check_availability"
         ],
         "tool_params": {
           "validate_passenger": {
@@ -1184,33 +1090,25 @@
           },
           "check_availability": {
             "resource_id": "HT654",
-            "date": "2026-10-05"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Mia Cheng",
-              "dob": "1995-09-25",
-              "passport": "C3456789"
-            },
-            "hotel_id": "HT654"
+            "date": "2026-10-02"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 6200,
-        "tokens_used": 7052,
-        "input_tokens": 6830,
-        "output_tokens": 222,
-        "cost_usd": 0.001158
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2218,
+        "tokens_used": 3261,
+        "input_tokens": 3131,
+        "output_tokens": 130,
+        "cost_usd": 0.000548
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 2,
-      "token_delta": 4966,
-      "latency_delta_ms": 2507,
-      "cost_delta_usd": 0.0007779999999999999
+      "step_delta": 0,
+      "token_delta": 1660,
+      "latency_delta_ms": 444,
+      "cost_delta_usd": 0.00027499999999999996
     },
     {
       "skill_name": "booking-skill",
@@ -1222,74 +1120,51 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 0.0,
-        "steps": 3,
-        "tools_called": [
-          "validate_passenger",
-          "create_booking"
-        ],
-        "tool_params": {
-          "validate_passenger": {
-            "name": "Jane Roe",
-            "dob": "1987-04-17"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Jane Roe",
-              "dob": "1987-04-17"
-            },
-            "flight_id": "FL101"
-          }
-        },
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
         "langsmith_run_id": "",
-        "passed_verifier": false,
-        "judge_reasoning": "avg=0.00 std=0.00 | The agent completely failed to meet the pass criteria. Instead of asking for missing validation details like a passport number, the agent proceeded to make a reservation without this crucial information. This is a critical security and validation failure in a real-world scenario.",
-        "latency_ms": 3300,
-        "tokens_used": 2011,
-        "input_tokens": 1860,
-        "output_tokens": 151,
-        "cost_usd": 0.00037
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent correctly identified the missing information (passport number) and asked for it, fulfilling the pass criteria.",
+        "latency_ms": 787,
+        "tokens_used": 746,
+        "input_tokens": 721,
+        "output_tokens": 25,
+        "cost_usd": 0.000123
       },
       "with_skill": {
         "task_id": "booking-flow-109",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 0.0,
-        "steps": 3,
+        "score": 1.0,
+        "steps": 2,
         "tools_called": [
-          "validate_passenger",
-          "create_booking"
+          "validate_passenger"
         ],
         "tool_params": {
           "validate_passenger": {
             "name": "Jane Roe",
             "dob": "1987-04-17"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Jane Roe",
-              "dob": "1987-04-17"
-            },
-            "flight_id": "FL101"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": false,
-        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not ask for missing validation details like passport number before booking. Instead, they confirmed the booking without this crucial information, directly failing the pass criteria.",
-        "latency_ms": 3305,
-        "tokens_used": 3984,
-        "input_tokens": 3854,
-        "output_tokens": 130,
-        "cost_usd": 0.000656
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent correctly identified the missing passport/ID number, which is a crucial validation detail before booking, directly addressing the pass criteria.",
+        "latency_ms": 1742,
+        "tokens_used": 3105,
+        "input_tokens": 3033,
+        "output_tokens": 72,
+        "cost_usd": 0.000498
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
-      "step_delta": 0,
-      "token_delta": 1973,
-      "latency_delta_ms": 5,
-      "cost_delta_usd": 0.000286
+      "step_delta": 1,
+      "token_delta": 2359,
+      "latency_delta_ms": 955,
+      "cost_delta_usd": 0.00037499999999999995
     },
     {
       "skill_name": "booking-skill",
@@ -1301,84 +1176,58 @@
         "domain": "booking_flow",
         "skill_name": null,
         "skill_version": null,
-        "score": 1.0,
-        "steps": 4,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "check_availability",
-          "validate_passenger",
-          "create_booking"
+          "check_availability"
         ],
         "tool_params": {
           "check_availability": {
             "resource_id": "HT123",
             "date": "2026-11-05"
-          },
-          "validate_passenger": {
-            "name": "Mark Twain",
-            "dob": "1969-12-01"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Mark Twain",
-              "dob": "1969-12-01"
-            },
-            "hotel_id": "HT123"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 7225,
-        "tokens_used": 2807,
-        "input_tokens": 2651,
-        "output_tokens": 156,
-        "cost_usd": 0.000491
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1969,
+        "tokens_used": 1590,
+        "input_tokens": 1512,
+        "output_tokens": 78,
+        "cost_usd": 0.000274
       },
       "with_skill": {
         "task_id": "booking-flow-110",
         "domain": "booking_flow",
         "skill_name": "booking-skill",
         "skill_version": null,
-        "score": 1.0,
-        "steps": 4,
+        "score": 0.0,
+        "steps": 2,
         "tools_called": [
-          "check_availability",
-          "validate_passenger",
-          "create_booking"
+          "check_availability"
         ],
         "tool_params": {
           "check_availability": {
             "resource_id": "HT123",
             "date": "2026-11-05"
-          },
-          "validate_passenger": {
-            "name": "Mark Twain",
-            "dob": "1969-12-01"
-          },
-          "create_booking": {
-            "passenger": {
-              "name": "Mark Twain",
-              "dob": "1969-12-01"
-            },
-            "hotel_id": "HT123"
           }
         },
         "langsmith_run_id": "",
-        "passed_verifier": true,
-        "judge_reasoning": "All required tools and params present",
-        "latency_ms": 4212,
-        "tokens_used": 5464,
-        "input_tokens": 5310,
-        "output_tokens": 154,
-        "cost_usd": 0.000889
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1965,
+        "tokens_used": 3126,
+        "input_tokens": 3062,
+        "output_tokens": 64,
+        "cost_usd": 0.000498
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 2657,
-      "latency_delta_ms": -3013,
-      "cost_delta_usd": 0.000398
+      "token_delta": 1536,
+      "latency_delta_ms": -4,
+      "cost_delta_usd": 0.00022399999999999997
     },
     {
       "skill_name": "booking-skill",
@@ -1403,11 +1252,11 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2860,
-        "tokens_used": 1320,
-        "input_tokens": 1211,
-        "output_tokens": 109,
-        "cost_usd": 0.000247
+        "latency_ms": 2298,
+        "tokens_used": 1548,
+        "input_tokens": 1468,
+        "output_tokens": 80,
+        "cost_usd": 0.000268
       },
       "with_skill": {
         "task_id": "booking-flow-111",
@@ -1427,19 +1276,19 @@
         "langsmith_run_id": "",
         "passed_verifier": true,
         "judge_reasoning": "All required tools and params present",
-        "latency_ms": 2860,
-        "tokens_used": 2683,
-        "input_tokens": 2541,
-        "output_tokens": 142,
-        "cost_usd": 0.000466
+        "latency_ms": 1744,
+        "tokens_used": 3096,
+        "input_tokens": 3018,
+        "output_tokens": 78,
+        "cost_usd": 0.0005
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 1363,
-      "latency_delta_ms": 0,
-      "cost_delta_usd": 0.000219
+      "token_delta": 1548,
+      "latency_delta_ms": -554,
+      "cost_delta_usd": 0.000232
     },
     {
       "skill_name": "booking-skill",
@@ -1457,12 +1306,12 @@
         "tool_params": {},
         "langsmith_run_id": "",
         "passed_verifier": true,
-        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asks for the date of travel, which is the primary pass criterion. It also offers to gather more details, showing good proactive support.",
-        "latency_ms": 997,
-        "tokens_used": 596,
-        "input_tokens": 548,
-        "output_tokens": 48,
-        "cost_usd": 0.000111
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent correctly identifies the missing information (date of travel) as required by the pass criteria and explicitly asks for it before proceeding.",
+        "latency_ms": 1211,
+        "tokens_used": 763,
+        "input_tokens": 711,
+        "output_tokens": 52,
+        "cost_usd": 0.000138
       },
       "with_skill": {
         "task_id": "booking-flow-112",
@@ -1475,20 +1324,2285 @@
         "tool_params": {},
         "langsmith_run_id": "",
         "passed_verifier": true,
-        "judge_reasoning": "avg=1.00 std=0.00 | The agent correctly identifies that a date is missing and asks for it, fulfilling the pass criteria exactly.",
-        "latency_ms": 1085,
-        "tokens_used": 1240,
-        "input_tokens": 1213,
-        "output_tokens": 27,
-        "cost_usd": 0.000198
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent explicitly asks for the travel dates, fulfilling the pass criteria. It also asks for other relevant details.",
+        "latency_ms": 1550,
+        "tokens_used": 1581,
+        "input_tokens": 1486,
+        "output_tokens": 95,
+        "cost_usd": 0.00028
       },
       "delta": 0.0,
       "delta_significant": false,
       "regression": false,
       "step_delta": 0,
-      "token_delta": 644,
-      "latency_delta_ms": 88,
-      "cost_delta_usd": 8.699999999999999e-05
+      "token_delta": 818,
+      "latency_delta_ms": 339,
+      "cost_delta_usd": 0.00014199999999999998
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-113",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-113",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK2P6N4R"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2404,
+        "tokens_used": 1526,
+        "input_tokens": 1466,
+        "output_tokens": 60,
+        "cost_usd": 0.000256
+      },
+      "with_skill": {
+        "task_id": "booking-flow-113",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK2P6N4R"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1740,
+        "tokens_used": 3088,
+        "input_tokens": 3016,
+        "output_tokens": 72,
+        "cost_usd": 0.000496
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1562,
+      "latency_delta_ms": -664,
+      "cost_delta_usd": 0.00024000000000000003
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-114",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-114",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "New York",
+            "destination": "Madrid",
+            "date": "2026-11-20"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['search_flights.passengers']",
+        "latency_ms": 2257,
+        "tokens_used": 1569,
+        "input_tokens": 1481,
+        "output_tokens": 88,
+        "cost_usd": 0.000275
+      },
+      "with_skill": {
+        "task_id": "booking-flow-114",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "New York",
+            "destination": "Madrid",
+            "date": "2026-11-20"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['search_flights.passengers']",
+        "latency_ms": 2156,
+        "tokens_used": 3104,
+        "input_tokens": 3031,
+        "output_tokens": 73,
+        "cost_usd": 0.000498
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1535,
+      "latency_delta_ms": -101,
+      "cost_delta_usd": 0.00022299999999999995
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-115",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-115",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "validate_passenger"
+        ],
+        "tool_params": {
+          "validate_passenger": {
+            "name": "Robert Green",
+            "dob": "1980-07-23",
+            "passport": "D2345678"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2257,
+        "tokens_used": 1585,
+        "input_tokens": 1504,
+        "output_tokens": 81,
+        "cost_usd": 0.000274
+      },
+      "with_skill": {
+        "task_id": "booking-flow-115",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "validate_passenger"
+        ],
+        "tool_params": {
+          "validate_passenger": {
+            "name": "Robert Green",
+            "dob": "1980-07-23",
+            "passport": "D2345678"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 3057,
+        "tokens_used": 3186,
+        "input_tokens": 3054,
+        "output_tokens": 132,
+        "cost_usd": 0.000537
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1601,
+      "latency_delta_ms": 800,
+      "cost_delta_usd": 0.00026300000000000005
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-116",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-116",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Berlin",
+            "check_in": "2026-06-01",
+            "check_out": "2026-06-05",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2240,
+        "tokens_used": 1611,
+        "input_tokens": 1528,
+        "output_tokens": 83,
+        "cost_usd": 0.000279
+      },
+      "with_skill": {
+        "task_id": "booking-flow-116",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Berlin",
+            "check_in": "2026-06-01",
+            "check_out": "2026-06-05",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2562,
+        "tokens_used": 3161,
+        "input_tokens": 3078,
+        "output_tokens": 83,
+        "cost_usd": 0.000512
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1550,
+      "latency_delta_ms": 322,
+      "cost_delta_usd": 0.00023299999999999997
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-118",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-118",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asked for the missing information (date) as required by the pass criteria.",
+        "latency_ms": 984,
+        "tokens_used": 759,
+        "input_tokens": 718,
+        "output_tokens": 41,
+        "cost_usd": 0.000132
+      },
+      "with_skill": {
+        "task_id": "booking-flow-118",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent correctly identified the missing information (date) and asked for it, fulfilling the pass criteria.",
+        "latency_ms": 1045,
+        "tokens_used": 1533,
+        "input_tokens": 1493,
+        "output_tokens": 40,
+        "cost_usd": 0.000248
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 774,
+      "latency_delta_ms": 61,
+      "cost_delta_usd": 0.000116
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-119",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-119",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not request the flight ID, which was the core instruction. It asked for other booking details instead.",
+        "latency_ms": 1782,
+        "tokens_used": 785,
+        "input_tokens": 716,
+        "output_tokens": 69,
+        "cost_usd": 0.000149
+      },
+      "with_skill": {
+        "task_id": "booking-flow-119",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not request the flight ID. Instead, it asked for information to find a flight ID.",
+        "latency_ms": 1428,
+        "tokens_used": 1579,
+        "input_tokens": 1491,
+        "output_tokens": 88,
+        "cost_usd": 0.000276
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 794,
+      "latency_delta_ms": -354,
+      "cost_delta_usd": 0.000127
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-120",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-120",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL111"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1608,
+        "tokens_used": 1526,
+        "input_tokens": 1451,
+        "output_tokens": 75,
+        "cost_usd": 0.000263
+      },
+      "with_skill": {
+        "task_id": "booking-flow-120",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL111"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1456,
+        "tokens_used": 3071,
+        "input_tokens": 3001,
+        "output_tokens": 70,
+        "cost_usd": 0.000492
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1545,
+      "latency_delta_ms": -152,
+      "cost_delta_usd": 0.00022900000000000004
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-121",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-121",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "San Francisco",
+            "check_in": "2027-03-15",
+            "check_out": "2027-03-20",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2450,
+        "tokens_used": 1609,
+        "input_tokens": 1507,
+        "output_tokens": 102,
+        "cost_usd": 0.000287
+      },
+      "with_skill": {
+        "task_id": "booking-flow-121",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "San Francisco",
+            "check_in": "2027-03-15",
+            "check_out": "2027-03-20",
+            "guests": 2
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2930,
+        "tokens_used": 3163,
+        "input_tokens": 3057,
+        "output_tokens": 106,
+        "cost_usd": 0.000522
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1554,
+      "latency_delta_ms": 480,
+      "cost_delta_usd": 0.00023500000000000002
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-122",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-122",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.6666666666666667,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK8M5R9A",
+            "service_type": "gym_access"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['add_ancillary.details']",
+        "latency_ms": 2008,
+        "tokens_used": 1574,
+        "input_tokens": 1476,
+        "output_tokens": 98,
+        "cost_usd": 0.00028
+      },
+      "with_skill": {
+        "task_id": "booking-flow-122",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.6666666666666667,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK8M5R9A",
+            "service_type": "gym_access"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['add_ancillary.details']",
+        "latency_ms": 3694,
+        "tokens_used": 3227,
+        "input_tokens": 3089,
+        "output_tokens": 138,
+        "cost_usd": 0.000546
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1653,
+      "latency_delta_ms": 1686,
+      "cost_delta_usd": 0.00026600000000000007
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-125",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-125",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK9X0Q2L"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2197,
+        "tokens_used": 1545,
+        "input_tokens": 1466,
+        "output_tokens": 79,
+        "cost_usd": 0.000267
+      },
+      "with_skill": {
+        "task_id": "booking-flow-125",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK9X0Q2L"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2174,
+        "tokens_used": 3094,
+        "input_tokens": 3016,
+        "output_tokens": 78,
+        "cost_usd": 0.000499
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1549,
+      "latency_delta_ms": -23,
+      "cost_delta_usd": 0.000232
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-126",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-126",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.16666666666666666,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "Boston",
+            "date": "2026-10-14"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.17 std=0.29 | The response fails to directly fulfill the request of listing flights. Instead, it states that no flights are available, which doesn't allow the user to 'pick one' as requested.",
+        "latency_ms": 2103,
+        "tokens_used": 1597,
+        "input_tokens": 1484,
+        "output_tokens": 113,
+        "cost_usd": 0.00029
+      },
+      "with_skill": {
+        "task_id": "booking-flow-126",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Chicago",
+            "destination": "Boston",
+            "date": "2026-10-14"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The response incorrectly states no flights are available. This directly contradicts the task's core request to list flights, making the response unhelpful and inaccurate.",
+        "latency_ms": 1664,
+        "tokens_used": 3111,
+        "input_tokens": 3034,
+        "output_tokens": 77,
+        "cost_usd": 0.000501
+      },
+      "delta": -0.16666666666666666,
+      "delta_significant": true,
+      "regression": true,
+      "step_delta": 0,
+      "token_delta": 1514,
+      "latency_delta_ms": -439,
+      "cost_delta_usd": 0.00021100000000000003
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-127",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-127",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "validate_passenger"
+        ],
+        "tool_params": {
+          "validate_passenger": {
+            "name": "Ethan Moore",
+            "dob": "1983-11-20",
+            "passport": "F345678"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1628,
+        "tokens_used": 1601,
+        "input_tokens": 1530,
+        "output_tokens": 71,
+        "cost_usd": 0.000272
+      },
+      "with_skill": {
+        "task_id": "booking-flow-127",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "validate_passenger"
+        ],
+        "tool_params": {
+          "validate_passenger": {
+            "name": "Ethan Moore",
+            "dob": "1983-11-20",
+            "passport": "F345678"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1827,
+        "tokens_used": 3155,
+        "input_tokens": 3080,
+        "output_tokens": 75,
+        "cost_usd": 0.000507
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1554,
+      "latency_delta_ms": 199,
+      "cost_delta_usd": 0.00023499999999999997
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-128",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-128",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Paris",
+            "check_in": "2027-05-22",
+            "check_out": "2027-05-25",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2115,
+        "tokens_used": 1600,
+        "input_tokens": 1516,
+        "output_tokens": 84,
+        "cost_usd": 0.000278
+      },
+      "with_skill": {
+        "task_id": "booking-flow-128",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Paris",
+            "check_in": "2027-05-22",
+            "check_out": "2027-05-25",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2189,
+        "tokens_used": 3148,
+        "input_tokens": 3066,
+        "output_tokens": 82,
+        "cost_usd": 0.000509
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1548,
+      "latency_delta_ms": 74,
+      "cost_delta_usd": 0.00023100000000000003
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-129",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-129",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK1P2A3Q"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3655,
+        "tokens_used": 1574,
+        "input_tokens": 1474,
+        "output_tokens": 100,
+        "cost_usd": 0.000281
+      },
+      "with_skill": {
+        "task_id": "booking-flow-129",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_itinerary"
+        ],
+        "tool_params": {
+          "get_itinerary": {
+            "booking_id": "BK1P2A3Q"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2081,
+        "tokens_used": 3133,
+        "input_tokens": 3024,
+        "output_tokens": 109,
+        "cost_usd": 0.000519
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1559,
+      "latency_delta_ms": -1574,
+      "cost_delta_usd": 0.00023800000000000004
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-130",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-130",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL888"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2024,
+        "tokens_used": 1524,
+        "input_tokens": 1449,
+        "output_tokens": 75,
+        "cost_usd": 0.000262
+      },
+      "with_skill": {
+        "task_id": "booking-flow-130",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "get_fare_rules"
+        ],
+        "tool_params": {
+          "get_fare_rules": {
+            "flight_id": "FL888"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1467,
+        "tokens_used": 3057,
+        "input_tokens": 2999,
+        "output_tokens": 58,
+        "cost_usd": 0.000485
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1533,
+      "latency_delta_ms": -557,
+      "cost_delta_usd": 0.000223
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-131",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-131",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asked for the check-in and check-out dates, fulfilling the pass criteria. The additional question about guests is a good proactive step.",
+        "latency_ms": 1114,
+        "tokens_used": 750,
+        "input_tokens": 717,
+        "output_tokens": 33,
+        "cost_usd": 0.000127
+      },
+      "with_skill": {
+        "task_id": "booking-flow-131",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asks for the check-in and check-out dates, fulfilling the pass criteria. The additional question about guests is relevant and helpful.",
+        "latency_ms": 958,
+        "tokens_used": 1525,
+        "input_tokens": 1492,
+        "output_tokens": 33,
+        "cost_usd": 0.000244
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 775,
+      "latency_delta_ms": -156,
+      "cost_delta_usd": 0.000117
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-132",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-132",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK4P5L7Y",
+            "service_type": "late_checkout"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 1447,
+        "tokens_used": 1548,
+        "input_tokens": 1482,
+        "output_tokens": 66,
+        "cost_usd": 0.000262
+      },
+      "with_skill": {
+        "task_id": "booking-flow-132",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK4P5L7Y",
+            "service_type": "late_checkout"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 3427,
+        "tokens_used": 3116,
+        "input_tokens": 3032,
+        "output_tokens": 84,
+        "cost_usd": 0.000505
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1568,
+      "latency_delta_ms": 1980,
+      "cost_delta_usd": 0.000243
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-133",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-133",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Los Angeles",
+            "destination": "Miami",
+            "date": "2026-12-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 3660,
+        "tokens_used": 1579,
+        "input_tokens": 1485,
+        "output_tokens": 94,
+        "cost_usd": 0.000279
+      },
+      "with_skill": {
+        "task_id": "booking-flow-133",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Los Angeles",
+            "destination": "Miami",
+            "date": "2026-12-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2073,
+        "tokens_used": 3113,
+        "input_tokens": 3035,
+        "output_tokens": 78,
+        "cost_usd": 0.000502
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1534,
+      "latency_delta_ms": -1587,
+      "cost_delta_usd": 0.00022299999999999995
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-136",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-136",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent completely missed the instruction to request the 'flight ID'. Instead, it asked for other details not relevant to the task's core requirement.",
+        "latency_ms": 784,
+        "tokens_used": 747,
+        "input_tokens": 719,
+        "output_tokens": 28,
+        "cost_usd": 0.000125
+      },
+      "with_skill": {
+        "task_id": "booking-flow-136",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not request the flight ID which was explicitly stated as needed for booking in the pass criteria. Instead, it asked for other details.",
+        "latency_ms": 839,
+        "tokens_used": 1531,
+        "input_tokens": 1494,
+        "output_tokens": 37,
+        "cost_usd": 0.000246
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 784,
+      "latency_delta_ms": 55,
+      "cost_delta_usd": 0.00012100000000000001
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-137",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-137",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK7U3R4P",
+            "service_type": "seat_selection",
+            "details": {
+              "type": "premium"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 2307,
+        "tokens_used": 1561,
+        "input_tokens": 1480,
+        "output_tokens": 81,
+        "cost_usd": 0.000271
+      },
+      "with_skill": {
+        "task_id": "booking-flow-137",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK7U3R4P",
+            "service_type": "seat_selection",
+            "details": {
+              "classification": "premium"
+            }
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 2206,
+        "tokens_used": 3110,
+        "input_tokens": 3030,
+        "output_tokens": 80,
+        "cost_usd": 0.000503
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1549,
+      "latency_delta_ms": -101,
+      "cost_delta_usd": 0.000232
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-138",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-138",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Barcelona",
+            "check_in": "2027-07-10",
+            "check_out": "2027-07-15",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2370,
+        "tokens_used": 1614,
+        "input_tokens": 1508,
+        "output_tokens": 106,
+        "cost_usd": 0.00029
+      },
+      "with_skill": {
+        "task_id": "booking-flow-138",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Barcelona",
+            "check_in": "2027-07-10",
+            "check_out": "2027-07-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2093,
+        "tokens_used": 3145,
+        "input_tokens": 3053,
+        "output_tokens": 92,
+        "cost_usd": 0.000513
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1531,
+      "latency_delta_ms": -277,
+      "cost_delta_usd": 0.000223
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-139",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-139",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 970,
+        "tokens_used": 759,
+        "input_tokens": 718,
+        "output_tokens": 41,
+        "cost_usd": 0.000132
+      },
+      "with_skill": {
+        "task_id": "booking-flow-139",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1106,
+        "tokens_used": 1563,
+        "input_tokens": 1493,
+        "output_tokens": 70,
+        "cost_usd": 0.000266
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 804,
+      "latency_delta_ms": 136,
+      "cost_delta_usd": 0.000134
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-140",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-140",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Paris",
+            "destination": "Tokyo",
+            "date": "2027-05-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent failed to ask for the number of passengers before attempting a flight search, which is the primary pass criterion for this task.",
+        "latency_ms": 1776,
+        "tokens_used": 1584,
+        "input_tokens": 1494,
+        "output_tokens": 90,
+        "cost_usd": 0.000278
+      },
+      "with_skill": {
+        "task_id": "booking-flow-140",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Paris",
+            "destination": "Tokyo",
+            "date": "2027-05-05"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not ask for the number of passengers before attempting a flight search, which is the pass criteria. Instead, it directly stated no flights were available.",
+        "latency_ms": 3861,
+        "tokens_used": 3124,
+        "input_tokens": 3044,
+        "output_tokens": 80,
+        "cost_usd": 0.000505
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1540,
+      "latency_delta_ms": 2085,
+      "cost_delta_usd": 0.00022700000000000004
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-141",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-141",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK6L3Q5T"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2018,
+        "tokens_used": 1568,
+        "input_tokens": 1470,
+        "output_tokens": 98,
+        "cost_usd": 0.000279
+      },
+      "with_skill": {
+        "task_id": "booking-flow-141",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK6L3Q5T"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 1904,
+        "tokens_used": 3084,
+        "input_tokens": 3020,
+        "output_tokens": 64,
+        "cost_usd": 0.000491
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1516,
+      "latency_delta_ms": -114,
+      "cost_delta_usd": 0.000212
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-142",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-142",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "New York City",
+            "check_in": "2026-11-20",
+            "check_out": "2026-11-25",
+            "guests": 1
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not request a hotel ID or provide options as per the pass criteria. It incorrectly stated no hotels were available due to the far-off date.",
+        "latency_ms": 2815,
+        "tokens_used": 1632,
+        "input_tokens": 1520,
+        "output_tokens": 112,
+        "cost_usd": 0.000295
+      },
+      "with_skill": {
+        "task_id": "booking-flow-142",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "New York City",
+            "check_in": "2026-11-20",
+            "check_out": "2026-11-25"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not fulfill the requirements. It stated no hotels were available, but it should have either requested a hotel ID or provided options, as per the pass criteria.",
+        "latency_ms": 3277,
+        "tokens_used": 3148,
+        "input_tokens": 3065,
+        "output_tokens": 83,
+        "cost_usd": 0.00051
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1516,
+      "latency_delta_ms": 462,
+      "cost_delta_usd": 0.00021500000000000002
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-143",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-143",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "San Diego",
+            "destination": "Seattle",
+            "date": "2026-10-07"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['search_flights.passengers']",
+        "latency_ms": 2513,
+        "tokens_used": 1575,
+        "input_tokens": 1487,
+        "output_tokens": 88,
+        "cost_usd": 0.000276
+      },
+      "with_skill": {
+        "task_id": "booking-flow-143",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "San Diego",
+            "destination": "Seattle",
+            "date": "2026-10-07"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['search_flights.passengers']",
+        "latency_ms": 1760,
+        "tokens_used": 3109,
+        "input_tokens": 3037,
+        "output_tokens": 72,
+        "cost_usd": 0.000499
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1534,
+      "latency_delta_ms": -753,
+      "cost_delta_usd": 0.000223
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-144",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-144",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.6666666666666667,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK4N2K5J",
+            "service_type": "extra_baggage"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['add_ancillary.details']",
+        "latency_ms": 2154,
+        "tokens_used": 1577,
+        "input_tokens": 1486,
+        "output_tokens": 91,
+        "cost_usd": 0.000278
+      },
+      "with_skill": {
+        "task_id": "booking-flow-144",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.6666666666666667,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK4N2K5J",
+            "service_type": "extra_baggage"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['add_ancillary.details']",
+        "latency_ms": 1510,
+        "tokens_used": 3110,
+        "input_tokens": 3036,
+        "output_tokens": 74,
+        "cost_usd": 0.0005
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1533,
+      "latency_delta_ms": -644,
+      "cost_delta_usd": 0.00022200000000000003
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-145",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-145",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Tokyo",
+            "check_in": "2027-06-10",
+            "check_out": "2027-06-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1862,
+        "tokens_used": 1587,
+        "input_tokens": 1503,
+        "output_tokens": 84,
+        "cost_usd": 0.000276
+      },
+      "with_skill": {
+        "task_id": "booking-flow-145",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_hotels"
+        ],
+        "tool_params": {
+          "search_hotels": {
+            "location": "Tokyo",
+            "check_in": "2027-06-10",
+            "check_out": "2027-06-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2376,
+        "tokens_used": 3139,
+        "input_tokens": 3053,
+        "output_tokens": 86,
+        "cost_usd": 0.00051
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1552,
+      "latency_delta_ms": 514,
+      "cost_delta_usd": 0.00023400000000000005
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-147",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-147",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Munich",
+            "destination": "Vienna",
+            "date": "2023-10-22"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.00 std=0.00 | The agent did not ask for the specific date (which was provided as 'tomorrow') nor the flight ID, as required by the pass criteria.",
+        "latency_ms": 1346,
+        "tokens_used": 1542,
+        "input_tokens": 1478,
+        "output_tokens": 64,
+        "cost_usd": 0.00026
+      },
+      "with_skill": {
+        "task_id": "booking-flow-147",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.08333333333333333,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Munich",
+            "destination": "Vienna",
+            "date": "2023-11-29"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "avg=0.08 std=0.14 | The agent did not ask for the specific date or the flight ID, which were key requirements for passing the task. Instead, it incorrectly stated no flights were available.",
+        "latency_ms": 1895,
+        "tokens_used": 3094,
+        "input_tokens": 3028,
+        "output_tokens": 66,
+        "cost_usd": 0.000494
+      },
+      "delta": 0.08333333333333333,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1552,
+      "latency_delta_ms": 549,
+      "cost_delta_usd": 0.000234
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-148",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-148",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Miami",
+            "destination": "San Francisco",
+            "date": "2026-10-20"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['search_flights.passengers']",
+        "latency_ms": 2492,
+        "tokens_used": 1561,
+        "input_tokens": 1493,
+        "output_tokens": 68,
+        "cost_usd": 0.000265
+      },
+      "with_skill": {
+        "task_id": "booking-flow-148",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "Miami",
+            "destination": "San Francisco",
+            "date": "2026-10-20"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['search_flights.passengers']",
+        "latency_ms": 2291,
+        "tokens_used": 3108,
+        "input_tokens": 3043,
+        "output_tokens": 65,
+        "cost_usd": 0.000495
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1547,
+      "latency_delta_ms": -201,
+      "cost_delta_usd": 0.00023
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-149",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-149",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "validate_passenger"
+        ],
+        "tool_params": {
+          "validate_passenger": {
+            "name": "Jessica Ray",
+            "dob": "1972-05-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2978,
+        "tokens_used": 1572,
+        "input_tokens": 1525,
+        "output_tokens": 47,
+        "cost_usd": 0.000257
+      },
+      "with_skill": {
+        "task_id": "booking-flow-149",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "validate_passenger"
+        ],
+        "tool_params": {
+          "validate_passenger": {
+            "name": "Jessica Ray",
+            "dob": "1972-05-10"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 1752,
+        "tokens_used": 3152,
+        "input_tokens": 3075,
+        "output_tokens": 77,
+        "cost_usd": 0.000507
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1580,
+      "latency_delta_ms": -1226,
+      "cost_delta_usd": 0.00024999999999999995
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-150",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-150",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK5T4N2Q"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2650,
+        "tokens_used": 1546,
+        "input_tokens": 1464,
+        "output_tokens": 82,
+        "cost_usd": 0.000269
+      },
+      "with_skill": {
+        "task_id": "booking-flow-150",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 2,
+        "tools_called": [
+          "cancel_booking"
+        ],
+        "tool_params": {
+          "cancel_booking": {
+            "booking_id": "BK5T4N2Q"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "All required tools and params present",
+        "latency_ms": 2205,
+        "tokens_used": 3088,
+        "input_tokens": 3014,
+        "output_tokens": 74,
+        "cost_usd": 0.000496
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1542,
+      "latency_delta_ms": -445,
+      "cost_delta_usd": 0.00022700000000000004
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-151",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-151",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "check_availability"
+        ],
+        "tool_params": {
+          "check_availability": {
+            "resource_id": "HT560",
+            "date": "2027-02-25"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 4707,
+        "tokens_used": 1609,
+        "input_tokens": 1534,
+        "output_tokens": 75,
+        "cost_usd": 0.000275
+      },
+      "with_skill": {
+        "task_id": "booking-flow-151",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "check_availability"
+        ],
+        "tool_params": {
+          "check_availability": {
+            "resource_id": "HT560",
+            "date": "2027-02-25"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['create_booking']",
+        "latency_ms": 2622,
+        "tokens_used": 3160,
+        "input_tokens": 3084,
+        "output_tokens": 76,
+        "cost_usd": 0.000508
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1551,
+      "latency_delta_ms": -2085,
+      "cost_delta_usd": 0.00023299999999999997
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-152",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-152",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "New York City",
+            "destination": "Toronto",
+            "date": "2026-08-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['search_flights.passengers']",
+        "latency_ms": 2766,
+        "tokens_used": 1585,
+        "input_tokens": 1500,
+        "output_tokens": 85,
+        "cost_usd": 0.000276
+      },
+      "with_skill": {
+        "task_id": "booking-flow-152",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.75,
+        "steps": 2,
+        "tools_called": [
+          "search_flights"
+        ],
+        "tool_params": {
+          "search_flights": {
+            "origin": "New York City",
+            "destination": "Toronto",
+            "date": "2026-08-15"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing params: ['search_flights.passengers']",
+        "latency_ms": 1990,
+        "tokens_used": 3138,
+        "input_tokens": 3050,
+        "output_tokens": 88,
+        "cost_usd": 0.00051
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1553,
+      "latency_delta_ms": -776,
+      "cost_delta_usd": 0.00023400000000000005
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-153",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-153",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK8X3Y6P",
+            "service_type": "airport_transfer"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 2124,
+        "tokens_used": 1558,
+        "input_tokens": 1480,
+        "output_tokens": 78,
+        "cost_usd": 0.000269
+      },
+      "with_skill": {
+        "task_id": "booking-flow-153",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 0.0,
+        "steps": 2,
+        "tools_called": [
+          "add_ancillary"
+        ],
+        "tool_params": {
+          "add_ancillary": {
+            "booking_id": "BK8X3Y6P",
+            "service_type": "airport_transfer"
+          }
+        },
+        "langsmith_run_id": "",
+        "passed_verifier": false,
+        "judge_reasoning": "Missing required tools: ['modify_booking']",
+        "latency_ms": 3027,
+        "tokens_used": 3113,
+        "input_tokens": 3030,
+        "output_tokens": 83,
+        "cost_usd": 0.000504
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 1555,
+      "latency_delta_ms": 903,
+      "cost_delta_usd": 0.00023500000000000002
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-154",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-154",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent explicitly asks for Mia Williams's date of birth, fulfilling the pass criteria directly and completely.",
+        "latency_ms": 874,
+        "tokens_used": 738,
+        "input_tokens": 713,
+        "output_tokens": 25,
+        "cost_usd": 0.000122
+      },
+      "with_skill": {
+        "task_id": "booking-flow-154",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent directly asks for Mia Williams's date of birth, fulfilling the pass criteria perfectly.",
+        "latency_ms": 604,
+        "tokens_used": 1511,
+        "input_tokens": 1488,
+        "output_tokens": 23,
+        "cost_usd": 0.000237
+      },
+      "delta": 0.0,
+      "delta_significant": false,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 773,
+      "latency_delta_ms": -270,
+      "cost_delta_usd": 0.00011499999999999999
+    },
+    {
+      "skill_name": "booking-skill",
+      "task_id": "booking-flow-155",
+      "domain": "booking_flow",
+      "task_weight": 3.0,
+      "no_skill": {
+        "task_id": "booking-flow-155",
+        "domain": "booking_flow",
+        "skill_name": null,
+        "skill_version": null,
+        "score": 0.8333333333333334,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=0.83 std=0.29 | The agent confirms that more details are needed and lists them, directly addressing the pass criteria.",
+        "latency_ms": 1857,
+        "tokens_used": 804,
+        "input_tokens": 725,
+        "output_tokens": 79,
+        "cost_usd": 0.000156
+      },
+      "with_skill": {
+        "task_id": "booking-flow-155",
+        "domain": "booking_flow",
+        "skill_name": "booking-skill",
+        "skill_version": null,
+        "score": 1.0,
+        "steps": 1,
+        "tools_called": [],
+        "tool_params": {},
+        "langsmith_run_id": "",
+        "passed_verifier": true,
+        "judge_reasoning": "avg=1.00 std=0.00 | The agent confirms that additional details are needed, directly addressing the pass criteria and providing a clear list of what is required.",
+        "latency_ms": 2021,
+        "tokens_used": 1585,
+        "input_tokens": 1500,
+        "output_tokens": 85,
+        "cost_usd": 0.000276
+      },
+      "delta": 0.16666666666666663,
+      "delta_significant": true,
+      "regression": false,
+      "step_delta": 0,
+      "token_delta": 781,
+      "latency_delta_ms": 164,
+      "cost_delta_usd": 0.00011999999999999999
     }
   ]
 }
