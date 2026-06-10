@@ -99,6 +99,59 @@ def test_content_hash_dedupe_different_target_not_deduped(tmp_path):
     assert len(archive.entries()) == 2
 
 
+# ── add() dedupe index: file is read once per instance, not once per add ─────
+
+def test_add_hits_file_read_path_only_once(tmp_path, monkeypatch):
+    """Many adds must trigger exactly one _load_all (lazy index build),
+    not one per add — re-reading the JSONL made add quadratic."""
+    archive = Archive(path=tmp_path / "archive.jsonl", no_embed=True)
+    calls = {"n": 0}
+    original = Archive._load_all
+
+    def _counting_load_all(self):
+        calls["n"] += 1
+        return original(self)
+
+    monkeypatch.setattr(Archive, "_load_all", _counting_load_all)
+    for i in range(25):
+        assert archive.add(_entry(f"artifact {i}")) is True
+    assert calls["n"] == 1
+
+    # everything still landed on disk
+    assert len(archive.entries()) == 25
+
+
+def test_index_dedupe_semantics_preserved(tmp_path, monkeypatch):
+    """With the index active (single file read), dedupe still rejects the same
+    (target, hash) and still allows the same hash under a different target."""
+    archive = Archive(path=tmp_path / "archive.jsonl", no_embed=True)
+    calls = {"n": 0}
+    original = Archive._load_all
+
+    def _counting_load_all(self):
+        calls["n"] += 1
+        return original(self)
+
+    monkeypatch.setattr(Archive, "_load_all", _counting_load_all)
+    assert archive.add(_entry("same text", target=TARGET)) is True
+    assert archive.add(_entry("same text", target=TARGET)) is False        # dup
+    assert archive.add(_entry("same text", target="skill:flight-search")) is True
+    assert calls["n"] == 1
+    assert len(archive.entries()) == 2
+
+
+def test_index_built_lazily_from_existing_file(tmp_path):
+    """A fresh Archive instance must see entries written by a previous one."""
+    path = tmp_path / "archive.jsonl"
+    first = Archive(path=path, no_embed=True)
+    assert first.add(_entry("persisted text", target=TARGET)) is True
+
+    fresh = Archive(path=path, no_embed=True)
+    assert fresh.add(_entry("persisted text", target=TARGET)) is False     # dup on disk
+    assert fresh.add(_entry("brand new text", target=TARGET)) is True
+    assert len(fresh.entries()) == 2
+
+
 # ── pick_parent epsilon=0 returns live ──────────────────────────────────────
 
 def test_pick_parent_epsilon_zero_returns_live(tmp_path):

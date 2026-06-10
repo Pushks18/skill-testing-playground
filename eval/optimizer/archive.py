@@ -162,6 +162,11 @@ class Archive:
     ):
         self.path = pathlib.Path(path)
         self.no_embed = no_embed
+        # Lazy (target, content_hash) dedupe index: built from the file on the
+        # first add(), then kept in sync with every write so add() never has to
+        # re-read the whole JSONL again (re-reading made add quadratic over the
+        # archive's life).
+        self._dedupe_index: set[tuple[str, str]] | None = None
 
     # ── internal helpers ────────────────────────────────────────────────────
 
@@ -181,20 +186,31 @@ class Archive:
 
     # ── public API ──────────────────────────────────────────────────────────
 
+    def _dedupe_keys(self) -> set[tuple[str, str]]:
+        """The (target, content_hash) index, built lazily from the file."""
+        if self._dedupe_index is None:
+            self._dedupe_index = {
+                (e.target, e.content_hash) for e in self._load_all()
+            }
+        return self._dedupe_index
+
     def add(self, entry: ArchiveEntry) -> bool:
         """Append entry to the JSONL file.
 
-        Skips exact content-hash duplicates for the same target.
-        Returns True if the entry was written, False if it was a duplicate.
+        Skips exact content-hash duplicates for the same target (checked
+        against an in-memory index — the file is read at most once per
+        Archive instance). Returns True if the entry was written, False if
+        it was a duplicate.
         """
-        existing = self._load_all()
-        for e in existing:
-            if e.target == entry.target and e.content_hash == entry.content_hash:
-                return False  # exact duplicate — skip
+        keys = self._dedupe_keys()
+        key = (entry.target, entry.content_hash)
+        if key in keys:
+            return False  # exact duplicate — skip
 
         self.path.parent.mkdir(parents=True, exist_ok=True)
         with self.path.open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(entry.to_dict(), ensure_ascii=False) + "\n")
+        keys.add(key)
         return True
 
     def entries(self, target: str | None = None) -> list[ArchiveEntry]:

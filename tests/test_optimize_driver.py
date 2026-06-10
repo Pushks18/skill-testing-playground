@@ -356,3 +356,227 @@ def test_run_with_timeout_restores_alarm_state():
     from eval.optimizer.optimize import _run_with_timeout
     _run_with_timeout(lambda: None, 5)
     assert signal.alarm(0) == 0  # no alarm left pending
+
+
+# ── bandit learns from crashes (improvement A) ───────────────────────────────
+
+def _setup_run_cluster_stubs(tmp_path, monkeypatch):
+    """Shared stubbing for full run_cluster tests (no real I/O, no skillopt)."""
+    import sys as _sys
+    import eval.optimizer.optimize as opt
+
+    monkeypatch.setattr(opt, "OUTPUT_ROOT", tmp_path)
+
+    harness_path = tmp_path / "harness_config.yaml"
+    harness_path.write_text(yaml.safe_dump({
+        "version": "1.0",
+        "base_system_prompt": "You are a helpful travel assistant.",
+        "tool_descriptions": {},
+        "node_prompts": {},
+        "optimizable": ["base_system_prompt"],
+    }))
+    tasks = tmp_path / "tasks"
+    tasks.mkdir()
+
+    monkeypatch.setattr(opt, "initial_artifact", lambda spec: "stub artifact text")
+
+    class _StubAdapter:
+        class dataloader:
+            @staticmethod
+            def load_raw_items(path):
+                return [{"id": f"t{i}", "question": "q", "task_type": "ancillery",
+                         "task_path": f"/tmp/t{i}"} for i in range(5)]
+
+    monkeypatch.setattr(opt, "TravelEnvAdapter", lambda **kw: _StubAdapter())
+
+    import skillopt.config as sc
+    monkeypatch.setattr(sc, "load_config", lambda path: {})
+    monkeypatch.setattr(sc, "flatten_config", lambda cfg: {"num_epochs": 2})
+
+    # Stub the lazy in-function imports so no real skillopt model/trainer loads.
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    fake_azure = types.ModuleType("skillopt.model.azure_openai")
+    fake_azure.configure_azure_openai = lambda **kw: None
+    monkeypatch.setitem(_sys.modules, "skillopt.model.azure_openai", fake_azure)
+
+    fake_trainer_mod = types.ModuleType("skillopt.engine.trainer")
+
+    class _FakeTrainer:
+        def __init__(self, cfg, adapter):
+            pass
+
+        def train(self):
+            return {"baseline_selection_hard": 0.4, "best_selection_hard": 0.8,
+                    "baseline_test_hard": 0.5, "baseline_test_soft": 0.5,
+                    "test_hard": 0.6, "test_soft": 0.6}
+
+    fake_trainer_mod.ReflACTTrainer = _FakeTrainer
+    monkeypatch.setitem(_sys.modules, "skillopt.engine.trainer", fake_trainer_mod)
+
+    args = types.SimpleNamespace(
+        harness_config=str(harness_path),
+        skills_root=str(tmp_path),
+        tasks_dir=str(tasks),
+        mock_mcp_url="http://localhost:8000",
+        seed=7,
+        dry_run=False,
+        strategy="simplify",   # pin the arm so assertions are deterministic
+        explore=False,
+        no_embed=True,
+        config="eval/optimizer/skillopt_config.yaml",
+    )
+    cluster = _cluster("harness:base_prompt",
+                       "agent/harness_config.yaml::base_system_prompt", n=1)
+    return opt, args, cluster
+
+
+def test_crash_after_strategy_selection_records_one_bandit_failure(tmp_path, monkeypatch):
+    """A crash anywhere after the strategy was picked must penalize that arm once."""
+    opt, args, cluster = _setup_run_cluster_stubs(tmp_path, monkeypatch)
+
+    def _boom(*a, **kw):
+        raise RuntimeError("simulated crash after strategy selection")
+
+    monkeypatch.setattr(opt, "_pick_seed", _boom)
+
+    with pytest.raises(RuntimeError, match="simulated crash"):
+        opt.run_cluster(cluster, args)
+
+    state = BanditState.load(tmp_path / "bandit_state.json")
+    assert state.arms["harness:base_prompt|simplify"] == [1.0, 2.0]  # one failure
+
+
+def test_timeout_inside_run_cluster_records_one_bandit_failure(tmp_path, monkeypatch):
+    """The --cluster-timeout TimeoutError can fire anywhere in the body and
+    must still count against the chosen arm."""
+    opt, args, cluster = _setup_run_cluster_stubs(tmp_path, monkeypatch)
+
+    def _hang(*a, **kw):
+        raise TimeoutError("cluster run exceeded --cluster-timeout=1s")
+
+    monkeypatch.setattr(opt, "_pick_seed", _hang)
+
+    with pytest.raises(TimeoutError):
+        opt.run_cluster(cluster, args)
+
+    state = BanditState.load(tmp_path / "bandit_state.json")
+    assert state.arms["harness:base_prompt|simplify"] == [1.0, 2.0]
+
+
+def test_success_path_updates_bandit_exactly_once(tmp_path, monkeypatch):
+    """A completed run must update the arm once (no extra crash penalty)."""
+    opt, args, cluster = _setup_run_cluster_stubs(tmp_path, monkeypatch)
+
+    report = opt.run_cluster(cluster, args)
+
+    assert report["improved"] is True
+    state = BanditState.load(tmp_path / "bandit_state.json")
+    # exactly one success update: alpha 1→2, beta untouched
+    assert state.arms["harness:base_prompt|simplify"] == [2.0, 1.0]
+
+
+def test_crash_before_strategy_selection_leaves_bandit_untouched(tmp_path, monkeypatch):
+    """Failures before an arm was picked (e.g. bad target) must not penalize anything."""
+    opt, args, cluster = _setup_run_cluster_stubs(tmp_path, monkeypatch)
+    cluster["target_artifact"] = "agent/harness_config.yaml::version"  # not whitelisted
+
+    with pytest.raises(ValueError, match="not optimizable"):
+        opt.run_cluster(cluster, args)
+
+    assert not (tmp_path / "bandit_state.json").exists()
+
+
+# ── heartbeat (improvement C) ────────────────────────────────────────────────
+
+def test_heartbeat_emits_while_running_and_stops_cleanly(capsys):
+    import time
+    from eval.optimizer.optimize import _start_heartbeat
+
+    stop = _start_heartbeat("skills/planning-skill/SKILL.md", 0.05)
+    time.sleep(0.3)            # simulate a slow cluster
+    stop()
+    out = capsys.readouterr().out
+    assert "[heartbeat] skills/planning-skill/SKILL.md still running, elapsed" in out
+
+    time.sleep(0.2)            # thread must be stopped: no further beats
+    assert "[heartbeat]" not in capsys.readouterr().out
+
+
+def test_heartbeat_zero_is_noop(capsys):
+    import time
+    from eval.optimizer.optimize import _start_heartbeat
+
+    stop = _start_heartbeat("anything", 0)
+    time.sleep(0.1)
+    stop()
+    assert capsys.readouterr().out == ""
+
+
+# ── batch cost cap (improvement D) ───────────────────────────────────────────
+
+def _cap_setup(tmp_path, monkeypatch, n_tasks=10, num_epochs=2):
+    """Tasks dir + stubbed skillopt config for _enforce_rollout_cap tests."""
+    tasks = tmp_path / "tasks"
+    tasks.mkdir()
+    for i in range(n_tasks):
+        d = tasks / f"planning-{100 + i}"
+        d.mkdir()
+        (d / "task.toml").write_text('domain = "trip_planning"\n')
+        (d / "instruction.md").write_text("Plan the trip.")
+    # a non-task dir and a stray file must not be counted
+    (tasks / "notes").mkdir()
+    (tasks / "README.md").write_text("not a task")
+
+    import skillopt.config as sc
+    monkeypatch.setattr(sc, "load_config", lambda path: {})
+    monkeypatch.setattr(sc, "flatten_config", lambda cfg: {"num_epochs": num_epochs})
+    return tasks
+
+
+def test_rollout_cap_exceeded_exits_before_spend(tmp_path, monkeypatch):
+    from eval.optimizer.optimize import _enforce_rollout_cap
+
+    tasks = _cap_setup(tmp_path, monkeypatch)
+    # 10 tasks → split 5/3/2, epochs=2 → 3 + 2*(5+3) + 2*2 = 23 per cluster
+    args = types.SimpleNamespace(max_rollout_calls=30, tasks_dir=str(tasks),
+                                 config="stub.yaml")
+    with pytest.raises(SystemExit) as exc:
+        _enforce_rollout_cap(2, args)   # 2 clusters → 46 > 30
+    msg = str(exc.value)
+    assert "46" in msg and "30" in msg
+    assert "max-rollout-calls" in msg
+
+
+def test_rollout_cap_zero_disables(tmp_path, monkeypatch):
+    from eval.optimizer.optimize import _enforce_rollout_cap
+
+    tasks = _cap_setup(tmp_path, monkeypatch)
+    args = types.SimpleNamespace(max_rollout_calls=0, tasks_dir=str(tasks),
+                                 config="stub.yaml")
+    _enforce_rollout_cap(100, args)     # no SystemExit
+
+
+def test_rollout_cap_under_budget_passes(tmp_path, monkeypatch):
+    from eval.optimizer.optimize import _enforce_rollout_cap
+
+    tasks = _cap_setup(tmp_path, monkeypatch)
+    args = types.SimpleNamespace(max_rollout_calls=1000, tasks_dir=str(tasks),
+                                 config="stub.yaml")
+    _enforce_rollout_cap(2, args)       # 46 <= 1000 → no SystemExit
+
+
+def test_count_tasks_only_counts_complete_task_dirs(tmp_path):
+    from eval.optimizer.optimize import _count_tasks
+
+    tasks = tmp_path / "tasks"
+    tasks.mkdir()
+    good = tasks / "planning-1"
+    good.mkdir()
+    (good / "task.toml").write_text('domain = "x"\n')
+    (good / "instruction.md").write_text("y")
+    incomplete = tasks / "planning-2"
+    incomplete.mkdir()
+    (incomplete / "task.toml").write_text('domain = "x"\n')   # no instruction.md
+
+    assert _count_tasks(tasks) == 1
+    assert _count_tasks(tmp_path / "missing") == 0

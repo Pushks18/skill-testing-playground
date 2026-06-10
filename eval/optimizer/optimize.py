@@ -24,6 +24,8 @@ import os
 import pathlib
 import signal
 import sys
+import threading
+import time
 
 import httpx
 import yaml
@@ -165,6 +167,87 @@ def _run_with_timeout(fn, timeout_s: int | None):
         signal.signal(signal.SIGALRM, old_handler)
 
 
+# ── heartbeat ────────────────────────────────────────────────────────────────
+
+def _start_heartbeat(label: str, interval_s: float):
+    """Start a daemon thread that prints a liveness line every interval_s.
+
+    Makes a silent stall visible immediately (the watchdog only reports after
+    the full --cluster-timeout budget). Returns a stop() callable; interval_s
+    of 0/None is a no-op.
+    """
+    if not interval_s or interval_s <= 0:
+        return lambda: None
+
+    stop_event = threading.Event()
+    started = time.monotonic()
+
+    def _beat():
+        while not stop_event.wait(interval_s):
+            elapsed = int(time.monotonic() - started)
+            print(f"[heartbeat] {label} still running, elapsed {elapsed}s", flush=True)
+
+    t = threading.Thread(target=_beat, daemon=True, name="cluster-heartbeat")
+    t.start()
+
+    def _stop():
+        stop_event.set()
+        t.join(timeout=interval_s + 1)
+
+    return _stop
+
+
+# ── bandit crash accounting ──────────────────────────────────────────────────
+
+def _record_bandit_failure(bandit_path: pathlib.Path, layer: str, strategy: str) -> None:
+    """Penalize the chosen arm (β += 1) after a crash or timeout.
+
+    Without this, a strategy whose runs keep blowing up is never penalized —
+    the bandit only learned from runs that finished.
+    """
+    bandit = BanditState.load(bandit_path)
+    bandit.update(layer, strategy, False)
+    bandit.save(bandit_path)
+
+
+# ── batch cost cap ───────────────────────────────────────────────────────────
+
+def _count_tasks(tasks_dir: pathlib.Path) -> int:
+    """Task dirs under tasks_dir (task.toml + instruction.md), domain-agnostic."""
+    tasks_dir = pathlib.Path(tasks_dir)
+    if not tasks_dir.is_dir():
+        return 0
+    return sum(
+        1 for d in tasks_dir.iterdir()
+        if d.is_dir() and (d / "task.toml").exists() and (d / "instruction.md").exists()
+    )
+
+def _enforce_rollout_cap(n_clusters: int, args) -> None:
+    """Exit before any training when the estimated batch cost exceeds
+    --max-rollout-calls (0 = no cap).
+
+    The estimate uses the full tasks-dir count for every cluster (a cluster
+    only trains on its own domain's tasks, so this is a conservative upper
+    bound) and num_epochs from the skillopt config.
+    """
+    cap = getattr(args, "max_rollout_calls", 0)
+    if not cap:
+        return
+    from skillopt.config import load_config, flatten_config
+    cfg = flatten_config(load_config(args.config))
+    epochs = cfg.get("num_epochs", 5)
+    n_items = _count_tasks(pathlib.Path(args.tasks_dir))
+    n_train, n_sel, n_test = _split_counts(n_items)
+    per_cluster = estimate_rollout_calls(n_train, n_sel, n_test, epochs)
+    total = per_cluster * n_clusters
+    if total > cap:
+        sys.exit(
+            f"[optimize] estimated {total} rollout calls "
+            f"({n_clusters} cluster(s) x ~{per_cluster} each) exceeds "
+            f"--max-rollout-calls={cap} — aborting before any training spend"
+        )
+
+
 # ── preflight ────────────────────────────────────────────────────────────────
 
 def preflight(mock_mcp_url: str) -> None:
@@ -286,149 +369,163 @@ def run_cluster(cluster: dict, args, classifications: list[dict] | None = None) 
 
     # Strategy selection (bandit or --strategy override)
     strategy = _pick_strategy(args, cluster, bandit_path)
-    strategy_directive = STRATEGY_DIRECTIVES[strategy]
 
-    baseline_text = initial_artifact(spec)
-
-    adapter = TravelEnvAdapter(spec=spec, mock_mcp_url=args.mock_mcp_url,
-                               split_seed=args.seed, seed=args.seed,
-                               must_split_ids=cluster.get("task_ids", []),
-                               strategy_directive=strategy_directive)
-
-    n_items = len(adapter.dataloader.load_raw_items(str(spec.tasks_dir)))
-    n_train, n_sel, n_test = _split_counts(n_items)
-
-    # Load config early so num_epochs is available for the estimate.
-    from skillopt.config import load_config, flatten_config
-    cfg = flatten_config(load_config(args.config))
-
-    est_calls = estimate_rollout_calls(n_train, n_sel, n_test, cfg.get("num_epochs", 5))
-    print(f"[{run_tag}] target={kind}:{key} strategy={strategy} tasks={n_items} "
-          f"(split {n_train}/{n_sel}/{n_test}) ~{est_calls} rollout calls (gpt-4o-mini)")
-
-    if args.dry_run:
-        return {"run": run_tag, "dry_run": True, "estimated_rollout_calls": est_calls,
-                "strategy": strategy}
-
-    # ── Seed selection (archive.pick_parent when --explore) ──────────────────
-    seed_text, seed_source = _pick_seed(args, archive, target_key_str, baseline_text)
-
-    # File writes happen only on real runs (after the dry-run guard).
-    cfg["out_root"] = str(out_root)
-    cfg["seed"] = args.seed
-    out_root.mkdir(parents=True, exist_ok=True)
-    # skill_init MUST be a file path — a text literal is silently treated as a
-    # nonexistent path and the skill starts blank (spike findings §1)
-    skill_init_path = out_root / "initial_artifact.md"
-    skill_init_path.write_text(seed_text)  # use seed_text (may be from archive)
-    cfg["skill_init"] = str(skill_init_path)
-
-    from skillopt.model.azure_openai import configure_azure_openai
-    # skillopt routes all optimizer-model calls through its azure_openai module;
-    # openai_compatible mode points it at real OpenAI with our key.
-    configure_azure_openai(
-        endpoint="https://api.openai.com/v1",
-        auth_mode="openai_compatible",
-        api_key=os.environ["OPENAI_API_KEY"],
-    )
-
-    from skillopt.engine.trainer import ReflACTTrainer
+    # Any failure from here on — trainer crash, --cluster-timeout firing
+    # anywhere in the body, archive errors — must count against the chosen arm
+    # exactly once, or a strategy that keeps blowing up is never penalized.
+    # The success path updates the bandit itself and sets bandit_updated so a
+    # late exception (e.g. the alarm firing during report writing) can never
+    # double-count.
+    bandit_updated = False
     try:
-        train_result = ReflACTTrainer(cfg, adapter).train()
-    except Exception as e:
-        crash_report = {
-            "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
-            "crashed": True, "error": f"{type(e).__name__}: {e}",
-            "estimated_rollout_calls": est_calls,
-            "strategy": strategy,
+        strategy_directive = STRATEGY_DIRECTIVES[strategy]
+
+        baseline_text = initial_artifact(spec)
+
+        adapter = TravelEnvAdapter(spec=spec, mock_mcp_url=args.mock_mcp_url,
+                                   split_seed=args.seed, seed=args.seed,
+                                   must_split_ids=cluster.get("task_ids", []),
+                                   strategy_directive=strategy_directive)
+
+        n_items = len(adapter.dataloader.load_raw_items(str(spec.tasks_dir)))
+        n_train, n_sel, n_test = _split_counts(n_items)
+
+        # Load config early so num_epochs is available for the estimate.
+        from skillopt.config import load_config, flatten_config
+        cfg = flatten_config(load_config(args.config))
+
+        est_calls = estimate_rollout_calls(n_train, n_sel, n_test, cfg.get("num_epochs", 5))
+        print(f"[{run_tag}] target={kind}:{key} strategy={strategy} tasks={n_items} "
+              f"(split {n_train}/{n_sel}/{n_test}) ~{est_calls} rollout calls (gpt-4o-mini)")
+
+        if args.dry_run:
+            return {"run": run_tag, "dry_run": True, "estimated_rollout_calls": est_calls,
+                    "strategy": strategy}
+
+        # ── Seed selection (archive.pick_parent when --explore) ──────────────
+        seed_text, seed_source = _pick_seed(args, archive, target_key_str, baseline_text)
+
+        # File writes happen only on real runs (after the dry-run guard).
+        cfg["out_root"] = str(out_root)
+        cfg["seed"] = args.seed
+        out_root.mkdir(parents=True, exist_ok=True)
+        # skill_init MUST be a file path — a text literal is silently treated as a
+        # nonexistent path and the skill starts blank (spike findings §1)
+        skill_init_path = out_root / "initial_artifact.md"
+        skill_init_path.write_text(seed_text)  # use seed_text (may be from archive)
+        cfg["skill_init"] = str(skill_init_path)
+
+        from skillopt.model.azure_openai import configure_azure_openai
+        # skillopt routes all optimizer-model calls through its azure_openai module;
+        # openai_compatible mode points it at real OpenAI with our key.
+        configure_azure_openai(
+            endpoint="https://api.openai.com/v1",
+            auth_mode="openai_compatible",
+            api_key=os.environ["OPENAI_API_KEY"],
+        )
+
+        from skillopt.engine.trainer import ReflACTTrainer
+        try:
+            train_result = ReflACTTrainer(cfg, adapter).train()
+        except Exception as e:
+            crash_report = {
+                "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
+                "crashed": True, "error": f"{type(e).__name__}: {e}",
+                "estimated_rollout_calls": est_calls,
+                "strategy": strategy,
+            }
+            (out_root / "optimization_report.json").write_text(json.dumps(crash_report, indent=2))
+            print(f"[{run_tag}] CRASHED: {e} — partial spend recorded in {out_root}/optimization_report.json")
+            raise
+
+        # Best artifact: out_root/best_skill.md, overwritten at each accept (findings §3)
+        best_skill_file = out_root / "best_skill.md"
+        best_text = best_skill_file.read_text() if best_skill_file.exists() else baseline_text
+
+        # Held-out test: the trainer runs it itself when eval_test=true (findings §4),
+        # scoring BOTH skill_init (baseline) and best_skill on the test split.
+        w = cfg.get("gate_mixed_weight", 0.5)
+        base_score = _mixed_from(train_result.get("baseline_test_hard"),
+                                 train_result.get("baseline_test_soft"), w)
+        best_score = _mixed_from(train_result.get("test_hard"),
+                                 train_result.get("test_soft"), w)
+
+        sel_baseline = train_result.get("baseline_selection_hard")
+        sel_best = train_result.get("best_selection_hard")
+        selection_improved = (sel_baseline is not None and sel_best is not None
+                              and sel_best > sel_baseline)
+        test_regressed = best_score < base_score
+        improved = selection_improved and not test_regressed
+
+        # ── Archive recording + Bandit update ────────────────────────────────
+        _record_archive(
+            archive=archive,
+            run_tag=run_tag,
+            target_key_str=target_key_str,
+            layer=cluster["layer"],
+            strategy=strategy,
+            seed_text=seed_text,
+            baseline_text=baseline_text,
+            best_text=best_text,
+            sel_baseline=sel_baseline,
+            sel_best=sel_best,
+            improved=improved,
+            no_embed=no_embed,
+        )
+
+        bandit = BanditState.load(bandit_path)
+        bandit.update(cluster["layer"], strategy, improved)
+        bandit.save(bandit_path)
+        bandit_updated = True
+
+        # Bandit posterior for this arm in the report
+        arm_key = f"{cluster['layer']}|{strategy}"
+        arm_alpha, arm_beta = bandit.arms.get(arm_key, [1.0, 1.0])
+        bandit_arm_after = {
+            "arm": arm_key,
+            "alpha": arm_alpha,
+            "beta": arm_beta,
+            "mean": round(arm_alpha / (arm_alpha + arm_beta), 4),
+            "n": int(arm_alpha + arm_beta - 2),
         }
-        (out_root / "optimization_report.json").write_text(json.dumps(crash_report, indent=2))
-        print(f"[{run_tag}] CRASHED: {e} — partial spend recorded in {out_root}/optimization_report.json")
+
+        report = {
+            "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
+            "strategy": strategy,
+            "seed_source": seed_source,
+            "bandit_arm_after": bandit_arm_after,
+            "baseline_test_mixed": base_score, "best_test_mixed": best_score,
+            "baseline_selection_score": sel_baseline,
+            "best_selection_score": sel_best,
+            "selection_improved": selection_improved,
+            "test_regressed": test_regressed,
+            "improved": improved,
+            "evidence_note": ("improvement evidence comes from the selection split "
+                              "(contains failure tasks); the held-out test split guards "
+                              "non-regression on remaining tasks"),
+            "estimated_rollout_calls": est_calls,
+            "train_result": _jsonable(train_result),
+            "review_checklist": [
+                "Read the proposed diff against the current artifact",
+                "Run ab_compare on a SECOND skill before merging a harness change",
+                "Verify the test-split tasks were never used for edit selection",
+            ],
+        }
+        if report["improved"]:
+            proposed = write_proposed(kind=kind, key=key, artifact_text=best_text,
+                                      out_dir=out_root, harness_config_path=harness_config_path,
+                                      skill_path=skill_path)
+            report["proposed_file"] = str(proposed)
+            print(f"[{run_tag}] IMPROVED on selection split ({sel_baseline} → {sel_best}), test did not regress — proposal: {proposed}")
+        else:
+            print(f"[{run_tag}] no proposal: selection_improved={selection_improved}, test_regressed={test_regressed} (selection {sel_baseline} → {sel_best}, test {base_score:.2f} → {best_score:.2f})")
+
+        (out_root / "optimization_report.json").write_text(json.dumps(report, indent=2))
+        return report
+    except Exception:
+        if not bandit_updated:
+            _record_bandit_failure(bandit_path, cluster["layer"], strategy)
         raise
-
-    # Best artifact: out_root/best_skill.md, overwritten at each accept (findings §3)
-    best_skill_file = out_root / "best_skill.md"
-    best_text = best_skill_file.read_text() if best_skill_file.exists() else baseline_text
-
-    # Held-out test: the trainer runs it itself when eval_test=true (findings §4),
-    # scoring BOTH skill_init (baseline) and best_skill on the test split.
-    w = cfg.get("gate_mixed_weight", 0.5)
-    base_score = _mixed_from(train_result.get("baseline_test_hard"),
-                             train_result.get("baseline_test_soft"), w)
-    best_score = _mixed_from(train_result.get("test_hard"),
-                             train_result.get("test_soft"), w)
-
-    sel_baseline = train_result.get("baseline_selection_hard")
-    sel_best = train_result.get("best_selection_hard")
-    selection_improved = (sel_baseline is not None and sel_best is not None
-                          and sel_best > sel_baseline)
-    test_regressed = best_score < base_score
-    improved = selection_improved and not test_regressed
-
-    # ── Archive recording + Bandit update ────────────────────────────────────
-    _record_archive(
-        archive=archive,
-        run_tag=run_tag,
-        target_key_str=target_key_str,
-        layer=cluster["layer"],
-        strategy=strategy,
-        seed_text=seed_text,
-        baseline_text=baseline_text,
-        best_text=best_text,
-        sel_baseline=sel_baseline,
-        sel_best=sel_best,
-        improved=improved,
-        no_embed=no_embed,
-    )
-
-    bandit = BanditState.load(bandit_path)
-    bandit.update(cluster["layer"], strategy, improved)
-    bandit.save(bandit_path)
-
-    # Bandit posterior for this arm in the report
-    arm_key = f"{cluster['layer']}|{strategy}"
-    arm_alpha, arm_beta = bandit.arms.get(arm_key, [1.0, 1.0])
-    bandit_arm_after = {
-        "arm": arm_key,
-        "alpha": arm_alpha,
-        "beta": arm_beta,
-        "mean": round(arm_alpha / (arm_alpha + arm_beta), 4),
-        "n": int(arm_alpha + arm_beta - 2),
-    }
-
-    report = {
-        "run": run_tag, "target": f"{kind}:{key}", "cluster": cluster,
-        "strategy": strategy,
-        "seed_source": seed_source,
-        "bandit_arm_after": bandit_arm_after,
-        "baseline_test_mixed": base_score, "best_test_mixed": best_score,
-        "baseline_selection_score": sel_baseline,
-        "best_selection_score": sel_best,
-        "selection_improved": selection_improved,
-        "test_regressed": test_regressed,
-        "improved": improved,
-        "evidence_note": ("improvement evidence comes from the selection split "
-                          "(contains failure tasks); the held-out test split guards "
-                          "non-regression on remaining tasks"),
-        "estimated_rollout_calls": est_calls,
-        "train_result": _jsonable(train_result),
-        "review_checklist": [
-            "Read the proposed diff against the current artifact",
-            "Run ab_compare on a SECOND skill before merging a harness change",
-            "Verify the test-split tasks were never used for edit selection",
-        ],
-    }
-    if report["improved"]:
-        proposed = write_proposed(kind=kind, key=key, artifact_text=best_text,
-                                  out_dir=out_root, harness_config_path=harness_config_path,
-                                  skill_path=skill_path)
-        report["proposed_file"] = str(proposed)
-        print(f"[{run_tag}] IMPROVED on selection split ({sel_baseline} → {sel_best}), test did not regress — proposal: {proposed}")
-    else:
-        print(f"[{run_tag}] no proposal: selection_improved={selection_improved}, test_regressed={test_regressed} (selection {sel_baseline} → {sel_best}, test {base_score:.2f} → {best_score:.2f})")
-
-    (out_root / "optimization_report.json").write_text(json.dumps(report, indent=2))
-    return report
 
 
 def _mixed_from(hard, soft, w: float = 0.5) -> float:
@@ -481,6 +578,12 @@ def main() -> None:
     parser.add_argument("--cluster-timeout", type=int, default=3600,
                         help="Wall-clock seconds allowed per cluster before it is "
                              "abandoned and the batch moves on (0 disables). Default: 3600.")
+    parser.add_argument("--heartbeat", type=int, default=60,
+                        help="Print a liveness line every N seconds while a cluster "
+                             "runs, so silent stalls are visible (0 disables). Default: 60.")
+    parser.add_argument("--max-rollout-calls", type=int, default=0,
+                        help="Abort before any training when the estimated rollout calls "
+                             "for the whole batch exceed this cap (0 = no cap).")
     args = parser.parse_args()
 
     data = json.loads(pathlib.Path(args.classification).read_text())
@@ -491,12 +594,16 @@ def main() -> None:
         print("No qualifying clusters.")
         return
 
+    # Cost cap: refuse the whole batch before any training or spend.
+    _enforce_rollout_cap(len(targets), args)
+
     if not args.dry_run:
         preflight(args.mock_mcp_url)
 
     classifications = data.get("classifications", [])
     failed: list[tuple[str, str]] = []
     for cluster in targets:
+        stop_heartbeat = _start_heartbeat(cluster["target_artifact"], args.heartbeat)
         try:
             _run_with_timeout(
                 lambda: run_cluster(cluster, args, classifications=classifications),
@@ -508,6 +615,8 @@ def main() -> None:
             failed.append((cluster["target_artifact"], f"{type(e).__name__}: {e}"))
             print(f"[optimize] cluster {cluster['target_artifact']} failed "
                   f"({type(e).__name__}: {e}) — continuing with next cluster")
+        finally:
+            stop_heartbeat()
     if failed:
         sys.exit(f"{len(failed)}/{len(targets)} cluster(s) failed: "
                  + "; ".join(f"{t} ({err})" for t, err in failed))

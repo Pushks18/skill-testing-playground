@@ -78,6 +78,21 @@ def test_selection_prefers_heavily_rewarded_arm():
     )
 
 
+def test_repeated_failures_depress_arm_selection():
+    """Crash-style updates (reward=False, as recorded for crashed/timed-out
+    clusters) must make the arm unlikely to be picked again."""
+    loser = "push-tool-action"
+    state = BanditState()
+    for _ in range(10):
+        state.update(LAYER, loser, reward=False)
+
+    # Beta(1,11) mean ≈ 0.083 vs Beta(1,1) mean 0.5 for the other four arms.
+    picks = [state.select_strategy(LAYER, STRATEGIES, seed=i) for i in range(100)]
+    assert picks.count(loser) < 20, (
+        f"Expected crash-penalized arm to be rare, got {picks.count(loser)}/100"
+    )
+
+
 # ── save/load roundtrip ──────────────────────────────────────────────────────
 
 def test_save_load_roundtrip(tmp_path):
