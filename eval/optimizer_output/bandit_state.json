@@ -13,7 +13,7 @@
       3.0
     ],
     "harness:tool_description|tighten-specificity": [
-      1.0,
+      3.0,
       2.0
     ],
     "skill:content|broaden-coverage": [
@@ -29,7 +29,7 @@
       1.0
     ],
     "skill:content|add-edge-case": [
-      4.0,
+      5.0,
       1.0
     ],
     "harness:node_prompt|add-edge-case": [
@@ -45,12 +45,20 @@
       2.0
     ],
     "harness:tool_description|simplify": [
-      1.0,
+      2.0,
       2.0
     ],
     "harness:node_prompt|tighten-specificity": [
       2.0,
-      1.0
+      2.0
+    ],
+    "harness:node_prompt|push-tool-action": [
+      1.0,
+      2.0
+    ],
+    "harness:base_prompt|tighten-specificity": [
+      1.0,
+      2.0
     ]
   }
 }

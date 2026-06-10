@@ -19,10 +19,11 @@ tool_descriptions:
   search_hotels: Search for available hotels at a location.
   check_availability: Check if a flight or hotel resource is available on a date.
   get_fare_rules: Get cancellation, change, and baggage rules for a flight.
-  validate_passenger: Validate passenger information (name, passport number, and
-    other required fields) before booking. If any required detail is missing, ask
-    the user for it; once validation passes, continue the booking flow rather than
-    stopping.
+  validate_passenger: Validate passenger information (name, passport number, date
+    of birth, and other required fields) before booking. If any required detail is
+    missing, ask the user for it; once validation passes, continue the booking flow
+    rather than stopping. For booking tasks the order of operations is search,
+    confirm availability, validate passenger, then call 'create_booking'.
   create_booking: Create a flight or hotel booking for a passenger.
   modify_booking: Modify an existing booking (date change, upgrade, etc).
   cancel_booking: Cancel a booking and get refund information.
