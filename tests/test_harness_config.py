@@ -9,17 +9,23 @@ def test_load_returns_yaml_values():
     assert cfg["base_system_prompt"].startswith("You are a helpful travel assistant.")
     assert cfg["tool_descriptions"]["search_flights"] == \
         "Search for available flights between two cities."
-    assert cfg["node_prompts"] == {}
+    # node_prompts content is optimizer-owned and may evolve; only the shape
+    # is part of the loader's contract.
+    assert isinstance(cfg["node_prompts"], dict)
 
 
 def test_yaml_extends_defaults():
-    """The optimizer loop evolves base_system_prompt: it must RETAIN the
-    original default text as its opening (the generic steer for all domains)
-    and may append gate-verified instructions after it. Tool descriptions
-    remain verbatim until the optimizer targets them."""
+    """The optimizer loop evolves base_system_prompt AND individual tool
+    descriptions (gate-verified; e.g. validate_passenger in f1da5b8,
+    get_itinerary in f527b83). Invariants that must hold regardless of
+    wording: the prompt RETAINS the original default text as its opening,
+    and the optimizer rewrites tool descriptions but never adds or removes
+    tools, so the key set matches the defaults exactly."""
     cfg = load_harness_config()
     assert cfg["base_system_prompt"].startswith(HARNESS_DEFAULTS["base_system_prompt"])
-    assert cfg["tool_descriptions"] == HARNESS_DEFAULTS["tool_descriptions"]
+    assert set(cfg["tool_descriptions"]) == set(HARNESS_DEFAULTS["tool_descriptions"])
+    for name, desc in cfg["tool_descriptions"].items():
+        assert isinstance(desc, str) and desc.strip(), f"empty description for {name}"
 
 
 def test_missing_file_falls_back_to_defaults(tmp_path):

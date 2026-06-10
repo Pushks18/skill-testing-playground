@@ -1,4 +1,5 @@
 import hashlib
+import os
 import uuid
 import random
 from fastapi import FastAPI
@@ -186,4 +187,6 @@ def add_ancillary(req: AncillaryRequest):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # MOCK_MCP_PORT lets tests spawn an isolated instance without colliding
+    # with a long-running dev server on the default port 8000.
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("MOCK_MCP_PORT", "8000")))

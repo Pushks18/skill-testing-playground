@@ -28,7 +28,9 @@ def test_tier1_hard_block_on_negative_weighted_delta():
     assert d.override_allowed is False
 
 def test_tier1_booking_flow_critical():
-    results = [make_ab("book1", "booking_flow", -0.20, 3.0)]
+    # -0.35 is below tier1.critical_task_delta_min (-0.30, recalibrated for
+    # N=3 trials in gate_thresholds.yaml) on a weight-3.0 critical domain.
+    results = [make_ab("book1", "booking_flow", -0.35, 3.0)]
     results += [make_ab(f"t{i}", "flight_search", 0.1, 2.0) for i in range(4)]
     d = gate_check(results)
     assert d.verdict == "BLOCK"
@@ -47,8 +49,11 @@ def test_tier3_warn():
     assert d.verdict in ("WARN", "PASS")
 
 def test_regression_rate_block():
-    results = [make_ab(f"t{i}", "flight_search", -0.01, 1.0) for i in range(4)]
-    results += [make_ab(f"t{i+4}", "flight_search", 0.1, 1.0) for i in range(6)]
+    # 6/10 tasks regress -> rate 0.60 > tier1.regression_rate_max (0.50,
+    # recalibrated for N=3 trials). Deltas are tiny so the block can only
+    # come from the regression-rate rule, not weighted delta.
+    results = [make_ab(f"t{i}", "flight_search", -0.01, 1.0) for i in range(6)]
+    results += [make_ab(f"t{i+6}", "flight_search", 0.1, 1.0) for i in range(4)]
     d = gate_check(results)
     assert d.verdict == "BLOCK"
 

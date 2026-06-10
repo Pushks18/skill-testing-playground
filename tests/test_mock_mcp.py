@@ -1,17 +1,51 @@
+import os
+import pathlib
+import socket
+import sys
+
 import pytest
 import httpx
 import subprocess
 import time
-import signal
+
+REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
+SERVER_PATH = REPO_ROOT / "eval" / "mock_mcp" / "server.py"
+
+
+def _free_port() -> int:
+    with socket.socket() as s:
+        s.bind(("127.0.0.1", 0))
+        return s.getsockname()[1]
+
 
 @pytest.fixture(scope="module")
 def mcp_server():
+    # sys.executable: bare "python" is not on PATH in all environments
+    # (only python3 / the venv interpreter). Absolute script path: pytest
+    # may be invoked from any cwd. Free port: a long-running dev mock server
+    # may already occupy the default 8000.
+    port = _free_port()
     proc = subprocess.Popen(
-        ["python", "eval/mock_mcp/server.py"],
+        [sys.executable, str(SERVER_PATH)],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        env={**os.environ, "MOCK_MCP_PORT": str(port)},
     )
-    time.sleep(2.0)
-    yield "http://localhost:8000"
+    base_url = f"http://localhost:{port}"
+    deadline = time.monotonic() + 15.0
+    while True:
+        if proc.poll() is not None:
+            raise RuntimeError(f"mock MCP server exited early (code {proc.returncode})")
+        try:
+            if httpx.get(f"{base_url}/health", timeout=1.0).status_code == 200:
+                break
+        except httpx.HTTPError:
+            pass
+        if time.monotonic() > deadline:
+            proc.terminate()
+            proc.wait()
+            raise RuntimeError("mock MCP server did not become healthy within 15s")
+        time.sleep(0.2)
+    yield base_url
     proc.terminate()
     proc.wait()
 
