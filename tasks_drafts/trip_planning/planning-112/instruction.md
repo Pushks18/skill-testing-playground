@@ -1,0 +1,1 @@
+I'm planning a leisure trip from New York City to San Diego. Departure is August 10, 2026, and return is August 20. Please find me a flight and hotel near the beach, options for surf lessons would be great too.

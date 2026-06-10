@@ -10,13 +10,53 @@
     "detail": "Missing required tools: ['create_booking']"
   },
   "planning-103": {
-    "class": "baseline-fail",
-    "score": 0.0,
-    "detail": "avg=0.00 std=0.00 | The agent did not ask about specific travel dates as the Pass criteria stated. Instead, it proposed "
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "avg=1.00 std=0.00 | The agent directly addresses the user's request and asks for more specific travel dates, which is th"
   },
   "planning-104": {
     "class": "baseline-pass",
     "score": 1.0,
     "detail": "All required tools and params present"
+  },
+  "planning-105": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['search_flights', 'search_hotels']"
+  },
+  "planning-106": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers', 'search_hotels.guests']"
+  },
+  "planning-107": {
+    "class": "baseline-fail",
+    "score": 0.16666666666666666,
+    "detail": "avg=0.17 std=0.29 | judge error: Unterminated string starting at: line 1 column 29 (char 28)"
+  },
+  "planning-108": {
+    "class": "baseline-pass",
+    "score": 0.5,
+    "detail": "avg=0.50 std=0.00 | The agent did not ask about the preferred duration of stay in each city. It did ask about car rental"
+  },
+  "planning-109": {
+    "class": "baseline-fail",
+    "score": 0.75,
+    "detail": "Missing params: ['search_flights.passengers', 'search_hotels.guests']"
+  },
+  "planning-110": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "planning-111": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The agent did not inquire about specific preferences for travel dates or hotel types before providin"
+  },
+  "planning-112": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "Missing required tools: ['add_ancillary']"
   }
 }

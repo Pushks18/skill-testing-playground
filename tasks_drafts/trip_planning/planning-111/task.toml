@@ -1,0 +1,10 @@
+[task]
+id = "planning-111"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent should inquire about specific preferences for travel dates and hotel types before searching."

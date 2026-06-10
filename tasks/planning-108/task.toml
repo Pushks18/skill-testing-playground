@@ -1,0 +1,10 @@
+[task]
+id = "planning-108"
+domain = "trip_planning"
+skill = "planning-skill"
+verifier = "llm_judge"
+weight = 1.5
+
+[expected]
+tools = []
+criteria = "The agent should ask about the preferred duration of stay in each city as well as any vehicle rental needs."
