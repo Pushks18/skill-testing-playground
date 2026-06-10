@@ -63,7 +63,8 @@ jobs:
     needs: security-scan
     runs-on: ubuntu-latest
     env:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
       LANGCHAIN_TRACING_V2: "true"
       LANGSMITH_PROJECT: "skill-testing-playground"
@@ -86,27 +87,33 @@ jobs:
 
       - name: Skip if no skill changed
         if: steps.skill.outputs.skill == ''
-        run: |
-          echo "No skill changed, skipping eval"
-          exit 0
+        run: echo "No skill changed, skipping eval"
 
       - name: Start mock MCP server
+        if: steps.skill.outputs.skill != ''
         run: |
           python eval/mock_mcp/server.py &
-          sleep 2
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:8000/health && break
+            sleep 1
+          done
+          curl -sf http://localhost:8000/health || { echo "mock MCP server failed to start"; exit 1; }
 
       - name: Run A/B eval
+        if: steps.skill.outputs.skill != ''
         run: |
+          # detect_skill prints e.g. skills/concrete/fare-rules;
+          # ab_compare --skill wants the sub-path inside skills/ (concrete/fare-rules)
           SKILL_PATH="${{ steps.skill.outputs.skill }}"
-          SKILL_LAYER=$(echo "$SKILL_PATH" | cut -d'/' -f1)
-          SKILL_NAME=$(echo "$SKILL_PATH" | cut -d'/' -f2)
+          SKILL_REL="${SKILL_PATH#skills/}"
           python eval/ab_compare.py \
-            --skill "${SKILL_LAYER}/${SKILL_NAME}" \
+            --skill "${SKILL_REL}" \
             --trials 5 \
             --output ab_results.json
 
       - name: Gate check
         id: gate
+        if: steps.skill.outputs.skill != ''
         run: python eval/gate_check.py --results ab_results.json
         continue-on-error: true
 
@@ -118,23 +125,29 @@ jobs:
             const fs = require('fs');
             let body = '## Skill Eval Results\n\n';
             try {
+              // ab_compare writes a summary dict: weighted_delta, regression_rate,
+              // verdict, flagged_tasks, regression_traces (same schema the skills
+              // repo workflow consumes).
               const results = JSON.parse(fs.readFileSync('ab_results.json', 'utf8'));
-              const totalWeight = results.reduce((s, r) => s + (r.task_weight || 1), 0);
-              const weighted = results.reduce((s, r) => s + r.delta * (r.task_weight || 1), 0) / totalWeight;
-              const regressions = results.filter(r => r.delta < 0);
-              const gateExitCode = '${{ steps.gate.outcome }}';
-              const verdict = gateExitCode === 'success' ? '✓ PASS' : '✗ BLOCK / SOFT_BLOCK';
+              const delta = results.weighted_delta;
+              const rate = results.regression_rate;
+              const verdict = results.verdict ?? ('${{ steps.gate.outcome }}' === 'success' ? 'PASS' : 'BLOCK');
+              const emoji = { PASS: '✅', WARN: '⚠️', SOFT_BLOCK: '🔶', BLOCK: '🚫' }[verdict] ?? '❓';
 
               body += `| Metric | Value |\n|--------|-------|\n`;
-              body += `| Weighted delta | ${weighted.toFixed(3)} |\n`;
-              body += `| Regression rate | ${regressions.length}/${results.length} (${(regressions.length/results.length*100).toFixed(0)}%) |\n`;
-              body += `| Verdict | ${verdict} |\n\n`;
+              body += `| Weighted delta | ${typeof delta === 'number' ? delta.toFixed(3) : delta} |\n`;
+              body += `| Regression rate | ${typeof rate === 'number' ? (rate * 100).toFixed(1) + '%' : rate} |\n`;
+              body += `| Verdict | ${emoji} **${verdict}** |\n\n`;
 
-              if (regressions.length > 0) {
+              const traces = Object.entries(results.regression_traces ?? {});
+              if (traces.length > 0) {
                 body += `**Regressed tasks:**\n`;
-                regressions.forEach(r => {
-                  body += `- ${r.task_id} (delta ${r.delta.toFixed(3)})\n`;
-                });
+                for (const [taskId, url] of traces) {
+                  body += url ? `- [\`${taskId}\`](${url})\n` : `- \`${taskId}\`\n`;
+                }
+              }
+              if (verdict === 'BLOCK' || verdict === 'SOFT_BLOCK') {
+                body += `\n> **Action required:** fix the regressions above before merging.\n`;
               }
             } catch (e) {
               body += `Could not parse results: ${e.message}`;
