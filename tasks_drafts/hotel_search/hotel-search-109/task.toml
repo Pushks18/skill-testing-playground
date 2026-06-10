@@ -1,0 +1,10 @@
+[task]
+id = "hotel-search-109"
+domain = "hotel_search"
+skill = "hotel-search"
+verifier = "tool_call_check"
+weight = 2.0
+
+[expected]
+tools = ["check_availability"]
+required_params = { check_availability = ["resource_id", "date"] }

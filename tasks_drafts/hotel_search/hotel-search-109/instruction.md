@@ -1,0 +1,1 @@
+I've got my eye on the Marriott Aspen for the holidays. Before I plan anything else, please confirm that a room is actually available there for check-in 2026-12-24 and check-out 2026-12-26 for two guests — I need the availability verified, not just a search listing.

@@ -86,6 +86,7 @@ DOMAIN_TARGETS = {
     "disruption":     (12, 2.0, "disruption"),
     "edge_cases":     (6, 0.5, "edge-mixed"),
     "flight_search":  (4, 2.0, "flight-search"),
+    "hotel_search":   (5, 2.0, "hotel-search"),
     "trip_planning":  (4, 1.5, "planning"),
 }
 

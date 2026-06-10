@@ -18,5 +18,35 @@
     "class": "baseline-pass",
     "score": 1.0,
     "detail": "All required tools and params present"
+  },
+  "flight-search-105": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-106": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-107": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-108": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
+  },
+  "flight-search-109": {
+    "class": "baseline-fail",
+    "score": 0.0,
+    "detail": "avg=0.00 std=0.00 | The user explicitly stated, 'I haven't decided on a specific date yet' and the pass criteria mandate"
+  },
+  "flight-search-110": {
+    "class": "baseline-pass",
+    "score": 1.0,
+    "detail": "All required tools and params present"
   }
 }

@@ -1,0 +1,1 @@
+I'm looking for a hotel in Seattle with a pool and free WiFi for under $150 per night, staying 2026-10-02 to 2026-10-05 with my partner (2 guests). If nothing fits that budget, tell me the cheapest option that has those amenities.

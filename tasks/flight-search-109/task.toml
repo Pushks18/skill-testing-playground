@@ -1,0 +1,10 @@
+[task]
+id = "flight-search-109"
+domain = "flight_search"
+skill = "flight-search"
+verifier = "llm_judge"
+weight = 2.0
+
+[expected]
+tools = []
+criteria = "The response should request the specific Monday date in September 2026 for the flight search."
