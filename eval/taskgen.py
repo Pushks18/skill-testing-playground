@@ -292,11 +292,33 @@ DOMAIN_NOTES = {
 }
 
 
+def _parse_llm_json(llm_output: str):
+    """json.loads tolerant of markdown fences and surrounding prose.
+
+    The generator model occasionally wraps the array in ```json fences or
+    adds a lead-in sentence — strip to the outermost JSON array before
+    giving up (a bare json.loads here crashed a whole expansion round).
+    """
+    raw = llm_output.strip()
+    if raw.startswith("```"):
+        raw = raw.split("```")[1]
+        if raw.startswith("json"):
+            raw = raw[4:]
+        raw = raw.strip()
+    try:
+        return json.loads(raw)
+    except json.JSONDecodeError:
+        start, end = raw.find("["), raw.rfind("]")
+        if start != -1 and end > start:
+            return json.loads(raw[start:end + 1])
+        raise
+
+
 def parse_generated_tasks(llm_output: str, domain: str, out_dir: pathlib.Path) -> list[pathlib.Path]:
     """Write LLM-drafted tasks to draft dirs. Returns the dirs created."""
     _, weight, prefix = DOMAIN_TARGETS[domain]
     skill = DOMAIN_SKILL[domain]
-    items = json.loads(llm_output)
+    items = _parse_llm_json(llm_output)
     created: list[pathlib.Path] = []
     for item in items:
         task_id = f"{prefix}-{item['id_suffix']}"

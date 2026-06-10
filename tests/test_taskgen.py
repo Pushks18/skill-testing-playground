@@ -236,3 +236,28 @@ def test_validate_accepts_mutation_tools_without_booking_ref_when_multi_turn(tmp
     d = _draft(tmp_path, toml=toml,
                instruction="My flight was cancelled, please rebook me.")
     assert validate_draft(d) == []
+
+
+# ── _parse_llm_json robustness (a bare json.loads crashed an expansion) ──────
+
+def test_parse_llm_json_clean():
+    from eval.taskgen import _parse_llm_json
+    assert _parse_llm_json('[{"a": 1}]') == [{"a": 1}]
+
+
+def test_parse_llm_json_fenced():
+    from eval.taskgen import _parse_llm_json
+    assert _parse_llm_json('```json\n[{"a": 1}]\n```') == [{"a": 1}]
+
+
+def test_parse_llm_json_prose_wrapped():
+    from eval.taskgen import _parse_llm_json
+    assert _parse_llm_json('Here are the tasks:\n[{"a": 1}]\nHope this helps!') == [{"a": 1}]
+
+
+def test_parse_llm_json_garbage_raises():
+    import json as _json
+    import pytest as _pytest
+    from eval.taskgen import _parse_llm_json
+    with _pytest.raises(_json.JSONDecodeError):
+        _parse_llm_json("no json here at all")
