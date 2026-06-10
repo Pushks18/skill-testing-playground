@@ -242,3 +242,43 @@ def test_make_entry_roundtrip_via_archive(tmp_path):
     assert loaded.test_score == 0.6
     assert loaded.accepted is False
     assert loaded.embedding == []
+
+
+# ── _embed degradation (timeout / failure must never hang the optimizer) ─────
+
+def test_embed_returns_empty_on_load_failure(monkeypatch):
+    import eval.optimizer.archive as archive_mod
+
+    def _boom():
+        raise RuntimeError("model load failed")
+
+    monkeypatch.setattr(archive_mod, "_load_model", _boom)
+    assert archive_mod._embed("some text") == []
+
+
+def test_embed_returns_empty_on_timeout(monkeypatch):
+    import time
+    import eval.optimizer.archive as archive_mod
+
+    def _hang():
+        time.sleep(5)
+
+    monkeypatch.setattr(archive_mod, "_load_model", _hang)
+    monkeypatch.setattr(archive_mod, "EMBED_TIMEOUT_S", 0.2)
+    start = time.monotonic()
+    assert archive_mod._embed("some text") == []
+    assert time.monotonic() - start < 2
+
+
+def test_make_entry_degrades_to_no_embedding(monkeypatch):
+    import eval.optimizer.archive as archive_mod
+
+    def _boom():
+        raise RuntimeError("network down")
+
+    monkeypatch.setattr(archive_mod, "_load_model", _boom)
+    entry = make_entry(
+        run_tag="run_x", target=TARGET, layer=LAYER, strategy="simplify",
+        artifact_text="content", no_embed=False,
+    )
+    assert entry.embedding == []

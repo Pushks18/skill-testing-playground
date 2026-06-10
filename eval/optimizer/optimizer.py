@@ -69,6 +69,8 @@ def main():
     client = openai.OpenAI(
         api_key=os.environ["OPENROUTER_API_KEY"],
         base_url="https://openrouter.ai/api/v1",
+        timeout=120.0,
+        max_retries=3,
     )
     tasks = get_failing_tasks(skill_name, args.ab_results)
     failing_traces = [

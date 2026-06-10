@@ -22,6 +22,7 @@ import datetime
 import json
 import os
 import pathlib
+import signal
 import sys
 
 import httpx
@@ -136,6 +137,32 @@ def write_proposed(
     out_path = out_dir / "SKILL_proposed.md"
     out_path.write_text(f"{frontmatter}{sep}{artifact_text.strip()}\n")
     return out_path
+
+
+# ── watchdog ─────────────────────────────────────────────────────────────────
+
+def _run_with_timeout(fn, timeout_s: int | None):
+    """Run fn() under a SIGALRM wall-clock budget; TimeoutError on expiry.
+
+    Guards against a single stuck network call freezing a multi-cluster batch
+    (a hung embedding download once stalled a run for 2.5h). Main-thread only,
+    and a C call that never releases the GIL can still delay delivery — this
+    is a watchdog, not a hard kill. timeout_s of 0/None runs unguarded, as do
+    platforms without SIGALRM.
+    """
+    if not timeout_s or not hasattr(signal, "SIGALRM"):
+        return fn()
+
+    def _handler(signum, frame):
+        raise TimeoutError(f"cluster run exceeded --cluster-timeout={timeout_s}s")
+
+    old_handler = signal.signal(signal.SIGALRM, _handler)
+    signal.alarm(int(timeout_s))
+    try:
+        return fn()
+    finally:
+        signal.alarm(0)
+        signal.signal(signal.SIGALRM, old_handler)
 
 
 # ── preflight ────────────────────────────────────────────────────────────────
@@ -451,6 +478,9 @@ def main() -> None:
                         help="Use archive.pick_parent() for ε-greedy seed selection.")
     parser.add_argument("--no-embed", action="store_true",
                         help="Skip sentence-transformer embeddings in Archive (pure score pick).")
+    parser.add_argument("--cluster-timeout", type=int, default=3600,
+                        help="Wall-clock seconds allowed per cluster before it is "
+                             "abandoned and the batch moves on (0 disables). Default: 3600.")
     args = parser.parse_args()
 
     data = json.loads(pathlib.Path(args.classification).read_text())
@@ -465,8 +495,22 @@ def main() -> None:
         preflight(args.mock_mcp_url)
 
     classifications = data.get("classifications", [])
+    failed: list[tuple[str, str]] = []
     for cluster in targets:
-        run_cluster(cluster, args, classifications=classifications)
+        try:
+            _run_with_timeout(
+                lambda: run_cluster(cluster, args, classifications=classifications),
+                args.cluster_timeout,
+            )
+        except Exception as e:
+            # run_cluster already wrote its crash report; don't let one stuck
+            # or crashed cluster kill the rest of the batch.
+            failed.append((cluster["target_artifact"], f"{type(e).__name__}: {e}"))
+            print(f"[optimize] cluster {cluster['target_artifact']} failed "
+                  f"({type(e).__name__}: {e}) — continuing with next cluster")
+    if failed:
+        sys.exit(f"{len(failed)}/{len(targets)} cluster(s) failed: "
+                 + "; ".join(f"{t} ({err})" for t, err in failed))
 
 
 if __name__ == "__main__":

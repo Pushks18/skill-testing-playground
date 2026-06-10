@@ -478,6 +478,8 @@ def main() -> None:
         client = _openai.OpenAI(
             api_key=os.environ["OPENROUTER_API_KEY"],
             base_url="https://openrouter.ai/api/v1",
+            timeout=120.0,
+            max_retries=3,
         )
         for c in clusters:
             print(f"\n{'─'*60}")
@@ -496,6 +498,8 @@ def main() -> None:
     client = _openai.OpenAI(
         api_key=os.environ["OPENROUTER_API_KEY"],
         base_url="https://openrouter.ai/api/v1",
+        timeout=120.0,
+        max_retries=3,
     )
     for c in clusters:
         url = propose_skill_pr(c, args.github_token, args.repo, client)

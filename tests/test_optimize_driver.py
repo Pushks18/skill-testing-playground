@@ -329,3 +329,30 @@ def test_write_proposed_harness_dotted_subkey(tmp_path):
     # sibling description preserved; real config untouched
     assert proposed["tool_descriptions"]["modify_booking"] == "Modify a booking."
     assert yaml.safe_load(base_path.read_text())["tool_descriptions"]["validate_passenger"] == "Validate a passenger."
+
+
+# ── _run_with_timeout watchdog ───────────────────────────────────────────────
+
+def test_run_with_timeout_passthrough():
+    from eval.optimizer.optimize import _run_with_timeout
+    assert _run_with_timeout(lambda: 42, None) == 42
+    assert _run_with_timeout(lambda: 42, 0) == 42
+
+
+def test_run_with_timeout_returns_within_budget():
+    from eval.optimizer.optimize import _run_with_timeout
+    assert _run_with_timeout(lambda: "ok", 5) == "ok"
+
+
+def test_run_with_timeout_raises_on_hang():
+    import time
+    from eval.optimizer.optimize import _run_with_timeout
+    with pytest.raises(TimeoutError):
+        _run_with_timeout(lambda: time.sleep(3), 1)
+
+
+def test_run_with_timeout_restores_alarm_state():
+    import signal
+    from eval.optimizer.optimize import _run_with_timeout
+    _run_with_timeout(lambda: None, 5)
+    assert signal.alarm(0) == 0  # no alarm left pending

@@ -12,8 +12,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import pathlib
 import random
+import threading
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
@@ -23,6 +25,11 @@ from typing import Optional
 DEFAULT_ARCHIVE_PATH = pathlib.Path("eval/optimizer_output/archive.jsonl")
 
 _DIVERSITY_LAMBDA = 0.3  # weight on cos-sim penalty in pick_parent scoring
+
+# Wall-clock budget for one embedding call (model load included). Embeddings
+# only feed the diversity penalty in pick_parent, so timing out degrades to
+# no-embed instead of stalling a whole optimizer batch.
+EMBED_TIMEOUT_S = float(os.environ.get("ARCHIVE_EMBED_TIMEOUT", "120"))
 
 
 @dataclass
@@ -81,11 +88,53 @@ def _sha256(text: str) -> str:
     return hashlib.sha256(text.encode()).hexdigest()
 
 
+_model = None
+_model_lock = threading.Lock()
+
+
+def _load_model():
+    """Load all-MiniLM-L6-v2 once per process, preferring the local HF cache.
+
+    A fresh SentenceTransformer() hits the Hugging Face Hub to check for
+    updates even when the model is cached; a stalled connection there froze
+    a whole optimizer batch for hours. local_files_only=True skips the
+    network entirely; the online fallback gets a bounded download timeout.
+    """
+    global _model
+    with _model_lock:
+        if _model is None:
+            os.environ.setdefault("HF_HUB_DOWNLOAD_TIMEOUT", "30")
+            from sentence_transformers import SentenceTransformer
+            try:
+                _model = SentenceTransformer("all-MiniLM-L6-v2", local_files_only=True)
+            except Exception:
+                _model = SentenceTransformer("all-MiniLM-L6-v2")
+        return _model
+
+
 def _embed(text: str) -> list[float]:
-    """all-MiniLM-L6-v2 embedding (lazy import; model load is slow)."""
-    from sentence_transformers import SentenceTransformer
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-    return model.encode([text], normalize_embeddings=True).tolist()[0]
+    """all-MiniLM-L6-v2 embedding, bounded by EMBED_TIMEOUT_S wall-clock.
+
+    Runs in a daemon thread so a hung model load/download can never block the
+    optimizer; on timeout or failure returns [] (entry degrades to no-embed,
+    which pick_parent already handles).
+    """
+    result: list[list[float]] = []
+
+    def _worker():
+        try:
+            model = _load_model()
+            result.append(model.encode([text], normalize_embeddings=True).tolist()[0])
+        except Exception as e:
+            print(f"[archive] embedding failed ({type(e).__name__}: {e}) — storing entry without embedding")
+
+    t = threading.Thread(target=_worker, daemon=True)
+    t.start()
+    t.join(EMBED_TIMEOUT_S)
+    if t.is_alive():
+        print(f"[archive] embedding timed out after {EMBED_TIMEOUT_S:.0f}s — storing entry without embedding")
+        return []
+    return result[0] if result else []
 
 
 def _cos(a: list[float], b: list[float]) -> float:
