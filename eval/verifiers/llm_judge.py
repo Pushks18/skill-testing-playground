@@ -65,8 +65,7 @@ class LLMJudgeVerifier(Verifier):
     def client(self):
         if self._client is None:
             self._client = openai.OpenAI(
-                api_key=os.environ["OPENROUTER_API_KEY"],
-                base_url="https://openrouter.ai/api/v1",
+                api_key=os.environ["OPENAI_API_KEY"],
                 timeout=60.0,
                 max_retries=2,
             )
@@ -80,7 +79,7 @@ class LLMJudgeVerifier(Verifier):
             response=response,
         )
         msg = self.client.chat.completions.create(
-            model="google/gemini-2.5-flash",
+            model="gpt-4o-mini",
             max_tokens=512,
             messages=[{"role": "user", "content": prompt}],
         )

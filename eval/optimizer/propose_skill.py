@@ -261,7 +261,7 @@ def draft_skill_body(cluster: FailureCluster, client) -> str:
         failure_mode=cluster.failure_mode,
     )
     msg = client.chat.completions.create(
-        model="google/gemini-2.5-flash",
+        model="gpt-4o-mini",
         max_tokens=2048,
         messages=[{"role": "user", "content": prompt}],
     )
@@ -476,8 +476,7 @@ def main() -> None:
     if args.dry_run:
         import openai as _openai
         client = _openai.OpenAI(
-            api_key=os.environ["OPENROUTER_API_KEY"],
-            base_url="https://openrouter.ai/api/v1",
+            api_key=os.environ["OPENAI_API_KEY"],
             timeout=120.0,
             max_retries=3,
         )
@@ -496,8 +495,7 @@ def main() -> None:
 
     import openai as _openai
     client = _openai.OpenAI(
-        api_key=os.environ["OPENROUTER_API_KEY"],
-        base_url="https://openrouter.ai/api/v1",
+        api_key=os.environ["OPENAI_API_KEY"],
         timeout=120.0,
         max_retries=3,
     )

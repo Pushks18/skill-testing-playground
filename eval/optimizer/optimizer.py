@@ -20,7 +20,7 @@ FAST_EVAL_TASKS = 8
 def generate_variant(skill_content: str, failing_traces, strategy_key: str, client) -> str:
     prompt = get_strategy_prompt(strategy_key, skill_content, failing_traces)
     msg = client.chat.completions.create(
-        model="google/gemini-2.5-flash",
+        model="gpt-4o-mini",
         max_tokens=4096,
         messages=[{"role": "user", "content": prompt}],
     )
@@ -67,8 +67,7 @@ def main():
     tmp_dir.mkdir(exist_ok=True)
 
     client = openai.OpenAI(
-        api_key=os.environ["OPENROUTER_API_KEY"],
-        base_url="https://openrouter.ai/api/v1",
+        api_key=os.environ["OPENAI_API_KEY"],
         timeout=120.0,
         max_retries=3,
     )

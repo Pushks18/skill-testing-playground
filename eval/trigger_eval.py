@@ -58,9 +58,8 @@ def main():
 
     labeled = json.loads(pathlib.Path(args.labeled).read_text())
     llm = ChatOpenAI(
-        model="google/gemini-2.5-flash",
-        api_key=os.environ["OPENROUTER_API_KEY"],
-        base_url="https://openrouter.ai/api/v1",
+        model="gpt-4o-mini",
+        api_key=os.environ["OPENAI_API_KEY"],
     )
     predictions = [route_request(item["request"], llm) for item in labeled]
 
