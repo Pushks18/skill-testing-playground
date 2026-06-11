@@ -83,6 +83,7 @@
     <div class="sidebar-section">Roadmap</div>
     <a href="#weights">Weights Layer — Fine-Tuning</a>
     <a href="#detection">Detection-Suite Evals</a>
+    <a href="#proposals">Improvement Proposals</a>
     <a href="#decisions">Open Items</a>
   </nav>
 
@@ -462,9 +463,28 @@ flowchart TD
       <div class="callout warn"><strong>Open design question:</strong> calibration's pass/fail-mix guardrail breaks here — a no-skill agent will almost never produce a schema-conformant report, so "baseline must at least attempt a coherent report" becomes the calibration bar for this domain.</div>
     </div>
 
+    <!-- ───────────────────────── PROPOSALS ───────────────────────── -->
+    <div class="diagram-section" id="proposals">
+      <h2>17. Improvement Proposals — which layer needs what</h2>
+      <p>The curated proposal queue lives in <code>proposals/</code> (one evidence-backed file per item, rendered in the Task Bank UI). The optimizer's raw machine proposals stay in <code>eval/optimizer_output/&lt;run&gt;/</code>; nothing is auto-applied — a human applies or rejects, and the gate re-judges.</p>
+      <table class="etable">
+        <tr><th>Skill / area</th><th>Layer needing update</th><th>Evidence</th><th>Status</th></tr>
+        <tr><td>fare-rules</td><td class="ph">Skill text</td><td>3 consistent −1.00 CI regressions; executed cancel_booking on a rules question</td><td>Fix PR open</td></tr>
+        <tr><td>flight-search</td><td class="ph">Skill text — rework or retire</td><td>Δ exactly 0.000 across 4 evals; pays 2× tokens for nothing</td><td>Decision needed</td></tr>
+        <tr><td>disruption-handling</td><td class="ph">Re-measure first</td><td>+0.132 / 25% regressions on the old 12-task bank, pre-proposals</td><td>Re-run queued</td></tr>
+        <tr><td>hotel-search · ancillery</td><td class="ph">Re-measure only</td><td>PASS but measured pre-expansion</td><td>Re-run queued</td></tr>
+        <tr><td>planning-skill</td><td class="ph">Monitor</td><td>Residual itinerary regressions are judge-content deltas</td><td>Watch</td></tr>
+        <tr><td>modify-booking</td><td class="ph">Skill text (optional)</td><td>Aggregate PASS; edge-datechange trio still individually negative</td><td>Low priority</td></tr>
+        <tr><td>booking-skill</td><td class="ph">None</td><td>+0.001, 2% regressions, zero flagged</td><td>Healthy</td></tr>
+        <tr><td>Harness node_prompts</td><td class="ph">None — stop targeting</td><td>Two optimizer no-ops; key is empty, no failure evidence</td><td>Closed</td></tr>
+        <tr><td>Detection suite (9 skills)</td><td class="ph">Eval infra, not the skills</td><td>Report-only — needs report_judge verifier + task domain</td><td>Designed</td></tr>
+        <tr><td>Model weights</td><td class="ph">New layer</td><td>"Asks instead of acts" recurs across 4 skills despite prompt fixes</td><td>Designed</td></tr>
+      </table>
+    </div>
+
     <!-- ───────────────────────── DECISIONS ───────────────────────── -->
     <div class="diagram-section" id="decisions">
-      <h2>17. Open Items</h2>
+      <h2>18. Open Items</h2>
       <table class="etable">
         <tr><th>#</th><th>Item</th><th>Status</th></tr>
         <tr><td class="ph">1</td><td>fare-rules regression fix (121/129/143 — act on provided identifiers; never execute the action a rules question asks about)</td><td>PR open, gate running</td></tr>
