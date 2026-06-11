@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SKILL OPS — System Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0b0e14;
+    --panel: #11151f;
+    --panel-2: #161b28;
+    --line: #232a3a;
+    --amber: #ffb000;
+    --amber-dim: #8a6200;
+    --green: #3ddc84;
+    --red: #ff5d5d;
+    --blue: #5da9ff;
+    --text: #d7dce6;
+    --muted: #7a8499;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Fraunces', serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.6;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255,176,0,.06), transparent),
+      repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,.012) 2px 4px);
+  }
+
+  /* ── chrome ─────────────────────────────────────────── */
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 28px; border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: rgba(11,14,20,.92);
+    backdrop-filter: blur(8px); z-index: 50;
+  }
+  .topbar .brand { color: var(--amber); font-weight: 600; letter-spacing: .18em; font-size: 13px; }
+  .topbar .brand::before { content: "◆ "; }
+  .topbar nav a {
+    color: var(--muted); text-decoration: none; font-size: 11px;
+    letter-spacing: .12em; margin-left: 22px; text-transform: uppercase;
+  }
+  .topbar nav a:hover { color: var(--amber); }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── hero ───────────────────────────────────────────── */
+  .hero { padding: 84px 0 56px; position: relative; overflow: hidden; }
+  .hero .route {
+    font-size: 11px; letter-spacing: .25em; color: var(--amber);
+    text-transform: uppercase; margin-bottom: 22px;
+    animation: fadeUp .7s ease both;
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 900; font-size: clamp(44px, 7vw, 86px);
+    line-height: .98; color: #fff; letter-spacing: -.015em;
+    animation: fadeUp .7s .08s ease both;
+  }
+  .hero h1 em { font-style: italic; font-weight: 300; color: var(--amber); }
+  .hero p.sub {
+    max-width: 640px; margin-top: 22px; color: var(--muted); font-size: 14px;
+    animation: fadeUp .7s .16s ease both;
+  }
+  .statboard {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line);
+    margin-top: 48px; animation: fadeUp .7s .26s ease both;
+  }
+  .stat { background: var(--panel); padding: 20px 18px; }
+  .stat .num {
+    font-family: var(--serif); font-size: 34px; font-weight: 600; color: var(--amber);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .lbl { font-size: 10px; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+
+  /* ── sections ───────────────────────────────────────── */
+  section { padding: 64px 0 8px; }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; border-bottom: 1px solid var(--line); padding-bottom: 14px; margin-bottom: 34px; }
+  .sec-head .code { color: var(--amber); font-size: 12px; letter-spacing: .2em; }
+  .sec-head h2 { font-family: var(--serif); font-weight: 600; font-size: 30px; color: #fff; }
+  .sec-head .tag { margin-left: auto; font-size: 10px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; }
+
+  /* ── repo split ─────────────────────────────────────── */
+  .repos { display: grid; grid-template-columns: 1fr 64px 1fr; align-items: stretch; gap: 0; }
+  .repo {
+    border: 1px solid var(--line); background: var(--panel); padding: 26px;
+    position: relative;
+  }
+  .repo::before {
+    content: attr(data-gate); position: absolute; top: -9px; left: 22px;
+    background: var(--ink); color: var(--amber); padding: 0 10px;
+    font-size: 10px; letter-spacing: .2em;
+  }
+  .repo h3 { font-family: var(--serif); font-size: 21px; color: #fff; margin-bottom: 4px; }
+  .repo .path { color: var(--blue); font-size: 11px; margin-bottom: 16px; }
+  .repo ul { list-style: none; }
+  .repo li { padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 12.5px; color: var(--text); }
+  .repo li:last-child { border-bottom: 0; }
+  .repo li b { color: var(--amber); font-weight: 500; }
+  .repo li span.note { color: var(--muted); }
+  .link-col { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+  .link-col .arrow { color: var(--amber); font-size: 18px; animation: blink 2.4s infinite; }
+  .link-col .lab { writing-mode: vertical-rl; font-size: 9px; letter-spacing: .25em; color: var(--muted); text-transform: uppercase; }
+
+  /* ── flow board (departure rows) ────────────────────── */
+  .board { border: 1px solid var(--line); background: var(--panel); }
+  .board-head, .board-row {
+    display: grid; grid-template-columns: 86px 1.1fr 2fr 130px;
+    gap: 14px; padding: 13px 20px; align-items: baseline;
+  }
+  .board-head {
+    border-bottom: 1px solid var(--line); font-size: 10px; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--muted); background: var(--panel-2);
+  }
+  .board-row { border-bottom: 1px dashed var(--line); }
+  .board-row:last-child { border-bottom: 0; }
+  .board-row:hover { background: rgba(255,176,0,.04); }
+  .board-row .gate { color: var(--amber); font-weight: 600; }
+  .board-row .name { color: #fff; font-weight: 500; font-size: 13.5px; }
+  .board-row .desc { color: var(--muted); font-size: 12px; }
+  .board-row .status { font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; text-align: right; }
+  .ok { color: var(--green); } .warn { color: var(--amber); } .crit { color: var(--red); } .info { color: var(--blue); }
+
+  /* ── loop diagram ───────────────────────────────────── */
+  .loop { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; counter-reset: step; }
+  .loop .node {
+    background: var(--panel); border: 1px solid var(--line); padding: 18px 16px 16px;
+    position: relative; min-height: 150px;
+  }
+  .loop .node::before {
+    counter-increment: step; content: "0" counter(step);
+    position: absolute; top: 10px; right: 12px;
+    font-size: 22px; font-family: var(--serif); font-weight: 900; color: var(--line);
+  }
+  .loop .node.hot { border-color: var(--amber-dim); background: linear-gradient(180deg, rgba(255,176,0,.07), var(--panel) 55%); }
+  .loop .node h4 { font-size: 12px; color: var(--amber); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+  .loop .node p { font-size: 11px; color: var(--muted); line-height: 1.55; }
+  .loop .node p b { color: var(--text); font-weight: 500; }
+  .loop-return {
+    grid-column: 1 / -1; text-align: center; color: var(--amber-dim); font-size: 11px;
+    letter-spacing: .2em; padding: 6px; border: 1px dashed var(--line); text-transform: uppercase;
+  }
+
+  /* ── ticket cards (guardrails) ──────────────────────── */
+  .tickets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .ticket {
+    background: var(--panel); border: 1px solid var(--line); padding: 18px;
+    position: relative;
+  }
+  .ticket::before, .ticket::after {
+    content: ""; position: absolute; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--ink); border: 1px solid var(--line); top: 50%;
+  }
+  .ticket::before { left: -8px; transform: translateY(-50%); }
+  .ticket::after { right: -8px; transform: translateY(-50%); }
+  .ticket h4 { color: #fff; font-size: 13px; margin-bottom: 6px; }
+  .ticket p { font-size: 11.5px; color: var(--muted); }
+  .ticket .chip {
+    display: inline-block; font-size: 9px; letter-spacing: .15em; text-transform: uppercase;
+    color: var(--ink); background: var(--amber); padding: 2px 8px; margin-bottom: 10px; font-weight: 600;
+  }
+
+  /* ── scoreboard table ───────────────────────────────── */
+  table.score { width: 100%; border-collapse: collapse; border: 1px solid var(--line); background: var(--panel); }
+  table.score th {
+    text-align: left; font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--muted); padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--panel-2);
+    font-weight: 500;
+  }
+  table.score td { padding: 11px 16px; border-bottom: 1px dashed var(--line); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  table.score tr:last-child td { border-bottom: 0; }
+  table.score tr:hover td { background: rgba(255,176,0,.04); }
+  td.delta-pos { color: var(--green); } td.delta-neg { color: var(--red); } td.delta-zero { color: var(--muted); }
+  .pill { font-size: 9.5px; letter-spacing: .1em; padding: 2px 9px; border: 1px solid; text-transform: uppercase; }
+  .pill.pass { color: var(--green); border-color: rgba(61,220,132,.4); }
+  .pill.soft { color: var(--amber); border-color: rgba(255,176,0,.4); }
+  .pill.stale { color: var(--muted); border-color: var(--line); }
+
+  /* ── domains grid ───────────────────────────────────── */
+  .domains { display: grid; grid-template-columns: repeat(9, 1fr); gap: 8px; }
+  .dom {
+    background: var(--panel); border: 1px solid var(--line); text-align: center;
+    padding: 14px 4px 12px;
+  }
+  .dom .n { font-family: var(--serif); font-size: 24px; font-weight: 600; color: var(--amber); }
+  .dom .d { font-size: 9px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; margin-top: 3px; }
+
+  /* ── CI lane ────────────────────────────────────────── */
+  .lanes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .lane { background: var(--panel); border: 1px solid var(--line); padding: 22px; }
+  .lane h4 { color: #fff; font-size: 14px; margin-bottom: 4px; }
+  .lane .trigger { color: var(--blue); font-size: 11px; margin-bottom: 14px; }
+  .lane ol { list-style: none; counter-reset: ci; }
+  .lane ol li { counter-increment: ci; padding: 8px 0 8px 34px; position: relative; font-size: 12px; color: var(--text); border-bottom: 1px dashed var(--line); }
+  .lane ol li:last-child { border-bottom: 0; }
+  .lane ol li::before {
+    content: counter(ci); position: absolute; left: 0; top: 8px;
+    width: 20px; height: 20px; border: 1px solid var(--amber-dim); color: var(--amber);
+    font-size: 10px; display: grid; place-items: center;
+  }
+  .lane ol li span { color: var(--muted); }
+
+  /* ── roadmap ────────────────────────────────────────── */
+  .road { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .road .item { border: 1px dashed var(--amber-dim); padding: 20px; background: rgba(255,176,0,.03); }
+  .road .item h4 { color: var(--amber); font-size: 13px; margin-bottom: 8px; }
+  .road .item p { font-size: 11.5px; color: var(--muted); }
+
+  footer {
+    margin-top: 80px; border-top: 1px solid var(--line); padding: 26px 28px;
+    display: flex; justify-content: space-between; font-size: 10px;
+    letter-spacing: .15em; color: var(--muted); text-transform: uppercase;
+  }
+  footer .blink { color: var(--green); animation: blink 1.6s infinite; }
+
+  @media (max-width: 900px) {
+    .statboard { grid-template-columns: repeat(2, 1fr); }
+    .repos { grid-template-columns: 1fr; }
+    .link-col { flex-direction: row; padding: 10px 0; } .link-col .lab { writing-mode: horizontal-tb; }
+    .loop { grid-template-columns: repeat(2, 1fr); }
+    .tickets, .lanes, .road { grid-template-columns: 1fr; }
+    .domains { grid-template-columns: repeat(3, 1fr); }
+    .board-head, .board-row { grid-template-columns: 60px 1fr; }
+    .board-head span:nth-child(n+3), .board-row span:nth-child(n+3) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">SKILL OPS · ARCHITECTURE</div>
+  <nav>
+    <a href="#repos">Repos</a><a href="#runtime">Runtime</a><a href="#evals">Evals</a>
+    <a href="#loop">Optimizer</a><a href="#cicd">CI/CD</a><a href="#score">Scoreboard</a><a href="#roadmap">Roadmap</a>
+  </nav>
+</div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="route">DEPARTURES · TRAVEL-AGENT EVAL &amp; OPTIMIZATION PLATFORM</div>
+    <h1>A self-improving<br><em>skill pipeline</em> for a travel agent.</h1>
+    <p class="sub">Two repositories, one loop: skills teach the agent, a 466-task bank judges it,
+      an optimizer proposes improvements, humans review, and CI gates every change.
+      Every number on this page came from a real eval run.</p>
+    <div class="statboard">
+      <div class="stat"><div class="num">466</div><div class="lbl">Eval tasks · 9 domains</div></div>
+      <div class="stat"><div class="num">17</div><div class="lbl">Skills in registry</div></div>
+      <div class="stat"><div class="num">8/8</div><div class="lbl">Evaluable skills PASS</div></div>
+      <div class="stat"><div class="num">284</div><div class="lbl">Unit tests in CI</div></div>
+      <div class="stat"><div class="num">$0.03</div><div class="lbl">Cost per CI eval gate</div></div>
+    </div>
+  </div>
+
+  <!-- REPOS -->
+  <section id="repos">
+    <div class="sec-head"><span class="code">SEC·01</span><h2>Two repositories, one contract</h2><span class="tag">github.com/Pushks18</span></div>
+    <div class="repos">
+      <div class="repo" data-gate="GATE A — THE KNOWLEDGE">
+        <h3>travel-agent-skills</h3>
+        <div class="path">skills/ · registry.yaml · src/ (CLI) · releases/</div>
+        <ul>
+          <li><b>7 action skills</b> — flight-search, hotel-search, fare-rules, booking, modify-booking, planning, ancillery</li>
+          <li><b>1 execute skill</b> — disruption-handling <span class="note">(rebook / cancel / compensate)</span></li>
+          <li><b>9 detection sub-skills</b> — suite under disruption-skill/ <span class="note">(report-only by policy; never act)</span></li>
+          <li><b>registry.yaml</b> — every skill registered; <span class="note">suite-aware discovery + validation CLI</span></li>
+          <li><b>releases/</b> — versioned zip artifacts with sha256</li>
+        </ul>
+      </div>
+      <div class="link-col"><span class="arrow">⇄</span><span class="lab">eval contract</span></div>
+      <div class="repo" data-gate="GATE B — THE JUDGE">
+        <h3>skill-testing-playground</h3>
+        <div class="path">eval/ · agent/ · tasks/ · scripts/ · tests/</div>
+        <ul>
+          <li><b>agent/</b> — LangGraph travel agent + harness_config.yaml <span class="note">(base prompt, tool descriptions)</span></li>
+          <li><b>eval/mock_mcp/</b> — deterministic seeded travel API <span class="note">(same params → same world, forever)</span></li>
+          <li><b>tasks/</b> — 466-task bank, weighted, per-domain</li>
+          <li><b>eval/optimizer/</b> — bandit + trainer + archive <span class="note">(propose-only)</span></li>
+          <li><b>eval/taskgen.py</b> — gated task generation pipeline</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RUNTIME -->
+  <section id="runtime">
+    <div class="sec-head"><span class="code">SEC·02</span><h2>Agent runtime</h2><span class="tag">gpt-4o-mini · LangGraph · single key: OPENAI_API_KEY</span></div>
+    <div class="board">
+      <div class="board-head"><span>Unit</span><span>Component</span><span>Role</span><span>Signal</span></div>
+      <div class="board-row"><span class="gate">RT-1</span><span class="name">Travel agent</span><span class="desc">LangGraph agent over gpt-4o-mini. Two conditions per task: <b style="color:var(--text)">no_skill</b> (harness only) vs <b style="color:var(--text)">with_skill</b> (harness + SKILL.md injected).</span><span class="status info">core</span></div>
+      <div class="board-row"><span class="gate">RT-2</span><span class="name">Harness config</span><span class="desc">base_system_prompt + per-tool descriptions in agent/harness_config.yaml — an optimizable layer with a whitelist.</span><span class="status info">optimizable</span></div>
+      <div class="board-row"><span class="gate">RT-3</span><span class="name">Mock MCP server</span><span class="desc">FastAPI travel API — search_flights, search_hotels, check_availability, create/modify/cancel_booking, get_fare_rules, get_itinerary, validate_passenger, add_ancillary. Seeded RNG: deterministic world.</span><span class="status ok">deterministic</span></div>
+      <div class="board-row"><span class="gate">RT-4</span><span class="name">Skill router</span><span class="desc">MiniLM embedding router maps a user message to one skill by description similarity; detection suite deliberately excluded from routing.</span><span class="status info">embedding</span></div>
+    </div>
+  </section>
+
+  <!-- EVALS -->
+  <section id="evals">
+    <div class="sec-head"><span class="code">SEC·03</span><h2>Evaluation pipeline</h2><span class="tag">A/B · N-trial · tiered gate</span></div>
+    <div class="board">
+      <div class="board-head"><span>Stage</span><span>Component</span><span>Role</span><span>Signal</span></div>
+      <div class="board-row"><span class="gate">EV-1</span><span class="name">Task bank</span><span class="desc">Each task = instruction.md + task.toml (domain, skill, verifier, weight, expected tools/params). Weight 3.0 marks business-critical flows.</span><span class="status ok">466 tasks</span></div>
+      <div class="board-row"><span class="gate">EV-2</span><span class="name">ab_compare</span><span class="desc">Per task: N trials × {no_skill, with_skill}. Records score, tool calls, params, latency, token cost per arm. Concurrency-capped.</span><span class="status info">N=3–5</span></div>
+      <div class="board-row"><span class="gate">EV-3</span><span class="name">Verifiers</span><span class="desc"><b style="color:var(--text)">tool_call_check</b> — required tools + params present. <b style="color:var(--text)">llm_judge</b> — 3-vote judge; errored votes excluded from the mean, truncated JSON salvage-parsed, infra failures flagged loudly.</span><span class="status ok">hardened</span></div>
+      <div class="board-row"><span class="gate">EV-4</span><span class="name">Gate (tiered)</span><span class="desc">Tier 1 BLOCK: any critical task Δ ≤ −0.30 or regression rate &gt; 50%. Tier 2 SOFT_BLOCK: weighted Δ or rate past softer bounds. Calibrated for N=3 noise.</span><span class="status warn">PASS / SOFT / BLOCK</span></div>
+      <div class="board-row"><span class="gate">EV-5</span><span class="name">Trajectory DB</span><span class="desc">Every run's tool sequence persisted in sqlite — the raw material for failure diagnosis and (next) fine-tuning datasets.</span><span class="status info">sqlite</span></div>
+    </div>
+
+    <div style="margin-top:34px">
+      <div class="sec-head" style="border:0;margin-bottom:18px;padding-bottom:0"><span class="code">SEC·03b</span><h2 style="font-size:20px">Task generation — four gates, no exceptions</h2></div>
+      <div class="domains" style="grid-template-columns:repeat(6,1fr)">
+        <div class="dom"><div class="n">①</div><div class="d">Generate (gpt-4o)</div></div>
+        <div class="dom"><div class="n">②</div><div class="d">Validate structure</div></div>
+        <div class="dom"><div class="n">③</div><div class="d">Dedupe vs bank</div></div>
+        <div class="dom"><div class="n">④</div><div class="d">Calibrate (1 trial)</div></div>
+        <div class="dom"><div class="n">⑤</div><div class="d">Review sheet</div></div>
+        <div class="dom"><div class="n">⑥</div><div class="d">Promote</div></div>
+      </div>
+      <p style="color:var(--muted);font-size:11.5px;margin-top:12px">Near-duplicates and broken drafts are auto-DROPped; promoted batches target a 60–80% baseline-pass mix so the optimizer always has failure signal to train against. Driver: <span style="color:var(--blue)">scripts/expand_bank.py</span> — grew the bank 167 → 466 in one afternoon.</p>
+      <div class="domains" style="margin-top:18px">
+        <div class="dom"><div class="n">57</div><div class="d">booking-flow</div></div>
+        <div class="dom"><div class="n">55</div><div class="d">planning</div></div>
+        <div class="dom"><div class="n">54</div><div class="d">flight-search</div></div>
+        <div class="dom"><div class="n">50</div><div class="d">hotel-search</div></div>
+        <div class="dom"><div class="n">50</div><div class="d">fare-rules</div></div>
+        <div class="dom"><div class="n">50</div><div class="d">itinerary</div></div>
+        <div class="dom"><div class="n">50</div><div class="d">disruption</div></div>
+        <div class="dom"><div class="n">50</div><div class="d">ancillery</div></div>
+        <div class="dom"><div class="n">50</div><div class="d">edge-*</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPTIMIZER LOOP -->
+  <section id="loop">
+    <div class="sec-head"><span class="code">SEC·04</span><h2>The improvement loop</h2><span class="tag">propose-only · human reviews every diff</span></div>
+    <div class="loop">
+      <div class="node"><h4>Classify failures</h4><p>Failed A/B runs cluster by domain + failure mode (<b>NO_TOOL_CALL</b>, <b>WRONG_TOOL</b>, <b>MULTI_STEP_DROPOUT</b>…), each cluster pointed at a target artifact.</p></div>
+      <div class="node"><h4>Bandit picks strategy</h4><p>Thompson-sampling over arms like <b>add-edge-case</b>, <b>tighten-specificity</b>, <b>push-tool-action</b> per layer. Crashes count as losses.</p></div>
+      <div class="node hot"><h4>ReflACT trainer</h4><p>Iterative edit-propose-score on a train/selection split; <b>held-out test split</b> guards against overfitting. Targets one artifact: SKILL.md body or one harness key.</p></div>
+      <div class="node"><h4>Propose only</h4><p>Winners land as <b>*_proposed.md / .yaml</b> + a report. The optimizer never touches live skills or config. Archive keeps every candidate with lineage.</p></div>
+      <div class="node"><h4>Human review</h4><p>Diff against live artifact. Drop hallucinated tools, off-topic additions, repetition. <b>~50% of proposal content survives</b> review — by design.</p></div>
+      <div class="node hot"><h4>Apply + re-gate</h4><p>Reviewed edit applied, full A/B re-run, tiered gate decides. Yesterday: three failing skills → <b>all PASS</b> in one loop day.</p></div>
+      <div class="loop-return">↻ new failures feed the next classification — the loop never claims "done"</div>
+    </div>
+
+    <div style="margin-top:30px">
+      <div class="tickets">
+        <div class="ticket"><span class="chip">Guardrail</span><h4>--cluster-timeout</h4><p>SIGALRM watchdog per cluster; a stuck network call once froze a batch 2.5h — now it's skipped and the batch continues.</p></div>
+        <div class="ticket"><span class="chip">Guardrail</span><h4>--max-rollout-calls</h4><p>Pre-flight cost estimate across all clusters; over-budget batches refuse to start. Fired twice in production, saved ~4,000 calls.</p></div>
+        <div class="ticket"><span class="chip">Guardrail</span><h4>--heartbeat</h4><p>Liveness line every N seconds so a silent stall is visible in seconds, not hours.</p></div>
+        <div class="ticket"><span class="chip">Guardrail</span><h4>Crash accounting</h4><p>A crashed/timed-out run records a loss on its bandit arm — strategies that keep blowing up get deprioritized automatically.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CICD -->
+  <section id="cicd">
+    <div class="sec-head"><span class="code">SEC·05</span><h2>CI/CD — the referee</h2><span class="tag">github actions · verified live on PR #1</span></div>
+    <div class="lanes">
+      <div class="lane">
+        <h4>tests.yml — playground</h4>
+        <div class="trigger">on: push / pull_request</div>
+        <ol>
+          <li>Fresh ubuntu runner, pip install <span>(requirements verified on clean machine)</span></li>
+          <li>284-test suite <span>— optimizer, verifiers, taskgen, gate, mock server, archive, bandit</span></li>
+          <li>No API keys needed <span>— everything heavy is stubbed</span></li>
+        </ol>
+      </div>
+      <div class="lane">
+        <h4>eval.yml — skill eval gate</h4>
+        <div class="trigger">on: pull_request touching skills/**</div>
+        <ol>
+          <li>Validate skill format + <span>security scan: tool references vs approved_tools.json</span></li>
+          <li>Cross-repo checkout <span>of the eval platform (owner-parameterized)</span></li>
+          <li>Boot mock MCP, health-polled</li>
+          <li>5-trial A/B on the changed skill's bank <span>(50 tasks ≈ 500 calls ≈ $0.03 ≈ 4 min)</span></li>
+          <li>Tiered verdict posted as PR comment <span>— BLOCK means don't merge</span></li>
+        </ol>
+      </div>
+    </div>
+    <p style="color:var(--muted);font-size:11.5px;margin-top:14px">Division of labor: <b style="color:var(--text)">local</b> = build (task generation, optimizer runs, fix iterations) · <b style="color:var(--text)">CI</b> = judge (every skill-touching PR gets a verdict before a human merges).</p>
+  </section>
+
+  <!-- SCOREBOARD -->
+  <section id="score">
+    <div class="sec-head"><span class="code">SEC·06</span><h2>Skill scoreboard</h2><span class="tag">weighted Δ = with-skill − no-skill</span></div>
+    <table class="score">
+      <tr><th>Skill</th><th>Weighted Δ</th><th>Regressions</th><th>Verdict</th><th>Bank</th><th>Note</th></tr>
+      <tr><td>hotel-search</td><td class="delta-pos">+0.172</td><td>0%</td><td><span class="pill stale">pass · stale</span></td><td>50</td><td>measured on old 15-task bank — re-run due</td></tr>
+      <tr><td>fare-rules</td><td class="delta-neg">−0.023</td><td>14%</td><td><span class="pill pass">pass</span></td><td>50</td><td>CI-measured; fix PR for 3 regressions in flight</td></tr>
+      <tr><td>disruption-handling</td><td class="delta-pos">+0.132</td><td>25%</td><td><span class="pill soft">soft block · stale</span></td><td>50</td><td>predates applied proposals — re-run due</td></tr>
+      <tr><td>planning-skill</td><td class="delta-pos">+0.044</td><td>11%</td><td><span class="pill pass">pass</span></td><td>105</td><td>was −0.045 — flexible-dates fix flipped it</td></tr>
+      <tr><td>ancillery-skill</td><td class="delta-pos">+0.013</td><td>0%</td><td><span class="pill stale">pass · stale</span></td><td>50</td><td>recovered from −0.258 BLOCK over 4 iterations</td></tr>
+      <tr><td>modify-booking</td><td class="delta-pos">+0.010</td><td>14%</td><td><span class="pill pass">pass</span></td><td>50</td><td>was −0.18 BLOCK — one-turn execution rule</td></tr>
+      <tr><td>booking-skill</td><td class="delta-pos">+0.001</td><td>2%</td><td><span class="pill pass">pass</span></td><td>57</td><td>hotel/flight split resolved contradictory criticals</td></tr>
+      <tr><td>flight-search</td><td class="delta-zero">0.000</td><td>0%</td><td><span class="pill stale">pass · stale</span></td><td>54</td><td>skill is neutral — candidate for rework or retirement</td></tr>
+    </table>
+    <p style="color:var(--muted);font-size:11.5px;margin-top:12px">Recurring failure signature across every repaired skill: <b style="color:var(--text)">"gather/confirm before acting" guidance colliding with single-turn verifiers.</b> Cure pattern: explicit fully-specified instructions execute in one turn; clarification is reserved for genuinely ambiguous requests.</p>
+  </section>
+
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <div class="sec-head"><span class="code">SEC·07</span><h2>Roadmap — the third layer</h2><span class="tag">skill text → harness → weights</span></div>
+    <div class="road">
+      <div class="item"><h4>Weights via API fine-tuning</h4><p>Harvest passing trajectories from trajectory.db → SFT JSONL → fine-tune gpt-4o-mini via API → A/B the returned ft: model id with the existing gate. New bandit arm: weights:sft. Targets the behavioral failure class ("asks instead of acts") that survives prompt surgery.</p></div>
+      <div class="item"><h4>Detection-suite evals</h4><p>The 9 report-only disruption skills need a report_judge verifier: schema-conformance + a zero-action policy gate (calling cancel/modify = instant fail) + judged severity correctness. New taskgen domain.</p></div>
+      <div class="item"><h4>Stale re-runs + thin edges</h4><p>Re-measure ancillery, disruption, hotel-search, flight-search on the 50-task banks. Split edge-* generation by family (edge-availability still has 1 dedicated task).</p></div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span>SKILL OPS · PUSHKS18 / SKILL-TESTING-PLAYGROUND + TRAVEL-AGENT-SKILLS</span>
+  <span><span class="blink">●</span>&nbsp; ALL GATES OPERATIONAL · JUN 2026</span>
+</footer>
+
+</body>
+</html>
