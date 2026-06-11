@@ -125,3 +125,27 @@ def test_judge_all_runs_failing_flags_infra(monkeypatch):
     result = v.verify({"response": "hi"})
     assert result.passed is False
     assert "JUDGE_INFRA_FAILURE" in result.reason
+
+
+# ── tracing: must be a complete no-op without Langfuse keys ──────────────────
+
+def test_tracing_noop_without_keys(monkeypatch):
+    from eval import tracing
+    monkeypatch.delenv("LANGFUSE_PUBLIC_KEY", raising=False)
+    monkeypatch.delenv("LANGFUSE_SECRET_KEY", raising=False)
+    assert tracing.langfuse_enabled() is False
+    assert tracing.langfuse_handler() is None
+    assert tracing.langfuse_trace_url(None) == ""
+    tracing.langfuse_flush()  # must not raise
+
+
+def test_tracing_url_from_handler_attr():
+    from eval import tracing
+
+    class FakeHandler:
+        last_trace_id = "abc123"
+
+    import os
+    os.environ.setdefault("LANGFUSE_BASE_URL", "https://lf.example.com")
+    url = tracing.langfuse_trace_url(FakeHandler())
+    assert url.endswith("/trace/abc123")

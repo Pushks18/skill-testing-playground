@@ -155,6 +155,9 @@ def run_task(
     n_user_turns: int = 0
     result: dict = {}
 
+    from eval.tracing import langfuse_handler, langfuse_trace_url
+    lf_handler = langfuse_handler()
+
     start = time.time()
     for _round in range(max_user_turns + 1):
         result = agent.invoke(
@@ -169,11 +172,13 @@ def run_task(
                 "output_tokens": 0,
             },
             config={
-                # LangSmith trace identity: filterable by skill / condition / task
+                # Trace identity (LangSmith + Langfuse): filterable by
+                # skill / condition / task
                 "run_name": f"{task['id']}__{condition}",
                 "tags": [f"skill:{skill_name}", f"condition:{condition}",
                          f"domain:{task['domain']}"],
                 "metadata": {"task_id": task["id"], "run_id": run_id},
+                "callbacks": [lf_handler] if lf_handler else [],
             },
         )
 
@@ -249,7 +254,7 @@ def run_task(
         steps=result.get("steps", 0),
         tools_called=[t["name"] for t in result.get("tools_called", [])],
         tool_params={t["name"]: t.get("params", {}) for t in result.get("tools_called", [])},
-        langsmith_run_id="",
+        langsmith_run_id=langfuse_trace_url(lf_handler),
         passed_verifier=vresult.passed,
         judge_reasoning=vresult.reason,
         latency_ms=latency_ms,

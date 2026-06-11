@@ -231,5 +231,8 @@ if __name__ == "__main__":
     pathlib.Path(archive).parent.mkdir(exist_ok=True)
     pathlib.Path(archive).write_text(json.dumps(summary, indent=2))
 
+    from eval.tracing import langfuse_flush
+    langfuse_flush()  # push buffered traces before the process exits
+
     if decision.tier in (1, 2):
         sys.exit(1)
